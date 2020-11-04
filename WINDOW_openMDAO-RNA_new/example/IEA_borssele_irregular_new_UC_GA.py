@@ -94,6 +94,8 @@ options.input.turbine.wind_speed_file = 'Input/North_sea_2018_100.csv'
 #options.input.turbine.spot_price_file = 'Input/NL_spot_2018.csv'
 options.input.turbine.spot_price_file = 'Input/DK_spot_2018.csv'
 
+
+
 ### FAST addition ###
 
 options.input.turbine.num_tnodes = 11
