@@ -1,0 +1,256 @@
+C:\Python27\python.exe C:/My_thesis/WINDOW_openMDAO-RNA_new/example/IEA_borssele_irregular_new_UC_SLSQP.py
+[2.6565  2.7692  1.73475] [13.9734  7.02    2.375 ]
+Thickness factor: [0.7]
+Blade mass: 12908.648177863985
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.45814506]
+Rated wind speed: [11.48421729]
+Max Ct: [0.66659309]
+Pitch: [2.3394]
+Tip deflection :  6.742983725094904
+Max Stress Spar :  618.31110406496
+Max Stress Skin :  117.96780809334464
+Max Stress Te Reinf :  218.5839307970503
+Efficiency: [0.93257549]
+Support costs: 340794219.487175
+AEP: [1.33953619e+12]
+LCOE: [8.35907966]
+[2.6565  2.7692  1.73475] [13.9734  7.02    2.375 ]
+Thickness factor: [0.7]
+Blade mass: 12908.648177863985
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.45814506]
+Rated wind speed: [11.48421729]
+Max Ct: [0.66659309]
+Pitch: [2.3394]
+Tip deflection :  6.742983725094904
+Max Stress Spar :  618.31110406496
+Max Stress Skin :  117.96780809334464
+Max Stress Te Reinf :  218.5839307970503
+Efficiency: [0.93257549]
+Support costs: 340794219.487175
+AEP: [1.33953619e+12]
+LCOE: [8.35907966]
+[2.65650354 2.7692     1.73475   ] [13.9734  7.02    2.375 ]
+Thickness factor: [0.7]
+Blade mass: 12908.652581796885
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.45814506]
+Rated wind speed: [11.4842173]
+Max Ct: [0.66659309]
+Pitch: [2.3394]
+Tip deflection :  6.742981548373427
+Max Stress Spar :  618.3111049261779
+Max Stress Skin :  117.96780825765673
+Max Stress Te Reinf :  218.58379606593897
+Efficiency: [0.93257549]
+Support costs: 340794229.1173978
+AEP: [1.33953619e+12]
+LCOE: [8.3590801]
+[2.6565     2.76920301 1.73475   ] [13.9734  7.02    2.375 ]
+Thickness factor: [0.7]
+Blade mass: 12908.664362755468
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.45814518]
+Rated wind speed: [11.48421634]
+Max Ct: [0.66659344]
+Pitch: [2.3394]
+Tip deflection :  6.742955889825486
+Max Stress Spar :  618.30951020097
+Max Stress Skin :  117.96750093076903
+Max Stress Te Reinf :  218.58345324549194
+Efficiency: [0.93257551]
+Support costs: 340794297.8170515
+AEP: [1.33953635e+12]
+LCOE: [8.35908005]
+[2.6565     2.7692     1.73475231] [13.9734  7.02    2.375 ]
+Thickness factor: [0.7]
+Blade mass: 12908.641246579811
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.4581451]
+Rated wind speed: [11.48421699]
+Max Ct: [0.66659322]
+Pitch: [2.3394]
+Tip deflection :  6.742997394362592
+Max Stress Spar :  618.3118425461035
+Max Stress Skin :  117.9679490877683
+Max Stress Te Reinf :  218.58426650845382
+Efficiency: [0.9325755]
+Support costs: 340794245.0696263
+AEP: [1.33953624e+12]
+LCOE: [8.35907938]
+[2.6565  2.7692  1.73475] [13.9734  7.02    2.375 ]
+Thickness factor: [0.7]
+Blade mass: 12908.648177863985
+Pitch: [2.3394]
+TSR: [7.8508076]
+Cp: [0.45814506]
+Rated wind speed: [11.48421729]
+Max Ct: [0.66659341]
+Pitch: [2.3394]
+Tip deflection :  6.742988907043763
+Max Stress Spar :  618.3116409242826
+Max Stress Skin :  117.96791052093673
+Max Stress Te Reinf :  218.58386957346053
+Efficiency: [0.93257549]
+Support costs: 340794306.3742584
+AEP: [1.33953619e+12]
+LCOE: [8.35907999]
+[2.6565  2.7692  1.73475] [13.9734  7.02    2.375 ]
+Thickness factor: [0.7]
+Blade mass: 12908.648177863985
+Pitch: [2.3394035]
+TSR: [7.8508]
+Cp: [0.45814498]
+Rated wind speed: [11.48421795]
+Max Ct: [0.66659288]
+Pitch: [2.3394035]
+Tip deflection :  6.742982044248985
+Max Stress Spar :  618.3109400962365
+Max Stress Skin :  117.96777680969024
+Max Stress Te Reinf :  218.58392418402516
+Efficiency: [0.93257548]
+Support costs: 340794180.6089358
+AEP: [1.33953608e+12]
+LCOE: [8.35907992]
+[2.6565  2.7692  1.73475] [13.9734  7.02    2.375 ]
+Thickness factor: [0.700001]
+Blade mass: 12908.666141405389
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.45814506]
+Rated wind speed: [11.48421729]
+Max Ct: [0.66659309]
+Pitch: [2.3394]
+Tip deflection :  6.742974687094925
+Max Stress Spar :  618.3102645433027
+Max Stress Skin :  117.96765174345506
+Max Stress Te Reinf :  218.5838058363416
+Efficiency: [0.93257549]
+Support costs: 340794227.7419253
+AEP: [1.33953619e+12]
+LCOE: [8.35908035]
+[2.6565  2.7692  1.73475] [13.97341331  7.02        2.375     ]
+Thickness factor: [0.7]
+Blade mass: 12908.648177863985
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.45814505]
+Rated wind speed: [11.48421738]
+Max Ct: [0.66659306]
+Pitch: [2.3394]
+Tip deflection :  6.742983822932542
+Max Stress Spar :  618.311114423777
+Max Stress Skin :  117.96781006970723
+Max Stress Te Reinf :  218.5839311313855
+Efficiency: [0.93257549]
+Support costs: 340794213.41131294
+AEP: [1.33953618e+12]
+LCOE: [8.3590797]
+[2.6565  2.7692  1.73475] [13.9734    7.020009  2.375   ]
+Thickness factor: [0.7]
+Blade mass: 12908.648177863985
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.45814502]
+Rated wind speed: [11.48421766]
+Max Ct: [0.66659297]
+Pitch: [2.3394]
+Tip deflection :  6.742983912378376
+Max Stress Spar :  618.3111441401342
+Max Stress Skin :  117.96781573930221
+Max Stress Te Reinf :  218.5839296221628
+Efficiency: [0.93257549]
+Support costs: 340794197.7500284
+AEP: [1.33953613e+12]
+LCOE: [8.35907982]
+[2.6565  2.7692  1.73475] [13.9734      7.02        2.37500313]
+Thickness factor: [0.7]
+Blade mass: 12908.648177863985
+Pitch: [2.3394]
+TSR: [7.8508]
+Cp: [0.45814503]
+Rated wind speed: [11.48421757]
+Max Ct: [0.666593]
+Pitch: [2.3394]
+Tip deflection :  6.74298321725629
+Max Stress Spar :  618.3110748016162
+Max Stress Skin :  117.9678025101803
+Max Stress Te Reinf :  218.58392815473488
+Efficiency: [0.93257549]
+Support costs: 340794203.8833581
+AEP: [1.33953615e+12]
+LCOE: [8.35907978]
+[2.6565     2.73849246 1.77144971] [13.91673025  6.86390072  2.3366325 ]
+Thickness factor: [0.7]
+Blade mass: 12668.496307083848
+Pitch: [2.24422923]
+TSR: [7.5250379]
+Cp: [0.45611154]
+Rated wind speed: [11.50125905]
+Max Ct: [0.65928799]
+Pitch: [2.24422923]
+Tip deflection :  7.020848220032444
+Max Stress Spar :  630.936247013719
+Max Stress Skin :  120.41053450994596
+Max Stress Te Reinf :  228.2604705277271
+Efficiency: [0.93312935]
+Support costs: 339164185.56850547
+AEP: [1.33772837e+12]
+LCOE: [8.36147811]
+[2.6565     2.75486534 1.75188188] [13.94694586  6.94713092  2.35708958]
+Thickness factor: [0.7]
+Blade mass: 12801.932152376998
+Pitch: [2.29497311]
+TSR: [7.69873021]
+Cp: [0.45733702]
+Rated wind speed: [11.49097692]
+Max Ct: [0.66350175]
+Pitch: [2.29497311]
+Tip deflection :  6.845239633553778
+Max Stress Spar :  624.2688610636045
+Max Stress Skin :  119.12007783104752
+Max Stress Te Reinf :  220.48477632411135
+Efficiency: [0.93281765]
+Support costs: 340094334.3488639
+AEP: [1.33884938e+12]
+LCOE: [8.35995036]
+[2.6565     2.76240817 1.74286716] [13.96086591  6.9854743   2.36651396]
+Thickness factor: [0.7]
+Blade mass: 12853.399609382946
+Pitch: [2.31835034]
+TSR: [7.77874865]
+Cp: [0.45783491]
+Rated wind speed: [11.48680997]
+Max Ct: [0.66519659]
+Pitch: [2.31835034]
+Tip deflection :  6.814121448672731
+Max Stress Spar :  621.1091126159134
+Max Stress Skin :  118.50896680685183
+Max Stress Te Reinf :  219.65702092721256
+Efficiency: [0.93269097]
+Support costs: 340429407.2318657
+AEP: [1.33930447e+12]
+LCOE: [8.35817253]
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: 0.937961231565
+            Iterations: 1
+            Function evaluations: 4
+            Gradient evaluations: 1
+Optimization Complete
+-----------------------------------
+========== LCOE ==========
+8.358172534479635
+==========================
+========== AEP ==========
+1380441634077.2444
+=========================
+Executed in 2078.26 seconds
+
+
+Process finished with exit code 0

@@ -1,0 +1,66 @@
+"""Define the NonlinearBlockJac class."""
+from openmdao.recorders.recording_iteration_stack import Recording
+from openmdao.solvers.solver import NonlinearSolver
+from openmdao.utils.mpi import multi_proc_fail_check
+
+
+class NonlinearBlockJac(NonlinearSolver):
+    """
+    Nonlinear block Jacobi solver.
+    """
+
+    SOLVER = 'NL: NLBJ'
+
+    def _iter_execute(self):
+        """
+        Perform the operations in the iteration loop.
+        """
+        system = self._system
+        self._solver_info.append_subsolver()
+        system._transfer('nonlinear', 'fwd')
+
+        with Recording('NonlinearBlockJac', 0, self) as rec:
+
+            # If this is a parallel group, check for analysis errors and reraise.
+            if len(system._subsystems_myproc) != len(system._subsystems_allprocs):
+                with multi_proc_fail_check(system.comm):
+                    for subsys in system._subsystems_myproc:
+                        subsys._solve_nonlinear()
+            else:
+                for subsys in system._subsystems_myproc:
+                    subsys._solve_nonlinear()
+
+            system._check_reconf_update()
+            rec.abs = 0.0
+            rec.rel = 0.0
+
+        self._solver_info.pop()
+
+    def _mpi_print_header(self):
+        """
+        Print header text before solving.
+        """
+        if (self.options['iprint'] > 0 and self._system.comm.rank == 0):
+
+            pathname = self._system.pathname
+            if pathname:
+                nchar = len(pathname)
+                prefix = self._solver_info.prefix
+                header = prefix + "\n"
+                header += prefix + nchar * "=" + "\n"
+                header += prefix + pathname + "\n"
+                header += prefix + nchar * "="
+                print(header)
+
+    def _run_apply(self):
+        """
+        Run the apply_nonlinear method on the system.
+        """
+        system = self._system
+
+        # If this is a parallel group, check for analysis errors and reraise.
+        if len(system._subsystems_myproc) != len(system._subsystems_allprocs):
+            with multi_proc_fail_check(system.comm):
+                super(NonlinearBlockJac, self)._run_apply()
+        else:
+            super(NonlinearBlockJac, self)._run_apply()

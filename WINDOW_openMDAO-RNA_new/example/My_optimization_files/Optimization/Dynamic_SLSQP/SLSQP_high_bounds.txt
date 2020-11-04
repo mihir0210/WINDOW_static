@@ -1,0 +1,1198 @@
+C:\Python27\python.exe C:/My_thesis/WINDOW_openMDAO-RNA_new/example/IEA_borssele_irregular_new_UC.py
+[3.22322 2.9197  2.313  ] [10.6464  7.2     2.5   ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.589921590557
+RNA Cost Done
+AEP Done
+Support Done
+[[8.4816]]
+Calculating rotor performance...
+Pitch angle = 0.1925
+0.472999506023 6.84 11.3627166155
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 205.851000071
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.36 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 280.444999933
+[8.5851822]
+[3.22322 2.9197  2.313  ] [10.6464  7.2     2.5   ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.589921590557
+RNA Cost Done
+AEP Done
+Support Done
+[0.]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.101000070572
+[8.5851822]
+[3.22322354 2.9197     2.313     ] [10.6464  7.2     2.5   ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.595260887747
+RNA Cost Done
+AEP Done
+Support Done
+[3.34174903e-06]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.110000133514
+[8.58518275]
+[3.22322    2.91970301 2.313     ] [10.6464  7.2     2.5   ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.609814681035
+RNA Cost Done
+AEP Done
+Support Done
+[1.03382823e-05]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.109999895096
+[8.58518259]
+[3.22322    2.9197     2.31300231] [10.6464  7.2     2.5   ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.581370391574
+RNA Cost Done
+AEP Done
+Support Done
+[1.59696169e-05]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.0929999351501
+[8.58518204]
+[3.22322 2.9197  2.313  ] [10.6464  7.2     2.5   ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.589921590557
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.0929999351501
+[8.58518072]
+[3.22322 2.9197  2.313  ] [10.6464  7.2     2.5   ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.589921590557
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.108999967575
+[8.58518203]
+[3.22322 2.9197  2.313  ] [10.6464  7.2     2.5   ]
+[0.85] 0.8500001466666667 0.8500004 0.8500006666666666 [0.850001]
+Blade mass: 15477.592610537456
+RNA Cost Done
+AEP Done
+Support Done
+[[3.5e-06]]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.108999967575
+[8.5851823]
+[3.22322 2.9197  2.313  ] [10.6464  7.2     2.5   ]
+[0.850001] 0.8500008533333333 0.8500006 0.8500003333333334 [0.85]
+Blade mass: 15477.605005844542
+RNA Cost Done
+AEP Done
+Support Done
+[[1.e-06]]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.108999967575
+[8.58518276]
+[3.22322 2.9197  2.313  ] [10.64641331  7.2         2.5       ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.589921590557
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.108999967575
+[8.58518215]
+[3.22322 2.9197  2.313  ] [10.6464    7.200009  2.5     ]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.589921590557
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.0960001945496
+[8.5851822]
+[3.22322 2.9197  2.313  ] [10.6464      7.2         2.50000313]
+[0.85] 0.85 0.85 0.85 [0.85]
+Blade mass: 15477.589921590557
+RNA Cost Done
+AEP Done
+Support Done
+[8.69723591e-06]
+DLC 1.3, Deflection in m: 5.98068
+DLC 1.3, Flapwise stresses in the spar (MPa): [278.75419703 353.21963448 459.48332896 558.33847819 255.97502988]
+FAST run time elapsed (s): 0.139999866486
+[8.58518213]
+[3.08154    2.78779489 2.3576757 ] [10.72575781  7.20518968  2.525264  ]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.660837554688
+RNA Cost Done
+AEP Done
+Support Done
+[[1.14]]
+Calculating rotor performance...
+Pitch angle = 0.26354
+0.479723184945 7.98 11.3093809996
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 193.974999905
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.31 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 267.91899991
+[8.54154039]
+[3.08154354 2.78779489 2.3576757 ] [10.72575781  7.20518968  2.525264  ]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.665885104676
+RNA Cost Done
+AEP Done
+Support Done
+[3.34174903e-06]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.0939998626709
+[8.5415409]
+[3.08154   2.7877979 2.3576757] [10.72575781  7.20518968  2.525264  ]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.68008069532
+RNA Cost Done
+AEP Done
+Support Done
+[1.03382823e-05]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.179000139236
+[8.54154118]
+[3.08154    2.78779489 2.35767802] [10.72575781  7.20518968  2.525264  ]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.652557429908
+RNA Cost Done
+AEP Done
+Support Done
+[1.59696169e-05]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.0940001010895
+[8.54154079]
+[3.08154    2.78779489 2.3576757 ] [10.72575781  7.20518968  2.525264  ]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.660837554688
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.0940001010895
+[8.54154103]
+[3.08154    2.78779489 2.3576757 ] [10.72575781  7.20518968  2.525264  ]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.660837554688
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.0939998626709
+[8.54154009]
+[3.08154    2.78779489 2.3576757 ] [10.72575781  7.20518968  2.525264  ]
+[0.8] 0.8056617872399596 0.8154412379271627 0.8257353965452711 [0.83860309]
+Blade mass: 13659.663378398796
+RNA Cost Done
+AEP Done
+Support Done
+[[3.5e-06]]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.125
+[8.54154049]
+[3.08154    2.78779489 2.3576757 ] [10.72575781  7.20518968  2.525264  ]
+[0.800001] 0.8056624939066264 0.8154414379271627 0.8257350632119378 [0.83860209]
+Blade mass: 13659.674823652953
+RNA Cost Done
+AEP Done
+Support Done
+[[1.e-06]]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.115000009537
+[8.54154091]
+[3.08154    2.78779489 2.3576757 ] [10.72577112  7.20518968  2.525264  ]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.660837554688
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.114000082016
+[8.54154036]
+[3.08154    2.78779489 2.3576757 ] [10.72575781  7.20519868  2.525264  ]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.660837554688
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.108999967575
+[8.54154043]
+[3.08154    2.78779489 2.3576757 ] [10.72575781  7.20518968  2.52526713]
+[0.8] 0.805661640573293 0.8154408379271627 0.8257347298786044 [0.83860209]
+Blade mass: 13659.660837554688
+RNA Cost Done
+AEP Done
+Support Done
+[8.69723591e-06]
+DLC 1.3, Deflection in m: 8.14296
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.46173333 454.68027368 541.12688049 661.23334593 290.8312176 ]
+FAST run time elapsed (s): 0.0940001010895
+[8.54154027]
+[3.08154    2.6187     2.28836459] [10.77891384  7.2         2.56663698]
+[0.8] 0.8040083900548645 0.8109319728760713 0.8182199547931314 [0.82732993]
+Blade mass: 12938.09484436199
+RNA Cost Done
+AEP Done
+Support Done
+[0.41203298]
+Calculating rotor performance...
+Pitch angle = 0.37592
+0.475247222742 7.88119175481 11.3447746983
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 191.381999969
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.34 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 8.92107
+DLC 1.3, Flapwise stresses in the spar (MPa): [350.1507242  477.70771781 565.84935219 658.96722544 281.51315754]
+FAST run time elapsed (s): 264.427999973
+[8.42823219]
+[3.08154    2.7708854  2.35074459] [10.73107341  7.20467071  2.5294013 ]
+[0.8] 0.8054963155214502 0.8149899514220535 0.8249832523700571 [0.83747488]
+Blade mass: 13586.097016484477
+RNA Cost Done
+AEP Done
+Support Done
+[0.37082968]
+Calculating rotor performance...
+Pitch angle = 0.27478
+0.479507042655 7.97011917548 11.3110800141
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 195.634000063
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.31 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 8.21289
+DLC 1.3, Flapwise stresses in the spar (MPa): [351.8939977  461.03762808 546.52279248 664.5954303  291.03852787]
+FAST run time elapsed (s): 269.115999937
+[8.52869261]
+[3.08154    2.78610394 2.35698259] [10.72628937  7.20513779  2.52567773]
+[0.8] 0.8056451080681087 0.8153957492766517 0.8256595821277497 [0.83848937]
+Blade mass: 13651.623068302903
+RNA Cost Done
+AEP Done
+Support Done
+[0.03708297]
+Calculating rotor performance...
+Pitch angle = 0.26466
+0.479703344849 7.97901191755 11.3095369127
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 193.898000002
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.31 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 8.14629
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.90173964 455.47003248 541.8919704  662.11128388 291.60334969]
+FAST run time elapsed (s): 266.443000078
+[8.5400942]
+[3.08154    2.78762579 2.35760639] [10.72581096  7.20518449  2.52530537]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.799285060488
+RNA Cost Done
+AEP Done
+Support Done
+[0.0037083]
+Calculating rotor performance...
+Pitch angle = 0.26365
+0.479721219486 7.97990119175 11.3093964447
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 192.496000051
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.31 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 265.164999962
+[8.54130652]
+[3.08154354 2.78762579 2.35760639] [10.72581096  7.20518449  2.52530537]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.804332609183
+RNA Cost Done
+AEP Done
+Support Done
+[3.34174903e-06]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.155999898911
+[8.54130703]
+[3.08154    2.7876288  2.35760639] [10.72581096  7.20518449  2.52530537]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.818528146425
+RNA Cost Done
+AEP Done
+Support Done
+[1.03382823e-05]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.108999967575
+[8.54130731]
+[3.08154    2.78762579 2.35760871] [10.72581096  7.20518449  2.52530537]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.791004957768
+RNA Cost Done
+AEP Done
+Support Done
+[1.59696169e-05]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.108999967575
+[8.54130692]
+[3.08154    2.78762579 2.35760639] [10.72581096  7.20518449  2.52530537]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.799285060488
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.105999946594
+[8.54130716]
+[3.08154    2.78762579 2.35760639] [10.72581096  7.20518449  2.52530537]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.799285060488
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.0940001010895
+[8.54130622]
+[3.08154    2.78762579 2.35760639] [10.72581096  7.20518449  2.52530537]
+[0.8] 0.8056601339894413 0.8154367290621116 0.8257278817701856 [0.83859182]
+Blade mass: 13658.801825690653
+RNA Cost Done
+AEP Done
+Support Done
+[[3.5e-06]]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.0939998626709
+[8.54130662]
+[3.08154    2.78762579 2.35760639] [10.72581096  7.20518449  2.52530537]
+[0.800001] 0.8056608406561079 0.8154369290621116 0.8257275484368523 [0.83859082]
+Blade mass: 13658.813270360963
+RNA Cost Done
+AEP Done
+Support Done
+[[1.e-06]]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.108999967575
+[8.54130704]
+[3.08154    2.78762579 2.35760639] [10.72582427  7.20518449  2.52530537]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.799285060488
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.0940001010895
+[8.54130649]
+[3.08154    2.78762579 2.35760639] [10.72581096  7.20519349  2.52530537]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.799285060488
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.0940001010895
+[8.54130656]
+[3.08154    2.78762579 2.35760639] [10.72581096  7.20518449  2.5253085 ]
+[0.8] 0.8056599873227746 0.8154363290621116 0.825727215103519 [0.83859082]
+Blade mass: 13658.799285060488
+RNA Cost Done
+AEP Done
+Support Done
+[8.69723591e-06]
+DLC 1.3, Deflection in m: 8.13408
+DLC 1.3, Flapwise stresses in the spar (MPa): [349.50569697 454.90157409 541.48386809 661.92336116 291.03049645]
+FAST run time elapsed (s): 0.109999895096
+[8.5413064]
+[3.08154    2.6187     2.12705108] [10.7939582   7.2         2.60149075]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.681167578854
+RNA Cost Done
+AEP Done
+Support Done
+[[0.25906717]]
+Calculating rotor performance...
+Pitch angle = 0.49311
+0.47699952326 7.72083402156 11.3308656366
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 193.198000193
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.33 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 265.897000074
+[8.38048299]
+[3.08154354 2.6187     2.12705108] [10.7939582   7.2         2.60149075]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.686212158143
+RNA Cost Done
+AEP Done
+Support Done
+[3.34174903e-06]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.0939998626709
+[8.38048349]
+[3.08154    2.61870301 2.12705108] [10.7939582   7.2         2.60149075]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.700334115434
+RNA Cost Done
+AEP Done
+Support Done
+[1.03382823e-05]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.174000024796
+[8.38048905]
+[3.08154    2.6187     2.12705339] [10.7939582   7.2         2.60149075]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.672922287376
+RNA Cost Done
+AEP Done
+Support Done
+[1.59696169e-05]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.0939998626709
+[8.38048877]
+[3.08154    2.6187     2.12705108] [10.7939582   7.2         2.60149075]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.681167578854
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.109000205994
+[8.3804883]
+[3.08154    2.6187     2.12705108] [10.7939582   7.2         2.60149075]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.681167578854
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.0939998626709
+[8.38048296]
+[3.08154    2.6187     2.12705108] [10.7939582   7.2         2.60149075]
+[0.8] 0.8014958255122087 0.8040795241242052 0.8067992068736753 [0.81019881]
+Blade mass: 13368.683665095858
+RNA Cost Done
+AEP Done
+Support Done
+[[3.5e-06]]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.108999967575
+[8.38048308]
+[3.08154    2.6187     2.12705108] [10.7939582   7.2         2.60149075]
+[0.800001] 0.8014965321788753 0.8040797241242053 0.806798873540342 [0.81019781]
+Blade mass: 13368.694934455854
+RNA Cost Done
+AEP Done
+Support Done
+[[1.e-06]]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.110000133514
+[8.3804835]
+[3.08154    2.6187     2.12705108] [10.79397151  7.2         2.60149075]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.681167578854
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.108999967575
+[8.38048297]
+[3.08154    2.6187     2.12705108] [10.7939582   7.200009    2.60149075]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.681167578854
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.0940001010895
+[8.38048307]
+[3.08154    2.6187     2.12705108] [10.7939582   7.2         2.60149387]
+[0.8] 0.801495678845542 0.8040791241242052 0.8067985402070087 [0.81019781]
+Blade mass: 13368.681167578854
+RNA Cost Done
+AEP Done
+Support Done
+[8.69723591e-06]
+DLC 1.3, Deflection in m: 7.93872
+DLC 1.3, Flapwise stresses in the spar (MPa): [316.47429133 415.27126465 509.87508635 638.19970502 299.93479101]
+FAST run time elapsed (s): 0.108999967575
+[8.38048298]
+[3.08154 2.6187  2.01231] [10.7921728   7.2         2.57677273]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.561893049506
+RNA Cost Done
+AEP Done
+Support Done
+[[0.88083402]]
+Calculating rotor performance...
+Pitch angle = 0.4544
+0.456936574235 6.84000000009 11.4943327179
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 197.676000118
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.49 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 270.793000221
+[8.44728596]
+[3.08154354 2.6187     2.01231   ] [10.7921728   7.2         2.57677273]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.56692961696
+RNA Cost Done
+AEP Done
+Support Done
+[3.34174903e-06]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.0940001010895
+[8.44728647]
+[3.08154    2.61870301 2.01231   ] [10.7921728   7.2         2.57677273]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.580863690793
+RNA Cost Done
+AEP Done
+Support Done
+[1.03382823e-05]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.108999967575
+[8.44728588]
+[3.08154    2.6187     2.01231231] [10.7921728   7.2         2.57677273]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.553740470823
+RNA Cost Done
+AEP Done
+Support Done
+[1.59696169e-05]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.108999967575
+[8.44728568]
+[3.08154 2.6187  2.01231] [10.7921728   7.2         2.57677273]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.561893049506
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.108999967575
+[8.44728386]
+[3.08154 2.6187  2.01231] [10.7921728   7.2         2.57677273]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.561893049506
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.0929999351501
+[8.44728594]
+[3.08154 2.6187  2.01231] [10.7921728   7.2         2.57677273]
+[0.8] 0.800000146668393 0.8000004000047083 0.8000006666745137 [0.800001]
+Blade mass: 13681.564450923202
+RNA Cost Done
+AEP Done
+Support Done
+[[3.5e-06]]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.126999855042
+[8.44728606]
+[3.08154 2.6187  2.01231] [10.7921728   7.2         2.57677273]
+[0.800001] 0.8000008533350598 0.8000006000047083 0.8000003333411805 [0.8]
+Blade mass: 13681.576016188397
+RNA Cost Done
+AEP Done
+Support Done
+[[1.e-06]]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.0929999351501
+[8.44728649]
+[3.08154 2.6187  2.01231] [10.79218611  7.2         2.57677273]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.561893049506
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.0929999351501
+[8.4472859]
+[3.08154 2.6187  2.01231] [10.7921728   7.200009    2.57677273]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.561893049506
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.108999967575
+[8.447286]
+[3.08154 2.6187  2.01231] [10.7921728   7.2         2.57677586]
+[0.8] 0.8000000000017264 0.8000000000047083 0.8000000000078471 [0.8]
+Blade mass: 13681.561893049506
+RNA Cost Done
+AEP Done
+Support Done
+[8.69723591e-06]
+DLC 1.3, Deflection in m: 6.79764
+DLC 1.3, Flapwise stresses in the spar (MPa): [304.86216898 381.94390087 481.80689842 631.36062637 321.45320854]
+FAST run time elapsed (s): 0.110000133514
+[8.44728596]
+[3.08154 2.6187  2.01231] [10.872138   7.2        2.5912916]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.561892741373
+RNA Cost Done
+AEP Done
+Support Done
+[[0.33201077]]
+Calculating rotor performance...
+Pitch angle = 0.49151
+0.470082916453 7.17201076616 11.3861678521
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 195.450999975
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.39 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 268.109999895
+[8.39378658]
+[3.08154354 2.6187     2.01231   ] [10.872138   7.2        2.5912916]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.566929308829
+RNA Cost Done
+AEP Done
+Support Done
+[3.34174903e-06]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.109999895096
+[8.39378708]
+[3.08154    2.61870301 2.01231   ] [10.872138   7.2        2.5912916]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.580863382655
+RNA Cost Done
+AEP Done
+Support Done
+[1.03382823e-05]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.125
+[8.39378668]
+[3.08154    2.6187     2.01231231] [10.872138   7.2        2.5912916]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.55374016269
+RNA Cost Done
+AEP Done
+Support Done
+[1.59696169e-05]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.0940001010895
+[8.39378633]
+[3.08154 2.6187  2.01231] [10.872138   7.2        2.5912916]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.561892741373
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.0940001010895
+[8.39378495]
+[3.08154 2.6187  2.01231] [10.872138   7.2        2.5912916]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.561892741373
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.155999898911
+[8.39378654]
+[3.08154 2.6187  2.01231] [10.872138   7.2        2.5912916]
+[0.8] 0.8000001466666669 0.8000004000000002 0.8000006666666669 [0.800001]
+Blade mass: 13681.564450615071
+RNA Cost Done
+AEP Done
+Support Done
+[[3.5e-06]]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.0929999351501
+[8.39378667]
+[3.08154 2.6187  2.01231] [10.872138   7.2        2.5912916]
+[0.800001] 0.8000008533333335 0.8000006000000002 0.8000003333333335 [0.8]
+Blade mass: 13681.576015880262
+RNA Cost Done
+AEP Done
+Support Done
+[[1.e-06]]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.108999967575
+[8.3937871]
+[3.08154 2.6187  2.01231] [10.87215131  7.2         2.5912916 ]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.561892741373
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.108999967575
+[8.39378654]
+[3.08154 2.6187  2.01231] [10.872138   7.200009   2.5912916]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.561892741373
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.108999967575
+[8.39378663]
+[3.08154 2.6187  2.01231] [10.872138    7.2         2.59129472]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13681.561892741373
+RNA Cost Done
+AEP Done
+Support Done
+[8.69723591e-06]
+DLC 1.3, Deflection in m: 6.94527
+DLC 1.3, Flapwise stresses in the spar (MPa): [305.90901837 383.15354111 494.55024354 628.75679489 313.53396397]
+FAST run time elapsed (s): 0.113999843597
+[8.39378655]
+[3.08154    2.6187     2.05826055] [11.0510838   7.2         2.64492233]
+[0.8] 0.8 0.8 0.8 [0.8]
+Blade mass: 13548.67026440652
+RNA Cost Done
+AEP Done
+Support Done
+[[0.80798923]]
+Calculating rotor performance...
+Pitch angle = 0.58701
+0.480187583622 7.98 11.3057339834
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 193.125
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.31 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 7.66899
+DLC 1.3, Flapwise stresses in the spar (MPa): [311.20672956 414.48927767 509.13027227 672.27134534 334.04595234]
+FAST run time elapsed (s): 266.162999868
+[8.37629021]
+[3.08154    2.6187     2.01690505] [10.89003258  7.2         2.59665467]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.256593474962
+RNA Cost Done
+AEP Done
+Support Done
+[[0.72719031]]
+Calculating rotor performance...
+Pitch angle = 0.50106
+0.472203217162 7.25280968954 11.3691001125
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 201.537000179
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.37 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 275.174000025
+[8.38038028]
+[3.08154354 2.6187     2.01690505] [10.89003258  7.2         2.59665467]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.26163025423
+RNA Cost Done
+AEP Done
+Support Done
+[3.34174903e-06]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.0929999351501
+[8.38038079]
+[3.08154    2.61870301 2.01690505] [10.89003258  7.2         2.59665467]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.27557074701
+RNA Cost Done
+AEP Done
+Support Done
+[1.03382823e-05]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.0940001010895
+[8.38038044]
+[3.08154    2.6187     2.01690737] [10.89003258  7.2         2.59665467]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.248437384458
+RNA Cost Done
+AEP Done
+Support Done
+[1.59696169e-05]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.203000068665
+[8.38038012]
+[3.08154    2.6187     2.01690505] [10.89003258  7.2         2.59665467]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.256593474962
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.0939998626709
+[8.38037905]
+[3.08154    2.6187     2.01690505] [10.89003258  7.2         2.59665467]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.256593474962
+RNA Cost Done
+AEP Done
+Support Done
+[[7.6e-06]]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.171999931335
+[8.38038031]
+[3.08154    2.6187     2.01690505] [10.89003258  7.2         2.59665467]
+[0.8] 0.8000001466666669 0.8000004000000002 0.8000006666666669 [0.800001]
+Blade mass: 13668.259148788135
+RNA Cost Done
+AEP Done
+Support Done
+[[3.5e-06]]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.108999967575
+[8.38038038]
+[3.08154    2.6187     2.01690505] [10.89003258  7.2         2.59665467]
+[0.800001] 0.8000008533333335 0.8000006000000002 0.8000003333333335 [0.8]
+Blade mass: 13668.270702825635
+RNA Cost Done
+AEP Done
+Support Done
+[[1.e-06]]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.108999967575
+[8.38038081]
+[3.08154    2.6187     2.01690505] [10.89004589  7.2         2.59665467]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.256593474962
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.0939998626709
+[8.38038025]
+[3.08154    2.6187     2.01690505] [10.89003258  7.200009    2.59665467]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.256593474962
+RNA Cost Done
+AEP Done
+Support Done
+[1.3308e-05]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.0929999351501
+[8.38038034]
+[3.08154    2.6187     2.01690505] [10.89003258  7.2         2.5966578 ]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13668.256593474962
+RNA Cost Done
+AEP Done
+Support Done
+[8.69723591e-06]
+DLC 1.3, Deflection in m: 7.03074
+DLC 1.3, Flapwise stresses in the spar (MPa): [321.94391303 380.40495054 500.75421497 630.13617617 308.17995897]
+FAST run time elapsed (s): 0.0939998626709
+[8.38038029]
+[3.08154    2.6187     2.02570914] [11.00441422  7.20716314  2.59646016]
+[0.8] 0.8 0.8 0.8 [0.8]
+Blade mass: 13640.586013755561
+RNA Cost Done
+AEP Done
+Support Done
+[[0.26332749]]
+Calculating rotor performance...
+Pitch angle = 0.47005
+0.475954340535 7.51613717951 11.3391536633
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 197.256999969
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.34 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 7.30158
+DLC 1.3, Flapwise stresses in the spar (MPa): [324.07285854 388.81924507 501.08179291 644.54584113 332.15601989]
+FAST run time elapsed (s): 270.538000107
+[8.37278928]
+[3.08154    2.6187     2.01778546] [10.90147074  7.20071631  2.59663522]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13665.152100290721
+RNA Cost Done
+AEP Done
+Support Done
+[[0.23699474]]
+Calculating rotor performance...
+Pitch angle = 0.49796
+0.472221318041 7.27914243854 11.3689548463
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 189.631000042
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.37 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 7.16172
+DLC 1.3, Flapwise stresses in the spar (MPa): [326.71106127 388.45225008 510.07119598 641.41500923 327.52952445]
+FAST run time elapsed (s): 246.944999933
+[8.37867268]
+[3.08154   2.6187    2.0169931] [10.89117639  7.20007163  2.59665273]
+[0.8] 0.8000000000000002 0.8000000000000002 0.8000000000000003 [0.8]
+Blade mass: 13667.946144156538
+RNA Cost Done
+AEP Done
+Support Done
+[[0.02369947]]
+Calculating rotor performance...
+Pitch angle = 0.50075
+0.472205038318 7.25544296444 11.3690854967
+Starting linearization...
+ 
+Finding non-rotating mode shapes...
+Determining steady state rotational speeds and pitch angles...
+Writing input files...
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 197.273000002
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.37 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 7.04517
+DLC 1.3, Flapwise stresses in the spar (MPa): [323.1785806  382.0226671  501.33164042 630.33924523 309.42180513]
+FAST run time elapsed (s): 270.615999937
+[8.38016425]
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: 0.958938579961
+            Iterations: 7
+            Function evaluations: 14
+            Gradient evaluations: 7
+Optimization Complete
+-----------------------------------
+========== LCOE ==========
+8.380164250276415
+==========================
+========== AEP ==========
+1413694336826.904
+=========================
+Executed in 13423.57 seconds
+
+tip_deflection = 5.9764
+rna_mass = 315128.7019
+scale.turbine_rated_current = 43.7387
+cost_rna = 3691154.9099
+wind_bin = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 22.0, 23.0, 24.0, 25.0, 26.0, 27.0, 28.0, 29.0, 30.0]
+Stress_flapwise_spar = [255.8726, 352.9786, 445.1048, 601.3717, 253.6681]
+Stress_edgewise_te_reinf = [164.5623, 161.208, 131.5779, 73.6304, 4.0801]
+elec_power_bin = [0.0, 0.0, 0.0, 94.7819, 224.6681, 438.8049, 758.2548, 1204.0806, 1797.3447, 2559.11, 3510.4389, 4672.3942, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 5000.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+rated_wind_speed = 11.2513
+rotor_ct = 0.7249
+rotor_mass = 76445.0772
+rotor_cp = 0.4872
+rotor_thrust = 700454.7396
+rotor_torque = 4087631.7729
+Stress_edgewise_skin = [85.0287, 83.1653, 67.7618, 37.7397, 2.0853]
+scale.solidity_rotor = 0.0516
+nacelle_mass = 238683.6247
+Root_stress = 51.0814
+ct_bin = [0.0, 0.0, 0.0, 0.7249, 0.7249, 0.7249, 0.7249, 0.7249, 0.7249, 0.7249, 0.7249, 0.7249, 0.4636, 0.3497, 0.273, 0.2182, 0.1777, 0.1468, 0.1229, 0.1039, 0.0888, 0.0764, 0.0663, 0.0579, 0.0509, 0.0449, 0.0, 0.0, 0.0, 0.0, 0.0]
+Stress_flapwise_skin = [48.5329, 67.8103, 86.1552, 115.0464, 47.5593]
+scale.hub_height = 78.5849
+
+Process finished with exit code 0

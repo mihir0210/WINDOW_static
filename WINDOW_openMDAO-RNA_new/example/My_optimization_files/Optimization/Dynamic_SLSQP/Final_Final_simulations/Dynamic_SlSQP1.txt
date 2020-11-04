@@ -1,0 +1,698 @@
+C:\Python27\python.exe C:/My_thesis/WINDOW_openMDAO-RNA_new/example/IEA_borssele_irregular_new_UC_SLSQP.py
+[2.8336 2.709  1.8504] [11.9772  7.2     3.125 ]
+Thickness factor: [0.8]
+Blade mass: 14290.908406998942
+Max Ct: [0.64977656]
+Tip deflection static :  6.751227078219573
+Blade cost, RNA cost : [650146.11736076] [3639817.959076]
+Efficiency: [0.93333581]
+Maximum difference: [1.03382823e-05]
+Cp: [0.44891259]
+TSR: [7.828]
+Rated wind speed: 11.562412982
+Pitch: 2.275
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 185.796999931
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 276.764999866
+Support costs: 339747446.2807253
+AEP: [1.32884623e+12]
+LCOE: [8.46655883]
+[2.8336 2.709  1.8504] [11.9772  7.2     3.125 ]
+Thickness factor: [0.8]
+Blade mass: 14290.908406998942
+Max Ct: [0.64977656]
+Tip deflection static :  6.751227078219573
+Blade cost, RNA cost : [650146.11736076] [3639817.959076]
+Efficiency: [0.93333581]
+Maximum difference: [0.]
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 0.108999967575
+Support costs: 339747446.2807253
+AEP: [1.32884623e+12]
+LCOE: [8.46655883]
+[2.83360354 2.709      1.8504    ] [11.9772  7.2     3.125 ]
+Thickness factor: [0.8]
+Blade mass: 14290.913436883462
+Max Ct: [0.64977656]
+Tip deflection static :  6.751225307361817
+Blade cost, RNA cost : [650146.34618876] [3639818.70287182]
+Efficiency: [0.93333581]
+Maximum difference: [3.34174903e-06]
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 0.0929999351501
+Support costs: 339747456.87830305
+AEP: [1.32884623e+12]
+LCOE: [8.46655932]
+[2.8336     2.70900301 1.8504    ] [11.9772  7.2     3.125 ]
+Thickness factor: [0.8]
+Blade mass: 14290.927046400806
+Max Ct: [0.64977694]
+Tip deflection static :  6.751196257445952
+Blade cost, RNA cost : [650146.96533588] [3639819.30567076]
+Efficiency: [0.93333583]
+Maximum difference: [1.03382823e-05]
+Cp: [0.44891274]
+TSR: [7.828]
+Rated wind speed: 11.562411682
+Pitch: 2.275
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 176.236999989
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.5627
+DLC 1.3, Skin sress (MPa): 101.91074574595633
+DLC 1.3, Spar stress(MPa): 532.7751788452533
+DLC 1.3, Te_Reinf stress (MPa): 143.05221566399842
+FAST run time elapsed (s): 263.877000093
+Support costs: 339747523.25731725
+AEP: [1.32884644e+12]
+LCOE: [8.466559]
+[2.8336     2.709      1.85040231] [11.9772  7.2     3.125 ]
+Thickness factor: [0.8]
+Blade mass: 14290.900411380657
+Max Ct: [0.64977667]
+Tip deflection static :  6.751241890570972
+Blade cost, RNA cost : [650145.7536106] [3639817.48005653]
+Efficiency: [0.93333582]
+Maximum difference: [1.59696169e-05]
+Cp: [0.4489126]
+TSR: [7.828]
+Rated wind speed: 11.5624128594
+Pitch: 2.275
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 178.810000181
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.03331866159304
+DLC 1.3, Spar stress(MPa): 533.415958845092
+DLC 1.3, Te_Reinf stress (MPa): 143.0528307875016
+FAST run time elapsed (s): 265.186000109
+Support costs: 339747470.3909196
+AEP: [1.32884625e+12]
+LCOE: [8.46655863]
+[2.8336 2.709  1.8504] [11.9772  7.2     3.125 ]
+Thickness factor: [0.8]
+Blade mass: 14290.908406998942
+Max Ct: [0.64977688]
+Tip deflection static :  6.751232153779372
+Blade cost, RNA cost : [650146.11736076] [3639817.45244137]
+Efficiency: [0.93333581]
+Maximum difference: [[7.6e-06]]
+Cp: [0.44891259]
+TSR: [7.8280076]
+Rated wind speed: 11.562412982
+Pitch: 2.275
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 180.174999952
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 267.47300005
+Support costs: 339747533.5019875
+AEP: [1.32884623e+12]
+LCOE: [8.46655917]
+[2.8336 2.709  1.8504] [11.9772  7.2     3.125 ]
+Thickness factor: [0.8]
+Blade mass: 14290.908406998942
+Max Ct: [0.64977635]
+Tip deflection static :  6.751225416087043
+Blade cost, RNA cost : [650146.11736076] [3639817.89151193]
+Efficiency: [0.9333358]
+Maximum difference: [[7.6e-06]]
+Cp: [0.4489125]
+TSR: [7.828]
+Rated wind speed: 11.562413731
+Pitch: 2.2750035
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 176.898000002
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 264.617000103
+Support costs: 339747407.9638214
+AEP: [1.3288461e+12]
+LCOE: [8.46655916]
+[2.8336 2.709  1.8504] [11.9772  7.2     3.125 ]
+Thickness factor: [0.800001]
+Blade mass: 14290.925832434017
+Max Ct: [0.64977656]
+Tip deflection static :  6.751219259721996
+Blade cost, RNA cost : [650146.91010806] [3639819.07617678]
+Efficiency: [0.93333581]
+Maximum difference: [[3.5e-06]]
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 0.110000133514
+Support costs: 339747454.29173887
+AEP: [1.32884623e+12]
+LCOE: [8.4665595]
+[2.8336 2.709  1.8504] [11.97721331  7.2         3.125     ]
+Thickness factor: [0.8]
+Blade mass: 14290.908406998942
+Max Ct: [0.64977653]
+Tip deflection static :  6.751227145024398
+Blade cost, RNA cost : [650146.11736076] [3639817.95579456]
+Efficiency: [0.93333581]
+Maximum difference: [1.3308e-05]
+Cp: [0.44891258]
+TSR: [7.828]
+Rated wind speed: 11.5624130502
+Pitch: 2.275
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 187.414000034
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 275.167000055
+Support costs: 339747440.0401323
+AEP: [1.32884622e+12]
+LCOE: [8.46655884]
+[2.8336 2.709  1.8504] [11.9772    7.200009  3.125   ]
+Thickness factor: [0.8]
+Blade mass: 14290.908406998942
+Max Ct: [0.64977644]
+Tip deflection static :  6.751227337750265
+Blade cost, RNA cost : [650146.11736076] [3639817.93355445]
+Efficiency: [0.93333581]
+Maximum difference: [1.3308e-05]
+Cp: [0.44891254]
+TSR: [7.828]
+Rated wind speed: 11.562413418
+Pitch: 2.275
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 196.266000032
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 303.250999928
+Support costs: 339747426.42490673
+AEP: [1.32884615e+12]
+LCOE: [8.46655904]
+[2.8336 2.709  1.8504] [11.9772      7.2         3.12500312]
+Thickness factor: [0.8]
+Blade mass: 14290.908406998942
+Max Ct: [0.64977647]
+Tip deflection static :  6.751226614162858
+Blade cost, RNA cost : [650146.11736076] [3639817.93344434]
+Efficiency: [0.93333581]
+Maximum difference: [8.69723591e-06]
+Cp: [0.44891255]
+TSR: [7.828]
+Rated wind speed: 11.5624133202
+Pitch: 2.275
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 182.284000158
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.5528
+DLC 1.3, Skin sress (MPa): 102.04556460202396
+DLC 1.3, Spar stress(MPa): 533.4799782438264
+DLC 1.3, Te_Reinf stress (MPa): 143.05261280318632
+FAST run time elapsed (s): 271.384000063
+Support costs: 339747431.7328958
+AEP: [1.32884617e+12]
+LCOE: [8.466559]
+[2.6565     2.7000204  1.90781281] [11.95825382  6.96916614  3.0617573 ]
+Thickness factor: [0.7208212]
+Blade mass: 12491.6522336156
+Max Ct: [0.65039749]
+Tip deflection static :  7.835500100230674
+Blade cost, RNA cost : [568291.31975464] [3519380.32060883]
+Efficiency: [0.93341329]
+Maximum difference: [[0.30657694]]
+Cp: [0.45017654]
+TSR: [7.52142306]
+Rated wind speed: 11.5515816144
+Pitch: 2.13853509768
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 219.243000031
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65640225108956
+DLC 1.3, Spar stress(MPa): 548.4736857155223
+DLC 1.3, Te_Reinf stress (MPa): 153.26732482064452
+FAST run time elapsed (s): 310.737999916
+Support costs: 337979746.58414054
+AEP: [1.33056553e+12]
+LCOE: [8.37917122]
+[2.65650354 2.7000204  1.90781281] [11.95825382  6.96916614  3.0617573 ]
+Thickness factor: [0.7208212]
+Blade mass: 12491.656779114579
+Max Ct: [0.6503975]
+Tip deflection static :  7.835497689782327
+Blade cost, RNA cost : [568291.52654615] [3519380.98118257]
+Efficiency: [0.93341329]
+Maximum difference: [3.34174903e-06]
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65640225108956
+DLC 1.3, Spar stress(MPa): 548.4736857155223
+DLC 1.3, Te_Reinf stress (MPa): 153.26732482064452
+FAST run time elapsed (s): 0.107000112534
+Support costs: 337979756.06425166
+AEP: [1.33056553e+12]
+LCOE: [8.37917166]
+[2.6565     2.70002341 1.90781281] [11.95825382  6.96916614  3.0617573 ]
+Thickness factor: [0.7208212]
+Blade mass: 12491.669123745538
+Max Ct: [0.65039789]
+Tip deflection static :  7.835463448240024
+Blade cost, RNA cost : [568292.08814893] [3519381.5526817]
+Efficiency: [0.93341331]
+Maximum difference: [1.03382823e-05]
+Cp: [0.45017671]
+TSR: [7.52142306]
+Rated wind speed: 11.5515802144
+Pitch: 2.13853509768
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 188.34100008
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1897
+DLC 1.3, Skin sress (MPa): 104.6832271014426
+DLC 1.3, Spar stress(MPa): 548.6142806928605
+DLC 1.3, Te_Reinf stress (MPa): 153.3342490683427
+FAST run time elapsed (s): 278.856000185
+Support costs: 337979824.7511218
+AEP: [1.33056576e+12]
+LCOE: [8.37917127]
+[2.6565     2.7000204  1.90781512] [11.95825382  6.96916614  3.0617573 ]
+Thickness factor: [0.7208212]
+Blade mass: 12491.644987047928
+Max Ct: [0.65039759]
+Tip deflection static :  7.835517819657443
+Blade cost, RNA cost : [568290.99008155] [3519379.89461749]
+Efficiency: [0.93341329]
+Maximum difference: [1.59696169e-05]
+Cp: [0.45017655]
+TSR: [7.52142306]
+Rated wind speed: 11.5515815615
+Pitch: 2.13853509768
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 211.03399992
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65639174476381
+DLC 1.3, Spar stress(MPa): 548.4736312776687
+DLC 1.3, Te_Reinf stress (MPa): 153.2675695192029
+FAST run time elapsed (s): 305.392999887
+Support costs: 337979769.43312895
+AEP: [1.33056554e+12]
+LCOE: [8.37917111]
+[2.6565     2.7000204  1.90781281] [11.95825382  6.96916614  3.0617573 ]
+Thickness factor: [0.7208212]
+Blade mass: 12491.6522336156
+Max Ct: [0.65039785]
+Tip deflection static :  7.835506358627672
+Blade cost, RNA cost : [568291.31975464] [3519379.80617173]
+Efficiency: [0.93341329]
+Maximum difference: [[7.6e-06]]
+Cp: [0.45017654]
+TSR: [7.52143066]
+Rated wind speed: 11.5515816144
+Pitch: 2.13853509768
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 181.532000065
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65640225108956
+DLC 1.3, Spar stress(MPa): 548.4736857155223
+DLC 1.3, Te_Reinf stress (MPa): 153.26732482064452
+FAST run time elapsed (s): 272.562000036
+Support costs: 337979846.0897289
+AEP: [1.33056553e+12]
+LCOE: [8.37917165]
+[2.6565     2.7000204  1.90781281] [11.95825382  6.96916614  3.0617573 ]
+Thickness factor: [0.7208212]
+Blade mass: 12491.6522336156
+Max Ct: [0.65039729]
+Tip deflection static :  7.835498237818999
+Blade cost, RNA cost : [568291.31975464] [3519380.25438454]
+Efficiency: [0.93341328]
+Maximum difference: [[7.6e-06]]
+Cp: [0.45017646]
+TSR: [7.52142306]
+Rated wind speed: 11.5515822938
+Pitch: 2.13853859768
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 194.340999842
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65640225108956
+DLC 1.3, Spar stress(MPa): 548.4736857155223
+DLC 1.3, Te_Reinf stress (MPa): 153.26732482064452
+FAST run time elapsed (s): 288.79399991
+Support costs: 337979709.7821372
+AEP: [1.33056542e+12]
+LCOE: [8.3791715]
+[2.6565     2.7000204  1.90781281] [11.95825382  6.96916614  3.0617573 ]
+Thickness factor: [0.7208222]
+Blade mass: 12491.66911476743
+Max Ct: [0.65039749]
+Tip deflection static :  7.835489960727918
+Blade cost, RNA cost : [568292.08774048] [3519381.40003306]
+Efficiency: [0.93341329]
+Maximum difference: [[3.5e-06]]
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65640225108956
+DLC 1.3, Spar stress(MPa): 548.4736857155223
+DLC 1.3, Te_Reinf stress (MPa): 153.26732482064452
+FAST run time elapsed (s): 0.0939998626709
+Support costs: 337979754.3409428
+AEP: [1.33056553e+12]
+LCOE: [8.37917187]
+[2.6565     2.7000204  1.90781281] [11.95826712  6.96916614  3.0617573 ]
+Thickness factor: [0.7208212]
+Blade mass: 12491.6522336156
+Max Ct: [0.65039747]
+Tip deflection static :  7.835500155088968
+Blade cost, RNA cost : [568291.31975464] [3519380.31789581]
+Efficiency: [0.93341329]
+Maximum difference: [1.3308e-05]
+Cp: [0.45017654]
+TSR: [7.52142306]
+Rated wind speed: 11.5515816656
+Pitch: 2.13853509768
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 175.645999908
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65640225108956
+DLC 1.3, Spar stress(MPa): 548.4736857155223
+DLC 1.3, Te_Reinf stress (MPa): 153.26732482064452
+FAST run time elapsed (s): 262.730999947
+Support costs: 337979740.55610853
+AEP: [1.33056552e+12]
+LCOE: [8.37917122]
+[2.6565     2.7000204  1.90781281] [11.95825382  6.96917514  3.0617573 ]
+Thickness factor: [0.7208212]
+Blade mass: 12491.6522336156
+Max Ct: [0.65039738]
+Tip deflection static :  7.8355003488670985
+Blade cost, RNA cost : [568291.31975464] [3519380.29640883]
+Efficiency: [0.93341329]
+Maximum difference: [1.3308e-05]
+Cp: [0.4501765]
+TSR: [7.52142306]
+Rated wind speed: 11.551582005
+Pitch: 2.13853509768
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 177.794000149
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65640225108956
+DLC 1.3, Spar stress(MPa): 548.4736857155223
+DLC 1.3, Te_Reinf stress (MPa): 153.26732482064452
+FAST run time elapsed (s): 265.353000164
+Support costs: 337979727.8418388
+AEP: [1.33056547e+12]
+LCOE: [8.37917141]
+[2.6565     2.7000204  1.90781281] [11.95825382  6.96916614  3.06176042]
+Thickness factor: [0.7208212]
+Blade mass: 12491.6522336156
+Max Ct: [0.65039741]
+Tip deflection static :  7.835499579101537
+Blade cost, RNA cost : [568291.31975464] [3519380.29568169]
+Efficiency: [0.93341329]
+Maximum difference: [8.69723591e-06]
+Cp: [0.45017651]
+TSR: [7.52142306]
+Rated wind speed: 11.5515819279
+Pitch: 2.13853509768
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 177.328999996
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1941
+DLC 1.3, Skin sress (MPa): 104.65640225108956
+DLC 1.3, Spar stress(MPa): 548.4736857155223
+DLC 1.3, Te_Reinf stress (MPa): 153.26732482064452
+FAST run time elapsed (s): 264.914000034
+Support costs: 337979732.80181473
+AEP: [1.33056548e+12]
+LCOE: [8.37917138]
+[2.6565     2.69942121 1.96123954] [11.95790937  6.65701488  2.97174004]
+Thickness factor: [0.7]
+Blade mass: 12003.872482382998
+Max Ct: [0.63576911]
+Tip deflection static :  8.086841972485523
+Blade cost, RNA cost : [546100.42031288] [3549835.70680186]
+Efficiency: [0.93429711]
+Maximum difference: [[0.58884152]]
+Cp: [0.44450673]
+TSR: [6.93258154]
+Rated wind speed: 11.6004888745
+Pitch: 1.95564086106
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 201.717000008
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.60 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4735
+DLC 1.3, Skin sress (MPa): 107.371312157699
+DLC 1.3, Spar stress(MPa): 563.0835552005254
+DLC 1.3, Te_Reinf stress (MPa): 151.49408276068084
+FAST run time elapsed (s): 293.936000109
+Support costs: 335406410.8767277
+AEP: [1.32457265e+12]
+LCOE: [8.40534691]
+[2.6565     2.69979889 1.92756399] [11.95812648  6.85376779  3.02847906]
+Thickness factor: [0.71312387]
+Blade mass: 12312.302150444699
+Max Ct: [0.64653282]
+Tip deflection static :  7.915021454969439
+Blade cost, RNA cost : [560132.02316543] [3534072.91338523]
+Efficiency: [0.93374625]
+Maximum difference: [[0.37115429]]
+Cp: [0.44950363]
+TSR: [7.30373584]
+Rated wind speed: 11.5573429991
+Pitch: 2.07092142302
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 193.121999979
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.2579
+DLC 1.3, Skin sress (MPa): 113.64648489125402
+DLC 1.3, Spar stress(MPa): 595.7375845823274
+DLC 1.3, Te_Reinf stress (MPa): 157.70256858776878
+FAST run time elapsed (s): 283.950000048
+Support costs: 337210659.1736842
+AEP: [1.33017468e+12]
+LCOE: [8.38303969]
+[2.6565     2.69992332 1.91646866] [11.95819801  6.91859344  3.04717329]
+Thickness factor: [0.71744789]
+Blade mass: 12417.313871403356
+Max Ct: [0.64887051]
+Tip deflection static :  7.853939237922285
+Blade cost, RNA cost : [564909.39355465] [3523830.6739835]
+Efficiency: [0.93352548]
+Maximum difference: [[0.12228698]]
+Cp: [0.44977238]
+TSR: [7.42602282]
+Rated wind speed: 11.5550406228
+Pitch: 2.10890377181
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 190.571000099
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.56 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.2007
+DLC 1.3, Skin sress (MPa): 106.04545077073834
+DLC 1.3, Spar stress(MPa): 555.8144311268078
+DLC 1.3, Te_Reinf stress (MPa): 151.10966977947587
+FAST run time elapsed (s): 280.236000061
+Support costs: 337667899.6060919
+AEP: [1.33020777e+12]
+LCOE: [8.38092992]
+[2.6565     2.69997805 1.91158876] [11.95822947  6.94710478  3.05539531]
+Thickness factor: [0.71934966]
+Blade mass: 12464.95781070039
+Max Ct: [0.64975784]
+Tip deflection static :  7.814926935810308
+Blade cost, RNA cost : [567076.89202764] [3520937.3406045]
+Efficiency: [0.93352578]
+Maximum difference: [[0.05378372]]
+Cp: [0.45062451]
+TSR: [7.47980654]
+Rated wind speed: 11.5477525027
+Pitch: 2.12560900096
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 183.363000154
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 105.34257962290836
+DLC 1.3, Spar stress(MPa): 552.0962411374674
+DLC 1.3, Te_Reinf stress (MPa): 153.1744651499053
+FAST run time elapsed (s): 270.923000097
+Support costs: 337665727.07764035
+AEP: [1.33129427e+12]
+LCOE: [8.37400491]
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: 0.989069326995
+            Iterations: 2
+            Function evaluations: 6
+            Gradient evaluations: 2
+Optimization Complete
+-----------------------------------
+========== LCOE ==========
+8.374004910470735
+==========================
+========== AEP ==========
+1372185395305.9092
+=========================
+Executed in 9619.17 seconds
+
+
+Process finished with exit code 0

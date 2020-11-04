@@ -1,0 +1,294 @@
+C:\Python27\python.exe C:/My_thesis/WINDOW_openMDAO-RNA_new/example/IEA_borssele_irregular_new_UC_SLSQP.py
+[2.6565     3.03427421 1.92128226] [13.17921289  7.17096771  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.529431365998
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.46158835]
+Rated wind speed: [11.45558991]
+Max Ct: [0.68450422]
+Pitch: [2.77420161]
+Tip deflection static :  7.0500455830424205
+Max Stress Spar :  682.883740407304
+Max Stress Skin :  130.55904968591668
+Max Stress Te Reinf :  129.80028132771145
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595854.90749143] [220059.32157347] [2728754.71372592] [3544668.94279083]
+Gearbox cost: [662290.08471474]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94545662] [200000.] [259844.2]
+Efficiency: [0.93101928]
+O&M costs: [23766196.51499741]
+Decommisioning costs: [48700622.83173495]
+Support costs: 345410216.5679632
+Total investment costs: [9.1999634e+08]
+AEP: [1.34171305e+12]
+LCOE: [8.39587357]
+[2.6565     3.03427421 1.92128226] [13.17921289  7.17096771  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.529431365998
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.46158835]
+Rated wind speed: [11.45558991]
+Max Ct: [0.68450422]
+Pitch: [2.77420161]
+Tip deflection static :  7.0500455830424205
+Max Stress Spar :  682.883740407304
+Max Stress Skin :  130.55904968591668
+Max Stress Te Reinf :  129.80028132771145
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595854.90749143] [220059.32157347] [2728754.71372592] [3544668.94279083]
+Gearbox cost: [662290.08471474]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94545662] [200000.] [259844.2]
+Efficiency: [0.93101928]
+O&M costs: [23766196.51499741]
+Decommisioning costs: [48700622.83173495]
+Support costs: 345410216.5679632
+Total investment costs: [9.1999634e+08]
+AEP: [1.34171305e+12]
+LCOE: [8.39587357]
+[2.65650354 3.03427421 1.92128226] [13.17921289  7.17096771  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.532370179264
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.46158835]
+Rated wind speed: [11.45558992]
+Max Ct: [0.68450422]
+Pitch: [2.77420161]
+Tip deflection static :  7.050044285614415
+Max Stress Spar :  682.8837413699555
+Max Stress Skin :  130.5590498699639
+Max Stress Te Reinf :  129.80025518886012
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595855.04118889] [220059.57465079] [2728754.90458296] [3544669.52042264]
+Gearbox cost: [662290.08455307]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94816841] [200000.] [259844.2]
+Efficiency: [0.93101928]
+O&M costs: [23766196.49292324]
+Decommisioning costs: [48700623.79971888]
+Support costs: 345410225.5990631
+Total investment costs: [9.19996394e+08]
+AEP: [1.34171305e+12]
+LCOE: [8.39587396]
+[2.6565     3.03427722 1.92128226] [13.17921289  7.17096771  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.5460138207
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.46158844]
+Rated wind speed: [11.45558918]
+Max Ct: [0.68450453]
+Pitch: [2.77420161]
+Tip deflection static :  7.050019279605087
+Max Stress Spar :  682.882129429019
+Max Stress Skin :  130.55873810869343
+Max Stress Te Reinf :  129.79993714169788
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595855.66188844] [220059.50121707] [2728754.96215728] [3544670.12526279]
+Gearbox cost: [662290.12039474]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94846955] [200000.] [259844.2]
+Efficiency: [0.93101929]
+O&M costs: [23766198.50239808]
+Decommisioning costs: [48700623.93140454]
+Support costs: 345410289.31343305
+Total investment costs: [9.19996504e+08]
+AEP: [1.34171318e+12]
+LCOE: [8.3958741]
+[2.6565     3.03427421 1.92128457] [13.17921289  7.17096771  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.522526500637
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.46158838]
+Rated wind speed: [11.45558968]
+Max Ct: [0.68450434]
+Pitch: [2.77420161]
+Tip deflection static :  7.050057300620118
+Max Stress Spar :  682.8844769048043
+Max Stress Skin :  130.55919084046425
+Max Stress Te Reinf :  129.8005154498417
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595854.59336365] [220059.25900252] [2728754.68881498] [3544668.54118115]
+Gearbox cost: [662290.1410201]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94429206] [200000.] [259844.2]
+Efficiency: [0.93101928]
+O&M costs: [23766197.13168956]
+Decommisioning costs: [48700622.45397718]
+Support costs: 345410240.94656926
+Total investment costs: [9.19996334e+08]
+AEP: [1.34171309e+12]
+LCOE: [8.39587333]
+[2.6565     3.03427421 1.92128226] [13.17921289  7.17096771  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.529431365998
+Pitch: [2.77420161]
+TSR: [7.8520334]
+Cp: [0.46158835]
+Rated wind speed: [11.45558991]
+Max Ct: [0.68450451]
+Pitch: [2.77420161]
+Tip deflection static :  7.050050590028558
+Max Stress Spar :  682.8842743858861
+Max Stress Skin :  130.55915177611462
+Max Stress Te Reinf :  129.80024189207168
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595854.90749143] [220059.3443506] [2728754.11713165] [3544668.36897368]
+Gearbox cost: [662289.534513]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94491132] [200000.] [259844.2]
+Efficiency: [0.93101928]
+O&M costs: [23766196.51499741]
+Decommisioning costs: [48700622.26588593]
+Support costs: 345410293.200922
+Total investment costs: [9.19996373e+08]
+AEP: [1.34171305e+12]
+LCOE: [8.3958738]
+[2.6565     3.03427421 1.92128226] [13.17921289  7.17096771  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.529431365998
+Pitch: [2.77420511]
+TSR: [7.8520258]
+Cp: [0.46158827]
+Rated wind speed: [11.45559055]
+Max Ct: [0.68450399]
+Pitch: [2.77420511]
+Tip deflection static :  7.050043713392689
+Max Stress Spar :  682.8835504944069
+Max Stress Skin :  130.55901337688496
+Max Stress Te Reinf :  129.80027735135133
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595854.90749143] [220059.31147072] [2728754.65939112] [3544668.87835327]
+Gearbox cost: [662290.03737671]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94536704] [200000.] [259844.2]
+Efficiency: [0.93101927]
+O&M costs: [23766194.77382454]
+Decommisioning costs: [48700622.76781999]
+Support costs: 345410174.49660933
+Total investment costs: [9.19996293e+08]
+AEP: [1.34171294e+12]
+LCOE: [8.3958738]
+[2.6565     3.03427421 1.92128226] [13.17921289  7.17096771  2.1875    ]
+Thickness factor: [0.700001]
+Blade mass: 13097.547647422703
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.46158835]
+Rated wind speed: [11.45558991]
+Max Ct: [0.68450422]
+Pitch: [2.77420161]
+Tip deflection static :  7.05003614717071
+Max Stress Spar :  682.8828154406498
+Max Stress Skin :  130.55887748566886
+Max Stress Te Reinf :  129.80020804707522
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595855.73620702] [220059.46388085] [2728754.91003933] [3544670.1101272]
+Gearbox cost: [662290.08471474]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94824354] [200000.] [259844.2]
+Efficiency: [0.93101928]
+O&M costs: [23766196.51499741]
+Decommisioning costs: [48700623.82664953]
+Support costs: 345410224.9042294
+Total investment costs: [9.19996439e+08]
+AEP: [1.34171305e+12]
+LCOE: [8.39587427]
+[2.6565     3.03427421 1.92128226] [13.1792262   7.17096771  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.529431365998
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.46158834]
+Rated wind speed: [11.45559]
+Max Ct: [0.68450419]
+Pitch: [2.77420161]
+Tip deflection static :  7.050045672775651
+Max Stress Spar :  682.8837505697572
+Max Stress Skin :  130.5590516288539
+Max Stress Te Reinf :  129.80028146775058
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595854.90749143] [220059.32142266] [2728754.70888953] [3544668.93780362]
+Gearbox cost: [662290.08033079]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.9454511] [200000.] [259844.2]
+Efficiency: [0.93101928]
+O&M costs: [23766196.28315474]
+Decommisioning costs: [48700622.82680673]
+Support costs: 345410209.99198043
+Total investment costs: [9.19996334e+08]
+AEP: [1.34171304e+12]
+LCOE: [8.3958736]
+[2.6565     3.03427421 1.92128226] [13.17921289  7.17097671  2.1875    ]
+Thickness factor: [0.7]
+Blade mass: 13097.529431365998
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.4615883]
+Rated wind speed: [11.45559029]
+Max Ct: [0.68450409]
+Pitch: [2.77420161]
+Tip deflection static :  7.0500457807455
+Max Stress Spar :  682.8837851235124
+Max Stress Skin :  130.5590582351108
+Max Stress Te Reinf :  129.80028070254835
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595854.90749143] [220059.31903793] [2728754.69404357] [3544668.92057293]
+Gearbox cost: [662290.06731106]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94542786] [200000.] [259844.2]
+Efficiency: [0.93101927]
+O&M costs: [23766195.49173966]
+Decommisioning costs: [48700622.8097251]
+Support costs: 345410194.0231902
+Total investment costs: [9.19996316e+08]
+AEP: [1.34171299e+12]
+LCOE: [8.39587373]
+[2.6565     3.03427421 1.92128226] [13.17921289  7.17096771  2.18750313]
+Thickness factor: [0.7]
+Blade mass: 13097.529431365998
+Pitch: [2.77420161]
+TSR: [7.8520258]
+Cp: [0.46158832]
+Rated wind speed: [11.45559017]
+Max Ct: [0.68450413]
+Pitch: [2.77420161]
+Tip deflection static :  7.050045005365574
+Max Stress Spar :  682.8836904268277
+Max Stress Skin :  130.55904013025864
+Max Stress Te Reinf :  129.80027979482225
+Blade cost, Hub costs, Nacelle costs, RNA cost : [595854.90749143] [220059.31730663] [2728754.69469916] [3544668.91949723]
+Gearbox cost: [662290.06830403]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [213307.94542287] [200000.] [259844.2]
+Efficiency: [0.93101927]
+O&M costs: [23766195.79973038]
+Decommisioning costs: [48700622.80861219]
+Support costs: 345410199.62389696
+Total investment costs: [9.19996322e+08]
+AEP: [1.34171301e+12]
+LCOE: [8.39587367]
+[2.6565     3.01994569 1.92873003] [13.1399432  7.0116127  2.1875   ]
+Thickness factor: [0.7]
+Blade mass: 13008.758760660048
+Pitch: [2.70045341]
+TSR: [7.58090533]
+Cp: [0.46147624]
+Rated wind speed: [11.45651753]
+Max Ct: [0.6794419]
+Pitch: [2.70045341]
+Tip deflection static :  7.043867074285258
+Max Stress Spar :  678.6983407782662
+Max Stress Skin :  129.77698598602913
+Max Stress Te Reinf :  133.69756984951005
+Blade cost, Hub costs, Nacelle costs, RNA cost : [591816.40236277] [218640.61760648] [2751422.12743911] [3561879.14740836]
+Gearbox cost: [685446.82972071]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [211851.09451864] [200000.] [259844.2]
+Efficiency: [0.93156036]
+O&M costs: [23763455.27685941]
+Decommisioning costs: [48711739.04866574]
+Support costs: 344017609.6538448
+Total investment costs: [9.19931237e+08]
+AEP: [1.34233798e+12]
+LCOE: [8.39130474]
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: 0.939255063922
+            Iterations: 1
+            Function evaluations: 2
+            Gradient evaluations: 1
+Optimization Complete
+-----------------------------------
+========== LCOE ==========
+8.39130474107947
+==========================
+========== AEP ==========
+1383568312520.5142
+=========================
+Executed in 1780.86 seconds
+
+
+Process finished with exit code 0

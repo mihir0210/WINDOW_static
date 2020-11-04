@@ -1,0 +1,10 @@
+-Connected machine rating, multiply rated power by 1e3
+
+-Added command for matlab paths in the beggining of FAST integration 
+
+-Removed tower height as input, calculated based on number of sections.
+removed as inputs from AbsFAST
+
+-Tower_hh is coming from RNA hub height for now
+
+-Added post_processor integration, airfoils coord integration

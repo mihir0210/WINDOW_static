@@ -1,0 +1,1246 @@
+C:\Python27\python.exe C:/My_thesis/WINDOW_openMDAO-RNA_new/example/IEA_borssele_irregular_new_UC_SLSQP.py
+[2.8336 3.01   1.8504] [15.9696  9.9     3.4375]
+Thickness factor: [0.75]
+Blade mass: 14230.067280635069
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122056]
+Rated wind speed: [11.71842516]
+Max Ct: [0.61387917]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647378.23018699] [239615.70324165] [2747383.30408765] [3634377.23751629]
+Gearbox cost: [650942.81575716]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31650084] [200000.] [259844.2]
+Efficiency: [0.93500801]
+Maximum difference: [2.21587089]
+Cp: [0.43122056]
+TSR: [7.828]
+Rated wind speed: 11.7184251613
+Pitch: 2.45
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 180.463999987
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.72 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 271.302000046
+O&M costs: [23080826.5544451]
+Decommisioning costs: [48846410.52776951]
+Support costs: 333880727.8871478
+Total investment costs: [9.15386469e+08]
+AEP: [1.30860319e+12]
+LCOE: [8.52007903]
+[2.8336 3.01   1.8504] [15.9696  9.9     3.4375]
+Thickness factor: [0.75]
+Blade mass: 14230.067280635069
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122056]
+Rated wind speed: [11.71842516]
+Max Ct: [0.61387917]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647378.23018699] [239615.70324165] [2747383.30408765] [3634377.23751629]
+Gearbox cost: [650942.81575716]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31650084] [200000.] [259844.2]
+Efficiency: [0.93500801]
+Maximum difference: [0.]
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 0.105000019073
+O&M costs: [23080826.5544451]
+Decommisioning costs: [48846410.52776951]
+Support costs: 333880727.8871478
+Total investment costs: [9.15386469e+08]
+AEP: [1.30860319e+12]
+LCOE: [8.52007903]
+[2.83360354 3.01       1.8504    ] [15.9696  9.9     3.4375]
+Thickness factor: [0.75]
+Blade mass: 14230.070421145332
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122056]
+Rated wind speed: [11.71842517]
+Max Ct: [0.61387917]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647378.37306038] [239615.98670882] [2747383.51819274] [3634377.87796194]
+Gearbox cost: [650942.81557504]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.3196655] [200000.] [259844.2]
+Efficiency: [0.93500801]
+Maximum difference: [3.34174903e-06]
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 0.106000185013
+O&M costs: [23080826.53244982]
+Decommisioning costs: [48846411.60897543]
+Support costs: 333880737.9589327
+Total investment costs: [9.15386528e+08]
+AEP: [1.30860319e+12]
+LCOE: [8.52007947]
+[2.8336     3.01000301 1.8504    ] [15.9696  9.9     3.4375]
+Thickness factor: [0.75]
+Blade mass: 14230.084998372013
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122069]
+Rated wind speed: [11.71842401]
+Max Ct: [0.61387945]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647379.03623217] [239615.89368858] [2747383.58287451] [3634378.51279526]
+Gearbox cost: [650942.86474427]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31988406] [200000.] [259844.2]
+Efficiency: [0.93500802]
+Maximum difference: [1.03382823e-05]
+Cp: [0.43122069]
+TSR: [7.828]
+Rated wind speed: 11.7184240065
+Pitch: 2.45
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.34100008
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.72 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.3086
+DLC 1.3, Skin sress (MPa): 99.46386467814865
+DLC 1.3, Spar stress(MPa): 520.796132900746
+DLC 1.3, Te_Reinf stress (MPa): 80.09694274589384
+FAST run time elapsed (s): 261.696000099
+O&M costs: [23080829.41883592]
+Decommisioning costs: [48846411.71853001]
+Support costs: 333880786.57067925
+Total investment costs: [9.15386626e+08]
+AEP: [1.30860338e+12]
+LCOE: [8.5200792]
+[2.8336     3.01       1.85040231] [15.9696  9.9     3.4375]
+Thickness factor: [0.75]
+Blade mass: 14230.059905608941
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122059]
+Rated wind speed: [11.71842493]
+Max Ct: [0.61387931]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647377.89466986] [239615.63586601] [2747383.27370889] [3634376.80424476]
+Gearbox cost: [650942.87398799]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31517977] [200000.] [259844.2]
+Efficiency: [0.93500801]
+Maximum difference: [1.59696169e-05]
+Cp: [0.43122059]
+TSR: [7.828]
+Rated wind speed: 11.7184249257
+Pitch: 2.45
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 180.901000023
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.72 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.3086
+DLC 1.3, Skin sress (MPa): 99.43979584054298
+DLC 1.3, Spar stress(MPa): 520.6700999366449
+DLC 1.3, Te_Reinf stress (MPa): 80.12359049565804
+FAST run time elapsed (s): 270.891000032
+O&M costs: [23080827.13887708]
+Decommisioning costs: [48846410.11767394]
+Support costs: 333880758.72791773
+Total investment costs: [9.15386466e+08]
+AEP: [1.30860323e+12]
+LCOE: [8.52007881]
+[2.8336 3.01   1.8504] [15.9696  9.9     3.4375]
+Thickness factor: [0.75]
+Blade mass: 14230.067280635069
+Pitch: [2.45]
+TSR: [7.8280076]
+Cp: [0.43122056]
+Rated wind speed: [11.71842516]
+Max Ct: [0.61387936]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647378.23018699] [239615.72233092] [2747382.67064594] [3634376.62316385]
+Gearbox cost: [650942.22829278]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31594768] [200000.] [259844.2]
+Efficiency: [0.93500801]
+Maximum difference: [[7.6e-06]]
+Cp: [0.43122056]
+TSR: [7.8280076]
+Rated wind speed: 11.7184251613
+Pitch: 2.45
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 174.00999999
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.72 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 261.786999941
+O&M costs: [23080826.5544451]
+Decommisioning costs: [48846409.92207939]
+Support costs: 333880780.35427606
+Total investment costs: [9.15386474e+08]
+AEP: [1.30860319e+12]
+LCOE: [8.52007906]
+[2.8336 3.01   1.8504] [15.9696  9.9     3.4375]
+Thickness factor: [0.75]
+Blade mass: 14230.067280635069
+Pitch: [2.4500035]
+TSR: [7.828]
+Cp: [0.43122046]
+Rated wind speed: [11.71842613]
+Max Ct: [0.61387893]
+Pitch: [2.4500035]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647378.23018699] [239615.69411754] [2747383.23567106] [3634377.15997559]
+Gearbox cost: [650942.75488541]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31640246] [200000.] [259844.2]
+Efficiency: [0.935008]
+Maximum difference: [[7.6e-06]]
+Cp: [0.43122046]
+TSR: [7.828]
+Rated wind speed: 11.7184261297
+Pitch: 2.4500035
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.781000137
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.72 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 261.230000019
+O&M costs: [23080824.15225427]
+Decommisioning costs: [48846410.4509771]
+Support costs: 333880688.72429407
+Total investment costs: [9.15386424e+08]
+AEP: [1.30860304e+12]
+LCOE: [8.52007951]
+[2.8336 3.01   1.8504] [15.9696  9.9     3.4375]
+Thickness factor: [0.750001]
+Blade mass: 14230.085772017246
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122056]
+Rated wind speed: [11.71842516]
+Max Ct: [0.61387917]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647379.07142814] [239615.84769571] [2747383.5044312] [3634378.42355505]
+Gearbox cost: [650942.81575716]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31945954] [200000.] [259844.2]
+Efficiency: [0.93500801]
+Maximum difference: [[3.5e-06]]
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 0.108999967575
+O&M costs: [23080826.5544451]
+Decommisioning costs: [48846411.53872969]
+Support costs: 333880736.4289372
+Total investment costs: [9.15386569e+08]
+AEP: [1.30860319e+12]
+LCOE: [8.52007975]
+[2.8336 3.01   1.8504] [15.96961331  9.9         3.4375    ]
+Thickness factor: [0.75]
+Blade mass: 14230.067280635069
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122054]
+Rated wind speed: [11.71842532]
+Max Ct: [0.61387913]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647378.23018699] [239615.70346219] [2747383.29583174] [3634377.22948091]
+Gearbox cost: [650942.808107]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31649353] [200000.] [259844.2]
+Efficiency: [0.93500801]
+Maximum difference: [1.3308e-05]
+Cp: [0.43122054]
+TSR: [7.828]
+Rated wind speed: 11.7184253243
+Pitch: 2.45
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 172.748000145
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.72 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 260.624000072
+O&M costs: [23080826.15021193]
+Decommisioning costs: [48846410.51984654]
+Support costs: 333880721.8879717
+Total investment costs: [9.15386462e+08]
+AEP: [1.30860317e+12]
+LCOE: [8.52007912]
+[2.8336 3.01   1.8504] [15.9696    9.900009  3.4375  ]
+Thickness factor: [0.75]
+Blade mass: 14230.067280635069
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122049]
+Rated wind speed: [11.71842584]
+Max Ct: [0.61387903]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647378.23018699] [239615.70180798] [2747383.26873401] [3634377.20072897]
+Gearbox cost: [650942.78354577]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31646133] [200000.] [259844.2]
+Efficiency: [0.935008]
+Maximum difference: [1.3308e-05]
+Cp: [0.43122049]
+TSR: [7.828]
+Rated wind speed: 11.7184258374
+Pitch: 2.45
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.963999987
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.72 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 265.566999912
+O&M costs: [23080824.87767187]
+Decommisioning costs: [48846410.49142381]
+Support costs: 333880708.2751272
+Total investment costs: [9.15386446e+08]
+AEP: [1.30860309e+12]
+LCOE: [8.52007943]
+[2.8336 3.01   1.8504] [15.9696      9.9         3.43750313]
+Thickness factor: [0.75]
+Blade mass: 14230.067280635069
+Pitch: [2.45]
+TSR: [7.828]
+Cp: [0.43122052]
+Rated wind speed: [11.71842556]
+Max Ct: [0.61387907]
+Pitch: [2.45]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [647378.23018699] [239615.6993191] [2747383.27922383] [3634377.20872991]
+Gearbox cost: [650942.79377514]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [224074.31646299] [200000.] [259844.2]
+Efficiency: [0.935008]
+Maximum difference: [8.69723591e-06]
+Cp: [0.43122052]
+TSR: [7.828]
+Rated wind speed: 11.7184255632
+Pitch: 2.45
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.395999908
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.72 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 5.3064
+DLC 1.3, Skin sress (MPa): 99.45193797168088
+DLC 1.3, Spar stress(MPa): 520.7336737879829
+DLC 1.3, Te_Reinf stress (MPa): 80.12345659721859
+FAST run time elapsed (s): 262.750999928
+O&M costs: [23080825.55760675]
+Decommisioning costs: [48846410.49924491]
+Support costs: 333880712.2223486
+Total investment costs: [9.15386451e+08]
+AEP: [1.30860313e+12]
+LCOE: [8.52007923]
+[2.65955547 2.94561886 1.90172713] [15.83829566  9.49509311  3.36540501]
+Thickness factor: [0.7]
+Blade mass: 12718.132643938889
+Pitch: [2.26121912]
+TSR: [7.79735073]
+Cp: [0.43893795]
+Rated wind speed: [11.64934107]
+Max Ct: [0.63067547]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578594.74870656] [215173.00454969] [2716834.76612225] [3510602.5193785]
+Gearbox cost: [658578.32610335]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.73803912] [200000.] [259844.2]
+Efficiency: [0.93419074]
+Maximum difference: [0.39570277]
+Cp: [0.43893795]
+TSR: [7.79735073]
+Rated wind speed: 11.6493410683
+Pitch: 2.26121911551
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.706999779
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.65 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.18122824006358
+DLC 1.3, Spar stress(MPa): 567.1678367588695
+DLC 1.3, Te_Reinf stress (MPa): 84.46961847697813
+FAST run time elapsed (s): 261.340999842
+O&M costs: [23254924.93719846]
+Decommisioning costs: [48656493.98654176]
+Support costs: 335254125.8954582
+Total investment costs: [9.07212549e+08]
+AEP: [1.31732153e+12]
+LCOE: [8.41878484]
+[2.65955901 2.94561886 1.90172713] [15.83829566  9.49509311  3.36540501]
+Thickness factor: [0.7]
+Blade mass: 12718.135583323983
+Pitch: [2.26121912]
+TSR: [7.79735073]
+Cp: [0.43893795]
+Rated wind speed: [11.64934108]
+Max Ct: [0.63067547]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578594.88243003] [215173.25570467] [2716834.95573501] [3510603.09386971]
+Gearbox cost: [658578.32593552]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.74070085] [200000.] [259844.2]
+Efficiency: [0.93419074]
+Maximum difference: [3.34174904e-06]
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.18122824006358
+DLC 1.3, Spar stress(MPa): 567.1678367588695
+DLC 1.3, Te_Reinf stress (MPa): 84.46961847697813
+FAST run time elapsed (s): 0.115000009537
+O&M costs: [23254924.91563855]
+Decommisioning costs: [48656494.94789608]
+Support costs: 335254134.9591566
+Total investment costs: [9.07212602e+08]
+AEP: [1.31732152e+12]
+LCOE: [8.41878524]
+[2.65955547 2.94562187 1.90172713] [15.83829566  9.49509311  3.36540501]
+Thickness factor: [0.7]
+Blade mass: 12718.149302574227
+Pitch: [2.26121912]
+TSR: [7.79735073]
+Cp: [0.43893808]
+Rated wind speed: [11.64933989]
+Max Ct: [0.63067577]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578595.50656931] [215173.18165178] [2716835.03319304] [3510603.72141412]
+Gearbox cost: [658578.37874658]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.74103578] [200000.] [259844.2]
+Efficiency: [0.93419076]
+Maximum difference: [1.03382823e-05]
+Cp: [0.43893808]
+TSR: [7.79735073]
+Rated wind speed: 11.6493398879
+Pitch: 2.26121911551
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 172.860999823
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.65 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.16779452652742
+DLC 1.3, Spar stress(MPa): 567.097418001454
+DLC 1.3, Te_Reinf stress (MPa): 84.43786169704626
+FAST run time elapsed (s): 260.230999947
+O&M costs: [23254927.9353466]
+Decommisioning costs: [48656495.10417978]
+Support costs: 335254187.43579936
+Total investment costs: [9.07212703e+08]
+AEP: [1.31732172e+12]
+LCOE: [8.41878497]
+[2.65955547 2.94561886 1.90172944] [15.83829566  9.49509311  3.36540501]
+Thickness factor: [0.7]
+Blade mass: 12718.12570638493
+Pitch: [2.26121912]
+TSR: [7.79735073]
+Cp: [0.43893797]
+Rated wind speed: [11.64934094]
+Max Ct: [0.6306756]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578594.43309165] [215172.9437588] [2716834.73966237] [3510602.11651282]
+Gearbox cost: [658578.38073476]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.73689069] [200000.] [259844.2]
+Efficiency: [0.93419074]
+Maximum difference: [1.59696169e-05]
+Cp: [0.43893797]
+TSR: [7.79735073]
+Rated wind speed: 11.6493409351
+Pitch: 2.26121911551
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.369999886
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.65 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.18117893458249
+DLC 1.3, Spar stress(MPa): 567.1675811356813
+DLC 1.3, Te_Reinf stress (MPa): 84.4697686578902
+FAST run time elapsed (s): 260.682999849
+O&M costs: [23254925.27557017]
+Decommisioning costs: [48656493.60822401]
+Support costs: 335254157.440907
+Total investment costs: [9.07212549e+08]
+AEP: [1.31732155e+12]
+LCOE: [8.41878474]
+[2.65955547 2.94561886 1.90172713] [15.83829566  9.49509311  3.36540501]
+Thickness factor: [0.7]
+Blade mass: 12718.132643938889
+Pitch: [2.26121912]
+TSR: [7.79735833]
+Cp: [0.43893795]
+Rated wind speed: [11.64934107]
+Max Ct: [0.63067569]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578594.74870656] [215173.02565778] [2716834.14275689] [3510601.91712123]
+Gearbox cost: [658577.75265115]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.73745574] [200000.] [259844.2]
+Efficiency: [0.93419074]
+Maximum difference: [[7.6e-06]]
+Cp: [0.43893795]
+TSR: [7.79735833]
+Rated wind speed: 11.6493410683
+Pitch: 2.26121911551
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 178.017999887
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.65 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.18122824006358
+DLC 1.3, Spar stress(MPa): 567.1678367588695
+DLC 1.3, Te_Reinf stress (MPa): 84.46961847697813
+FAST run time elapsed (s): 264.575999975
+O&M costs: [23254924.93719846]
+Decommisioning costs: [48656493.39251211]
+Support costs: 335254188.4998958
+Total investment costs: [9.07212565e+08]
+AEP: [1.31732153e+12]
+LCOE: [8.41878496]
+[2.65955547 2.94561886 1.90172713] [15.83829566  9.49509311  3.36540501]
+Thickness factor: [0.7]
+Blade mass: 12718.132643938889
+Pitch: [2.26122262]
+TSR: [7.79735073]
+Cp: [0.43893785]
+Rated wind speed: [11.64934195]
+Max Ct: [0.63067524]
+Pitch: [2.26122262]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578594.74870656] [215172.99527563] [2716834.70102831] [3510602.44501051]
+Gearbox cost: [658578.26883149]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.73794106] [200000.] [259844.2]
+Efficiency: [0.93419073]
+Maximum difference: [[7.6e-06]]
+Cp: [0.43893785]
+TSR: [7.79735073]
+Rated wind speed: 11.6493419493
+Pitch: 2.26122261551
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 174.509000063
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.65 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.18122824006358
+DLC 1.3, Spar stress(MPa): 567.1678367588695
+DLC 1.3, Te_Reinf stress (MPa): 84.46961847697813
+FAST run time elapsed (s): 260.938999891
+O&M costs: [23254922.69935054]
+Decommisioning costs: [48656493.91284145]
+Support costs: 335254086.29700565
+Total investment costs: [9.07212503e+08]
+AEP: [1.31732138e+12]
+LCOE: [8.41878525]
+[2.65955547 2.94561886 1.90172713] [15.83829566  9.49509311  3.36540501]
+Thickness factor: [0.700001]
+Blade mass: 12718.150330082606
+Pitch: [2.26121912]
+TSR: [7.79735073]
+Cp: [0.43893795]
+Rated wind speed: [11.64934107]
+Max Ct: [0.63067547]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578595.55331445] [215173.1427173] [2716834.95681628] [3510603.65284804]
+Gearbox cost: [658578.32610335]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.74071362] [200000.] [259844.2]
+Efficiency: [0.93419074]
+Maximum difference: [[3.5e-06]]
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.18122824006358
+DLC 1.3, Spar stress(MPa): 567.1678367588695
+DLC 1.3, Te_Reinf stress (MPa): 84.46961847697813
+FAST run time elapsed (s): 0.110000133514
+O&M costs: [23254924.93719846]
+Decommisioning costs: [48656494.95262357]
+Support costs: 335254134.0613716
+Total investment costs: [9.07212644e+08]
+AEP: [1.31732153e+12]
+LCOE: [8.41878553]
+[2.65955547 2.94561886 1.90172713] [15.83830897  9.49509311  3.36540501]
+Thickness factor: [0.7]
+Blade mass: 12718.132643938889
+Pitch: [2.26121912]
+TSR: [7.79735073]
+Cp: [0.43893793]
+Rated wind speed: [11.64934122]
+Max Ct: [0.63067543]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578594.74870656] [215173.00475539] [2716834.7585637] [3510602.51202565]
+Gearbox cost: [658578.31916145]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.73803188] [200000.] [259844.2]
+Efficiency: [0.93419074]
+Maximum difference: [1.3308e-05]
+Cp: [0.43893793]
+TSR: [7.79735073]
+Rated wind speed: 11.6493412188
+Pitch: 2.26121911551
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 172.539000034
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.65 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.18122824006358
+DLC 1.3, Spar stress(MPa): 567.1678367588695
+DLC 1.3, Te_Reinf stress (MPa): 84.46961847697813
+FAST run time elapsed (s): 260.194999933
+O&M costs: [23254924.55500026]
+Decommisioning costs: [48656493.97928783]
+Support costs: 335254120.17484146
+Total investment costs: [9.07212542e+08]
+AEP: [1.3173215e+12]
+LCOE: [8.41878492]
+[2.65955547 2.94561886 1.90172713] [15.83829566  9.49510211  3.36540501]
+Thickness factor: [0.7]
+Blade mass: 12718.132643938889
+Pitch: [2.26121912]
+TSR: [7.79735073]
+Cp: [0.43893788]
+Rated wind speed: [11.64934169]
+Max Ct: [0.63067533]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578594.74870656] [215173.00309976] [2716834.73431233] [3510602.48611865]
+Gearbox cost: [658578.29741508]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.73800117] [200000.] [259844.2]
+Efficiency: [0.93419073]
+Maximum difference: [1.3308e-05]
+Cp: [0.43893788]
+TSR: [7.79735073]
+Rated wind speed: 11.6493416902
+Pitch: 2.26121911551
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 210.601999998
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.65 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1952
+DLC 1.3, Skin sress (MPa): 108.18122824006358
+DLC 1.3, Spar stress(MPa): 567.1678367588695
+DLC 1.3, Te_Reinf stress (MPa): 84.46961847697813
+FAST run time elapsed (s): 305.520999908
+O&M costs: [23254923.35768681]
+Decommisioning costs: [48656493.95365961]
+Support costs: 335254106.7346917
+Total investment costs: [9.07212527e+08]
+AEP: [1.31732142e+12]
+LCOE: [8.41878521]
+[2.65955547 2.94561886 1.90172713] [15.83829566  9.49509311  3.36540814]
+Thickness factor: [0.7]
+Blade mass: 12718.132643938889
+Pitch: [2.26121912]
+TSR: [7.79735073]
+Cp: [0.43893791]
+Rated wind speed: [11.64934144]
+Max Ct: [0.63067537]
+Pitch: [2.26121912]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [578594.74870656] [215173.00064548] [2716834.7426059] [3510602.49195794]
+Gearbox cost: [658578.30553879]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [210310.7380019] [200000.] [259844.2]
+Efficiency: [0.93419074]
+Maximum difference: [8.69723591e-06]
+Cp: [0.43893791]
+TSR: [7.79735073]
+Rated wind speed: 11.6493414368
+Pitch: 2.26121911551
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 174.042999983
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.65 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.1963
+DLC 1.3, Skin sress (MPa): 108.18122824006358
+DLC 1.3, Spar stress(MPa): 567.1678367588695
+DLC 1.3, Te_Reinf stress (MPa): 84.46961847697813
+FAST run time elapsed (s): 261.342000008
+O&M costs: [23254924.00116913]
+Decommisioning costs: [48656493.95935318]
+Support costs: 335254110.2542539
+Total investment costs: [9.07212531e+08]
+AEP: [1.31732147e+12]
+LCOE: [8.41878502]
+[2.6565     2.92487205 1.95183885] [15.62811936  8.85343194  3.25262333]
+Thickness factor: [0.7]
+Blade mass: 12489.545236333212
+Pitch: [1.97920773]
+TSR: [7.62801891]
+Cp: [0.45068072]
+Rated wind speed: [11.54727238]
+Max Ct: [0.65626972]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568195.46467927] [213284.59963048] [2736204.23558345] [3517684.2998932]
+Gearbox cost: [680180.31830597]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47292591] [200000.] [259844.2]
+Efficiency: [0.932849]
+Maximum difference: [0.62714583]
+Cp: [0.45068072]
+TSR: [7.62801891]
+Rated wind speed: 11.5472723796
+Pitch: 1.97920772858
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 175.29399991
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4713
+DLC 1.3, Skin sress (MPa): 105.80474799666774
+DLC 1.3, Spar stress(MPa): 554.6957025151457
+DLC 1.3, Te_Reinf stress (MPa): 86.21348199864701
+FAST run time elapsed (s): 263.559000015
+O&M costs: [23519867.3807585]
+Decommisioning costs: [48657661.90292036]
+Support costs: 339711106.018033
+Total investment costs: [9.12215779e+08]
+AEP: [1.33041614e+12]
+LCOE: [8.39239939]
+[2.65650354 2.92487205 1.95183885] [15.62811936  8.85343194  3.25262333]
+Thickness factor: [0.7]
+Blade mass: 12489.54817713783
+Pitch: [1.97920773]
+TSR: [7.62801891]
+Cp: [0.45068072]
+Rated wind speed: [11.54727239]
+Max Ct: [0.65626972]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568195.59846732] [213284.84852] [2736204.42185691] [3517684.86884423]
+Gearbox cost: [680180.31815753]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47551777] [200000.] [259844.2]
+Efficiency: [0.932849]
+Maximum difference: [3.34174903e-06]
+DLC 1.3, Deflection in m: 6.4713
+DLC 1.3, Skin sress (MPa): 105.80474799666774
+DLC 1.3, Spar stress(MPa): 554.6957025151457
+DLC 1.3, Te_Reinf stress (MPa): 86.21348199864701
+FAST run time elapsed (s): 0.108999967575
+O&M costs: [23519867.36257757]
+Decommisioning costs: [48657662.85445644]
+Support costs: 339711114.933072
+Total investment costs: [9.12215832e+08]
+AEP: [1.33041614e+12]
+LCOE: [8.39239977]
+[2.6565     2.92487506 1.95183885] [15.62811936  8.85343194  3.25262333]
+Thickness factor: [0.7]
+Blade mass: 12489.561963108517
+Pitch: [1.97920773]
+TSR: [7.62801891]
+Cp: [0.45068086]
+Rated wind speed: [11.54727122]
+Max Ct: [0.65627005]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568196.22564195] [213284.77758881] [2736204.50117027] [3517685.50440103]
+Gearbox cost: [680180.37069917]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47587939] [200000.] [259844.2]
+Efficiency: [0.93284901]
+Maximum difference: [1.03382823e-05]
+Cp: [0.45068086]
+TSR: [7.62801891]
+Rated wind speed: 11.5472712192
+Pitch: 1.97920772858
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 174.093000174
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4746
+DLC 1.3, Skin sress (MPa): 105.80456433082342
+DLC 1.3, Spar stress(MPa): 554.6947503362861
+DLC 1.3, Te_Reinf stress (MPa): 86.17988123991364
+FAST run time elapsed (s): 261.554000139
+O&M costs: [23519870.4337552]
+Decommisioning costs: [48657663.02151218]
+Support costs: 339711172.3579646
+Total investment costs: [9.12215938e+08]
+AEP: [1.33041634e+12]
+LCOE: [8.39239954]
+[2.6565     2.92487205 1.95184117] [15.62811936  8.85343194  3.25262333]
+Thickness factor: [0.7]
+Blade mass: 12489.538265356903
+Pitch: [1.97920773]
+TSR: [7.62801891]
+Cp: [0.45068073]
+Rated wind speed: [11.54727232]
+Max Ct: [0.65626984]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568195.14754385] [213284.538669] [2736204.2084443] [3517683.89465715]
+Gearbox cost: [680180.37162808]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.4717965] [200000.] [259844.2]
+Efficiency: [0.932849]
+Maximum difference: [1.59696169e-05]
+Cp: [0.45068073]
+TSR: [7.62801891]
+Rated wind speed: 11.5472723232
+Pitch: 1.97920772858
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 196.677000046
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4713
+DLC 1.3, Skin sress (MPa): 105.7914260195367
+DLC 1.3, Spar stress(MPa): 554.6258630637379
+DLC 1.3, Te_Reinf stress (MPa): 86.21364012591212
+FAST run time elapsed (s): 291.352999926
+O&M costs: [23519867.52906797]
+Decommisioning costs: [48657661.52303874]
+Support costs: 339711136.5207886
+Total investment costs: [9.12215778e+08]
+AEP: [1.33041615e+12]
+LCOE: [8.39239934]
+[2.6565     2.92487205 1.95183885] [15.62811936  8.85343194  3.25262333]
+Thickness factor: [0.7]
+Blade mass: 12489.545236333212
+Pitch: [1.97920773]
+TSR: [7.62802651]
+Cp: [0.45068072]
+Rated wind speed: [11.54727238]
+Max Ct: [0.65627002]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568195.46467927] [213284.62435864] [2736203.62772397] [3517683.71676187]
+Gearbox cost: [680179.75982202]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47235206] [200000.] [259844.2]
+Efficiency: [0.932849]
+Maximum difference: [[7.6e-06]]
+Cp: [0.45068072]
+TSR: [7.62802651]
+Rated wind speed: 11.5472723796
+Pitch: 1.97920772858
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 175.297999859
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4713
+DLC 1.3, Skin sress (MPa): 105.80474799666774
+DLC 1.3, Spar stress(MPa): 554.6957025151457
+DLC 1.3, Te_Reinf stress (MPa): 86.21348199864701
+FAST run time elapsed (s): 261.792999983
+O&M costs: [23519867.3807585]
+Decommisioning costs: [48657661.32779544]
+Support costs: 339711187.44820464
+Total investment costs: [9.12215816e+08]
+AEP: [1.33041614e+12]
+LCOE: [8.39239965]
+[2.6565     2.92487205 1.95183885] [15.62811936  8.85343194  3.25262333]
+Thickness factor: [0.7]
+Blade mass: 12489.545236333212
+Pitch: [1.97921123]
+TSR: [7.62801891]
+Cp: [0.45068064]
+Rated wind speed: [11.5472731]
+Max Ct: [0.6562695]
+Pitch: [1.97921123]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568195.46467927] [213284.59028065] [2736204.17590798] [3517684.2308679]
+Gearbox cost: [680180.26612269]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47283227] [200000.] [259844.2]
+Efficiency: [0.93284899]
+Maximum difference: [[7.6e-06]]
+Cp: [0.45068064]
+TSR: [7.62801891]
+Rated wind speed: 11.5472730958
+Pitch: 1.97921122858
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.4150002
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4713
+DLC 1.3, Skin sress (MPa): 105.80474799666774
+DLC 1.3, Spar stress(MPa): 554.6957025151457
+DLC 1.3, Te_Reinf stress (MPa): 86.21348199864701
+FAST run time elapsed (s): 260.823000193
+O&M costs: [23519865.49643676]
+Decommisioning costs: [48657661.83448754]
+Support costs: 339711066.557723
+Total investment costs: [9.12215734e+08]
+AEP: [1.33041602e+12]
+LCOE: [8.39239968]
+[2.6565     2.92487205 1.95183885] [15.62811936  8.85343194  3.25262333]
+Thickness factor: [0.700001]
+Blade mass: 12489.562602404656
+Pitch: [1.97920773]
+TSR: [7.62801891]
+Cp: [0.45068072]
+Rated wind speed: [11.54727238]
+Max Ct: [0.65626972]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568196.25472589] [213284.73529901] [2736204.42103482] [3517685.41105972]
+Gearbox cost: [680180.31830597]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47550425] [200000.] [259844.2]
+Efficiency: [0.932849]
+Maximum difference: [[3.5e-06]]
+DLC 1.3, Deflection in m: 6.4713
+DLC 1.3, Skin sress (MPa): 105.80474799666774
+DLC 1.3, Spar stress(MPa): 554.6957025151457
+DLC 1.3, Te_Reinf stress (MPa): 86.21348199864701
+FAST run time elapsed (s): 0.110000133514
+O&M costs: [23519867.3807585]
+Decommisioning costs: [48657662.84958809]
+Support costs: 339711113.99042535
+Total investment costs: [9.12215873e+08]
+AEP: [1.33041614e+12]
+LCOE: [8.39240005]
+[2.6565     2.92487205 1.95183885] [15.62813267  8.85343194  3.25262333]
+Thickness factor: [0.7]
+Blade mass: 12489.545236333212
+Pitch: [1.97920773]
+TSR: [7.62801891]
+Cp: [0.45068071]
+Rated wind speed: [11.5472725]
+Max Ct: [0.65626969]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568195.46467927] [213284.59970688] [2736204.22916793] [3517684.29355408]
+Gearbox cost: [680180.31245303]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47291927] [200000.] [259844.2]
+Efficiency: [0.932849]
+Maximum difference: [1.3308e-05]
+Cp: [0.45068071]
+TSR: [7.62801891]
+Rated wind speed: 11.5472724971
+Pitch: 1.97920772858
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.52699995
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4724
+DLC 1.3, Skin sress (MPa): 105.80474799666774
+DLC 1.3, Spar stress(MPa): 554.6957025151457
+DLC 1.3, Te_Reinf stress (MPa): 86.21348199864701
+FAST run time elapsed (s): 261.687999964
+O&M costs: [23519867.07163905]
+Decommisioning costs: [48657661.8966627]
+Support costs: 339711100.3994962
+Total investment costs: [9.12215773e+08]
+AEP: [1.33041612e+12]
+LCOE: [8.39239945]
+[2.6565     2.92487205 1.95183885] [15.62811936  8.85344094  3.25262333]
+Thickness factor: [0.7]
+Blade mass: 12489.545236333212
+Pitch: [1.97920773]
+TSR: [7.62801891]
+Cp: [0.45068067]
+Rated wind speed: [11.54727287]
+Max Ct: [0.6562696]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568195.46467927] [213284.59792061] [2736204.20877511] [3517684.27137499]
+Gearbox cost: [680180.29430412]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47289173] [200000.] [259844.2]
+Efficiency: [0.93284899]
+Maximum difference: [1.3308e-05]
+Cp: [0.45068067]
+TSR: [7.62801891]
+Rated wind speed: 11.547272871
+Pitch: 1.97920772858
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 174.33100009
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4757
+DLC 1.3, Skin sress (MPa): 105.87111655017212
+DLC 1.3, Spar stress(MPa): 555.0436486338981
+DLC 1.3, Te_Reinf stress (MPa): 86.18016921580362
+FAST run time elapsed (s): 269.114000082
+O&M costs: [23519866.0877654]
+Decommisioning costs: [48657661.87470923]
+Support costs: 339711086.9272029
+Total investment costs: [9.12215758e+08]
+AEP: [1.33041606e+12]
+LCOE: [8.39239965]
+[2.6565     2.92487205 1.95183885] [15.62811936  8.85343194  3.25262646]
+Thickness factor: [0.7]
+Blade mass: 12489.545236333212
+Pitch: [1.97920773]
+TSR: [7.62801891]
+Cp: [0.45068069]
+Rated wind speed: [11.54727268]
+Max Ct: [0.65626963]
+Pitch: [1.97920773]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [568195.46467927] [213284.5957804] [2736204.21433454] [3517684.27479421]
+Gearbox cost: [680180.2998418]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208845.47289092] [200000.] [259844.2]
+Efficiency: [0.932849]
+Maximum difference: [8.69723591e-06]
+Cp: [0.45068069]
+TSR: [7.62801891]
+Rated wind speed: 11.5472726849
+Pitch: 1.97920772858
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 174.035000086
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.55 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.4746
+DLC 1.3, Skin sress (MPa): 105.85784283947123
+DLC 1.3, Spar stress(MPa): 554.9740594101476
+DLC 1.3, Te_Reinf stress (MPa): 86.18016921580362
+FAST run time elapsed (s): 261.049999952
+O&M costs: [23519866.57756681]
+Decommisioning costs: [48657661.87802377]
+Support costs: 339711090.6300118
+Total investment costs: [9.12215762e+08]
+AEP: [1.33041609e+12]
+LCOE: [8.39239952]
+[2.6565     2.96490165 1.986694  ] [15.51775384  8.59670025  3.24230598]
+Thickness factor: [0.7]
+Blade mass: 12596.825321625349
+Pitch: [1.82829977]
+TSR: [7.34138206]
+Cp: [0.45487024]
+Rated wind speed: [11.51171149]
+Max Ct: [0.66352138]
+Pitch: [1.82829977]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [573076.03132601] [214314.81759234] [2776049.81268055] [3563440.6615989]
+Gearbox cost: [708876.94191689]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [212370.11472457] [200000.] [259844.2]
+Efficiency: [0.9325482]
+Maximum difference: [[0.28663685]]
+Cp: [0.45487024]
+TSR: [7.34138206]
+Rated wind speed: 11.5117114903
+Pitch: 1.8282997671
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 176.907000065
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.51 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.2073
+DLC 1.3, Skin sress (MPa): 106.89214114902788
+DLC 1.3, Spar stress(MPa): 560.580658853556
+DLC 1.3, Te_Reinf stress (MPa): 88.19018979625032
+FAST run time elapsed (s): 264.678000212
+O&M costs: [23614318.21590288]
+Decommisioning costs: [48718922.14620754]
+Support costs: 341207886.3546971
+Total investment costs: [9.1724196e+08]
+AEP: [1.33532809e+12]
+LCOE: [8.40458918]
+[2.6565     2.93903345 1.96416966] [15.58907502  8.76260719  3.24897333]
+Thickness factor: [0.7]
+Blade mass: 12530.132700162056
+Pitch: [1.92582056]
+TSR: [7.52661452]
+Cp: [0.45242331]
+Rated wind speed: [11.53242784]
+Max Ct: [0.65911081]
+Pitch: [1.92582056]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [570041.93806433] [213669.23357594] [2747586.22927108] [3531297.40091135]
+Gearbox cost: [690090.81324274]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208863.91153845] [200000.] [259844.2]
+Efficiency: [0.93274576]
+Maximum difference: [[0.18523246]]
+Cp: [0.45242331]
+TSR: [7.52661452]
+Rated wind speed: 11.532427837
+Pitch: 1.92582056195
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 174.805999994
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.53 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.3283
+DLC 1.3, Skin sress (MPa): 102.53814752804148
+DLC 1.3, Spar stress(MPa): 537.6331844785809
+DLC 1.3, Te_Reinf stress (MPa): 85.86893406014292
+FAST run time elapsed (s): 262.059000015
+O&M costs: [23559144.18617236]
+Decommisioning costs: [48670884.43434194]
+Support costs: 340186151.9323323
+Total investment costs: [9.13740867e+08]
+AEP: [1.33249037e+12]
+LCOE: [8.39326159]
+[2.6565     2.93141227 1.95753364] [15.61008736  8.81148599  3.25093764]
+Thickness factor: [0.7]
+Blade mass: 12508.293409203792
+Pitch: [1.95455173]
+TSR: [7.58118692]
+Cp: [0.45188115]
+Rated wind speed: [11.53703821]
+Max Ct: [0.6576214]
+Pitch: [1.95455173]
+Blade cost, Hub costs, Nacelle costs, RNA cost : [569048.38819206] [213439.85446863] [2741019.65344981] [3523507.8961105]
+Gearbox cost: [684362.91163629]
+Generator cost, Mainframe cost, Electrical cost, Transformer cost: [325000.00048653] [208853.42372928] [200000.] [259844.2]
+Efficiency: [0.93284444]
+Maximum difference: [[0.0545724]]
+Cp: [0.45188115]
+TSR: [7.58118692]
+Rated wind speed: 11.5370382133
+Pitch: 1.95455172502
+Starting linearization...
+ 
+ 
+ 
+... Linearization complete!
+FAST run time before Load cases (s): 173.690000057
+Setting controller parameters...
+Done before InflowWind
+ Running FAST (U = 11.54 m/s, seed 1/1)
+Completed!
+DLC 1.3, Deflection in m: 6.3085
+DLC 1.3, Skin sress (MPa): 102.0525193088412
+DLC 1.3, Spar stress(MPa): 535.0532089980293
+DLC 1.3, Te_Reinf stress (MPa): 86.44242541663148
+FAST run time elapsed (s): 260.728000164
+O&M costs: [23546897.25460698]
+Decommisioning costs: [48663310.17103842]
+Support costs: 339819585.65888584
+Total investment costs: [9.1277346e+08]
+AEP: [1.33193859e+12]
+LCOE: [8.38890321]
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: 0.941399289312
+            Iterations: 3
+            Function evaluations: 6
+            Gradient evaluations: 3
+Optimization Complete
+-----------------------------------
+========== LCOE ==========
+8.388903206991184
+==========================
+========== AEP ==========
+1372849508402.54
+=========================
+Executed in 12499.49 seconds
+
+
+Process finished with exit code 0

@@ -1,0 +1,16 @@
+---Packages required after installing python and pycharm---
+
+-openmdao
+-numpy
+-scipy
+-pandas
+-matplotlib
+-algopy
+- math and time already there
+
+---Steps---
+- Download Python (& pip) and PyCharm
+- Set pycharm interpreter to system python 2.7 and not virtual environment
+- Make sure all libraries are there. Numpy, scipy, pandas pip etc
+- pip install openMDAO
+- install matlab engine in matlab folder for engines--python (MATLAB version not lower than 2017b)
