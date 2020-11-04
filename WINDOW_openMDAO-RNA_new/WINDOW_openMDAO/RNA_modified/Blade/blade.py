@@ -70,13 +70,15 @@ class Blade(Group):
                            promotes_outputs=['span_r', 'span_chord', 'span_twist'])
 
         #self.add_subsystem('Preprocessor', Preprocessor(num_nodes=num_nodes), promotes_inputs=['tau'])
-        self.add_subsystem('Preprocessor', Preprocessor(num_nodes=num_nodes), promotes_inputs=['tau'])
+        #self.add_subsystem('Preprocessor', Preprocessor(num_nodes=num_nodes), promotes_inputs=['tau'])
 
         # self.add_subsystem('struc_design', structural_design.VariableChord(num_nodes=num_nodes, reference_turbine = reference_turbine), \
         #                    promotes_inputs=['rotor_diameter', 'thickness_factor', 'blade_number'], \
         #                    promotes_outputs=['blade_mass', 'blades_mass'])
 
-        self.add_subsystem('struc_design', structural_design.VariableChord(num_nodes=num_nodes, reference_turbine = reference_turbine), \
+
+
+        self.add_subsystem('struc_design', structural_design.VariableRadius(num_nodes=num_nodes, reference_turbine = reference_turbine), \
                            promotes_inputs=['rotor_diameter', 'thickness_factor', 'blade_number'], \
                            promotes_outputs=['blade_mass', 'blades_mass'])
                            
@@ -113,13 +115,13 @@ class Blade(Group):
         self.connect('span_twist', ['aero_partial.span_twist', 'aero_rated.span_twist'])
         
         self.connect('struc_design.span_thickness', ['mech.span_thickness'])
-        #self.connect('struc_design.span_mass', ['mech.span_mass'])
-        #self.connect('struc_design.span_flap_stiff', ['mech.span_flap_stiff'])
-        #self.connect('struc_design.span_edge_stiff', ['mech.span_edge_stiff'])
+        self.connect('struc_design.span_mass', ['mech.span_mass'])
+        self.connect('struc_design.span_flap_stiff', ['mech.span_flap_stiff'])
+        self.connect('struc_design.span_edge_stiff', ['mech.span_edge_stiff'])
 
-        self.connect('Preprocessor.mass_length', ['mech.span_mass'])
-        self.connect('Preprocessor.flapwise_stiffness', ['mech.span_flap_stiff'])
-        self.connect('Preprocessor.edgewise_stiffness', ['mech.span_edge_stiff'])
+        #self.connect('Preprocessor.mass_length', ['mech.span_mass'])
+        #self.connect('Preprocessor.flapwise_stiffness', ['mech.span_flap_stiff'])
+        #self.connect('Preprocessor.edgewise_stiffness', ['mech.span_edge_stiff'])
 
         
         self.connect('aero_partial.swept_area', ['pc.swept_area'])
