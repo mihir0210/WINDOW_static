@@ -99,7 +99,7 @@ class  Analytical(AbsRotorMechanics):
         span_stress_max = np.array(nodes['S_max']).max()     # np.array(nodes['S_flap']).max()*gamma_ultimate/UTS
         tip_deflection = nodes.loc[num_nodes-1, 'y']
 
-
+        '''
 
 
         scipy.io.savemat('Matlab_scripts\Static_moment.mat',
@@ -196,6 +196,9 @@ class  Analytical(AbsRotorMechanics):
 
         Stress_edgewise_te_reinf = np.array([Stress_edgewise_te_reinf_loc1, Stress_edgewise_te_reinf_loc2, Stress_edgewise_te_reinf_loc3,
                                              Stress_edgewise_te_reinf_loc4, Stress_edgewise_te_reinf_loc5])
+                                             
+        
+        '''
 
 
 
@@ -219,9 +222,9 @@ class  Analytical(AbsRotorMechanics):
         outputs['span_stress_gravity'] = np.array(nodes['S_grav'])
         outputs['span_stress_max'] = np.array(nodes['S_max']).max()     # np.array(nodes['S_flap']).max()*gamma_ultimate/UTS
         outputs['tip_deflection'] = tip_deflection
-        outputs['max_stress_skin'] = max_stress_skin
-        outputs['max_stress_spar'] = max_stress_spar
-        outputs['max_stress_te_reinf'] = max_stress_te_reinf
+        #outputs['max_stress_skin'] = max_stress_skin
+        #outputs['max_stress_spar'] = max_stress_spar
+        #outputs['max_stress_te_reinf'] = max_stress_te_reinf
         #outputs['Root_stress'] = Root_stress
         #outputs['Stress_flapwise_skin'] = Stress_flapwise_skin
         #outputs['Stress_flapwise_spar'] = Stress_flapwise_spar

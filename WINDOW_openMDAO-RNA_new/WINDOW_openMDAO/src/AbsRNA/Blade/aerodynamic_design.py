@@ -19,8 +19,8 @@ class AbsAerodynamicDesign(ExplicitComponent):
         self.add_input('hub_radius', units = 'm', desc = 'hub radius')
         self.add_input('chord_coefficients', units = 'm', desc = 'coefficients of polynomial chord profile', shape=num_pegged)
         self.add_input('twist_coefficients', units = 'deg', desc = 'coefficients of polynomial twist profile', shape=num_pegged)
-        self.add_input('span_airfoil_r', units='m', desc='list of blade node radial location at which the airfoils are specified', shape=num_airfoils)
-        self.add_input('span_airfoil_id', desc='list of blade node Airfoil ID', shape=num_airfoils)
+        self.add_input('span_airfoil_r', units='m', desc='list of blade node radial location at which the airfoils are specified', shape=num_nodes)
+        self.add_input('span_airfoil_id', desc='list of blade node Airfoil ID', shape=num_nodes)
         
         # outputs
         self.add_output('span_r', units='m', desc='spanwise radial location of blade junctions', shape=num_nodes)

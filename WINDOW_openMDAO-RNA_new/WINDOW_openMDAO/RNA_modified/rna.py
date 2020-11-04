@@ -93,12 +93,12 @@ class RNA(Group):
                            promotes_inputs=['design_tsr', 'blade_number', 'rotor_diameter', \
                                             'chord_coefficients', 'twist_coefficients', 'span_airfoil_r', 'span_airfoil_id', \
                                             'pitch','thickness_factor',\
-                                            'cut_in_speed', 'cut_out_speed', 'machine_rating', 'drive_train_efficiency',
-                                            'tau'], \
+                                            'cut_in_speed', 'cut_out_speed', 'machine_rating', 'drive_train_efficiency'
+                                            ], \
                            promotes_outputs=['rotor_cp', 'rotor_ct', 'rotor_torque', 'rotor_thrust', \
                                              'rated_wind_speed', 'wind_bin', 'elec_power_bin', 'ct_bin', \
-                                             'blade_mass', 'rotor_speed','span_stress_max','tip_deflection',
-                                             'max_stress_skin', 'max_stress_spar', 'max_stress_te_reinf'])
+                                             'blade_mass', 'rotor_speed','span_stress_max','tip_deflection'])
+                                             #'max_stress_skin', 'max_stress_spar', 'max_stress_te_reinf'])
                                              #'Stress_flapwise_skin', 'Stress_flapwise_spar', 'Stress_edgewise_skin',
                                              #'Stress_edgewise_te_reinf'])
         
@@ -141,8 +141,8 @@ class RNA(Group):
          
         self.connect('blade.span_chord', ['hub.blade_root_diameter'], src_indices=[0])
 
-        #self.connect('blade_mass', ['hub.blade_mass', 'cost.blade_mass'])
-        self.connect('blade.Preprocessor.total_blade_mass', ['hub.blade_mass', 'cost.blade_mass'])
+        self.connect('blade_mass', ['hub.blade_mass', 'cost.blade_mass'])
+        #self.connect('blade.Preprocessor.total_blade_mass', ['hub.blade_mass', 'cost.blade_mass'])
 
         self.connect('blade.root_moment_flap', ['hub.rotor_bending_moment'])
         self.connect('rotor_torque', ['hub.rotor_torque', 'nacelle.rotor_torque']) 

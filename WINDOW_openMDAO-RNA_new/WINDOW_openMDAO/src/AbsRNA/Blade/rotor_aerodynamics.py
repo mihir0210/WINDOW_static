@@ -21,7 +21,7 @@ class AbsRotorAerodynamics(ExplicitComponent):
         self.add_input('span_r', units='m', desc='list of blade node radial location', shape=num_nodes)
         self.add_input('span_dr', units='m', desc='list of blade annulus thickness', shape=num_nodes)
         self.add_input('span_airfoil', desc='list of blade node Airfoil ID', shape=num_nodes)
-        self.add_input('span_airfoil_id', desc = 'ID number of airfoils', shape = 8)
+        self.add_input('span_airfoil_id', desc = 'ID number of airfoils', shape = num_nodes)
         self.add_input('span_chord', units='m', desc='list of blade node chord length', shape=num_nodes)
         self.add_input('span_twist', units='deg',desc='list of blade node twist angle', shape=num_nodes)
         self.add_input('pitch', units = 'deg', desc = 'blade pitch angle')

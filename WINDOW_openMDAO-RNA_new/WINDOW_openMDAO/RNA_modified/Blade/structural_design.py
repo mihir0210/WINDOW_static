@@ -86,6 +86,7 @@ class VariableChord(AbsStructuralDesign):
             span_edge_stiff = np.append(span_edge_stiff, edge_stiff)
         
         blade_mass = np.dot(span_mass, span_dr)
+
         blades_mass = blade_mass * blade_number
         
         # outputs
@@ -145,6 +146,7 @@ class VariableRadius(AbsStructuralDesign):
             span_edge_stiff = np.append(span_edge_stiff, edge_stiff)
         
         blade_mass = np.dot(span_mass, span_dr)
+        print 'blade mass:', blade_mass
         blades_mass = blade_mass * blade_number
         
         # outputs

@@ -21,9 +21,9 @@ i = range(2,50)
 
 for idx in i:
     if idx<10:
-        airfoils_db.append('AeroDyn_Polar_0' + str(idx))
+        airfoils_db.append('AeroDyn_Polar_0' + str(idx) + '.dat')
     else:
-        airfoils_db.append('AeroDyn_Polar_' + str(idx))
+        airfoils_db.append('AeroDyn_Polar_' + str(idx) + '.dat')
 
 
 

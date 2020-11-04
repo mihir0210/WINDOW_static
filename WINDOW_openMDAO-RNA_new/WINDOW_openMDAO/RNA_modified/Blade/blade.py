@@ -69,7 +69,7 @@ class Blade(Group):
                                             'span_airfoil_r', 'span_airfoil_id'], \
                            promotes_outputs=['span_r', 'span_chord', 'span_twist'])
 
-        #self.add_subsystem('Preprocessor', Preprocessor(num_nodes=num_nodes), promotes_inputs=['tau'])
+
         #self.add_subsystem('Preprocessor', Preprocessor(num_nodes=num_nodes), promotes_inputs=['tau'])
 
         # self.add_subsystem('struc_design', structural_design.VariableChord(num_nodes=num_nodes, reference_turbine = reference_turbine), \
@@ -99,19 +99,19 @@ class Blade(Group):
 
         self.add_subsystem('mech', rotor_mechanics.Analytical(num_nodes=num_nodes, E_blade=E_blade, g=g), \
                            promotes_inputs=['shaft_angle'], \
-                           promotes_outputs=['root_moment_flap', 'span_stress_max', 'tip_deflection',
-                                             'max_stress_skin', 'max_stress_spar', 'max_stress_te_reinf'])
+                           promotes_outputs=['root_moment_flap', 'span_stress_max', 'tip_deflection'])
+                                             #'max_stress_skin', 'max_stress_spar', 'max_stress_te_reinf'])
                                              #'Stress_flapwise_skin', 'Stress_flapwise_spar', 'Stress_edgewise_skin',
                                              #'Stress_edgewise_te_reinf'])
         
         # connections
         self.connect('span_r', ['struc_design.span_r', 'aero_partial.span_r',
-                                'aero_rated.span_r','mech.span_r','Preprocessor.span_r'])
+                                'aero_rated.span_r','mech.span_r'])
         self.connect('aero_design.span_dr', ['struc_design.span_dr', 'aero_partial.span_dr',
-                                             'aero_rated.span_dr','mech.span_dr', 'Preprocessor.span_dr'])
-        self.connect('aero_design.span_airfoil', ['aero_partial.span_airfoil', 'aero_rated.span_airfoil', 'Preprocessor.span_airfoil'])
+                                             'aero_rated.span_dr','mech.span_dr'])
+        self.connect('aero_design.span_airfoil', ['aero_partial.span_airfoil', 'aero_rated.span_airfoil'])
         self.connect('span_chord', ['struc_design.span_chord', 'aero_partial.span_chord',
-                                    'aero_rated.span_chord','mech.span_chord', 'Preprocessor.span_chord'])
+                                    'aero_rated.span_chord','mech.span_chord'])
         self.connect('span_twist', ['aero_partial.span_twist', 'aero_rated.span_twist'])
         
         self.connect('struc_design.span_thickness', ['mech.span_thickness'])
