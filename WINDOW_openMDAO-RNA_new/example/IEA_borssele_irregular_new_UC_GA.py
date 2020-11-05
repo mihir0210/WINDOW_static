@@ -94,9 +94,9 @@ options.input.turbine.has_crane = True
 options.input.turbine.reference_turbine = 'Input/Reference_turbine_15MW.csv'
 options.input.turbine.reference_turbine_cost = 'Input/reference_turbine_cost_mass.csv'
 
-options.input.turbine.wind_speed_file = 'Input/North_sea_2018_100.csv'
-options.input.turbine.spot_price_file = 'Input/NL_spot_2018.csv'
-#options.input.turbine.spot_price_file = 'Input/DK_spot_2018.csv'
+options.input.turbine.wind_speed_file = 'Input/North_sea_2018_150.csv'
+#options.input.turbine.spot_price_file = 'Input/NL_spot_2018.csv'
+options.input.turbine.spot_price_file = 'Input/DK_spot_2018.csv'
 
 
 

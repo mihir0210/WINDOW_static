@@ -14,15 +14,15 @@
 
 %%%%% import data in the workspace by opening CSV in the MATLAB reader %%
 
-wind_100 = table2array(KNW1);
+wind_speed = table2array(KNW1);
 
-wind_100(wind_100<0) = 0.1;
+wind_speed(wind_speed<0) = 0.1;
 
 %% Step 2
 
-[parmHat,parmCI] = wblfit(wind_100);
+[parmHat,parmCI] = wblfit(wind_speed);
 
-histogram(wind_100); hold on;
+histogram(wind_speed); hold on;
 
 a = parmHat(1); b = parmHat(2);
  
@@ -37,9 +37,12 @@ plot(X,y);
 
 n_hours_skipped = 8760*3 + 8784; % 2016 being a leap year
 
-wind_2018_100 = wind_100(n_hours_skipped:n_hours_skipped + 8759); 
+%wind_2018_100 = wind_speed(n_hours_skipped:n_hours_skipped + 8759); 
+%csvwrite('North_sea_2018_100.csv', wind_2018_100 ); 
 
-csvwrite('North_sea_2018_100.csv', wind_2018_100 ); 
+wind_2018_150 = wind_speed(n_hours_skipped:n_hours_skipped + 8759); 
+
+csvwrite('North_sea_2018_150.csv', wind_2018_150 ); 
 
 
 

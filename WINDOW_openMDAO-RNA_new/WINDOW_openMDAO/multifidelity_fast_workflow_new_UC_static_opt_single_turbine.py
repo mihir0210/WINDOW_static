@@ -117,8 +117,8 @@ class WorkingGroup(Group):
         #indep2.add_output('gear_ratio', desc='overall gearbox ratio', val=1.0)
         #indep2.add_output('Np', desc='number of planets in each stage', val=[3, 3, 1])
         indep2.add_output('Np', desc='number of planets in each stage', val=[3,3,1])
-        indep2.add_output('weibull_scale', desc='weibull scale parameter', val=9.3523)
-        indep2.add_output('weibull_shape', desc='weibull shape parameter', val=2.023)
+        indep2.add_output('weibull_scale', desc='weibull scale parameter', val=9.8204)
+        indep2.add_output('weibull_shape', desc='weibull shape parameter', val=2.0072)
 
 
 
@@ -337,7 +337,7 @@ class WorkingGroup(Group):
 
 
         ## Subsystem and Connections for Objective and Constraints ##
-        #self.add_subsystem('obj', ExecComp('f=lcoe/8.315'))  # Reference value
+        #self.add_subsystem('obj', ExecComp('f=lcoe/9.12'))  # Reference value
         #self.connect('single_turbine.LCOE', 'obj.lcoe')
 
         self.add_subsystem('obj', ExecComp('f=-1*IRR'))  # Reference value
