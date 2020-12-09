@@ -4,27 +4,65 @@ for that particular year. Also returns ratio of future year capacity to base yea
 '''
 
 import numpy as np
+import pandas as pd
 
-def capacity(future_year):
+class capacity:
 
-    base_year = 2019
+    def __init__(self, future_year):
+        self.future_year = future_year
+        self.base_year = 2019
 
-    year_wind = np.array([2015,2016,2017,2018,2019,2020, 2030]) # sample years
-    onshore_wind = np.array([2646, 3284, 3479, 3675, 3669, 3973, 8000]) # onshore installed capacity
-    offshore_wind = np.array([228, 357, 638, 957, 957, 1709, 11500]) # offshore installed capacity
-    tot_wind = np.add(onshore_wind, offshore_wind) # total installed capacity
 
-    coeff = np.polyfit(year_wind, tot_wind, 2) # fit a second degree polynomial
+    def ref_gen_scenario(self):
 
-    p = np.poly1d(coeff) # p can be used as a function to return the capacity for a given year
+        # A scenario where wind generation increases linearly
 
-    wind_future_capacity = p(future_year)
+        data = pd.read_csv('Input/reference_gen_scenario.csv')
+        year_wind = np.array(data['Year']) # sample years
+        onshore_wind = np.array(data['Onshore wind']) # onshore installed capacity
+        offshore_wind = np.array(data['Offshore wind']) # offshore installed capacity
+        tot_wind = np.add(onshore_wind, offshore_wind) # total installed capacity
 
-    idx = (np.abs(year_wind - base_year)).argmin()
+        coeff = np.polyfit(year_wind, tot_wind, 1) # linear fit
 
-    ratio_wind = wind_future_capacity/tot_wind[idx]
+        p = np.poly1d(coeff) # p can be used as a function to return the capacity for a given year
 
-    load_increase = 0.02 # a 2% increase in load every year
-    ratio_load =  (1 + load_increase)**(future_year - base_year)
+        wind_future_capacity = p(self.future_year)
 
-    return ratio_wind, ratio_load
+        idx = (np.abs(year_wind - self.base_year)).argmin()
+
+        ratio_wind = wind_future_capacity/tot_wind[idx]
+
+        load_increase = 0.015 # a 1.5 % increase in load every year
+        ratio_load =  (1 + load_increase)**(self.future_year - self.base_year)
+
+        return ratio_wind, ratio_load
+
+    def amb_gen_scenario(self):
+        # A scenario where wind generation meets ambitious government targets
+
+        data = pd.read_csv('Input/ambitious_gen_scenario.csv')
+        year_wind = np.array(data['Year']) # sample years
+        onshore_wind = np.array(data['Onshore wind']) # onshore installed capacity
+        offshore_wind = np.array(data['Offshore wind']) # offshore installed capacity
+        tot_wind = np.add(onshore_wind, offshore_wind) # total installed capacity
+
+        coeff = np.polyfit(year_wind, tot_wind, 2) # Second order fit
+
+        p = np.poly1d(coeff) # p can be used as a function to return the capacity for a given year
+
+        wind_future_capacity = p(self.future_year)
+
+        idx = (np.abs(year_wind - self.base_year)).argmin()
+
+        ratio_wind = wind_future_capacity/tot_wind[idx]
+
+        load_increase = 0.015 # a 1.5 % increase in load every year
+        ratio_load =  (1 + load_increase)**(self.future_year - self.base_year)
+
+        return ratio_wind, ratio_load
+
+
+
+
+
