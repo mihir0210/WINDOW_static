@@ -1,6 +1,9 @@
 from farm_energy.wake_model_mean_new.aero_power_ct_models.aero_models import AeroLookup
 from WINDOW_openMDAO.input_params import TI_ambient
 
+import numpy as np
+
+
 
 class Workflow:
     def __init__(self, inflow_model, windrose_file, wake_turbulence_model, thrust_coefficient_model, thrust_lookup_file,
@@ -70,9 +73,14 @@ class Workflow:
 
         self.max_turbulence_per_turbine = [0.0 for _ in range(len(turbine_coordinates))]
 
+
+        dict_farm_power = {} # a dictionary containing the power curve of the farm for each windrose bin
+        farm_power =[] # just the matrix containing all power curves
+
         if self.print_output is True: print("=== CALCULATING ENERGY, TURBULENCE PER WIND DIRECTION ===")
         for i in range(len(self.wind_directions)):
-            self.aero_energy_one_angle, self.powers_one_angle, deficits = energy_one_angle(turbine_coordinates,
+
+            self.aero_energy_one_angle, self.powers_one_angle, deficits, farm_power_one_angle = energy_one_angle(turbine_coordinates,
                                                                                            self.wind_speeds[i],
                                                                                            self.wind_speeds_probabilities[
                                                                                                i],
@@ -98,9 +106,43 @@ class Workflow:
             self.array_efficiencies.append(self.array_efficiencies_weighted)
             self.turbulences_per_angle.append(self.turbulences)
 
+            #print 'Power one angle:', self.powers_one_angle
+            #print 'length power:', len(self.powers_one_angle)
+
+            for val in range(len(farm_power_one_angle)):
+                if isinstance(farm_power_one_angle[val], np.ndarray):
+                    farm_power_one_angle[val] = farm_power_one_angle[val][0] # convert to float
+
+            farm_power.append(farm_power_one_angle)
+
+
+
+
+            key1 = str(int(self.wind_directions[i]))
+            value = farm_power_one_angle
+
+            dict_farm_power[key1] = value
+
+
+
+
+            #print farm_power_one_angle # power curve of the farm for one angle bin
+
+
             for j in range(len(turbine_coordinates)):
                 if self.turbulences[j] > self.max_turbulence_per_turbine[j]:
                     self.max_turbulence_per_turbine[j] = self.turbulences[j]
+
+
+        for idx in range(len(self.wind_speeds[0])):
+            if isinstance(self.wind_speeds[0][idx], np.ndarray):
+                self.wind_speeds[0][idx] = self.wind_speeds[0][idx][0] # convert to float
+
+
+        dict_farm_power.update({'Wind speeds': self.wind_speeds[0]})
+
+
+
 
         if self.print_output is True: print(str(self.array_efficiency * 100.0) + " %\n")
         if self.print_output is True: print(" --- Farm annual energy without losses---")
@@ -115,7 +157,7 @@ class Workflow:
         if self.print_output is True: print(
             str([self.turbulence[l] * 100.0 for l in range(len(self.turbulence))]) + " %\n")
 
-        return self.farm_annual_energy, self.turbulence, self.array_efficiency
+        return self.farm_annual_energy, self.turbulence, self.array_efficiency, dict_farm_power
 
     def run(self, layout_coordinates):
 

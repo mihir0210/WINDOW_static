@@ -66,8 +66,8 @@ options.models.opex = OM_model1
 options.models.apex = TeamPlayCostModel
 
 # Define number of windrose sampling points
-options.samples.wind_speeds = 10  #1
-options.samples.wind_sectors_angle = 10.0 #30.0
+options.samples.wind_speeds = 22  # number of wind samples between cut-in and cut-out
+options.samples.wind_sectors_angle = 30.0 # range of one sector for a windrose
 
 # Define paths to site and turbine defining input files.
 options.input.site.windrose_file = "Input/weibull_windrose_12unique.dat"
@@ -197,9 +197,9 @@ from time import time
 
 start = time()
 
-#problem.run_model()
+problem.run_model()
 
-problem.run_driver()
+#problem.run_driver()
 
 #############################
 ######## PARAMS #############

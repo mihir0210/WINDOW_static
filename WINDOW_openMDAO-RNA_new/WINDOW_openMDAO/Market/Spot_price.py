@@ -27,6 +27,6 @@ def spot_price(ratio_wind, ratio_load):
     hour_contribution = np.array(data['Hour contribution'])
     month_contribution = np.array(data['Month contribution'])
 
-    spot_price_future = constant + wind_coeff*wind_forecast*ratio_wind + load_coeff*load_forecast*ratio_load + hour_contribution + month_contribution
+    spot_price_future = constant + wind_coeff*wind_forecast*ratio_wind + load_coeff*load_forecast*ratio_load # + hour_contribution + month_contribution
 
     return spot_price_future

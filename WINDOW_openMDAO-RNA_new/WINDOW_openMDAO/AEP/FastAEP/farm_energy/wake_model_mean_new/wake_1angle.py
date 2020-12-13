@@ -1,4 +1,5 @@
 from order_layout import order
+import numpy as np
 
 
 def energy_one_angle(original_layout, freestream_wind_speeds, probabilities_speed, wind_angle, ambient_turbulences, WakeModel, PowerModel, table_power, ThrustModel, ct_table, MergingModel, \
@@ -7,6 +8,7 @@ def energy_one_angle(original_layout, freestream_wind_speeds, probabilities_spee
     ordered_layout = order(original_layout, wind_angle)
     energy = 0.0
     weighted_individuals = [0.0 for _ in range(len(original_layout))]
+    farm_power_one_angle = []
     # print original_layout
     # print ordered_layout
     def first(x):
@@ -17,6 +19,8 @@ def energy_one_angle(original_layout, freestream_wind_speeds, probabilities_spee
         wind_speeds_array = [freestream_wind_speeds[speed]]
         deficit_matrix = [[] for _ in range(len(ordered_layout))]
         total_deficit = [0.0]
+
+
         # print len(ordered_layout)
         for i in range(len(ordered_layout)):
             if i == 0:
@@ -30,13 +34,22 @@ def energy_one_angle(original_layout, freestream_wind_speeds, probabilities_spee
             deficit_matrix[i] += WakeModel(ordered_layout[i], ct[i], ordered_layout[i + 1:], wind_angle, freestream_wind_speeds[speed], ambient_turbulences[speed], rotor_radius)
         wind_speeds_array_original = [x for (y, x) in sorted(zip([item[0] for item in ordered_layout], wind_speeds_array), key=first)]
         # print len(wind_speeds_array_original)
+
         individual_powers = [PowerModel(wind, table_power, cutin, cutout, rated_wind, rotor_radius, rated_power) for wind in wind_speeds_array_original]
-        # print individual_powers
+
         for turb in range(len(individual_powers)):
             weighted_individuals[turb] += individual_powers[turb] * probabilities_speed[speed] / 100.0
         farm_power = sum(individual_powers)
+
+
+
+        farm_power_one_angle.append(farm_power)
+
+
+
         energy += farm_power * probabilities_speed[speed] / 100.0 * 8760.0
         #print 'Wind speed array:', wind_speeds_array
         #print 'Individual power:', individual_powers
-    return energy, weighted_individuals, deficit_matrix
+
+    return energy, weighted_individuals, deficit_matrix, farm_power_one_angle
 

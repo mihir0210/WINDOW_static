@@ -6,7 +6,7 @@ for that particular year. Also returns ratio of future year capacity to base yea
 import numpy as np
 import pandas as pd
 
-class capacity:
+class Capacity:
 
     def __init__(self, future_year):
         self.future_year = future_year
