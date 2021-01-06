@@ -17,6 +17,7 @@ from WINDOW_openMDAO.Revenue.Revenue_based import Revenue_based
 from WINDOW_openMDAO.Turbine.single_turbine import single_turbine
 
 
+
 class WorkingGroup(Group):
     def __init__(self, options):
         super(WorkingGroup, self).__init__()
@@ -52,6 +53,7 @@ class WorkingGroup(Group):
         self.reference_turbine = options.input.turbine.reference_turbine
         self.reference_turbine_cost = options.input.turbine.reference_turbine_cost
 
+
         self.wind_speed_file = options.input.turbine.wind_speed_file
         self.spot_price_file = options.input.turbine.spot_price_file
 
@@ -66,7 +68,7 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1)
+        indep2.add_output('turbine_rad', val=1.12)
         indep2.add_output('rated_power', val=1)  # 2 for DTU 10 MW 190 m turbine
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)
@@ -110,8 +112,8 @@ class WorkingGroup(Group):
         indep2.add_output('gear_ratio', desc='overall gearbox ratio', val=96.76)
         indep2.add_output('Np', desc='number of planets in each stage', val=[3, 3, 1])
 
-        indep2.add_output('weibull_scale', desc='weibull scale parameter', val=9.3523)
-        indep2.add_output('weibull_shape', desc='weibull shape parameter', val=2.023)
+        indep2.add_output('weibull_scale', desc='weibull scale parameter', val=8.469)
+        indep2.add_output('weibull_shape', desc='weibull shape parameter', val=2.345)
 
 
 
@@ -130,8 +132,8 @@ class WorkingGroup(Group):
         indep2.add_output('design_tsr', desc='design tip speed ratio', val=1)
         indep2.add_output('tau', val=1)'''
 
-        self.add_subsystem('rad_scaling', ExecComp('turbine_radius = turbine_rad*90.0'))
-        self.add_subsystem('power_scaling', ExecComp('machine_rating = rated_power*10000.0'))
+        self.add_subsystem('rad_scaling', ExecComp('turbine_radius = turbine_rad*63.0'))
+        self.add_subsystem('power_scaling', ExecComp('machine_rating = rated_power*5000.0'))
 
         self.add_subsystem('rad2dia', ExecComp('rotor_diameter = turbine_radius*2.0', \
                                                rotor_diameter={'units': 'm'}))
@@ -173,17 +175,27 @@ class WorkingGroup(Group):
 
         self.add_subsystem('support', self.support_model())
 
+        self.add_subsystem('Costs', self.apex_model())
+
+
+
         self.add_subsystem('OandM', self.opex_model())
         self.add_subsystem('AEP', AEP())
-        self.add_subsystem('Costs', self.apex_model())
+
         self.add_subsystem('lcoe', LCOE())
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
+
+
 
         ## add single turbine model
 
         self.add_subsystem('single_turbine', single_turbine(wind_speed_file=self.wind_speed_file,
                                                     spot_price_file=self.spot_price_file))
+
+
+
+
 
 
 
@@ -260,6 +272,8 @@ class WorkingGroup(Group):
 
         self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
         self.connect('AeroAEP.AEP', ['AEP.aeroAEP', 'OandM.AEP'])
+
+
         self.connect('OandM.availability', 'AEP.availability')
         self.connect('indep2.coll_electrical_efficiency', 'AEP.electrical_efficiency')
 
@@ -291,6 +305,13 @@ class WorkingGroup(Group):
         self.connect('indep2.operational_lifetime', 'lcoe.operational_lifetime')
         self.connect('indep2.interest_rate', 'lcoe.interest_rate')
 
+
+
+
+
+
+
+
         '''
         ## REVENUE connects
 
@@ -306,6 +327,9 @@ class WorkingGroup(Group):
         self.connect('Costs.investment_costs', 'revenue.total_investment')
         self.connect('OandM.annual_cost_O&M', 'revenue.O_M')
         '''
+
+
+
 
         ## Single-turbine connects
 
@@ -333,8 +357,8 @@ class WorkingGroup(Group):
         #self.add_subsystem('obj', ExecComp('f=lcoe/8.315'))  # Reference value
         #self.connect('single_turbine.LCOE', 'obj.lcoe')
 
-        self.add_subsystem('obj', ExecComp('f=-1*IRR'))  # Reference value
-        self.connect('single_turbine.IRR', 'obj.IRR')
+        #self.add_subsystem('obj', ExecComp('f=-1*IRR'))  # Reference value
+        #self.connect('single_turbine.IRR', 'obj.IRR')
 
         ### For SLSQP ###
 
@@ -342,8 +366,8 @@ class WorkingGroup(Group):
         self.connect('rna.tip_deflection', 'c1.deflection')
         self.connect('rad_scaling.turbine_radius', 'c1.turbine_radius')
 
-        self.add_subsystem('c2', ExecComp('ramp = ramp_90/15.0'))  # Reference value
-        self.connect('single_turbine.ramp_90', 'c2.ramp_90')
+        #self.add_subsystem('c2', ExecComp('ramp = ramp_90/15.0'))  # Reference value
+        #self.connect('single_turbine.ramp_90', 'c2.ramp_90')
 
 
 

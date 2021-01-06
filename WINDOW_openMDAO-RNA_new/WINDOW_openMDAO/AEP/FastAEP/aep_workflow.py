@@ -118,7 +118,7 @@ class Workflow:
 
 
 
-            key1 = str(int(self.wind_directions[i]))
+            key1 = int(self.wind_directions[i])
             value = farm_power_one_angle
 
             dict_farm_power[key1] = value

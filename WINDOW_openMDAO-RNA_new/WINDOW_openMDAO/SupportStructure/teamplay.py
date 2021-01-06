@@ -15,6 +15,7 @@ class TeamPlay(AbstractSupportStructureDesign):
         tower_length = []
         min_tower_wall_thickness = []
         max_tower_wall_thickness =[]
+
         results =[]
 
 

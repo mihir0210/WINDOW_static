@@ -28,6 +28,11 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height)
 
+    print 'procurement electrical:', procurement_electrical
+    print 'project development:', project_development
+    print 'installation costs:', installation_auxiliary + installation_electrical + installation_rna
+    print 'procurement auxillary (platforms + measuring tower) :', procurement_auxiliary
+    print 'RNA costs:', procurement_rna
     investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
     # print "project_development ", project_development
     # print "procurement_auxiliary", procurement_auxiliary 

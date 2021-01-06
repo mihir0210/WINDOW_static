@@ -6,18 +6,23 @@ import scipy
 
 from scipy import stats
 from scipy.stats import norm
+import csv
+import pandas as pd
 
 class single_turbine(ExplicitComponent):
 
     def initialize(self):
 
         # fixed parameters
-        self.metadata.declare('wind_speed_file', desc='wind speed data file')
+        self.metadata.declare('wind_file', desc='wind speed and direction data file')
         self.metadata.declare('spot_price_file', desc ='Spot price data file')
+        self.metadata.declare('num_bins', desc='Number of wind speed samples')
 
 
     def setup(self):
-        self.add_input('elec_power_bin', shape=31)
+        num_bins = self.metadata['num_bins']
+
+        self.add_input('elec_power_bin', shape=num_bins)
         self.add_input('weibull_scale', val=2.11)
         self.add_input('weibull_shape', val=8.15)
 
@@ -46,11 +51,15 @@ class single_turbine(ExplicitComponent):
     def compute(self, inputs, outputs):
 
 
-        wind_speed_file = self.metadata['wind_speed_file']
+        wind_file = self.metadata['wind_file']
         spot_price_file = self.metadata['spot_price_file']
 
+        wind_file = pd.read_csv(wind_file)
 
-        wind_speeds = genfromtxt(wind_speed_file)
+        wind_speeds = np.array(wind_file['wind_speed'])
+
+
+
         spot_prices = genfromtxt(spot_price_file)
 
 
@@ -93,14 +102,14 @@ class single_turbine(ExplicitComponent):
 
         #print pdf
         print elec_power
-        print operational_lifetime
+
 
 
 
         AEP_ = np.multiply(elec_power, pdf)*8760
         AEP = np.sum(AEP_)  # annual energy production
 
-        print AEP
+
 
         #oandm_costs = 16.0 * AEP / 1000000.0
 
@@ -175,6 +184,8 @@ class single_turbine(ExplicitComponent):
 
 
 
+
+
         # aerodynamic and electrical power calculations
         for v in wind_speeds:
             if v < cut_in_speed or v > cut_out_speed:
@@ -186,8 +197,15 @@ class single_turbine(ExplicitComponent):
                 turbine_power_ = machine_rating/1000.0
             turbine_power.append(turbine_power_)
 
+        #with open('turbine_power_95_h.csv', 'wb') as file:
+         #   w = csv.writer(file)
+          #  w.writerow(turbine_power)
+        #print turbine_power
+
         turbine_power = np.array(turbine_power)
         #print farm_power
+
+
 
 
 
@@ -313,6 +331,6 @@ if __name__ == "__main__":
     outputs = {}
 
 
-    model = single_turbine(wind_speed_file='NL_wind_speed.csv', spot_price_file='NL_spot_price.csv')
+    model = single_turbine(wind_file='NL_wind_speed.csv', spot_price_file='NL_spot_price.csv')
 
     model.compute(inputs, outputs)

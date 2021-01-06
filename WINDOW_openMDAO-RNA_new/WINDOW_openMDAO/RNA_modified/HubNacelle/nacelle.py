@@ -37,7 +37,7 @@ class DriveSE(AbsNacelle):
         
         add_Nacelle(self)
 
-        print 'nacelle mass:', self.nacelle_mass
+        #print 'nacelle mass:', self.nacelle_mass
         # outputs
         outputs['nacelle_mass'] = self.nacelle_mass
         outputs['nacelle_cm'] = self.nacelle_cm

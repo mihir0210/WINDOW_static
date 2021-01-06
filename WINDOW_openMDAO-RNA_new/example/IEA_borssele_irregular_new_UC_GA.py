@@ -33,7 +33,7 @@ from WINDOW_openMDAO.src.api import WorkflowOptions
 #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC import WorkingGroup
 #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static import WorkingGroup
 #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt import WorkingGroup
-from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_single_turbine import WorkingGroup
+from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt import WorkingGroup
 
 import warnings
 
@@ -90,9 +90,14 @@ options.input.turbine.has_crane = True
 options.input.turbine.reference_turbine = 'Input/reference_turbine.csv'
 options.input.turbine.reference_turbine_cost = 'Input/reference_turbine_cost_mass.csv'
 
-options.input.turbine.wind_speed_file = 'Input/North_sea_2018_100.csv'
+options.input.site.time_resolution = 8760
+#options.input.site.wind_file = 'Input/NL_2019_100m_hourly_ERA5_highwind_withdir.csv'
+options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
+#options.input.site.wind_speed_file = 'Input/NL_2019_100m_hourly_ERA5_highwind.csv'
 #options.input.turbine.spot_price_file = 'Input/NL_spot_2018.csv'
-options.input.turbine.spot_price_file = 'Input/DK_spot_2018.csv'
+
+
+options.input.market.spot_price_file = 'Input/NL_2019_spot_price_hourly.csv'
 
 ### FAST addition ###
 
@@ -119,6 +124,8 @@ problem.driver.options['procs_per_model'] = 4
 problem.driver.options['penalty_parameter'] = 15
 problem.driver.options['penalty_exponent'] = 1.0
 
+'''
+
 problem.driver.recording_options['includes'] =[]
 problem.driver.recording_options['record_objectives'] = True
 problem.driver.recording_options['record_constraints'] = True
@@ -126,7 +133,7 @@ problem.driver.recording_options['record_desvars'] = True
 recorder = SqliteRecorder("dynamic_GA.csv")
 problem.driver.add_recorder(recorder)
 
-
+'''
 
 
 
@@ -176,8 +183,8 @@ problem['indep2.nacelle_housing_mass'] = 240000.0
 
 problem['indep2.drivetrain_gear_eff'] = 1.0'''
 
-problem.model.add_design_var('turbine_rad', lower=0.7, upper=1.3)
-problem.model.add_objective('obj.f')  # ref0=-1.5*f_scaler, ref=-0.5*f_scaler)
+#problem.model.add_design_var('turbine_rad', lower=0.7, upper=1.3)
+#problem.model.add_objective('obj.f')  # ref0=-1.5*f_scaler, ref=-0.5*f_scaler)
 #problem.model.add_constraint('c2.ramp', upper = 1)  # , ref0=0.25, ref=2.0)
 
 

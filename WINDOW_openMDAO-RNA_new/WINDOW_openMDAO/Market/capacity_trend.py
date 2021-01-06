@@ -33,7 +33,7 @@ class Capacity:
 
         ratio_wind = wind_future_capacity/tot_wind[idx]
 
-        load_increase = 0.015 # a 1.5 % increase in load every year
+        load_increase = 0.005 # a 0.5 % increase in load every year
         ratio_load =  (1 + load_increase)**(self.future_year - self.base_year)
 
         return ratio_wind, ratio_load
@@ -57,7 +57,7 @@ class Capacity:
 
         ratio_wind = wind_future_capacity/tot_wind[idx]
 
-        load_increase = 0.015 # a 1.5 % increase in load every year
+        load_increase = 0.005 # a 0.5 % increase in load every year
         ratio_load =  (1 + load_increase)**(self.future_year - self.base_year)
 
         return ratio_wind, ratio_load

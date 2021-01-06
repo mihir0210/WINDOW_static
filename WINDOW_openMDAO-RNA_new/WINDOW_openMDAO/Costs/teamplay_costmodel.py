@@ -54,9 +54,9 @@ class TeamPlayCostModel(ExplicitComponent):
         outputs['single_turbine_investment_costs'] = single_turbine_costs
         outputs['single_turbine_decommissioning_costs'] = outputs['decommissioning_costs']/n_turbines
 
-        print 'one support struc:', support_structure_costs[1]
+        #print 'one support struc:', support_structure_costs[1]
         print 'purchase price:', inputs['purchase_price']
-        print 'single turbine cost:', single_turbine_costs
+        #print 'single turbine cost:', single_turbine_costs
         print 'Support costs:', support_structure_investment
         print 'Total investment costs:', investment_costs
         print 'infield cable cots:', infield_cable_investment

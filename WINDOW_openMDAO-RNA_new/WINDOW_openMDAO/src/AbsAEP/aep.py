@@ -15,4 +15,6 @@ class AEP(ExplicitComponent):
     def compute(self, inputs, outputs):
     	# aeroaep = 2723354011950
     	aeroaep = inputs['aeroAEP']
+
+
         outputs['AEP'] = aeroaep * inputs['availability'] * inputs['electrical_efficiency']
