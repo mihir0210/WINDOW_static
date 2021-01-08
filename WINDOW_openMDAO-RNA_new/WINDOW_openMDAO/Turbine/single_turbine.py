@@ -197,9 +197,9 @@ class single_turbine(ExplicitComponent):
                 turbine_power_ = machine_rating/1000.0
             turbine_power.append(turbine_power_)
 
-        #with open('turbine_power_95_h.csv', 'wb') as file:
-         #   w = csv.writer(file)
-          #  w.writerow(turbine_power)
+        with open('turbine_power_95_10min.csv', 'wb') as file:
+           w = csv.writer(file)
+           w.writerow(turbine_power)
         #print turbine_power
 
         turbine_power = np.array(turbine_power)

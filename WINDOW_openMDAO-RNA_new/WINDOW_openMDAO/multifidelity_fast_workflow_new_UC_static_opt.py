@@ -69,7 +69,7 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1.5079)
+        indep2.add_output('turbine_rad', val=1.5)
         indep2.add_output('rated_power', val=1)  # 2 for DTU 10 MW 190 m turbine
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)
@@ -193,6 +193,8 @@ class WorkingGroup(Group):
         self.add_subsystem('lcoe', LCOE())
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
+
+
 
         ## add single turbine model
 

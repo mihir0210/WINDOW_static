@@ -135,8 +135,8 @@ class FarmAEP(ExplicitComponent):
         farm_power_ts = get_farm_power()
         #cf = sum(farm_power_ts)/(8760*74*5)
 
-        #df = pd.DataFrame(farm_power_ts)
-        #df.to_csv('farm_power_95_h.csv')
+        df = pd.DataFrame(farm_power_ts)
+        df.to_csv('farm_power_95_10min.csv')
 
         outputs['farm_power'] = farm_power_ts # in MW
         outputs['farm_AEP'] = sum(farm_power_ts)*1e6  # in Wh
