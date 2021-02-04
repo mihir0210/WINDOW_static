@@ -38,6 +38,7 @@ class MechanicalAnalysts:
             sigma_cr = (1.5 - 0.913 * sqrt(lambda_a)) * self.yield_stress_steel
         
         n_el = (pi**2 * self.e_modulus_steel * pi * radius**3 * t / (4.0 * l**2))
+
         lambda_r = sqrt(sigma_cr / (n_el / (2.0 * pi * radius * t)))
         k = radius / 2.0
         e = max(0.34 * (lambda_r - 0.2) * k, 0.0)

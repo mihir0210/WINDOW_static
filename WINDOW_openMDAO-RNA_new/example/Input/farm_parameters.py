@@ -34,6 +34,8 @@ for index, rows in df.iterrows():
     # append the list to the final list
     layout.append(my_list)
 
+
+
 n_turbines = len(layout)
 
 # For regular layouts only use the parameters below.

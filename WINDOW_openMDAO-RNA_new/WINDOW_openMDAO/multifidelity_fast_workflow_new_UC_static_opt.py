@@ -14,6 +14,7 @@ from WINDOW_openMDAO.Finance.LCOE import LCOE
 from WINDOW_openMDAO.RNA_modified.rna import RNA
 from WINDOW_openMDAO.Turbine.single_turbine import single_turbine
 
+from WINDOW_openMDAO.layout_scaling import LayoutScaling
 from WINDOW_openMDAO.AEP.farm_AEP import FarmAEP
 from WINDOW_openMDAO.Farm_IRR.farm_IRR import FarmIRR
 
@@ -69,8 +70,9 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1.5)
-        indep2.add_output('rated_power', val=1)  # 2 for DTU 10 MW 190 m turbine
+        indep2.add_output('turbine_rad', val=1)
+        indep2.add_output('rated_power', val=1)
+        indep2.add_output('scaling_factor', val=0.8)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)
         # indep2.add_output('machine_rating', val = 5000.0)
@@ -163,6 +165,8 @@ class WorkingGroup(Group):
 
         self.add_subsystem('usd2eur', ExecComp('cost_rna_eur = cost_rna_usd * 0.88'))
 
+        self.add_subsystem('layout_scaling', LayoutScaling(max_n_turbines,max_n_substations))
+
         self.add_subsystem('numbersubstation', NumberLayout(max_n_substations))
         self.add_subsystem('numberlayout', NumberLayout(max_n_turbines))
         self.add_subsystem('depths', RoughClosestNode(max_n_turbines, self.bathymetry_file))
@@ -194,13 +198,13 @@ class WorkingGroup(Group):
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
 
-
+        '''
 
         ## add single turbine model
 
         self.add_subsystem('single_turbine', single_turbine(wind_file=self.wind_file,
                                                     spot_price_file=self.spot_price_file,
-                                                            num_bins = self.num_bins))
+                                                            num_bins = self.num_bins))'''
 
         ## Add farm IRR module
         self.add_subsystem('FarmIRR', FarmIRR(spot_price_file=self.spot_price_file,
@@ -250,9 +254,24 @@ class WorkingGroup(Group):
         self.connect('power_scaling.machine_rating', 'AeroAEP.machine_rating')
         self.connect('rna.rated_wind_speed', 'AeroAEP.rated_wind_speed')
 
-        self.connect("indep2.layout", ["numberlayout.orig_layout", "AeroAEP.layout", "constraint_distance.orig_layout",
+        ###### Layout scaling connects ######
+
+        self.connect('indep2.layout', 'layout_scaling.orig_layout')
+        self.connect('indep2.substation_coords', 'layout_scaling.substation_coords')
+        self.connect('rad_scaling.turbine_radius', 'layout_scaling.turbine_radius')
+        self.connect('indep2.scaling_factor', 'layout_scaling.scaling_factor')
+
+        self.connect("layout_scaling.new_layout", ["numberlayout.orig_layout", "AeroAEP.layout", "constraint_distance.orig_layout",
                                        "constraint_boundary.layout"])
-        self.connect("indep2.substation_coords", "numbersubstation.orig_layout")
+        self.connect("layout_scaling.new_substation_coords", "numbersubstation.orig_layout")
+
+
+        #self.connect("indep2.layout", ["numberlayout.orig_layout", "AeroAEP.layout", "constraint_distance.orig_layout",
+                                       #"constraint_boundary.layout"])
+        #self.connect("indep2.substation_coords", "numbersubstation.orig_layout")
+
+
+
         # self.connect("indep2.turbine_radius", "constraint_distance.turbine_radius")
         self.connect("rad_scaling.turbine_radius", "constraint_distance.turbine_radius")
         self.connect("indep2.areas", "constraint_boundary.areas")
@@ -334,7 +353,7 @@ class WorkingGroup(Group):
         self.connect('Costs.decommissioning_costs', 'FarmIRR.decommissioning_costs')
 
 
-
+        '''
 
         ## Single-turbine connects
 
@@ -353,7 +372,7 @@ class WorkingGroup(Group):
         self.connect('rna.rotor_cp', 'single_turbine.rotor_cp')
         self.connect('rna.blade.aero_partial.swept_area', 'single_turbine.swept_area')
         self.connect('indep2.drive_train_efficiency', 'single_turbine.drive_train_efficiency')
-        self.connect('power_scaling.machine_rating', 'single_turbine.machine_rating')
+        self.connect('power_scaling.machine_rating', 'single_turbine.machine_rating')'''
 
 
 

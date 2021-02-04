@@ -44,7 +44,26 @@ n_quadrilaterals = 2 # Number of quadrilaterals into which the wind farm area is
 # 7D reduced Borssele. Only for perimeter weighted layout.
 # areas = np.array([[[486794.64, 5731868.94], [497472.73, 5735250.56], [495467.19, 5731217.68], [489678.8, 5729085.24]], [[489678.8, 5729085.24], [495467.19, 5731217.68], [501672.52, 5728324.88], [500304.44, 5718829.7]]])
 
-areas = np.array([[[484178.55, 5732482.8], [500129.9, 5737534.4], [497318.1, 5731880.24], [488951.0, 5.72794e6]], [[488951.0, 5.72794e6], [497318.1, 5731880.24], [503163.37, 5729155.3], [501266.5, 5715990.05]]])
+area_coord = [[484178.55, 5732482.8], [500129.9, 5737534.4], [497318.1, 5731880.24], [488951.0, 5.72794e6]], [[488951.0, 5.72794e6], [497318.1, 5731880.24], [503163.37, 5729155.3], [501266.5, 5715990.05]]
+
+# area has been divided in 2 quads. Find area of each quad and add to find area of the farm
+def PolyArea(x,y):
+    return 0.5*np.abs(np.dot(x,np.roll(y,1))-np.dot(y,np.roll(x,1)))
+
+x1 = [area_coord[0][idx][0] for idx in range(len(area_coord[0]))]
+y1 = [area_coord[0][idx][1] for idx in range(len(area_coord[0]))]
+area1 = PolyArea(x1,y1)
+x2 = [area_coord[1][idx][0] for idx in range(len(area_coord[1]))]
+y2 = [area_coord[1][idx][1] for idx in range(len(area_coord[1]))]
+area2 = PolyArea(x2,y2)
+
+farm_area = area1 + area2 # in m2
+
+
+areas = np.array([area_coord])
+
+
+
 
 # areas = np.array([[[484178.55, 5732482.8], [500129.9, 5737534.4], [497318.1, 5731880.24], [491858.00, 5725044.75]], [[491858.00, 5725044.75], [497318.1, 5731880.24], [503163.37, 5729155.3], [501266.5, 5715990.05]]])  # Areas need to be defined in clockwise order starting on the "bottom left" corner, and grouped per quadrilateral considered.
 

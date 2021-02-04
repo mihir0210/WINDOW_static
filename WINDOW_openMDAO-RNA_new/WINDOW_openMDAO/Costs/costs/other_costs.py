@@ -31,6 +31,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
     print 'procurement electrical:', procurement_electrical
     print 'project development:', project_development
     print 'installation costs:', installation_auxiliary + installation_electrical + installation_rna
+    print 'electrical installation costs:', installation_electrical
     print 'procurement auxillary (platforms + measuring tower) :', procurement_auxiliary
     print 'RNA costs:', procurement_rna
     investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
