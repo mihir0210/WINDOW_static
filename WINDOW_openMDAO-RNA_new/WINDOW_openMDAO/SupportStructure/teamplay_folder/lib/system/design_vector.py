@@ -45,8 +45,11 @@ class Monopile:
     length = 0.0  # [m]
     penetration_depth = 0.0  # [m]
 
+
+
     def __init__(self):
         pass
+
 
 
 class TransitionPiece:

@@ -57,6 +57,9 @@ class LayoutScaling(ExplicitComponent):
 
         scaling_ratio = scaling_ratio[0]
 
+        print 'scaling_factor:', scaling_factor
+        print 'scaling_ratio:', scaling_ratio
+
 
         def centroid(points):
             x_coords = [p[0] for p in points]
@@ -101,8 +104,13 @@ class LayoutScaling(ExplicitComponent):
             points[:, 1] = y
             hull = ConvexHull(points)
 
-            farm_area = hull.volume/1e6 # in km2
+            farm_area = hull.volume/1e6 # in
 
+            '''
+            plt.plot(points[:, 0], points[:, 1], 'o')
+            for simplex in hull.simplices:
+                plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
+            plt.show()'''
 
 
             return new_layout, new_substation_coords, farm_area
@@ -111,5 +119,7 @@ class LayoutScaling(ExplicitComponent):
 
         print 'farm_area:', farm_area
 
+
+        outputs['farm_area'] = farm_area
         outputs['new_layout'] = new_layout
         outputs['new_substation_coords'] = new_substation_coords

@@ -114,10 +114,11 @@ problem.setup()
 
 
 problem.driver = SimpleGADriver()
-problem.driver.options['bits'] = {'turbine_rad':5}
+problem.driver.options['bits'] = {'turbine_rad':4, 'scaling_factor':4}
 
-problem.driver.options['max_gen'] = 4
-problem.driver.options['pop_size'] = 8
+
+problem.driver.options['max_gen'] = 3
+problem.driver.options['pop_size'] = 20
 problem.driver.options['elitism'] = True
 problem.driver.options['debug_print'] = ['desvars', 'objs']
 problem.driver.options['procs_per_model'] = 4
@@ -183,8 +184,9 @@ problem['indep2.nacelle_housing_mass'] = 240000.0
 
 problem['indep2.drivetrain_gear_eff'] = 1.0'''
 
-#problem.model.add_design_var('turbine_rad', lower=0.7, upper=1.3)
-#problem.model.add_objective('obj.f')  # ref0=-1.5*f_scaler, ref=-0.5*f_scaler)
+problem.model.add_design_var('turbine_rad', lower=0.8, upper=1.2)
+problem.model.add_design_var('scaling_factor', lower=0.5, upper=1)
+problem.model.add_objective('obj.f')  # ref0=-1.5*f_scaler, ref=-0.5*f_scaler)
 #problem.model.add_constraint('c2.ramp', upper = 1)  # , ref0=0.25, ref=2.0)
 
 
@@ -204,9 +206,9 @@ from time import time
 
 start = time()
 
-problem.run_model()
+#problem.run_model()
 
-#problem.run_driver()
+problem.run_driver()
 
 #############################
 ######## PARAMS #############

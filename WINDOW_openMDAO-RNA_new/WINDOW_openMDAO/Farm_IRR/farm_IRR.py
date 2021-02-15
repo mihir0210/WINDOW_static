@@ -1,6 +1,10 @@
 from openmdao.api import ExplicitComponent
 from WINDOW_openMDAO.Market.capacity_trend import Capacity
-from WINDOW_openMDAO.Market.Spot_price import spot_price
+#from WINDOW_openMDAO.Market.Spot_price import spot_price
+
+from WINDOW_openMDAO.Market.spot_vs_windspeed import spot_price
+from WINDOW_openMDAO.Market.Parameters import Parameters
+
 
 
 
@@ -26,7 +30,7 @@ class FarmIRR(ExplicitComponent):
     def initialize(self):
 
         # fixed parameters
-
+        self.metadata.declare('wind_file', desc='wind speed and direction data file')
         self.metadata.declare('spot_price_file', desc ='Spot price data file')
         self.metadata.declare('time_resolution', desc='length of time series data')
 
@@ -57,6 +61,11 @@ class FarmIRR(ExplicitComponent):
 
     def compute(self, inputs, outputs):
 
+        wind_file = self.metadata['wind_file']
+        wind_file = pd.read_csv(wind_file)
+
+        wind_speed = np.array(wind_file['wind_speed'])
+
 
         spot_price_file = self.metadata['spot_price_file']
         farm_power = inputs['farm_power']
@@ -67,6 +76,10 @@ class FarmIRR(ExplicitComponent):
         operational_lifetime = inputs['operational_lifetime']
         oandm_costs = inputs['oandm_costs']
 
+        print 'O&M:', oandm_costs
+
+
+
 
 
         def irr_npv():
@@ -75,14 +88,18 @@ class FarmIRR(ExplicitComponent):
 
             for y in range(int(operational_lifetime)):
 
-                base_year = 2019
-                future_year = base_year + y
+                #base_year = 2019
+                #future_year = base_year + y
 
-                capacity = Capacity(future_year)
+                #capacity = Capacity(future_year)
 
-                [ratio_wind, ratio_load] = capacity.ref_gen_scenario()
+                #[ratio_wind, ratio_load] = capacity.ref_gen_scenario()
 
-                spot_price_ts = spot_price(ratio_wind, ratio_load)
+                parameters = Parameters()
+
+                [slope, constant] = parameters.base_year()
+
+                spot_price_ts = spot_price(wind_speed, slope, constant)
 
                 #spot_price_new = np.ones(len(spot_price_ts))*100
 
@@ -92,7 +109,9 @@ class FarmIRR(ExplicitComponent):
 
                 #print yearly_revenue
 
-                revenue.append(yearly_revenue - oandm_costs)
+
+
+                revenue.append(max(0,yearly_revenue - oandm_costs))
 
             revenue[-1] = revenue[-1] - decommissioning_costs
 
@@ -114,7 +133,7 @@ class FarmIRR(ExplicitComponent):
             # print output_list
 
             cashflows = output_list
-            print cashflows
+            #print cashflows
 
             IRR = np.irr(cashflows)
 
@@ -129,7 +148,7 @@ class FarmIRR(ExplicitComponent):
 
         outputs['IRR'] = IRR
 
-        print IRR
+        print 'IRR:', IRR
 
         #ramp =  np.ediff1d(elec_farm_power_ts)
 

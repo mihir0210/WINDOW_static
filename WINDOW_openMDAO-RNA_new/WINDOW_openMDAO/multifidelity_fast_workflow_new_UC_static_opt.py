@@ -64,7 +64,7 @@ class WorkingGroup(Group):
 
     def setup(self):
         indep2 = self.add_subsystem('indep2', IndepVarComp(),
-                                    promotes_outputs=['turbine_rad', 'rated_power'])
+                                    promotes_outputs=['turbine_rad', 'rated_power', 'scaling_factor'])
         #                                    promotes_outputs=['design_tsr', 'chord_coefficients', 'twist_coefficients',
         #                                                     'pitch', 'tau'])
 
@@ -72,7 +72,7 @@ class WorkingGroup(Group):
         indep2.add_output('layout', val=layout)
         indep2.add_output('turbine_rad', val=1)
         indep2.add_output('rated_power', val=1)
-        indep2.add_output('scaling_factor', val=0.8)
+        indep2.add_output('scaling_factor', val=0.7)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)
         # indep2.add_output('machine_rating', val = 5000.0)
@@ -207,7 +207,8 @@ class WorkingGroup(Group):
                                                             num_bins = self.num_bins))'''
 
         ## Add farm IRR module
-        self.add_subsystem('FarmIRR', FarmIRR(spot_price_file=self.spot_price_file,
+        self.add_subsystem('FarmIRR', FarmIRR(wind_file=self.wind_file,
+                                              spot_price_file=self.spot_price_file,
                                               time_resolution = self.time_resolution))
 
 
@@ -259,13 +260,13 @@ class WorkingGroup(Group):
         self.connect('indep2.layout', 'layout_scaling.orig_layout')
         self.connect('indep2.substation_coords', 'layout_scaling.substation_coords')
         self.connect('rad_scaling.turbine_radius', 'layout_scaling.turbine_radius')
-        self.connect('indep2.scaling_factor', 'layout_scaling.scaling_factor')
+        self.connect('scaling_factor', 'layout_scaling.scaling_factor')
 
         self.connect("layout_scaling.new_layout", ["numberlayout.orig_layout", "AeroAEP.layout", "constraint_distance.orig_layout",
                                        "constraint_boundary.layout"])
         self.connect("layout_scaling.new_substation_coords", "numbersubstation.orig_layout")
 
-
+        self.connect('layout_scaling.farm_area', 'Costs.farm_area')
         #self.connect("indep2.layout", ["numberlayout.orig_layout", "AeroAEP.layout", "constraint_distance.orig_layout",
                                        #"constraint_boundary.layout"])
         #self.connect("indep2.substation_coords", "numbersubstation.orig_layout")
@@ -378,11 +379,11 @@ class WorkingGroup(Group):
 
 
         ## Subsystem and Connections for Objective and Constraints ##
-        #self.add_subsystem('obj', ExecComp('f=lcoe/8.315'))  # Reference value
-        #self.connect('single_turbine.LCOE', 'obj.lcoe')
+        #self.add_subsystem('obj', ExecComp('f=lcoe'))  # Reference value
+        #self.connect('lcoe.LCOE', 'obj.lcoe')
 
-        #self.add_subsystem('obj', ExecComp('f=-1*IRR'))  # Reference value
-        #self.connect('single_turbine.IRR', 'obj.IRR')
+        self.add_subsystem('obj', ExecComp('f=-1*IRR'))  # Reference value
+        self.connect('FarmIRR.IRR', 'obj.IRR')
 
         ### For SLSQP ###
 
