@@ -92,7 +92,7 @@ class RNA(Group):
                                           rho_air=1.225, E_blade=36.233e9, g=9.8), \
                            promotes_inputs=['design_tsr', 'blade_number', 'rotor_diameter', \
                                             'chord_coefficients', 'twist_coefficients', 'span_airfoil_r', 'span_airfoil_id', \
-                                            'pitch','thickness_factor',\
+                                            'pitch','thickness_factor','tau',\
                                             'cut_in_speed', 'cut_out_speed', 'machine_rating', 'drive_train_efficiency'
                                             ], \
                            promotes_outputs=['rotor_cp', 'rotor_ct', 'rotor_torque', 'rotor_thrust', \

@@ -10,20 +10,20 @@ airfoil_folder = abs_path + 'Airfoils//'
 #                'DU30_A17_10Hz.dat', 'DU25_A17_10Hz.dat', 'DU21_A17_10Hz.dat', 'NACA64_A17_10Hz.dat']
 
 '''
-For the 15 MW turbine, a new database was created that had 49 airfoils (including interpolation)
+For the 10 MW turbine, a new database was created that had 30 airfoils (including interpolation)
 '''
 
 
-airfoils_db = ['Cylinder1_10Hz.dat']
+airfoils_db = []
 
-i = range(2,50)
+i = range(30)
 
 
 for idx in i:
     if idx<10:
-        airfoils_db.append('AeroDyn_Polar_0' + str(idx) + '.dat')
+        airfoils_db.append('IEA-10.0-198-RWT_AeroDyn15_Polar_0' + str(idx) + '.dat')
     else:
-        airfoils_db.append('AeroDyn_Polar_' + str(idx) + '.dat')
+        airfoils_db.append('IEA-10.0-198-RWT_AeroDyn15_Polar_' + str(idx) + '.dat')
 
 
 

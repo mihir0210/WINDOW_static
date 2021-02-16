@@ -7,6 +7,7 @@ from WINDOW_openMDAO.input_params import max_n_turbines, max_n_substations, inte
     n_quadrilaterals, separation_equation_y, operational_lifetime, number_turbines_per_cable, wind_directions, \
     weibull_shapes, weibull_scales, direction_probabilities, layout, n_turbines, TI_ambient, coll_electrical_efficiency, \
     transm_electrical_efficiency, number_substations
+from WINDOW_openMDAO.blade_parameters import blade_span, pegged_chord, pegged_twist
 from WINDOW_openMDAO.src.api import AEP, NumberLayout, MinDistance, WithinBoundaries
 from WINDOW_openMDAO.WaterDepth.water_depth_models import RoughClosestNode
 from WINDOW_openMDAO.Finance.LCOE import LCOE
@@ -89,11 +90,11 @@ class WorkingGroup(Group):
 
 
 
-        indep2.add_output('design_tsr', desc='design tip speed ratio', val=7.6)
+        indep2.add_output('design_tsr', desc='design tip speed ratio', val=10.58)
         indep2.add_output('chord_coefficients', units='m', desc='coefficients of polynomial chord profile',
-                          val=np.array([3.542, 3.01, 2.313]))
+                          val=np.array(pegged_chord))
         indep2.add_output('twist_coefficients', units='deg', desc='coefficients of polynomial twist profile',
-                          val=np.array([13.308, 9.0, 3.125]))
+                          val=np.array(pegged_twist))
         indep2.add_output('pitch', units='deg', desc='pitch angle', val=0.0)
         indep2.add_output('tau', val=1)
         # indep2.add_output('tau_root')
@@ -102,12 +103,12 @@ class WorkingGroup(Group):
         indep2.add_output('blade_number', desc='number of blades', val=3)
         indep2.add_output('span_airfoil_r', units='m',
                           desc='list of blade node radial location at which the airfoils are specified',
-                          val=np.array([01.36, 06.83, 10.25, 14.35, 22.55, 26.65, 34.85, 43.05]))
-        indep2.add_output('span_airfoil_id', desc='list of blade node Airfoil ID', val=[0, 1, 2, 3, 4, 5, 6, 7])
+                          val=np.array(blade_span))
+        indep2.add_output('span_airfoil_id', desc='list of blade node Airfoil ID', val=range(1,31))
         indep2.add_output('thickness_factor', desc='scaling factor for laminate thickness', val=1.0)
         indep2.add_output('shaft_angle', units='deg',
-                          desc='angle of the LSS inclindation with respect to the horizontal', val=-5.0)
-        indep2.add_output('cut_in_speed', units='m/s', desc='cut-in wind speed', val=3.0)
+                          desc='angle of the LSS inclindation with respect to the horizontal', val=-6.0)
+        indep2.add_output('cut_in_speed', units='m/s', desc='cut-in wind speed', val=4.0)
         indep2.add_output('cut_out_speed', units='m/s', desc='cut-out wind speed', val=25.0)
         # indep2.add_output('machine_rating', units='kW', desc='machine rating', val=5000.0)
         indep2.add_output('drive_train_efficiency', desc='efficiency of aerodynamic to electrical conversion',
@@ -135,8 +136,8 @@ class WorkingGroup(Group):
         indep2.add_output('design_tsr', desc='design tip speed ratio', val=1)
         indep2.add_output('tau', val=1)'''
 
-        self.add_subsystem('rad_scaling', ExecComp('turbine_radius = turbine_rad*63.0'))
-        self.add_subsystem('power_scaling', ExecComp('machine_rating = rated_power*5000.0'))
+        self.add_subsystem('rad_scaling', ExecComp('turbine_radius = turbine_rad*99'))
+        self.add_subsystem('power_scaling', ExecComp('machine_rating = rated_power*10000.0'))
 
         self.add_subsystem('rad2dia', ExecComp('rotor_diameter = turbine_radius*2.0', \
                                                rotor_diameter={'units': 'm'}))
@@ -156,9 +157,9 @@ class WorkingGroup(Group):
                                       reference_turbine=self.reference_turbine, \
                                       reference_turbine_cost=self.reference_turbine_cost, \
                                       power_file=self.power_curve_file, \
-                                      ct_file=self.ct_curve_file))
-        #                 promotes_inputs=['design_tsr', 'pitch', 'chord_coefficients', 'twist_coefficients',
-        #                                 'tau'])
+                                      ct_file=self.ct_curve_file),
+                         promotes_inputs=['design_tsr', 'pitch', 'chord_coefficients', 'twist_coefficients',
+                                         'tau'])
 
         ##### Add Preprocessor ####
         # self.add_subsystem('Preprocessor', Preprocessor(num_nodes=self.num_nodes, num_stations=self.num_stations))
