@@ -20,6 +20,8 @@ class TeamPlayCostModel(ExplicitComponent):
         self.add_input('rna_mass', units='kg', desc='mass of RNA', val=589211.0)
         self.add_input('generator_voltage', units='V', desc='voltage at generator', val=4000.0)
         self.add_input('collection_voltage', units='V', desc='voltage at substation', val=66000.0)
+
+        self.add_input('farm_area', desc='area of the wind farm in km2')
         
         self.add_output('investment_costs', val=0.0)
         self.add_output('decommissioning_costs', val=0.0)
@@ -46,7 +48,13 @@ class TeamPlayCostModel(ExplicitComponent):
         support_structure_investment = sum(support_structure_costs)
         # support_structure_investment = 91955760.7762
         investment_costs = support_structure_investment + infield_cable_investment + other_investment
-        outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment  # TODO Apply management percentage also to electrical and support structure costs.
+
+        a = 5*1e5  # the cost in euros/km2 that the developer pays for using ocean area
+        farm_area = inputs['farm_area'] # in km2
+        area_use_cost = a*farm_area
+
+
+        outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment + area_use_cost  # TODO Apply management percentage also to electrical and support structure costs.
         # print support_structure_investment ,infield_cable_investment ,other_investment, outputs['decommissioning_costs']
 
         single_turbine_costs = support_structure_costs[1] + inputs['purchase_price'] + other_investment/n_turbines
@@ -54,9 +62,9 @@ class TeamPlayCostModel(ExplicitComponent):
         outputs['single_turbine_investment_costs'] = single_turbine_costs
         outputs['single_turbine_decommissioning_costs'] = outputs['decommissioning_costs']/n_turbines
 
-        print 'one support struc:', support_structure_costs[1]
+        #print 'one support struc:', support_structure_costs[1]
         print 'purchase price:', inputs['purchase_price']
-        print 'single turbine cost:', single_turbine_costs
+        #print 'single turbine cost:', single_turbine_costs
         print 'Support costs:', support_structure_investment
         print 'Total investment costs:', investment_costs
         print 'infield cable cots:', infield_cable_investment

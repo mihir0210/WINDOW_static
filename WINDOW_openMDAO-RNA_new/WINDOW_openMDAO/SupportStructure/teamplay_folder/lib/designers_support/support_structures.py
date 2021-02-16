@@ -37,6 +37,7 @@ class SupportDesigners(Designers):
         self.properties = self.support_team.properties.support_structure
         self.verbose = False
 
+
     def initialyse(self):
 
         # Set generally useful variables

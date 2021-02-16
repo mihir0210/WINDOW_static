@@ -18,7 +18,7 @@ def teamplay(TI, depth, rotor_radius, rated_wind_speed, rotor_thrust, rna_mass, 
     site_data = Site()
     site_data.water_depth = depth
 
-    # print site_data.water_depth
+
     dimension_team_support.run(rna, site_data)
 
     boat_landing_cost = Cost1(60000.0, 'USD', 2003)  # [$/turbine]
@@ -27,10 +27,14 @@ def teamplay(TI, depth, rotor_radius, rated_wind_speed, rotor_thrust, rna_mass, 
     min_tower_wall_thickness = min(dimension_team_support.design_variables.support_structure.tower.wall_thickness)
     max_tower_wall_thickness = max(dimension_team_support.design_variables.support_structure.tower.wall_thickness)
 
+    monopile_length = dimension_team_support.design_variables.support_structure.monopile.length
+
+    #print 'monopile length', monopile_length
+
     return dimension_team_support.total_support_structure_cost + boat_landing_cost, \
            dimension_team_support.design_variables.support_structure.tower.base_diameter, \
             dimension_team_support.design_variables.support_structure.tower.top_diameter, \
-           min_tower_wall_thickness, max_tower_wall_thickness
+           min_tower_wall_thickness, max_tower_wall_thickness #, dimension_team_support.cost_analysts.tower_price
            #dimension_team_support.design_variables.support_structure.tower.max_wall_thickness
     # dimension_team_support.design_variables.support_structure.tower.length, \
 

@@ -11,22 +11,22 @@ class Parameters:
 
     def base_year(self):
 
-        slope = -0.27
-        constant = 42
+        slope = -0.1012
+        constant = 41
 
         return slope, constant
 
 
     def var_slope(self):
 
-        slope = -0.27*5
-        constant = 42
+        slope = -0.1012*5
+        constant = 41
 
         return slope, constant
 
     def var_slope_and_constant(self):
 
-        slope = -0.27*10
-        constant = 42*1.25
+        slope = -0.1012*10
+        constant = 41*1.25
 
         return slope, constant

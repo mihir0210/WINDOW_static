@@ -17,6 +17,7 @@ from WINDOW_openMDAO.Revenue.Revenue_based import Revenue_based
 from WINDOW_openMDAO.Turbine.single_turbine import single_turbine
 
 
+
 class WorkingGroup(Group):
     def __init__(self, options):
         super(WorkingGroup, self).__init__()
@@ -52,6 +53,7 @@ class WorkingGroup(Group):
         self.reference_turbine = options.input.turbine.reference_turbine
         self.reference_turbine_cost = options.input.turbine.reference_turbine_cost
 
+
         self.wind_speed_file = options.input.turbine.wind_speed_file
         self.spot_price_file = options.input.turbine.spot_price_file
 
@@ -66,7 +68,7 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1)
+        indep2.add_output('turbine_rad', val=1.12)
         indep2.add_output('rated_power', val=1)  # 2 for DTU 10 MW 190 m turbine
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)
@@ -84,41 +86,34 @@ class WorkingGroup(Group):
 
 
 
-        indep2.add_output('design_tsr', desc='design tip speed ratio', val=9.0)
+        indep2.add_output('design_tsr', desc='design tip speed ratio', val=7.6)
         indep2.add_output('chord_coefficients', units='m', desc='coefficients of polynomial chord profile',
                           val=np.array([3.542, 3.01, 2.313]))
         indep2.add_output('twist_coefficients', units='deg', desc='coefficients of polynomial twist profile',
                           val=np.array([13.308, 9.0, 3.125]))
         indep2.add_output('pitch', units='deg', desc='pitch angle', val=0.0)
-        #indep2.add_output('tau', val=1)
+        indep2.add_output('tau', val=1)
         # indep2.add_output('tau_root')
         # indep2.add_output('tau_75')
 
         indep2.add_output('blade_number', desc='number of blades', val=3)
         indep2.add_output('span_airfoil_r', units='m',
                           desc='list of blade node radial location at which the airfoils are specified',
-                          val=np.array([3.00,5.34,7.68,10.02,12.36,14.70,17.63,20.55,22.78,25.00,27.23,29.46,31.68,
-                                        34.13,36.58,39.03,41.47,44.06,46.64,49.22,51.80,54.38,56.69,58.99,61.30,63.60,
-                                        65.91,68.26,70.61,72.97,75.32,77.67,79.90,82.13,84.37,86.60,88.83,91.06,93.29,
-                                        96.60,98.79,100.99,103.18,105.38,107.57,109.76,111.96,114.15,117.08,120.00]))
-        id = range(49)
-        id.insert(0,0)
-        indep2.add_output('span_airfoil_id', desc='list of blade node Airfoil ID', val=id)
-
+                          val=np.array([01.36, 06.83, 10.25, 14.35, 22.55, 26.65, 34.85, 43.05]))
+        indep2.add_output('span_airfoil_id', desc='list of blade node Airfoil ID', val=[0, 1, 2, 3, 4, 5, 6, 7])
         indep2.add_output('thickness_factor', desc='scaling factor for laminate thickness', val=1.0)
         indep2.add_output('shaft_angle', units='deg',
-                          desc='angle of the LSS inclindation with respect to the horizontal', val=-6.0)
+                          desc='angle of the LSS inclindation with respect to the horizontal', val=-5.0)
         indep2.add_output('cut_in_speed', units='m/s', desc='cut-in wind speed', val=3.0)
         indep2.add_output('cut_out_speed', units='m/s', desc='cut-out wind speed', val=25.0)
         # indep2.add_output('machine_rating', units='kW', desc='machine rating', val=5000.0)
         indep2.add_output('drive_train_efficiency', desc='efficiency of aerodynamic to electrical conversion',
-                          val=1)
+                          val=0.944)
         indep2.add_output('gear_ratio', desc='overall gearbox ratio', val=96.76)
-        #indep2.add_output('gear_ratio', desc='overall gearbox ratio', val=1.0)
-        #indep2.add_output('Np', desc='number of planets in each stage', val=[3, 3, 1])
-        indep2.add_output('Np', desc='number of planets in each stage', val=[3,3,1])
-        indep2.add_output('weibull_scale', desc='weibull scale parameter', val=9.8204)
-        indep2.add_output('weibull_shape', desc='weibull shape parameter', val=2.0072)
+        indep2.add_output('Np', desc='number of planets in each stage', val=[3, 3, 1])
+
+        indep2.add_output('weibull_scale', desc='weibull scale parameter', val=8.469)
+        indep2.add_output('weibull_shape', desc='weibull shape parameter', val=2.345)
 
 
 
@@ -137,8 +132,8 @@ class WorkingGroup(Group):
         indep2.add_output('design_tsr', desc='design tip speed ratio', val=1)
         indep2.add_output('tau', val=1)'''
 
-        self.add_subsystem('rad_scaling', ExecComp('turbine_radius = turbine_rad*120.0'))
-        self.add_subsystem('power_scaling', ExecComp('machine_rating = rated_power*15000.0'))
+        self.add_subsystem('rad_scaling', ExecComp('turbine_radius = turbine_rad*63.0'))
+        self.add_subsystem('power_scaling', ExecComp('machine_rating = rated_power*5000.0'))
 
         self.add_subsystem('rad2dia', ExecComp('rotor_diameter = turbine_radius*2.0', \
                                                rotor_diameter={'units': 'm'}))
@@ -180,17 +175,27 @@ class WorkingGroup(Group):
 
         self.add_subsystem('support', self.support_model())
 
+        self.add_subsystem('Costs', self.apex_model())
+
+
+
         self.add_subsystem('OandM', self.opex_model())
         self.add_subsystem('AEP', AEP())
-        self.add_subsystem('Costs', self.apex_model())
+
         self.add_subsystem('lcoe', LCOE())
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
+
+
 
         ## add single turbine model
 
         self.add_subsystem('single_turbine', single_turbine(wind_speed_file=self.wind_speed_file,
                                                     spot_price_file=self.spot_price_file))
+
+
+
+
 
 
 
@@ -209,7 +214,7 @@ class WorkingGroup(Group):
         self.connect('indep2.span_airfoil_r', 'rna.span_airfoil_r')
         self.connect('indep2.span_airfoil_id', 'rna.span_airfoil_id')
         self.connect('indep2.pitch', 'rna.pitch')
-        self.connect('indep2.thickness_factor', 'rna.thickness_factor')
+        # self.connect('indep2.thickness_factor', 'rna.thickness_factor')
         self.connect('indep2.shaft_angle', 'rna.shaft_angle')
         self.connect('indep2.cut_in_speed', 'rna.cut_in_speed')
         self.connect('indep2.cut_out_speed', 'rna.cut_out_speed')
@@ -263,10 +268,12 @@ class WorkingGroup(Group):
 
         #### Preprocessor connects ####
 
-        #self.connect('indep2.tau', 'rna.tau')  #### uniform Thickness factor
+        self.connect('indep2.tau', 'rna.tau')  #### uniform Thickness factor
 
         self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
         self.connect('AeroAEP.AEP', ['AEP.aeroAEP', 'OandM.AEP'])
+
+
         self.connect('OandM.availability', 'AEP.availability')
         self.connect('indep2.coll_electrical_efficiency', 'AEP.electrical_efficiency')
 
@@ -298,6 +305,13 @@ class WorkingGroup(Group):
         self.connect('indep2.operational_lifetime', 'lcoe.operational_lifetime')
         self.connect('indep2.interest_rate', 'lcoe.interest_rate')
 
+
+
+
+
+
+
+
         '''
         ## REVENUE connects
 
@@ -313,6 +327,9 @@ class WorkingGroup(Group):
         self.connect('Costs.investment_costs', 'revenue.total_investment')
         self.connect('OandM.annual_cost_O&M', 'revenue.O_M')
         '''
+
+
+
 
         ## Single-turbine connects
 
@@ -337,11 +354,11 @@ class WorkingGroup(Group):
 
 
         ## Subsystem and Connections for Objective and Constraints ##
-        #self.add_subsystem('obj', ExecComp('f=lcoe/9.12'))  # Reference value
+        #self.add_subsystem('obj', ExecComp('f=lcoe/8.315'))  # Reference value
         #self.connect('single_turbine.LCOE', 'obj.lcoe')
 
-        self.add_subsystem('obj', ExecComp('f=-1*IRR'))  # Reference value
-        self.connect('single_turbine.IRR', 'obj.IRR')
+        #self.add_subsystem('obj', ExecComp('f=-1*IRR'))  # Reference value
+        #self.connect('single_turbine.IRR', 'obj.IRR')
 
         ### For SLSQP ###
 
@@ -349,8 +366,8 @@ class WorkingGroup(Group):
         self.connect('rna.tip_deflection', 'c1.deflection')
         self.connect('rad_scaling.turbine_radius', 'c1.turbine_radius')
 
-        self.add_subsystem('c2', ExecComp('ramp = ramp_90/15.0'))  # Reference value
-        self.connect('single_turbine.ramp_90', 'c2.ramp_90')
+        #self.add_subsystem('c2', ExecComp('ramp = ramp_90/15.0'))  # Reference value
+        #self.connect('single_turbine.ramp_90', 'c2.ramp_90')
 
 
 

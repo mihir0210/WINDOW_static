@@ -21,12 +21,21 @@ class Input():
 	def __init__(self):		
 		self.site = Site()
 		self.turbine = Turbine()
+		self.market = Market()
 
 
 class Site():
 	def __init__(self):
 		self.windrose_file = None
 		self.bathymetry_file = None
+		self.time_resolution = None
+		self.wind_file = None
+		self.wind_speed_file = None
+
+class Market():
+	def __init__(self):
+		self.spot_price_file = None
+
 
 
 class Turbine():

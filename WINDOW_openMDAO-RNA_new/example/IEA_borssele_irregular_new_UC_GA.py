@@ -33,7 +33,7 @@ from WINDOW_openMDAO.src.api import WorkflowOptions
 #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC import WorkingGroup
 #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static import WorkingGroup
 #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt import WorkingGroup
-from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_single_turbine import WorkingGroup
+from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt import WorkingGroup
 
 import warnings
 
@@ -66,8 +66,8 @@ options.models.opex = OM_model1
 options.models.apex = TeamPlayCostModel
 
 # Define number of windrose sampling points
-options.samples.wind_speeds = 10  #1
-options.samples.wind_sectors_angle = 10.0 #30.0
+options.samples.wind_speeds = 22  # number of wind samples between cut-in and cut-out
+options.samples.wind_sectors_angle = 30.0 # range of one sector for a windrose
 
 # Define paths to site and turbine defining input files.
 options.input.site.windrose_file = "Input/weibull_windrose_12unique.dat"
@@ -76,29 +76,28 @@ options.input.site.bathymetry_file = "Input/bathymetry_table.dat"
 options.input.turbine.power_file = "Input/power_rna.dat"
 options.input.turbine.ct_file = "Input/ct_rna.dat"
 options.input.turbine.num_pegged = 3
-#options.input.turbine.num_airfoils = 8
-options.input.turbine.num_airfoils = 49
-#options.input.turbine.num_nodes = 49
-options.input.turbine.num_nodes = 50
+options.input.turbine.num_airfoils = 8
+options.input.turbine.num_nodes = 49
 options.input.turbine.num_bins = 31
 options.input.turbine.safety_factor = 1.5
 options.input.turbine.gearbox_stages = 3
-#options.input.turbine.gearbox_stages = 1
 options.input.turbine.gear_configuration = 'eep'
 options.input.turbine.mb1_type = 'CARB'
 options.input.turbine.mb2_type = 'SRB'
 options.input.turbine.drivetrain_design = 'geared'
 options.input.turbine.uptower_transformer = True
 options.input.turbine.has_crane = True
-#options.input.turbine.reference_turbine = 'Input/reference_turbine.csv'
-options.input.turbine.reference_turbine = 'Input/Reference_turbine_15MW.csv'
+options.input.turbine.reference_turbine = 'Input/reference_turbine.csv'
 options.input.turbine.reference_turbine_cost = 'Input/reference_turbine_cost_mass.csv'
 
-options.input.turbine.wind_speed_file = 'Input/North_sea_2018_150.csv'
+options.input.site.time_resolution = 8760
+options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
+#options.input.site.wind_file = 'Input/DOWA_Borselle_10min_93m_yearly.csv'
+#options.input.site.wind_speed_file = 'Input/NL_2019_100m_hourly_ERA5_highwind.csv'
 #options.input.turbine.spot_price_file = 'Input/NL_spot_2018.csv'
-options.input.turbine.spot_price_file = 'Input/DK_spot_2018.csv'
 
 
+options.input.market.spot_price_file = 'Input/NL_2019_spot_price_hourly.csv'
 
 ### FAST addition ###
 
@@ -115,15 +114,18 @@ problem.setup()
 
 
 problem.driver = SimpleGADriver()
-problem.driver.options['bits'] = {'turbine_rad':5}
+problem.driver.options['bits'] = {'turbine_rad':4, 'scaling_factor':4}
 
-problem.driver.options['max_gen'] = 4
-problem.driver.options['pop_size'] = 8
+
+problem.driver.options['max_gen'] = 3
+problem.driver.options['pop_size'] = 20
 problem.driver.options['elitism'] = True
 problem.driver.options['debug_print'] = ['desvars', 'objs']
 problem.driver.options['procs_per_model'] = 4
 problem.driver.options['penalty_parameter'] = 15
 problem.driver.options['penalty_exponent'] = 1.0
+
+'''
 
 problem.driver.recording_options['includes'] =[]
 problem.driver.recording_options['record_objectives'] = True
@@ -132,7 +134,7 @@ problem.driver.recording_options['record_desvars'] = True
 recorder = SqliteRecorder("dynamic_GA.csv")
 problem.driver.add_recorder(recorder)
 
-
+'''
 
 
 
@@ -182,7 +184,8 @@ problem['indep2.nacelle_housing_mass'] = 240000.0
 
 problem['indep2.drivetrain_gear_eff'] = 1.0'''
 
-problem.model.add_design_var('turbine_rad', lower=0.7, upper=1.3)
+problem.model.add_design_var('turbine_rad', lower=0.8, upper=1.2)
+problem.model.add_design_var('scaling_factor', lower=0.5, upper=1)
 problem.model.add_objective('obj.f')  # ref0=-1.5*f_scaler, ref=-0.5*f_scaler)
 #problem.model.add_constraint('c2.ramp', upper = 1)  # , ref0=0.25, ref=2.0)
 

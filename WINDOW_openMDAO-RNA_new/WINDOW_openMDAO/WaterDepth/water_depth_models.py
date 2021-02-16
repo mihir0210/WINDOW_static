@@ -52,4 +52,8 @@ class RoughClosestNode(AbstractWaterDepth):
         layout = [[i[1], i[2]] for i in layout]
         for coordinate in layout:
             water_depths.append(depth(coordinate[0], coordinate[1]))  # Minimum water depth 6 m.
+
+
         return water_depths
+
+

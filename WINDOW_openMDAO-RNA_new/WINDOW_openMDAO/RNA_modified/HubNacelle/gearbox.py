@@ -47,8 +47,8 @@ class DriveSE(AbsGearbox):
         self.mass = float(m)
         self.stage_masses=self.stageMass
 
-        print 'gearbox mass:', float(m)
-        print 'stage masses:', self.stage_masses
+        #print 'gearbox mass:', float(m)
+        #print 'stage masses:', self.stage_masses
         # calculate mass properties
 
         self.length = (0.012 * self.rotor_diameter)
