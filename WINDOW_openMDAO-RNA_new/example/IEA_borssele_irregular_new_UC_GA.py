@@ -87,7 +87,7 @@ options.input.turbine.mb2_type = 'SRB'
 options.input.turbine.drivetrain_design = 'geared'
 options.input.turbine.uptower_transformer = True
 options.input.turbine.has_crane = True
-options.input.turbine.reference_turbine = 'Input/reference_turbine.csv'
+options.input.turbine.reference_turbine = 'Input/Reference_turbine_10MW.csv'
 options.input.turbine.reference_turbine_cost = 'Input/reference_turbine_cost_mass.csv'
 
 options.input.site.time_resolution = 8760

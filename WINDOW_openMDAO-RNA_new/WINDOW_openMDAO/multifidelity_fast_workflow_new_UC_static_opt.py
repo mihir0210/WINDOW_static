@@ -104,7 +104,7 @@ class WorkingGroup(Group):
         indep2.add_output('span_airfoil_r', units='m',
                           desc='list of blade node radial location at which the airfoils are specified',
                           val=np.array(blade_span))
-        indep2.add_output('span_airfoil_id', desc='list of blade node Airfoil ID', val=range(1,31))
+        indep2.add_output('span_airfoil_id', desc='list of blade node Airfoil ID', val=range(30))
         indep2.add_output('thickness_factor', desc='scaling factor for laminate thickness', val=1.0)
         indep2.add_output('shaft_angle', units='deg',
                           desc='angle of the LSS inclindation with respect to the horizontal', val=-6.0)
@@ -157,9 +157,9 @@ class WorkingGroup(Group):
                                       reference_turbine=self.reference_turbine, \
                                       reference_turbine_cost=self.reference_turbine_cost, \
                                       power_file=self.power_curve_file, \
-                                      ct_file=self.ct_curve_file),
-                         promotes_inputs=['design_tsr', 'pitch', 'chord_coefficients', 'twist_coefficients',
-                                         'tau'])
+                                      ct_file=self.ct_curve_file))
+                         #promotes_inputs=['design_tsr', 'pitch', 'chord_coefficients', 'twist_coefficients',
+                                     #    'tau'])
 
         ##### Add Preprocessor ####
         # self.add_subsystem('Preprocessor', Preprocessor(num_nodes=self.num_nodes, num_stations=self.num_stations))
@@ -306,7 +306,7 @@ class WorkingGroup(Group):
 
         #### Preprocessor connects ####
 
-        self.connect('indep2.tau', 'rna.tau')  #### uniform Thickness factor
+        #self.connect('indep2.tau', 'rna.tau')  #### uniform Thickness factor
 
         self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
         #self.connect('AeroAEP.AEP', ['AEP.aeroAEP', 'OandM.AEP'])

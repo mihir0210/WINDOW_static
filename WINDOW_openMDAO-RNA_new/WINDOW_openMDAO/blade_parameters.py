@@ -36,7 +36,7 @@ for idx in range(len(nodes_twist)):
     diff = [sec - nodes_twist[idx] for sec in blade_section]
     diff = [abs(diff) for diff in diff]
     index = diff.index(min(diff))
-    pegged_chord.append(df['Twist'][index])
+    pegged_twist.append(df['Twist'][index])
 
 
 
