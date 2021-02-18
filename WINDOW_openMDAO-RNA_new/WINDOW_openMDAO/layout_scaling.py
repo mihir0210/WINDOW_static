@@ -52,7 +52,7 @@ class LayoutScaling(ExplicitComponent):
 
 
 
-        turbine_ref = 63.0 # rotor radius of the reference turbine being used
+        turbine_ref = 99.0 # rotor radius of the reference turbine being used
         scaling_ratio = scaling_factor*(turbine_radius/turbine_ref) # scaling ratio will be equal to scaling_factor*(D_new/D_ref)
 
         scaling_ratio = scaling_ratio[0]

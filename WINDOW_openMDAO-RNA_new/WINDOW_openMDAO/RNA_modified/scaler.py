@@ -45,11 +45,11 @@ class Scaler(ExplicitComponent):
         outputs['mass_eccentricity'] = 1.9 * s
         outputs['yaw_to_hub_height'] = 5.01 * s
         outputs['front_area_nacelle'] = 14.0 * (s**2)
-        #outputs['hub_height'] = 119 * s
+        outputs['hub_height'] = 119 * s
         
         # scaled from NREL 5MW Reference Turbine
         s = rotor_diameter/126.0
-        outputs['hub_height'] = 90 * s
+        #outputs['hub_height'] = 90 * s
         outputs['hub_radius'] = 1.5 * s
         outputs['overhang'] = 5.0 * s
         outputs['gearbox_cm_x'] = 0.1 * s
