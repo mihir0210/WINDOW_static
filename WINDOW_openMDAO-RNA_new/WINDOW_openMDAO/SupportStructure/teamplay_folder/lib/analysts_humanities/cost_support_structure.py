@@ -23,7 +23,8 @@ class cost1:
         self.ref_value = value
         self.currency = currency
         self.ref_year = year
-        self.value = value * ((1.0 + (inflation_rate / 100.0)) ** (value_year - year)) * exchange_rate
+        #self.value = value * ((1.0 + (inflation_rate / 100.0)) ** (value_year - year)) * exchange_rate
+        self.value = 1.32 #Back calculated from BVG 10 MW report
 
 
 class CostAnalysts:
@@ -64,4 +65,5 @@ class CostAnalysts:
         #print 'tower costs:', self.support_team.value.economic.capex.procurement.support_structures.tower
         #print 'monopile costs:', self.support_team.value.economic.capex.procurement.support_structures.monopile
         #print 'foundation installation costs:',  self.support_team.value.economic.capex.installation.foundations
+        #print 'foundation decommisioning:', self.support_team.value.economic.decommissioning.removal.foundations + self.support_team.value.economic.decommissioning.removal.scour_protection
         #print 'real support struc cost:',  self.support_team.value.economic.capex.procurement.support_structures.transition_piece + self.support_team.value.economic.capex.procurement.support_structures.grout + self.support_team.value.economic.capex.procurement.support_structures.monopile + self.support_team.value.economic.capex.procurement.support_structures.scour_protection

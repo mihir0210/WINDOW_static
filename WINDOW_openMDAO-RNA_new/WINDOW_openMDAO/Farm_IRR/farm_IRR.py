@@ -97,7 +97,7 @@ class FarmIRR(ExplicitComponent):
 
                 parameters = Parameters()
 
-                [slope, constant] = parameters.base_year()
+                [slope, constant] = parameters.var_slope()
 
                 spot_price_ts = spot_price(wind_speed, slope, constant)
 

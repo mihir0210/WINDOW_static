@@ -98,7 +98,8 @@ class GravityAnalysts:
                 t = self.support_team.design_variables.support_structure.tower.wall_thickness[i]
                 mass += self.rho_steel * self.get_integrated_volume(base, top, base_diameter, top_diameter, z_from, z_to, t)
             mass *= 1.10  # 10% extra for secondary steel, such as flanges, stairs and platforms
-        
+
+
         if component == 'transition piece':
             base_diameter = self.support_team.design_variables.support_structure.transition_piece.diameter
             top_diameter = base_diameter

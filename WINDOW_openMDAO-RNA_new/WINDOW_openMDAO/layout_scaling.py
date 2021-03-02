@@ -75,10 +75,10 @@ class LayoutScaling(ExplicitComponent):
 
             [cent_x_ogi, cent_y_ogi] = centroid(orig_layout)
 
-
-
+            #multiply coordinates with the scaling ratio
             scaled_layout = [[orig_layout[element][0] * scaling_ratio, orig_layout[element][1] * scaling_ratio] for element in range(len(orig_layout))]
 
+            #Shift the centroid of the new farm to that of the old farm
 
             [cent_x_new, cent_y_new] = centroid(scaled_layout)
 

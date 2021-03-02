@@ -588,6 +588,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
         Savingsi_finder = {}
         Crossingsi_finder = {}
         counter = 0
+
         for i in list(zip(*Wind_turbinesi))[0]:
             k = Cost0i[counter]
             step = (len(Wind_turbinesi) - 1) * counter

@@ -26,6 +26,8 @@ class AbstractElectricDesign(ExplicitComponent):
         n_turbines_p_cable_type = [int(num) for num in inputs['n_turbines_p_cable_type']]
         substation_coords = inputs['substation_coords'][:n_substations]
 
+
+
         cost, topology_dict, cable_lengths = self.topology_design_model(layout, substation_coords, n_turbines_p_cable_type, inputs['turbine_rated_current'])
         if type(topology_dict) is dict:
             topology_list = []

@@ -113,7 +113,7 @@ class WorkingGroup(Group):
         # indep2.add_output('machine_rating', units='kW', desc='machine rating', val=5000.0)
         indep2.add_output('drive_train_efficiency', desc='efficiency of aerodynamic to electrical conversion',
                           val=0.944)
-        indep2.add_output('gear_ratio', desc='overall gearbox ratio', val= 125) #check;97 for the 5 MW
+        indep2.add_output('gear_ratio', desc='overall gearbox ratio', val= 40) #check;97 for the 5 MW
         indep2.add_output('Np', desc='number of planets in each stage', val=[3, 3, 1])
 
         indep2.add_output('weibull_scale', desc='weibull scale parameter', val=8.469)

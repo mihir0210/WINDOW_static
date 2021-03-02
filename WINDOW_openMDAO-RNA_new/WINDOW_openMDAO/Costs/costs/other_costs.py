@@ -59,6 +59,8 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     management_investment = management_costs(investment_costs)
 
+    print 'management costs:', management_investment
+
     # print "investment costs"
     # print investment_costs + management_investment
 
