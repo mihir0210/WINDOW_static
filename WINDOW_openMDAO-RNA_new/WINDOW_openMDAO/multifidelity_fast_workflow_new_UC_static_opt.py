@@ -75,7 +75,7 @@ class WorkingGroup(Group):
         indep2.add_output('rated_power', val=1)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
-        # indep2.add_output('turbine_radius', val=120.0)
+        # indep2.add_output('turbine_radius', val=120.0)d
         # indep2.add_output('machine_rating', val = 5000.0)
 
         indep2.add_output('n_turbines', val=n_turbines)
@@ -90,7 +90,7 @@ class WorkingGroup(Group):
 
 
 
-        indep2.add_output('design_tsr', desc='design tip speed ratio', val=10.58)
+        indep2.add_output('design_tsr', desc='design tip speed ratio', val=9) #10.58 for the 10 MW
         indep2.add_output('chord_coefficients', units='m', desc='coefficients of polynomial chord profile',
                           val=np.array(pegged_chord))
         indep2.add_output('twist_coefficients', units='deg', desc='coefficients of polynomial twist profile',

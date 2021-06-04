@@ -40,6 +40,9 @@ for index, rows in df.iterrows():
 # Use only in case of a standard rectangular layout. Built using standard spacing for the IEA 10 MW -198 m turbine
 df = pd.read_csv('Input/Rectangular_layout.dat', delimiter=' ')
 
+# Use only in case of a standard squarelayout. Built using standard spacing of 7D for the IEA 10 MW-198 m turbine
+df = pd.read_csv('Input/Square_layout.dat', delimiter=' ')
+
 layout = []
 for index, rows in df.iterrows():
     # Create list for the current row

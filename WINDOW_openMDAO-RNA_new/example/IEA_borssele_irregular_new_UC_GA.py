@@ -90,9 +90,9 @@ options.input.turbine.has_crane = True
 options.input.turbine.reference_turbine = 'Input/Reference_turbine_10MW.csv'
 options.input.turbine.reference_turbine_cost = 'Input/reference_turbine_10MW_cost_mass.csv'
 
-options.input.site.time_resolution = 8760
+options.input.site.time_resolution = 8760 #52560
 options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
-#options.input.site.wind_file = 'Input/DOWA_Borselle_10min_93m_yearly.csv'
+#options.input.site.wind_file = 'Input/DOWA_Borselle_10min_115m_yearly.csv'
 #options.input.site.wind_speed_file = 'Input/NL_2019_100m_hourly_ERA5_highwind.csv'
 #options.input.turbine.spot_price_file = 'Input/NL_spot_2018.csv'
 
@@ -184,8 +184,8 @@ problem['indep2.nacelle_housing_mass'] = 240000.0
 
 problem['indep2.drivetrain_gear_eff'] = 1.0'''
 
-problem.model.add_design_var('turbine_rad', lower=0.8, upper=1.2)
-problem.model.add_design_var('scaling_factor', lower=0.5, upper=1)
+problem.model.add_design_var('turbine_rad', lower=0.8, upper=1.4)
+problem.model.add_design_var('scaling_factor', lower=0.8, upper=1.4)
 problem.model.add_objective('obj.f')  # ref0=-1.5*f_scaler, ref=-0.5*f_scaler)
 #problem.model.add_constraint('c2.ramp', upper = 1)  # , ref0=0.25, ref=2.0)
 

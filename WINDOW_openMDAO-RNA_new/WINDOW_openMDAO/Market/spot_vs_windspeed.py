@@ -12,8 +12,12 @@ def spot_price(wind_speed, slope, constant):
 
 
     m = slope
-    c = constant
+    c = constant + 20 #additional 20 to get non nan IRR values
+
+
 
     spot_price_ts = [m*x + c for x in wind_speed]
+
+
 
     return spot_price_ts

@@ -78,7 +78,9 @@ class FarmIRR(ExplicitComponent):
 
         print 'O&M:', oandm_costs
 
-
+        with open('farm_power_89_hourly.csv', 'w') as csvfile:
+            a = csv.writer(csvfile, delimiter=',')
+            a.writerow(farm_power)
 
 
 
@@ -88,26 +90,38 @@ class FarmIRR(ExplicitComponent):
 
             for y in range(int(operational_lifetime)):
 
-                #base_year = 2019
-                #future_year = base_year + y
+                base_year = 2019
+                future_year = base_year + y
 
                 #capacity = Capacity(future_year)
 
                 #[ratio_wind, ratio_load] = capacity.ref_gen_scenario()
 
-                parameters = Parameters()
+                parameters = Parameters(future_year, operational_lifetime)
 
                 [slope, constant] = parameters.var_slope()
 
-                spot_price_ts = spot_price(wind_speed, slope, constant)
 
-                #spot_price_new = np.ones(len(spot_price_ts))*100
+
+                spot_price_ = spot_price(wind_speed, slope, constant)
+
+                #only for var_slope()
+
+                spot_price_ts = []
+
+                for p in spot_price_:
+                    spot_price_ts.append(p[0])
+
+
+                #spot_price_ts = np.ones(len(farm_power))*40
 
                 elec_farm_power = np.multiply(np.array(farm_power), np.array([transm_electrical_efficiency]))
 
+
                 yearly_revenue = np.sum(np.multiply(elec_farm_power, spot_price_ts))
 
-                #print yearly_revenue
+                print yearly_revenue
+
 
 
 
@@ -116,6 +130,8 @@ class FarmIRR(ExplicitComponent):
             revenue[-1] = revenue[-1] - decommissioning_costs
 
             cashflows = [-1 * investment_costs[0], revenue]
+
+
 
 
 
@@ -137,7 +153,7 @@ class FarmIRR(ExplicitComponent):
 
             IRR = np.irr(cashflows)
 
-            discount_rate = 0.05
+            discount_rate = 0.005
             NPV = np.npv(discount_rate, cashflows)
 
             return IRR, NPV
@@ -148,20 +164,79 @@ class FarmIRR(ExplicitComponent):
 
         outputs['IRR'] = IRR
 
-        print 'IRR:', IRR
+        print 'IRR_gradslope:', IRR
+        print 'NPV:', NPV
 
         #ramp =  np.ediff1d(elec_farm_power_ts)
 
         #pd.DataFrame(ramp).to_csv('farm_ramp_95.csv')
         #pd.DataFrame(farm_power_ts).to_csv('farm_power_95.csv')
 
+        def irr_npv_new():
+
+            revenue = []
+
+            for y in range(int(operational_lifetime)):
+                base_year = 2019
+                future_year = base_year + y
+
+                # capacity = Capacity(future_year)
+
+                # [ratio_wind, ratio_load] = capacity.ref_gen_scenario()
+
+                parameters = Parameters(future_year, operational_lifetime)
+
+                [slope, constant] = parameters.highest_slope()
+
+                spot_price_ts = spot_price(wind_speed, slope, constant)
+                '''
+                only for var_slope()
+
+                spot_price_ts = []
+
+                for p in spot_price_:
+                    spot_price_ts.append(p[0])'''
+
+                # spot_price_ts = np.ones(len(farm_power))*40
+
+                elec_farm_power = np.multiply(np.array(farm_power), np.array([transm_electrical_efficiency]))
+
+                yearly_revenue = np.sum(np.multiply(elec_farm_power, spot_price_ts))
+
+                revenue.append(max(0, yearly_revenue - oandm_costs))
+
+            revenue[-1] = revenue[-1] - decommissioning_costs
+
+            cashflows = [-1 * investment_costs[0], revenue]
+
+            output_list = []
+
+            def removeNestings(cashflows):
+                for i in cashflows:
+                    if type(i) == list:
+                        removeNestings(i)
+                    else:
+                        output_list.append(i)
+
+            removeNestings(cashflows)
+
+            # print output_list
+
+            cashflows = output_list
+            # print cashflows
+
+            IRR = np.irr(cashflows)
+
+            discount_rate = 0.05
+            NPV = np.npv(discount_rate, cashflows)
+
+            return IRR, NPV
+
+        [IRR, NPV] = irr_npv_new()
 
 
 
-
-
-
-
+        print 'IRR_worst:', IRR
 
 
 

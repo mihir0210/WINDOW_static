@@ -47,6 +47,8 @@ class BEM(AbsRotorAerodynamics):
 
         #print 'Pitch:', pitch
 
+
+
         
         rotor_radius = rotor_diameter/2.0
         rotor_speed = (design_tsr*wind_speed/rotor_radius) * (30/pi) # rpm
@@ -56,6 +58,7 @@ class BEM(AbsRotorAerodynamics):
                                       blade_number, rotor_radius, hub_radius, design_tsr, pitch, \
                                       span_r, span_dr, span_chord, span_twist, span_airfoil, \
                                       is_prandtl=1, is_glauert=1)
+
 
         '''
         Uses scripts from WIND TURBINE DESIGN COURSE

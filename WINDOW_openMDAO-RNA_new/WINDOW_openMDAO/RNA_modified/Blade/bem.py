@@ -182,6 +182,9 @@ def bem_rotor(wind_speed, rho_air, \
     power = np.sum(np.array(spanwise['power']))
     torque = power/omega
     thrust = np.sum(np.array(spanwise['thrust']))
+
+
+
     
     cp = power/(0.5 * rho_air * (wind_speed ** 3) * swept_area)
     cq = cp/tsr

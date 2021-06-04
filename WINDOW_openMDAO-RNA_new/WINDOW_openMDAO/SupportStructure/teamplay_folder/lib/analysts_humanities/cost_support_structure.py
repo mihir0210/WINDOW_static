@@ -62,7 +62,7 @@ class CostAnalysts:
         # print self.support_team.value.economic.decommissioning.removal.scour_protection + self.support_team.value.economic.decommissioning.removal.foundations
         self.support_team.total_support_structure_cost = self.support_team.value.economic.capex.procurement.support_structures.tower + self.support_team.value.economic.capex.procurement.support_structures.transition_piece + self.support_team.value.economic.capex.procurement.support_structures.grout + self.support_team.value.economic.capex.procurement.support_structures.monopile + self.support_team.value.economic.capex.procurement.support_structures.scour_protection + self.support_team.value.economic.capex.installation.foundations + self.support_team.value.economic.decommissioning.removal.foundations + self.support_team.value.economic.decommissioning.removal.scour_protection
 
-        #print 'tower costs:', self.support_team.value.economic.capex.procurement.support_structures.tower
+        print 'tower costs:', self.support_team.value.economic.capex.procurement.support_structures.tower
         #print 'monopile costs:', self.support_team.value.economic.capex.procurement.support_structures.monopile
         #print 'foundation installation costs:',  self.support_team.value.economic.capex.installation.foundations
         #print 'foundation decommisioning:', self.support_team.value.economic.decommissioning.removal.foundations + self.support_team.value.economic.decommissioning.removal.scour_protection

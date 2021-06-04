@@ -202,7 +202,7 @@ class  Analytical(AbsRotorMechanics):
 
 
 
-        safety_factor = 1.5 #Static to Dynamic
+        safety_factor = 1 #1.5 #Static to Dynamic
         tip_deflection = tip_deflection*safety_factor
 
 
