@@ -9,8 +9,11 @@ def decommissioning_costs(infield_cable_length, NT, mass, hub_height):
     turbine_removal_factor = 0.91  # [-]
     site_clearance_per_turbine = Cost1(16000.0, 'USD', 2010)  # [$]
     turbine_disposal_per_mass = Cost1(0.15, 'USD', 2010)  # [$/kg]
-    substation_and_metmast_removal = Cost1(665000.0, 'USD', 2010)  # [$]
-    transmission_cable_removal_price = Cost1(49.0, 'USD', 2010)  # [$/m]
+    #substation_and_metmast_removal = Cost1(665000.0, 'USD', 2010)  # [$]
+    substation_and_metmast_removal = Cost1(74e6, 'USD', 2010)  # [$] Based on BVG
+    #transmission_cable_removal_price = Cost1(49.0, 'USD', 2010)  # [$/m]
+    transmission_cable_removal_price = Cost1(2700, 'USD', 2010)  # [$/m] Based on BVG
+
     infield_cable_removal_price = Cost1(53.0, 'USD', 2010)  # [$/m]
     turbine_installation_per_turbine_coef_a = Cost1(3.4e3, 'USD', 2010)  # [$/(m * turbine)]
     turbine_installation_per_turbine_coef_b = 50.0  # [m]

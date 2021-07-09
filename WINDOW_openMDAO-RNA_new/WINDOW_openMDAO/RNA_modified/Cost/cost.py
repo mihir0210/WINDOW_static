@@ -87,6 +87,8 @@ class CSMCalibrated(AbsRNACost):
         blade_number = inputs['blade_number']
         machine_rating = inputs['machine_rating']
         mainframe_mass = inputs['bedplate_mass'] + inputs['platform_mass'] + inputs['crane_mass']
+
+
         
         outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
         

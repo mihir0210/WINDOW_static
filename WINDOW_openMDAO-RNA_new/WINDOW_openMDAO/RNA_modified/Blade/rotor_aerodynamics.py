@@ -96,7 +96,7 @@ class BEM(AbsRotorAerodynamics):
         outputs['rotor_torque'] = rotor['torque']
         outputs['rotor_thrust'] = rotor['thrust']
         outputs['span_fx'] = spanwise['fx']
-        outputs['span_fy'] = spanwise['fy']  
+        outputs['span_fy'] = spanwise['fy']
         
         
         

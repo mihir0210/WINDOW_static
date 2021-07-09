@@ -12,30 +12,46 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
     from investment_costs.installation_costs.RNA_installation_costs import rna_installation_costs
     from decommissioning_costs.decommissioning_costs import decommissioning_costs
 
+    from investment_costs.procurement_costs.electrical_system_costs.electrical_costs_BVG import electrical_procurement_costs_BVG
+    from investment_costs.installation_costs.electrical_installation_costs_BVG import electrical_installation_costs_BVG
+    from investment_costs.installation_costs.other_costs import other_installation_commissioning_costs
+    from investment_costs.turbine_other_costs import turbine_other_costs
+
     project_development = project_development_cost(n_turbines, turbine_rated_power)
 
-    procurement_auxiliary = auxiliary_procurement(depth_central_platform, n_substations, n_turbines, turbine_rated_power)
+    #procurement_auxiliary = auxiliary_procurement(depth_central_platform, n_substations, n_turbines, turbine_rated_power)
 
     procurement_rna = rna_costs(n_turbines, purchase_price, warranty_percentage)
 
-    procurement_electrical = electrical_procurement_costs(n_turbines, turbine_rated_power, generator_voltage, collection_voltage)
+    turbine_other_costs = turbine_other_costs(n_turbines, turbine_rated_power)
 
-    installation_auxiliary = auxiliary_installation_costs(n_turbines, turbine_rated_power)
+    procurement_electrical = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power)
 
-    installation_electrical = electrical_installation_costs()
+    installation_electrical = electrical_installation_costs_BVG()
+
+
+    #procurement_electrical = electrical_procurement_costs(n_turbines, turbine_rated_power, generator_voltage, collection_voltage)
+
+    #installation_auxiliary = auxiliary_installation_costs(n_turbines, turbine_rated_power)
+
+    #installation_electrical = electrical_installation_costs()
 
     installation_rna = rna_installation_costs(n_turbines, rotor_radius, hub_height)
 
+    other_installation_commissioning_costs = other_installation_commissioning_costs(n_turbines, turbine_rated_power)
+
     decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height)
 
-    print 'procurement electrical export to grid:', procurement_electrical
-    print 'project development:', project_development
-    print 'Installation RNA:', installation_rna
-    print 'installation costs without support struc:', installation_auxiliary + installation_electrical + installation_rna
-    print 'electrical installation costs:', installation_electrical
-    print 'procurement auxillary (platforms + measuring tower) :', procurement_auxiliary
     print 'RNA costs:', procurement_rna
-    investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
+    print 'turbine other costs:', turbine_other_costs
+    print 'procurement electrical:', procurement_electrical
+
+    print 'Installation RNA:', installation_rna
+    print 'electrical installation costs:', installation_electrical
+    print 'Other installation commissioning costs:', other_installation_commissioning_costs
+
+    #investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
+    investment_costs = project_development + procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna + other_installation_commissioning_costs
     # print "project_development ", project_development
     # print "procurement_auxiliary", procurement_auxiliary 
     # print "procurement_rna" ,procurement_rna 
@@ -60,6 +76,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     management_investment = management_costs(investment_costs)
 
+    print 'project development:', project_development
     print 'management costs:', management_investment
 
     # print "investment costs"
