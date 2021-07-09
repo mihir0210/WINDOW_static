@@ -23,8 +23,8 @@ class cost1:
         self.ref_value = value
         self.currency = currency
         self.ref_year = year
-        #self.value = value * ((1.0 + (inflation_rate / 100.0)) ** (value_year - year)) * exchange_rate
-        self.value = 1.32 #Back calculated from BVG 10 MW report
+        self.value = value * ((1.0 + (inflation_rate / 100.0)) ** (value_year - year)) * exchange_rate
+        #self.value = 1.32 #Back calculated from BVG 10 MW report
 
 
 class CostAnalysts:
@@ -32,10 +32,13 @@ class CostAnalysts:
     def __init__(self, support_team):
         self.support_team = support_team
         self.number_of_turbines = 1
-        self.tower_price = cost1(2.04, 'USD', 2002)  # [$/kg]
-        self.transition_piece_price = cost1(3.75, 'Euro', 2007)  # [euro/kg]
+        #self.tower_price = cost1(2.04, 'USD', 2002)  # [$/kg]
+        self.tower_price = cost1(1.02, 'USD', 2002)  # [$/kg] #Recalibrated based on BVG reports
+        #self.transition_piece_price = cost1(3.75, 'Euro', 2007)  # [euro/kg]
+        self.transition_piece_price = cost1(1.95, 'Euro', 2007)  # [euro/kg] #Recalibrated based on BVG reports
         self.grout_price = cost1(0.1, 'Euro', 2003)  # [euro/kg] (This value is not supported by literature/data and based on some information on the web about concrete
-        self.monopile_price = cost1(2.25, 'Euro', 2007)  # [euro/kg]
+        #self.monopile_price = cost1(2.25, 'Euro', 2007)  # [euro/kg]
+        self.monopile_price = cost1(2, 'Euro', 2007)  # [euro/kg] #BVG highly overestimates mass (recheck)
         self.scour_protection_per_volume = cost1(211.0, 'Euro', 2003)  # [euro/m^3]
         self.foundation_installation_per_mass = cost1(1.4, 'USD', 2010)  # [$/kg]
         self.scour_protection_removal_per_volume = cost1(33.0, 'USD', 2010)  # [$/m^3]
@@ -63,7 +66,8 @@ class CostAnalysts:
         self.support_team.total_support_structure_cost = self.support_team.value.economic.capex.procurement.support_structures.tower + self.support_team.value.economic.capex.procurement.support_structures.transition_piece + self.support_team.value.economic.capex.procurement.support_structures.grout + self.support_team.value.economic.capex.procurement.support_structures.monopile + self.support_team.value.economic.capex.procurement.support_structures.scour_protection + self.support_team.value.economic.capex.installation.foundations + self.support_team.value.economic.decommissioning.removal.foundations + self.support_team.value.economic.decommissioning.removal.scour_protection
 
         print 'tower costs:', self.support_team.value.economic.capex.procurement.support_structures.tower
-        #print 'monopile costs:', self.support_team.value.economic.capex.procurement.support_structures.monopile
-        #print 'foundation installation costs:',  self.support_team.value.economic.capex.installation.foundations
-        #print 'foundation decommisioning:', self.support_team.value.economic.decommissioning.removal.foundations + self.support_team.value.economic.decommissioning.removal.scour_protection
+        print 'monopile costs:', self.support_team.value.economic.capex.procurement.support_structures.monopile
+        print 'transition piece costs:', self.support_team.value.economic.capex.procurement.support_structures.transition_piece
+        print 'foundation installation costs:',  self.support_team.value.economic.capex.installation.foundations
+        print 'foundation decommisioning:', self.support_team.value.economic.decommissioning.removal.foundations + self.support_team.value.economic.decommissioning.removal.scour_protection
         #print 'real support struc cost:',  self.support_team.value.economic.capex.procurement.support_structures.transition_piece + self.support_team.value.economic.capex.procurement.support_structures.grout + self.support_team.value.economic.capex.procurement.support_structures.monopile + self.support_team.value.economic.capex.procurement.support_structures.scour_protection

@@ -73,6 +73,9 @@ class DriveSE(AbsGearbox):
         outputs['height'] = self.height
         outputs['diameter'] = self.diameter
         outputs['efficiency'] = 0.98
+
+        print 'Gearbox stage masses:', outputs['stage_masses']
+        print 'Gearbox mass:', outputs['mass']
         
 
 

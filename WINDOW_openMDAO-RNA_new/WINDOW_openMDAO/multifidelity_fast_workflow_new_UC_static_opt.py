@@ -90,7 +90,7 @@ class WorkingGroup(Group):
 
 
 
-        indep2.add_output('design_tsr', desc='design tip speed ratio', val=9) #10.58 for the 10 MW
+        indep2.add_output('design_tsr', desc='design tip speed ratio', val=9) #9 for the 10 MW
         indep2.add_output('chord_coefficients', units='m', desc='coefficients of polynomial chord profile',
                           val=np.array(pegged_chord))
         indep2.add_output('twist_coefficients', units='deg', desc='coefficients of polynomial twist profile',
@@ -113,8 +113,8 @@ class WorkingGroup(Group):
         # indep2.add_output('machine_rating', units='kW', desc='machine rating', val=5000.0)
         indep2.add_output('drive_train_efficiency', desc='efficiency of aerodynamic to electrical conversion',
                           val=0.944)
-        indep2.add_output('gear_ratio', desc='overall gearbox ratio', val= 40) #check;97 for the 5 MW
-        indep2.add_output('Np', desc='number of planets in each stage', val=[3, 3, 1])
+        indep2.add_output('gear_ratio', desc='overall gearbox ratio', val= 40) #check; 40 in BVG; 97 for the 5 MW
+        indep2.add_output('Np', desc='number of planets in each stage', val=[3, 3, 1]) #3,3,1 default
 
         indep2.add_output('weibull_scale', desc='weibull scale parameter', val=8.469)
         indep2.add_output('weibull_shape', desc='weibull shape parameter', val=2.345)

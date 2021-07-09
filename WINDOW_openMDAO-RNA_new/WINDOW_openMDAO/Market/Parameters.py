@@ -12,7 +12,7 @@ class Parameters():
 
         self.base_year = 2019
         self.slope_base = -0.28 #for 2019
-        self.constant_base = 43 #for 2019
+        self.constant_base = 43 #43 #for 2019
 
         '''
         The max slope value has been taken from Denmark's data. This slope value was attained
@@ -21,7 +21,8 @@ class Parameters():
         see this situation somewhere towards the end of lifetime for wind farms being commissioned 
         now in 2020-2022         
         '''
-        self.max_slope = -2.3
+        self.max_slope = -6 #-2.3
+        self.max_constant = 110
 
 
         self.future_year = future_year
@@ -32,7 +33,11 @@ class Parameters():
 
         self.slope_stepsize = tot_diff/self.lifetime
 
-        self.constant_stepsize = 0.01*self.constant_base
+        tot_diff = abs(self.max_constant) - abs(self.constant_base)
+
+
+        #self.constant_stepsize = 0.01*self.constant_base
+        self.constant_stepsize = tot_diff/self.lifetime
 
 
 
@@ -60,7 +65,7 @@ class Parameters():
     def var_slope_and_constant(self):
 
         slope = self.slope_base - (self.future_year - self.base_year)*self.slope_stepsize
-        constant = self.constant_base + self.constant_stepsize
+        constant = self.constant_base + (self.future_year - self.base_year)*self.constant_stepsize
 
         return slope, constant
 

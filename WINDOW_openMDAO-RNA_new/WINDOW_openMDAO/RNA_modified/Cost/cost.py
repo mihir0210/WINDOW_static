@@ -129,6 +129,17 @@ class CSMCalibrated(AbsRNACost):
          outputs['cost_nacelle'], \
          outputs['cost_rna']] = aggregator_rna(outputs, blade_number)
         print 'Gearbox cost:', cost_gearbox
+        print 'blade cost:', outputs['cost_blades']
+        print 'hub cost:' , outputs['cost_hub_system']
+        print 'Generator cost:', outputs['cost_generator']
+        print 'Nacelle cost:', outputs['cost_nacelle']
+        print 'Cost Transformer:', outputs['cost_transformer']
+        print 'Cost yaw system:', outputs['cost_yaw']
+        print 'Cost electricals + control', outputs['cost_electrical'] + outputs['cost_controls']
+        print 'cost main frame:', outputs['cost_mainframe']
+        print 'cost main bearing:', outputs['cost_main_bearing']
+        print 'cost main shaft:', outputs['cost_lss']
+
         #print 'Generator cost, Mainframe cost, Electrical cost, Transformer cost:', cost_generator, cost_mainframe, cost_electrical, cost_transformer
         #print 'RNA  Done'
         
@@ -145,7 +156,7 @@ def aggregator_rna(outputs, blade_number):
     cost_nacelle = aggregator_nacelle(outputs)
     cost_rna = cost_blades + cost_hub + cost_nacelle
 
-    print 'Blade cost, Hub costs, Nacelle costs, RNA cost :', cost_blades, cost_hub, cost_nacelle, cost_rna
+    #print 'Blade cost, Hub costs, Nacelle costs, RNA cost :', cost_blades, cost_hub, cost_nacelle, cost_rna
     
     return [cost_blades, cost_hub, cost_nacelle, cost_rna] 
 

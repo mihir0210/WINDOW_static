@@ -49,9 +49,11 @@ class TeamPlayCostModel(ExplicitComponent):
         # support_structure_investment = 91955760.7762
         investment_costs = support_structure_investment + infield_cable_investment + other_investment
 
-        a = 5*1e5  # the cost in euros/km2 that the developer pays for using ocean area
+        a = 5*1e5  # the cost in euros/km2 that the developer pays for using ocean area [Hypothetical cost]
         farm_area = inputs['farm_area'] # in km2
         area_use_cost = a*farm_area
+
+        print 'infield cable cost:', infield_cable_investment
 
 
         outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment + area_use_cost  # TODO Apply management percentage also to electrical and support structure costs.
