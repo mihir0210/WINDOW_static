@@ -20,14 +20,16 @@ class TeamPlay(AbstractSupportStructureDesign):
 
 
 
-        for i in range(len(TI)):
+        #for i in range(len(TI)):
+        i =0
 
-            [costs_, base_dia_, top_dia_, \
+        [costs_, base_dia_, top_dia_, \
              min_tower_wall_thickness_, max_tower_wall_thickness_] = \
              teamplay(TI[i], depth[i], rotor_radius, rated_wind_speed, \
                                   rotor_thrust, rna_mass, \
                                   solidity_rotor, cd_rotor_idle_vane, cd_nacelle, \
                                   yaw_diameter, front_area_nacelle, yaw_to_hub_height, mass_eccentricity)
+        for i in range(len(TI)):
 
             costs.append(costs_)
             base_dia.append(base_dia_)

@@ -11,7 +11,7 @@ class Parameters():
     def __init__(self, future_year, operational_lifetime):
 
         self.base_year = 2019
-        self.slope_base = -0.28 #for 2019
+        self.slope_base = -0.28 # -0.28 for 2019
         self.constant_base = 43 #43 #for 2019
 
         '''
@@ -21,7 +21,7 @@ class Parameters():
         see this situation somewhere towards the end of lifetime for wind farms being commissioned 
         now in 2020-2022         
         '''
-        self.max_slope = -6 #-2.3
+        self.max_slope = -2.3 #-2.3
         self.max_constant = 110
 
 
@@ -134,6 +134,64 @@ class Parameters():
 
 
         return slope, constant
+
+    def eneco_coeff(self):
+
+        coeff_2025 = [-2.42, 77.5]
+        coeff_2030 = [-4.66, 95.3]
+        coeff_2035 = [-5.48, 104]
+        coeff_2040 = [-5.62, 104]
+
+        if self.future_year == self.base_year:
+            slope = self.slope_base
+            constant = self.constant_base
+
+        if self.future_year> self.base_year and self.future_year<=2025:
+            slope_stepsize = (abs(coeff_2025[0]) - abs(self.slope_base))/(2025-self.base_year)
+            constant_stepsize = (coeff_2025[1] - self.constant_base)/(2025-self.base_year)
+
+            slope = self.slope_base - (self.future_year - self.base_year) * slope_stepsize
+            constant = self.constant_base + (self.future_year - self.base_year) * constant_stepsize
+
+        elif self.future_year>2025 and self.future_year<=2030:
+            slope_stepsize = (abs(coeff_2030[0]) - abs(coeff_2025[0]))/(2030 - 2025)
+            constant_stepsize = (coeff_2030[1] - coeff_2025[1])/(2030 - 2025)
+
+            slope = coeff_2025[0] - (self.future_year - 2025) * slope_stepsize
+            constant = coeff_2025[1] + (self.future_year - 2025) * constant_stepsize
+
+        elif self.future_year>2030 and self.future_year<=2035:
+
+            slope_stepsize = (abs(coeff_2035[0]) - abs(coeff_2030[0])) / (2035 - 2030)
+            constant_stepsize = (coeff_2035[1] - coeff_2030[1]) / (2035 - 2030)
+
+            slope = coeff_2030[0] - (self.future_year - 2030) * slope_stepsize
+            constant = coeff_2030[1] + (self.future_year - 2030) * constant_stepsize
+
+        elif self.future_year>2035 and self.future_year<=2040:
+
+            slope_stepsize = (abs(coeff_2040[0]) - abs(coeff_2035[0])) / (2040 - 2035)
+            constant_stepsize = (coeff_2040[1] - coeff_2035[1]) / (2040 - 2035)
+
+            slope = coeff_2035[0] - (self.future_year - 2035) * slope_stepsize
+            constant = coeff_2035[1] + (self.future_year - 2035) * constant_stepsize
+
+        elif self.future_year>2040:
+            slope = coeff_2040[0]
+            constant = coeff_2040[1]
+
+        return slope, constant
+
+
+
+
+
+
+
+
+
+
+
 
 
 

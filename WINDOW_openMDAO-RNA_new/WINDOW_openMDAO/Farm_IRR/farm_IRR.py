@@ -99,9 +99,9 @@ class FarmIRR(ExplicitComponent):
 
                 parameters = Parameters(future_year, operational_lifetime)
 
-                [slope, constant] = parameters.var_slope_and_constant()
+                [slope, constant] = parameters.eneco_coeff()
 
-
+                #print slope, constant
 
                 spot_price_ = spot_price(wind_speed, slope, constant)
 
@@ -110,8 +110,8 @@ class FarmIRR(ExplicitComponent):
                 spot_price_ts = []
 
                 for p in spot_price_:
-                    spot_price_ts.append(p[0])
-
+                    #spot_price_ts.append(p[0])
+                    spot_price_ts.append(p)
 
                 #spot_price_ts = np.ones(len(farm_power))*40
 
@@ -120,7 +120,8 @@ class FarmIRR(ExplicitComponent):
 
                 yearly_revenue = np.sum(np.multiply(elec_farm_power, spot_price_ts))
 
-                print yearly_revenue
+                #print 'Mean spot price:', np.mean(spot_price_ts)
+                #print 'Yearly revenue:', yearly_revenue
 
 
 
@@ -151,10 +152,50 @@ class FarmIRR(ExplicitComponent):
             cashflows = output_list
             #print cashflows
 
+
             IRR = np.irr(cashflows)
 
-            discount_rate = 0.005
+            discount_rate = 0.05
             NPV = np.npv(discount_rate, cashflows)
+
+            ##### Write your own IRR function ####
+
+            # Checks where NPV switches sign
+
+            rate = np.linspace(-0.15,0.15,100)
+            NPV_pxy = []
+
+            for r in rate:
+                val = np.npv(r, cashflows)
+                NPV_pxy.append(val[0])
+
+
+            print NPV_pxy
+
+            asign = np.sign(NPV_pxy)
+            signchange = ((np.roll(asign, 1) - asign) != 0).astype(int)
+            signchange[0] =0
+
+            for idx in range(len(signchange)):
+                if signchange[idx]==1:
+                    break
+
+
+
+            #min_elem = np.amin(NPV_pxy)
+            #loc = np.where(NPV_pxy == min_elem)
+
+            loc = idx
+
+
+            IRR_new = rate[loc]
+
+            print 'IRR_eneco:', IRR_new
+
+
+
+
+
 
             return IRR, NPV
 
@@ -164,8 +205,8 @@ class FarmIRR(ExplicitComponent):
 
         outputs['IRR'] = IRR
 
-        print 'IRR_gradslope:', IRR
-        print 'NPV:', NPV
+        #print 'IRR_gradslope:', IRR
+        #print 'NPV:', NPV
 
         #ramp =  np.ediff1d(elec_farm_power_ts)
 
@@ -188,6 +229,8 @@ class FarmIRR(ExplicitComponent):
 
                 [slope, constant] = parameters.highest_slope()
 
+
+
                 spot_price_ts = spot_price(wind_speed, slope, constant)
                 '''
                 only for var_slope()
@@ -203,9 +246,11 @@ class FarmIRR(ExplicitComponent):
 
                 yearly_revenue = np.sum(np.multiply(elec_farm_power, spot_price_ts))
 
-                revenue.append(max(0, yearly_revenue - oandm_costs))
+                revenue.append(max(0,yearly_revenue - oandm_costs))
 
             revenue[-1] = revenue[-1] - decommissioning_costs
+
+
 
             cashflows = [-1 * investment_costs[0], revenue]
 
@@ -223,20 +268,44 @@ class FarmIRR(ExplicitComponent):
             # print output_list
 
             cashflows = output_list
-            # print cashflows
+            #print cashflows
 
             IRR = np.irr(cashflows)
 
             discount_rate = 0.05
             NPV = np.npv(discount_rate, cashflows)
 
+            ##### Write your own IRR function ####
+
+            # Checks where NPV switches sign
+
+            rate = np.linspace(-0.2,0.2,100)
+            NPV_pxy = []
+
+            for r in rate:
+                val = abs(np.npv(r, cashflows))
+                NPV_pxy.append(val[0])
+
+
+            #print NPV_pxy
+            min_elem = np.amin(NPV_pxy)
+            loc = np.where(NPV_pxy == min_elem)
+
+
+
+            IRR_new = rate[loc]
+
+            #print 'IRR_worstslope:', IRR_new
+
             return IRR, NPV
+
+
 
         [IRR, NPV] = irr_npv_new()
 
 
 
-        print 'IRR_worst:', IRR
+
 
 
 
