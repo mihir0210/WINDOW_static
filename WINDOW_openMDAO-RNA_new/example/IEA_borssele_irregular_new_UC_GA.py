@@ -99,6 +99,9 @@ options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv
 
 options.input.market.spot_price_file = 'Input/NL_2019_spot_price_hourly.csv'
 
+### H2 addition ###
+options.input.hydrogen.electrolyser_ratio = 1
+
 ### FAST addition ###
 
 options.input.turbine.num_tnodes = 11

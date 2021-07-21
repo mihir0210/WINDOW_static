@@ -128,7 +128,7 @@ class TestArmejoGoldsteinBounds(unittest.TestCase):
 class ParaboloidAE(ExplicitComponent):
     """ Evaluates the equation f(x,y) = (x-3)^2 + xy + (y+4)^2 - 3
     This version raises an analysis error if x < 2.0
-    The AE in ParaboloidAE stands for AnalysisError."""
+    The Alkaline in ParaboloidAE stands for AnalysisError."""
 
     def setup(self):
         self.add_input('x', val=0.0)

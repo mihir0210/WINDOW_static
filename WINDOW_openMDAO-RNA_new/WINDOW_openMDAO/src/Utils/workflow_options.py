@@ -22,6 +22,8 @@ class Input():
 		self.site = Site()
 		self.turbine = Turbine()
 		self.market = Market()
+		self.hydrogen = Hydrogen()
+		
 
 
 class Site():
@@ -35,6 +37,10 @@ class Site():
 class Market():
 	def __init__(self):
 		self.spot_price_file = None
+
+class Hydrogen():
+	def __init__(self):
+		self.electrolyser_ratio = None
 
 
 

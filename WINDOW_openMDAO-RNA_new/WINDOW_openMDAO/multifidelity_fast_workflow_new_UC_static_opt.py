@@ -19,6 +19,8 @@ from WINDOW_openMDAO.layout_scaling import LayoutScaling
 from WINDOW_openMDAO.AEP.farm_AEP import FarmAEP
 from WINDOW_openMDAO.Farm_IRR.farm_IRR import FarmIRR
 
+from WINDOW_openMDAO.H2_production.H2_production import H2
+
 
 class WorkingGroup(Group):
     def __init__(self, options):
@@ -60,6 +62,8 @@ class WorkingGroup(Group):
         #self.wind_speed_file = options.input.site.wind_speed_file
         self.spot_price_file = options.input.market.spot_price_file
 
+        self.electrolyser_ratio = options.input.hydrogen.electrolyser_ratio
+
         ### FAST addition ###
         self.num_tnodes = options.input.turbine.num_tnodes
 
@@ -71,7 +75,7 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1)
+        indep2.add_output('turbine_rad', val=0.8)
         indep2.add_output('rated_power', val=1)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
@@ -199,13 +203,10 @@ class WorkingGroup(Group):
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
 
-        '''
 
-        ## add single turbine model
+        self.add_subsystem('hydrogen', H2(electrolyser_ratio = self.electrolyser_ratio,
+                                          time_resolution = self.time_resolution))
 
-        self.add_subsystem('single_turbine', single_turbine(wind_file=self.wind_file,
-                                                    spot_price_file=self.spot_price_file,
-                                                            num_bins = self.num_bins))'''
 
         ## Add farm IRR module
         self.add_subsystem('FarmIRR', FarmIRR(wind_file=self.wind_file,
@@ -342,6 +343,14 @@ class WorkingGroup(Group):
         self.connect('indep2.transm_electrical_efficiency', 'lcoe.transm_electrical_efficiency')
         self.connect('indep2.operational_lifetime', 'lcoe.operational_lifetime')
         self.connect('indep2.interest_rate', 'lcoe.interest_rate')
+
+        ## Hydrogen connects ##
+
+        self.connect('FarmAEP.farm_power','hydrogen.farm_power')
+        self.connect('indep2.transm_electrical_efficiency', 'hydrogen.transmission_efficiency')
+        self.connect('power_scaling.machine_rating', 'hydrogen.P_rated')
+        self.connect('indep2.n_turbines', 'hydrogen.N_T')
+
 
 
 

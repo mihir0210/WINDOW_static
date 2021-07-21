@@ -12,7 +12,7 @@ class Parameters():
 
         self.base_year = 2019
         self.slope_base = -0.28 #for 2019
-        self.constant_base = 43 #43 #for 2019
+        self.constant_base = 80 #43 #for 2019; use 80 to avoid nan values
 
         '''
         The max slope value has been taken from Denmark's data. This slope value was attained
@@ -21,7 +21,7 @@ class Parameters():
         see this situation somewhere towards the end of lifetime for wind farms being commissioned 
         now in 2020-2022         
         '''
-        self.max_slope = -6 #-2.3
+        self.max_slope = -2.3 #-2.3 or -6
         self.max_constant = 110
 
 

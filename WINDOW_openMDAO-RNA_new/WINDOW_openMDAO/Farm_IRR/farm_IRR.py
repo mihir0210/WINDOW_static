@@ -99,7 +99,7 @@ class FarmIRR(ExplicitComponent):
 
                 parameters = Parameters(future_year, operational_lifetime)
 
-                [slope, constant] = parameters.var_slope_and_constant()
+                [slope, constant] = parameters.var_slope()
 
 
 

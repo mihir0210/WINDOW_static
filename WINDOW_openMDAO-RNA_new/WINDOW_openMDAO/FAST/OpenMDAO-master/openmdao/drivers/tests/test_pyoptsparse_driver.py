@@ -27,7 +27,7 @@ if OPTIMIZER:
 class ParaboloidAE(ExplicitComponent):
     """ Evaluates the equation f(x,y) = (x-3)^2 + xy + (y+4)^2 - 3
     This version raises an analysis error 50% of the time.
-    The AE in ParaboloidAE stands for AnalysisError."""
+    The Alkaline in ParaboloidAE stands for AnalysisError."""
 
     def __init__(self):
         super(ParaboloidAE, self).__init__()
