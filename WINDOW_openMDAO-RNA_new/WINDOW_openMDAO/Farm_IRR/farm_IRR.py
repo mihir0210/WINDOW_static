@@ -64,7 +64,7 @@ class FarmIRR(ExplicitComponent):
         wind_file = self.metadata['wind_file']
         wind_file = pd.read_csv(wind_file)
 
-        wind_speed = np.array(wind_file['wind_speed'])
+        wind_speed = wind_file['wind_speed']
 
 
         spot_price_file = self.metadata['spot_price_file']
@@ -115,7 +115,11 @@ class FarmIRR(ExplicitComponent):
 
                 #spot_price_ts = np.ones(len(farm_power))*40
 
-                elec_farm_power = np.multiply(np.array(farm_power), np.array([transm_electrical_efficiency]))
+
+
+                elec_farm_power = np.multiply(farm_power, transm_electrical_efficiency)
+
+                #print 'elec farm power:', elec_farm_power
 
 
                 yearly_revenue = np.sum(np.multiply(elec_farm_power, spot_price_ts))
@@ -150,7 +154,7 @@ class FarmIRR(ExplicitComponent):
             # print output_list
 
             cashflows = output_list
-            #print cashflows
+            print cashflows
 
 
             IRR = np.irr(cashflows)
@@ -162,7 +166,7 @@ class FarmIRR(ExplicitComponent):
 
             # Checks where NPV switches sign
 
-            rate = np.linspace(-0.15,0.15,100)
+            rate = np.linspace(-0.15,0.15,200)
             NPV_pxy = []
 
             for r in rate:
@@ -190,7 +194,8 @@ class FarmIRR(ExplicitComponent):
 
             IRR_new = rate[loc]
 
-            print 'IRR_eneco:', IRR_new
+            print 'IRR_scneario_inbuilt:', IRR
+            print 'IRR_scenario:', IRR_new
 
 
 
@@ -275,27 +280,9 @@ class FarmIRR(ExplicitComponent):
             discount_rate = 0.05
             NPV = np.npv(discount_rate, cashflows)
 
-            ##### Write your own IRR function ####
-
-            # Checks where NPV switches sign
-
-            rate = np.linspace(-0.2,0.2,100)
-            NPV_pxy = []
-
-            for r in rate:
-                val = abs(np.npv(r, cashflows))
-                NPV_pxy.append(val[0])
 
 
-            #print NPV_pxy
-            min_elem = np.amin(NPV_pxy)
-            loc = np.where(NPV_pxy == min_elem)
-
-
-
-            IRR_new = rate[loc]
-
-            #print 'IRR_worstslope:', IRR_new
+            print 'IRR_worstslope:', IRR
 
             return IRR, NPV
 
@@ -339,19 +326,25 @@ if __name__ == "__main__":
     #from WINDOW_openMDAO.src.api import beautify_dict
     import matplotlib.pyplot as plt
 
+    import numpy as np
+
+    a = 500*np.ones([1,8760])
+    power = a.tolist()
+
     ###################################################
     ############### Model Execution ###################
     ###################################################
-    inputs = {'investment_costs': 10000000.0, \
+    inputs = {'investment_costs': [3000000000.0], \
               'decommissioning_costs': 6000000.0, \
               'oandm_costs': 50000.0,\
               'transm_electrical_efficiency': 0.95, \
-              'operational_lifetime': [25], \
-              'interest_rate': 0.075
+              'operational_lifetime': 25, \
+              'farm_power': power,\
+
                             }
     outputs = {}
 
 
-    model = FarmIRR(wind_file='NL_2019_100m_hourly_ERA5_highwind_withdir.csv', spot_price_file='NL_spot_price_2019.csv', direction_sampling_angle = 30.0)
+    model = FarmIRR(wind_file='NL_2019_100m_hourly_ERA5_highwind_withdir.csv', spot_price_file='NL_spot_price_2019.csv', time_resolution = 8760)
 
     model.compute(inputs, outputs)
