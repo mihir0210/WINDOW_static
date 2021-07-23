@@ -13,9 +13,10 @@ class Alkaline(AbsAlkaline):
 
         N_T = inputs['N_T']
         P_rated = inputs['P_rated'] #in kW
-        P_rated = P_rated/1000 #in MW
         farm_power = inputs['farm_power'] #in MW
         transmission_eff = inputs['transmission_efficiency']
+
+        P_rated = P_rated / 1000  # in MW
 
         farm_power = [P*transmission_eff for P in farm_power] #Multiplying farm power with elec cable efficiency
 

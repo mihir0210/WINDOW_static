@@ -19,6 +19,9 @@ from WINDOW_openMDAO.layout_scaling import LayoutScaling
 from WINDOW_openMDAO.AEP.farm_AEP import FarmAEP
 from WINDOW_openMDAO.Farm_IRR.farm_IRR import FarmIRR
 
+from WINDOW_openMDAO.H2_production.H2_production import H2
+from WINDOW_openMDAO.H2_production.LCoH import LCOH
+
 
 class WorkingGroup(Group):
     def __init__(self, options):
@@ -60,6 +63,7 @@ class WorkingGroup(Group):
         #self.wind_speed_file = options.input.site.wind_speed_file
         self.spot_price_file = options.input.market.spot_price_file
 
+        self.electrolyser_ratio = options.input.hydrogen.electrolyser_ratio
         ### FAST addition ###
         self.num_tnodes = options.input.turbine.num_tnodes
 
@@ -71,7 +75,7 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1.25)
+        indep2.add_output('turbine_rad', val=1.2)
         indep2.add_output('rated_power', val=1)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
@@ -199,13 +203,12 @@ class WorkingGroup(Group):
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
 
-        '''
+        self.add_subsystem('H2', H2(electrolyser_ratio = self.electrolyser_ratio,
+                                    time_resolution = self.time_resolution))
 
-        ## add single turbine model
+        self.add_subsystem('LCoH', LCOH())
 
-        self.add_subsystem('single_turbine', single_turbine(wind_file=self.wind_file,
-                                                    spot_price_file=self.spot_price_file,
-                                                            num_bins = self.num_bins))'''
+
 
         ## Add farm IRR module
         self.add_subsystem('FarmIRR', FarmIRR(wind_file=self.wind_file,
@@ -355,26 +358,23 @@ class WorkingGroup(Group):
         self.connect('Costs.decommissioning_costs', 'FarmIRR.decommissioning_costs')
 
 
-        '''
+        # H2 connects
 
-        ## Single-turbine connects
+        self.connect('indep2.n_turbines', 'H2.N_T')
+        self.connect('power_scaling.machine_rating', 'H2.P_rated')
+        self.connect('FarmAEP.farm_power', 'H2.farm_power')
+        self.connect('indep2.transm_electrical_efficiency', 'H2.transmission_efficiency')
 
-        self.connect('rna.elec_power_bin', 'single_turbine.elec_power_bin')
-        self.connect('indep2.weibull_scale', 'single_turbine.weibull_scale')
-        self.connect('indep2.weibull_shape', 'single_turbine.weibull_shape')
-        self.connect('Costs.single_turbine_investment_costs', 'single_turbine.investment_costs')
-        self.connect('Costs.single_turbine_decommissioning_costs', 'single_turbine.decommissioning_costs')
-        self.connect('indep2.transm_electrical_efficiency', 'single_turbine.transm_electrical_efficiency')
-        self.connect('indep2.operational_lifetime', 'single_turbine.operational_lifetime')
-        self.connect('indep2.interest_rate', 'single_turbine.interest_rate')
+        self.connect('H2.annual_H2', 'LCoH.annual_H2')
+        self.connect('H2.H2_CAPEX', 'LCoH.H2_CAPEX')
+        self.connect('H2.H2_OPEX', 'LCoH.H2_OPEX')
+        self.connect('indep2.interest_rate', 'LCoH.interest_rate')
+        self.connect('indep2.operational_lifetime', 'LCoH.operational_lifetime')
+        self.connect('Costs.investment_costs', 'LCoH.investment_costs')
+        self.connect('OandM.annual_cost_O&M', 'LCoH.oandm_costs')
+        self.connect('Costs.decommissioning_costs', 'LCoH.decommissioning_costs')
 
-        self.connect('indep2.cut_in_speed', 'single_turbine.cut_in_speed')
-        self.connect('indep2.cut_out_speed', 'single_turbine.cut_out_speed')
-        self.connect('rna.rated_wind_speed', 'single_turbine.rated_wind_speed')
-        self.connect('rna.rotor_cp', 'single_turbine.rotor_cp')
-        self.connect('rna.blade.aero_partial.swept_area', 'single_turbine.swept_area')
-        self.connect('indep2.drive_train_efficiency', 'single_turbine.drive_train_efficiency')
-        self.connect('power_scaling.machine_rating', 'single_turbine.machine_rating')'''
+
 
 
 

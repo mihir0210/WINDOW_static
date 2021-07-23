@@ -210,6 +210,8 @@ class FarmIRR(ExplicitComponent):
 
         outputs['IRR'] = IRR
 
+        '''
+
         #print 'IRR_gradslope:', IRR
         #print 'NPV:', NPV
 
@@ -236,15 +238,16 @@ class FarmIRR(ExplicitComponent):
 
 
 
-                spot_price_ts = spot_price(wind_speed, slope, constant)
-                '''
+                spot_price_ts = spot_price(wind_speed, slope, constant)'''
+
+        '''
                 only for var_slope()
 
                 spot_price_ts = []
 
                 for p in spot_price_:
                     spot_price_ts.append(p[0])'''
-
+        '''
                 # spot_price_ts = np.ones(len(farm_power))*40
 
                 elec_farm_power = np.multiply(np.array(farm_power), np.array([transm_electrical_efficiency]))
@@ -288,7 +291,8 @@ class FarmIRR(ExplicitComponent):
 
 
 
-        [IRR, NPV] = irr_npv_new()
+        [IRR, NPV] = irr_npv_new()'''
+
 
 
 
