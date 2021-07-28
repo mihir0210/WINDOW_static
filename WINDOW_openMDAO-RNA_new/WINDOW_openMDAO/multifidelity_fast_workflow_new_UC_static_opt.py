@@ -75,7 +75,7 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1.2)
+        indep2.add_output('turbine_rad', val=1.25)
         indep2.add_output('rated_power', val=1)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
@@ -356,6 +356,11 @@ class WorkingGroup(Group):
         self.connect('Costs.investment_costs', 'FarmIRR.investment_costs')
         self.connect('OandM.annual_cost_O&M', 'FarmIRR.oandm_costs')
         self.connect('Costs.decommissioning_costs', 'FarmIRR.decommissioning_costs')
+
+        self.connect('H2.H2_produced', 'FarmIRR.H2_produced')
+        self.connect('H2.H2_CAPEX', 'FarmIRR.H2_CAPEX')
+        self.connect('H2.H2_OPEX', 'FarmIRR.H2_OPEX')
+        self.connect('H2.power_curtailed', 'FarmIRR.power_curtailed')
 
 
         # H2 connects

@@ -26,7 +26,7 @@ class H2(Group):
 
         self.add_subsystem('Alkaline', Alkaline(electrolyser_ratio = electrolyser_ratio, time_resolution = time_resolution),
                            promotes_inputs=['N_T', 'P_rated', 'farm_power', 'transmission_efficiency'],
-                           promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX'])
+                           promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
 
 
         #self.add_subsystem('PEM', PEM())

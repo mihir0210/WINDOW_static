@@ -20,4 +20,6 @@ class AbsAlkaline(ExplicitComponent):
         self.add_output('annual_H2', desc='Annual production of H2 in kg')
         self.add_output('H2_CAPEX', desc='Capital expenditures of H2 facility')
         self.add_output('H2_OPEX', desc='Operational costs of H2 facility')
+        self.add_output('H2_produced', desc='hourly hydrogen production', shape = time_points)
+        self.add_output('power_curtailed', desc='hourly farm power curtailed', shape=time_points)
 

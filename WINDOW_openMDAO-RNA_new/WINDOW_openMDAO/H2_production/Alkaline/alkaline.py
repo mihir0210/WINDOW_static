@@ -1,4 +1,5 @@
 from WINDOW_openMDAO.src.AbsH2.alkaline import AbsAlkaline
+from WINDOW_openMDAO.H2_production.efficiency import alkaline_efficiency
 
 class Alkaline(AbsAlkaline):
 
@@ -26,7 +27,7 @@ class Alkaline(AbsAlkaline):
 
 
 
-        annual_H2 = self.production(electrolyser_rated, farm_power)
+        [H2_produced, annual_H2, power_curtailed] = self.production(electrolyser_rated, farm_power)
 
         CAPEX = self.CAPEX(electrolyser_rated)
 
@@ -39,11 +40,15 @@ class Alkaline(AbsAlkaline):
 
 
 
+        print 'energy curtailed:', sum(power_curtailed)
+
 
 
         outputs['annual_H2'] = annual_H2
         outputs['H2_CAPEX'] = CAPEX
         outputs['H2_OPEX'] = OPEX
+        outputs['H2_produced'] = H2_produced
+        outputs['power_curtailed'] = power_curtailed
 
 
 
@@ -57,29 +62,38 @@ class Alkaline(AbsAlkaline):
         #### Standard specifications of an Alkaline Electrolyser ###
 
         base_load = 0.15 #Need to maintain it at a minimum of 15 % input load (Shut down otherwise)
-        E_consumption = 4.4 #kWh per Nm3 of Hydrogen production
-        E_consumption_kg = E_consumption/0.09 #Converting to kWh required per kg of Hydrogen production
 
 
         H2 = []
+        power_curtailed = []
 
         for idx in range(len(farm_power)):
 
+            input_load = min(100, (farm_power[idx]/electrolyser_rated)*100.0)
+
+            E_consumption_kg = alkaline_efficiency(input_load, 'variable')
+
+
+
             if farm_power[idx]<base_load*electrolyser_rated:
                 H2.append(0) #eletrolyser shut down
+                #power_curtailed.append(0) #for hydrogen only
+                power_curtailed.append(farm_power[idx]) #for both hydrogen and elec
 
             elif farm_power[idx]>base_load*electrolyser_rated and farm_power[idx]<electrolyser_rated:
                 H2_produced = farm_power[idx]*1000/E_consumption_kg
                 H2.append(H2_produced)
+                power_curtailed.append(0)
             elif farm_power[idx]>electrolyser_rated or farm_power[idx] == electrolyser_rated:
                 H2_produced = electrolyser_rated*1000/E_consumption_kg
                 H2.append(H2_produced)
+                power_curtailed.append(farm_power[idx]-electrolyser_rated)
 
 
 
         annual_H2 = sum(H2) #Total hydrogen (in kg) produced in a year
 
-        return annual_H2
+        return H2, annual_H2, power_curtailed
 
 
     def CAPEX(self, electrolyser_rated):
@@ -92,9 +106,11 @@ class Alkaline(AbsAlkaline):
         ref_utilities =120 #Water plant, cooling towers, etc.
         ref_civil = 78
 
-        ref_indirect = 210 #engineering, project management, commissioning
-        ref_owner = 88 #Site supervisory teams, insurance, land lease
-        ref_contingency = 0.3 #30 % extra for future risks
+        #ref_indirect = 210 #engineering, project management, commissioning
+        #ref_owner = 88 #Site supervisory teams, insurance, land lease
+        #ref_contingency = 0.3 #30 % extra for future risks
+
+        ref_indirect = 0.2 # 20 % extra  for engineering, project management, commissioning, Site supervisory teams, insurance, land lease, contingency
 
         electrolyser_rated = electrolyser_rated*1000 #Converting to kW
 
@@ -105,13 +121,15 @@ class Alkaline(AbsAlkaline):
         C_civil = ref_civil*electrolyser_rated
 
         C_indirect = ref_indirect*electrolyser_rated
-        C_owner = ref_owner*electrolyser_rated
+        #C_owner = ref_owner*electrolyser_rated
 
-        C_total = C_stacks + C_bop + C_pe + C_utilities + C_civil + C_indirect + C_owner
+        C_total = C_stacks + C_bop + C_pe + C_utilities + C_civil # + C_indirect + C_owner
+        C_indirect = ref_indirect*C_total
 
-        C_contingency = ref_contingency*C_total
+        #C_contingency = ref_contingency*C_total
+        CAPEX = C_total + C_indirect
 
-        CAPEX = C_total + C_contingency
+        #CAPEX = C_total + C_contingency
 
         return CAPEX
 
@@ -136,14 +154,15 @@ if __name__ == "__main__":
               'transmission_efficiency': 0.95}
     outputs = {}
 
-    model = Alkaline(electrolyser_ratio = 1, time_resolution = 4)
+    model = Alkaline(electrolyser_ratio = 0.5, time_resolution = 4)
 
 
     model.compute(inputs, outputs)
 
-    print outputs['annual_H2']
-    print outputs['H2_CAPEX']
-    print outputs['H2_OPEX']
+    #print outputs['annual_H2']
+    #print outputs['H2_CAPEX']
+    #print outputs['H2_OPEX']
+
 
 
 
