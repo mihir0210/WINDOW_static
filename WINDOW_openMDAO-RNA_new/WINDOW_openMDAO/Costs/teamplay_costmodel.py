@@ -2,6 +2,8 @@ from openmdao.api import ExplicitComponent
 from WINDOW_openMDAO.input_params import max_n_turbines
 from costs.other_costs import other_costs
 
+from WINDOW_openMDAO.input_params import distance_to_grid
+
 
 class TeamPlayCostModel(ExplicitComponent):
 
@@ -25,8 +27,7 @@ class TeamPlayCostModel(ExplicitComponent):
         
         self.add_output('investment_costs', val=0.0)
         self.add_output('decommissioning_costs', val=0.0)
-        self.add_output('single_turbine_investment_costs', val=0.0)
-        self.add_output('single_turbine_decommissioning_costs', val=0.0)
+
 
 
 
@@ -53,22 +54,44 @@ class TeamPlayCostModel(ExplicitComponent):
         farm_area = inputs['farm_area'] # in km2
         area_use_cost = a*farm_area
 
-        print 'infield cable cost:', infield_cable_investment
+        #print 'infield cable cost:', infield_cable_investment
 
 
-        outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment + area_use_cost  # TODO Apply management percentage also to electrical and support structure costs.
+        #outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment + area_use_cost  # TODO Apply management percentage also to electrical and support structure costs.
         # print support_structure_investment ,infield_cable_investment ,other_investment, outputs['decommissioning_costs']
 
-        single_turbine_costs = support_structure_costs[1] + inputs['purchase_price'] + other_investment/n_turbines
+        def pem_decentralized_costs():
+            total_pipeline_length = distance_to_grid  # in m
+            pipeline_costfactor = 1.25  # per kW per km
 
-        outputs['single_turbine_investment_costs'] = single_turbine_costs
-        outputs['single_turbine_decommissioning_costs'] = outputs['decommissioning_costs']/n_turbines
+            pipeline_cost = pipeline_costfactor * n_turbines * inputs['machine_rating'] * (
+                        total_pipeline_length / 1000.0) + 40e6
 
-        #print 'one support struc:', support_structure_costs[1]
+
+            pipeline_installation_cost_perkm = 4e6  # Euros
+
+            pipeline_installation_cost = pipeline_installation_cost_perkm * (total_pipeline_length / 1000.0)
+
+            print 'pipeline costs', pipeline_cost
+            print 'pipeline installation costs', pipeline_installation_cost
+
+            return pipeline_cost, pipeline_installation_cost
+
+        [pipeline_costs, pipeline_installation_costs] = pem_decentralized_costs()
+        outputs['investment_costs'] = support_structure_investment + other_investment + area_use_cost + pipeline_costs + pipeline_installation_costs
+
+
+
         print 'purchase price:', inputs['purchase_price']
-        #print 'single turbine cost:', single_turbine_costs
+
         print 'Support costs:', support_structure_investment
-        print 'Total investment costs:', investment_costs
+        print 'Total investment costs:', outputs['investment_costs']
         print 'infield cable cots:', infield_cable_investment
         print 'Rated power:', inputs['machine_rating']
         print 'Turbine radius:', inputs['rotor_radius']
+
+
+
+
+
+

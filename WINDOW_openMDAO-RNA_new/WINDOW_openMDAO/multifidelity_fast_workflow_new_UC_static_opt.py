@@ -75,7 +75,7 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1.25)
+        indep2.add_output('turbine_rad', val=1)
         indep2.add_output('rated_power', val=1)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
@@ -368,7 +368,7 @@ class WorkingGroup(Group):
         self.connect('indep2.n_turbines', 'H2.N_T')
         self.connect('power_scaling.machine_rating', 'H2.P_rated')
         self.connect('FarmAEP.farm_power', 'H2.farm_power')
-        self.connect('indep2.transm_electrical_efficiency', 'H2.transmission_efficiency')
+        #self.connect('indep2.transm_electrical_efficiency', 'H2.transmission_efficiency')
 
         self.connect('H2.annual_H2', 'LCoH.annual_H2')
         self.connect('H2.H2_CAPEX', 'LCoH.H2_CAPEX')

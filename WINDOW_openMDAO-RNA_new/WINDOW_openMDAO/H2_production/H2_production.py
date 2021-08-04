@@ -1,6 +1,7 @@
 from openmdao.api import Group, Problem
 
-from WINDOW_openMDAO.H2_production.Alkaline.alkaline import Alkaline
+from WINDOW_openMDAO.H2_production.Alkaline.alkaline import ALKALINE
+from WINDOW_openMDAO.H2_production.PEM.pem_decentralized import PEM_DECENTRALIZED
 
 
 '''
@@ -22,14 +23,17 @@ class H2(Group):
         time_resolution = self.metadata['time_resolution']
 
 
-        #Add the two electrolyser
+        #Add the two electrolysers
 
-        self.add_subsystem('Alkaline', Alkaline(electrolyser_ratio = electrolyser_ratio, time_resolution = time_resolution),
-                           promotes_inputs=['N_T', 'P_rated', 'farm_power', 'transmission_efficiency'],
+        # self.add_subsystem('Alkaline', ALKALINE(electrolyser_ratio = electrolyser_ratio, time_resolution = time_resolution),
+        #                    promotes_inputs=['N_T', 'P_rated', 'farm_power', 'transmission_efficiency'],
+        #                    promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
+
+
+        self.add_subsystem('PEM', PEM_DECENTRALIZED(time_resolution = time_resolution),
+                           promotes_inputs=['N_T', 'P_rated', 'farm_power'],
                            promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
 
-
-        #self.add_subsystem('PEM', PEM())
 
 
 
@@ -45,7 +49,7 @@ if __name__ == "__main__":
     prob['N_T'] = 100
     prob['P_rated'] = 10000.0
     prob['farm_power'] = [1000, 20, 400, 160]
-    prob['transmission_efficiency'] = 0.95
+    #prob['transmission_efficiency'] = 0.95
 
     prob.run_model()
 
