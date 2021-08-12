@@ -109,8 +109,8 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         ### Reference costs in Euros per kW ###
 
-        ref_stacks = 400 #Electrolyser stacks
-        ref_bop = 148 #BOP includes gas separators, compressors, gas treatment
+        ref_stacks = 300 #Electrolyser stacks
+        ref_bop = 50 #            148 #BOP includes gas separators, compressors, gas treatment
 
 
 

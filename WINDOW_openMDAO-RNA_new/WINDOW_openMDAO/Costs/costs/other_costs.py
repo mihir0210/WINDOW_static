@@ -53,6 +53,8 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
     #investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
     #investment_costs = project_development + procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna + other_installation_commissioning_costs
     investment_costs = project_development + procurement_rna + turbine_other_costs + installation_rna + other_installation_commissioning_costs
+    #investment_costs = project_development + procurement_rna  + installation_rna
+
     # print "project_development ", project_development
     # print "procurement_auxiliary", procurement_auxiliary 
     # print "procurement_rna" ,procurement_rna 

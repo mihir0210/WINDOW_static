@@ -77,6 +77,7 @@ options.input.turbine.power_file = "Input/power_rna.dat"
 options.input.turbine.ct_file = "Input/ct_rna.dat"
 options.input.turbine.num_pegged = 3
 options.input.turbine.num_airfoils = 30
+
 options.input.turbine.num_nodes = 30
 options.input.turbine.num_bins = 31
 options.input.turbine.safety_factor = 1.5

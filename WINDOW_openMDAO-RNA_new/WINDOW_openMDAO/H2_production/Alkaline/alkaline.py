@@ -36,11 +36,14 @@ class ALKALINE(AbsAlkaline):
         print 'Annual H2:', annual_H2
         print 'H2 CAPEX:', CAPEX
         print 'H2 OPEX', OPEX
+        print 'H2 total costs', CAPEX + OPEX
 
 
 
 
         print 'energy curtailed:', sum(power_curtailed)
+
+
 
 
 
@@ -61,7 +64,7 @@ class ALKALINE(AbsAlkaline):
 
         #### Standard specifications of an Alkaline Electrolyser ###
 
-        base_load = 0.15 #Need to maintain it at a minimum of 15 % input load (Shut down otherwise)
+        base_load = 0 #Need to maintain it at a minimum of 15 % input load (Shut down otherwise)
 
 
         H2 = []
@@ -73,21 +76,30 @@ class ALKALINE(AbsAlkaline):
 
             E_consumption_kg = alkaline_efficiency(input_load, 'variable')
 
+            if base_load>0:
 
+                if farm_power[idx]<base_load*electrolyser_rated:
+                    H2.append(0) #eletrolyser shut down
+                    #power_curtailed.append(0) #for hydrogen only
+                    power_curtailed.append(farm_power[idx]) #for both hydrogen and elec
 
-            if farm_power[idx]<base_load*electrolyser_rated:
-                H2.append(0) #eletrolyser shut down
-                #power_curtailed.append(0) #for hydrogen only
-                power_curtailed.append(farm_power[idx]) #for both hydrogen and elec
-
-            elif farm_power[idx]>base_load*electrolyser_rated and farm_power[idx]<electrolyser_rated:
-                H2_produced = farm_power[idx]*1000/E_consumption_kg
-                H2.append(H2_produced)
-                power_curtailed.append(0)
-            elif farm_power[idx]>electrolyser_rated or farm_power[idx] == electrolyser_rated:
-                H2_produced = electrolyser_rated*1000/E_consumption_kg
-                H2.append(H2_produced)
-                power_curtailed.append(farm_power[idx]-electrolyser_rated)
+                elif farm_power[idx]>base_load*electrolyser_rated and farm_power[idx]<electrolyser_rated:
+                    H2_produced = farm_power[idx]*1000/E_consumption_kg
+                    H2.append(H2_produced)
+                    power_curtailed.append(0)
+                elif farm_power[idx]>electrolyser_rated or farm_power[idx] == electrolyser_rated:
+                    H2_produced = electrolyser_rated*1000/E_consumption_kg
+                    H2.append(H2_produced)
+                    power_curtailed.append(farm_power[idx]-electrolyser_rated)
+            else:
+                if  farm_power[idx]<electrolyser_rated:
+                    H2_produced = farm_power[idx]*1000/E_consumption_kg
+                    H2.append(H2_produced[0])
+                    power_curtailed.append(0)
+                elif farm_power[idx]>electrolyser_rated or farm_power[idx] == electrolyser_rated:
+                    H2_produced = electrolyser_rated*1000/E_consumption_kg
+                    H2.append(H2_produced[0])
+                    power_curtailed.append(farm_power[idx]-electrolyser_rated)
 
 
 
@@ -127,7 +139,7 @@ class ALKALINE(AbsAlkaline):
         C_indirect = ref_indirect*C_total
 
         #C_contingency = ref_contingency*C_total
-        CAPEX = C_total + C_indirect
+        CAPEX = (C_total + C_indirect)*2
 
         #CAPEX = C_total + C_contingency
 
@@ -154,7 +166,7 @@ if __name__ == "__main__":
               'transmission_efficiency': 0.95}
     outputs = {}
 
-    model = ALKALINE(electrolyser_ratio = 0.5, time_resolution = 4)
+    model = ALKALINE(electrolyser_ratio = 1, time_resolution = 4)
 
 
     model.compute(inputs, outputs)

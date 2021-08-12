@@ -65,7 +65,7 @@ class TeamPlayCostModel(ExplicitComponent):
             pipeline_costfactor = 1.25  # per kW per km
 
             pipeline_cost = pipeline_costfactor * n_turbines * inputs['machine_rating'] * (
-                        total_pipeline_length / 1000.0) + 40e6
+                        total_pipeline_length / 1000.0) #+ 40e6
 
 
             pipeline_installation_cost_perkm = 4e6  # Euros
@@ -78,7 +78,8 @@ class TeamPlayCostModel(ExplicitComponent):
             return pipeline_cost, pipeline_installation_cost
 
         [pipeline_costs, pipeline_installation_costs] = pem_decentralized_costs()
-        outputs['investment_costs'] = support_structure_investment + other_investment + area_use_cost + pipeline_costs + pipeline_installation_costs
+        #outputs['investment_costs'] = support_structure_investment + other_investment + area_use_cost + pipeline_costs + pipeline_installation_costs
+        outputs['investment_costs'] = support_structure_investment + other_investment + pipeline_costs + pipeline_installation_costs
 
 
 
