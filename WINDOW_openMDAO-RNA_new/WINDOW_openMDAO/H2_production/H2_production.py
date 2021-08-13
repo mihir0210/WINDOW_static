@@ -25,14 +25,14 @@ class H2(Group):
 
         #Add the two electrolysers
 
-        # self.add_subsystem('Alkaline', ALKALINE(electrolyser_ratio = electrolyser_ratio, time_resolution = time_resolution),
-        #                    promotes_inputs=['N_T', 'P_rated', 'farm_power', 'transmission_efficiency'],
-        #                    promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
-
-
-        self.add_subsystem('PEM', PEM_DECENTRALIZED(time_resolution = time_resolution),
-                           promotes_inputs=['N_T', 'P_rated', 'farm_power'],
+        self.add_subsystem('Alkaline', ALKALINE(electrolyser_ratio = electrolyser_ratio, time_resolution = time_resolution),
+                           promotes_inputs=['N_T', 'P_rated', 'farm_power', 'transmission_efficiency'],
                            promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
+
+
+        # self.add_subsystem('PEM', PEM_DECENTRALIZED(time_resolution = time_resolution),
+        #                    promotes_inputs=['N_T', 'P_rated', 'farm_power'],
+        #                    promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
 
 
 

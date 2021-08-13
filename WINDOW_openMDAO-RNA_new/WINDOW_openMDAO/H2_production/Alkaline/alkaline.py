@@ -23,6 +23,8 @@ class ALKALINE(AbsAlkaline):
 
         farm_rated = N_T*P_rated    #Wind farm rated power in MW
 
+
+
         electrolyser_rated = farm_rated*electrolyser_ratio #Electrolyser rated power in MW
 
 
@@ -61,7 +63,7 @@ class ALKALINE(AbsAlkaline):
 
         #### Standard specifications of an Alkaline Electrolyser ###
 
-        base_load = 0.15 #Need to maintain it at a minimum of 15 % input load (Shut down otherwise)
+        base_load = 0 #Need to maintain it at a minimum of 15 % input load (Shut down otherwise)
 
 
         H2 = []
@@ -69,25 +71,41 @@ class ALKALINE(AbsAlkaline):
 
         for idx in range(len(farm_power)):
 
+
+
             input_load = min(100, (farm_power[idx]/electrolyser_rated)*100.0)
 
             E_consumption_kg = alkaline_efficiency(input_load, 'variable')
 
+            if base_load>0:
+
+                if farm_power[idx]<base_load*electrolyser_rated:
+                    H2.append(0) #eletrolyser shut down
+                    #power_curtailed.append(0) #for hydrogen only
+                    power_curtailed.append(farm_power[idx]) #for both hydrogen and elec
+
+                elif farm_power[idx]>base_load*electrolyser_rated and farm_power[idx]<electrolyser_rated:
+                    H2_produced = farm_power[idx]*1000/E_consumption_kg
+                    H2.append(H2_produced[0])
+                    power_curtailed.append(0)
+                elif farm_power[idx]>electrolyser_rated or farm_power[idx] == electrolyser_rated:
+                    H2_produced = electrolyser_rated*1000/E_consumption_kg
+                    H2.append(H2_produced[0])
+                    power_curtailed.append(farm_power[idx]-electrolyser_rated)
+
+            else:
+                if  farm_power[idx]<electrolyser_rated:
+                    H2_produced = farm_power[idx]*1000/E_consumption_kg
+                    H2.append(H2_produced[0])
+                    power_curtailed.append(0)
+                elif farm_power[idx]>electrolyser_rated or farm_power[idx] == electrolyser_rated:
+                    H2_produced = electrolyser_rated*1000/E_consumption_kg
+                    H2.append(H2_produced[0])
+                    #power_curtailed.append(farm_power[idx]-electrolyser_rated)
+                    power_curtailed.append(0)
 
 
-            if farm_power[idx]<base_load*electrolyser_rated:
-                H2.append(0) #eletrolyser shut down
-                #power_curtailed.append(0) #for hydrogen only
-                power_curtailed.append(farm_power[idx]) #for both hydrogen and elec
 
-            elif farm_power[idx]>base_load*electrolyser_rated and farm_power[idx]<electrolyser_rated:
-                H2_produced = farm_power[idx]*1000/E_consumption_kg
-                H2.append(H2_produced)
-                power_curtailed.append(0)
-            elif farm_power[idx]>electrolyser_rated or farm_power[idx] == electrolyser_rated:
-                H2_produced = electrolyser_rated*1000/E_consumption_kg
-                H2.append(H2_produced)
-                power_curtailed.append(farm_power[idx]-electrolyser_rated)
 
 
 

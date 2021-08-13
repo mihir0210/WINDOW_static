@@ -119,13 +119,14 @@ class CSMCalibrated(AbsRNACost):
 
         cost_electrical = machine_rating * 40.0
         #outputs['cost_electrical'] = machine_rating * 40.0
-        outputs['cost_controls'] = 55000.0
+        #outputs['cost_controls'] = 55000.0
+        outputs['cost_controls'] = 3e5
 
         cost_transformer = inputs['transformer_mass'] * self.ref_cost_mass('Transformer')
 
         outputs['cost_transformer'] = inputs['transformer_mass'] * self.ref_cost_mass('Transformer')
 
-        outputs['cost_electrical'] = machine_rating*35 # Instead of electricals + transformer
+        outputs['cost_electrical'] = machine_rating*82 # Instead of electricals + transformer + vs electronics
         
         # aggregator
         [outputs['cost_blades'], \
@@ -181,12 +182,12 @@ def aggregator_nacelle(outputs):
                              outputs['cost_generator'] + \
                              outputs['cost_mainframe'] + \
                              outputs['cost_yaw'] + \
-                             outputs['cost_vs_electronics'] + \
                              outputs['cost_hvac'] + \
                              outputs['cost_cover'] + \
                              outputs['cost_electrical'] + \
                              outputs['cost_controls'] #+ \
-                             #outputs['cost_transformer']
+                             #outputs['cost_transformer'] +
+                             #outputs['cost_vs_electronics'] + \
                              
     return cost_nacelle                 
     

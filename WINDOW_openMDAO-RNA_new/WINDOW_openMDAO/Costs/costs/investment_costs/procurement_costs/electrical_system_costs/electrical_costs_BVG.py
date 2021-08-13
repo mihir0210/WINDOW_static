@@ -17,7 +17,7 @@ def electrical_procurement_costs_BVG(NT, P_rated):
 
     offshore_substation_costs = offshore_substation_fixed + offshore_substation_var
 
-    onshore_substation_costs = 35e6 #Euros
+    onshore_substation_costs = 35e6*(NT*P_rated/1000.0)/1000 #Euros
 
     electrical_total_costs = export_cable_cost + offshore_substation_costs + onshore_substation_costs
 
