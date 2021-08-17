@@ -111,7 +111,7 @@ class CSMCalibrated(AbsRNACost):
 
         cost_mainframe = mainframe_mass * self.ref_cost_mass('Mainframe')
 
-        outputs['cost_mainframe'] = mainframe_mass * self.ref_cost_mass('Mainframe')*0.1 #(Based on BVG)
+        outputs['cost_mainframe'] = mainframe_mass * self.ref_cost_mass('Mainframe') #*0.1 #(Based on BVG)
         outputs['cost_yaw'] = inputs['yaw_mass'] * self.ref_cost_mass('Yaw')
         outputs['cost_vs_electronics'] = machine_rating * 26.33
         outputs['cost_hvac'] = machine_rating * 12.0

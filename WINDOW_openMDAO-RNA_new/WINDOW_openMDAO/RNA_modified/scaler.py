@@ -35,7 +35,7 @@ class Scaler(ExplicitComponent):
         outputs['generator_voltage'] = 4000.0
         outputs['collection_voltage'] = 66000.0
         outputs['warranty_percentage'] = 15.0
-        outputs['turbine_rated_current'] = machine_rating / (outputs['collection_voltage']  * np.sqrt(3.0))
+        outputs['turbine_rated_current'] = machine_rating*1000/ (outputs['collection_voltage']  * np.sqrt(3.0))
         outputs['solidity_rotor'] = 0.0516
         outputs['cd_nacelle'] = 1.2
         outputs['cd_rotor_idle_vane'] = 0.4

@@ -75,7 +75,7 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1.01)
+        indep2.add_output('turbine_rad', val=0.9090)
         indep2.add_output('rated_power', val=1.2)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
@@ -314,6 +314,10 @@ class WorkingGroup(Group):
         self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
         #self.connect('AeroAEP.AEP', ['AEP.aeroAEP', 'OandM.AEP'])
         self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP', 'OandM.AEP'])
+
+        self.connect('indep2.n_turbines', 'OandM.N_T')
+        self.connect('power_scaling.machine_rating', 'OandM.P_rated')
+
 
         self.connect('OandM.availability', 'AEP.availability')
         self.connect('indep2.coll_electrical_efficiency', 'AEP.electrical_efficiency')
