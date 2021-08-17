@@ -44,7 +44,7 @@ class TeamPlayCostModel(ExplicitComponent):
                                                                          inputs['machine_rating'], inputs['rotor_radius'], inputs['purchase_price'], inputs['warranty_percentage'], \
                                                                          inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'])
         # other_investment = 0.0
-        infield_cable_investment = sum(cost_p_cable_type) #*(n_turbines*inputs['machine_rating']/1000.0)/1000
+        infield_cable_investment = sum(cost_p_cable_type)
         # infield_cable_investment = 7973617.59755
         support_structure_investment = sum(support_structure_costs)
         # support_structure_investment = 91955760.7762

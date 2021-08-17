@@ -11,6 +11,10 @@ def choose_cables(number_turbines_per_cable, turbine_rated_current):
             if turbine_rated_current * number <= cable[1]:
                 cable_list.append([number, cable[2] + 365.0])
                 break
+            else:
+                cable_list.append([number, 579 + 365.0])
+                break
+    print cable_list
     return cable_list
 
 
