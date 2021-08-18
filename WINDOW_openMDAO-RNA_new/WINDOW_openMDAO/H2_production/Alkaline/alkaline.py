@@ -128,7 +128,7 @@ class ALKALINE(AbsAlkaline):
         #ref_owner = 88 #Site supervisory teams, insurance, land lease
         #ref_contingency = 0.3 #30 % extra for future risks
 
-        ref_indirect = 0.2 # 20 % extra  for engineering, project management, commissioning, Site supervisory teams, insurance, land lease, contingency
+        ref_indirect = 0 #0.2 # 20 % extra  for engineering, project management, commissioning, Site supervisory teams, insurance, land lease, contingency
 
         electrolyser_rated = electrolyser_rated*1000 #Converting to kW
 
