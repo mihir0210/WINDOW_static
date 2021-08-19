@@ -79,7 +79,7 @@ class TeamPlayCostModel(ExplicitComponent):
 
         [pipeline_costs, pipeline_installation_costs] = pem_decentralized_costs()
         #outputs['investment_costs'] = support_structure_investment + other_investment + area_use_cost + pipeline_costs + pipeline_installation_costs
-        outputs['investment_costs'] = support_structure_investment + other_investment + pipeline_costs + pipeline_installation_costs + infield_cable_investment
+        outputs['investment_costs'] = support_structure_investment + other_investment + pipeline_costs + pipeline_installation_costs + infield_cable_investment + area_use_cost
 
 
 

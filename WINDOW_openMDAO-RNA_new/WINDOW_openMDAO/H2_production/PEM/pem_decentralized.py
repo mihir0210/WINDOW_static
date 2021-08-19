@@ -122,7 +122,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
 
 
-        C_total = 1.2*(C_stacks + C_bop)
+        C_total = (C_stacks + C_bop)
 
 
 
