@@ -33,6 +33,7 @@ class FarmAEP(ExplicitComponent):
     def setup(self):
 
         time_points = self.metadata['time_resolution']
+        self.add_input('hub_height', val=0.0)
 
         self.add_output('farm_power', shape = time_points)
         self.add_output('farm_AEP', val=0.0)
@@ -40,6 +41,7 @@ class FarmAEP(ExplicitComponent):
 
     def compute(self, inputs, outputs):
 
+        hub_height = inputs['hub_height']
 
         with open('farm_pc_directional.csv', mode='r') as infile: #file is generated in the AeroAEP module
             reader = csv.reader(infile)
@@ -54,7 +56,12 @@ class FarmAEP(ExplicitComponent):
 
         wind_file = pd.read_csv(wind_file)
 
-        wind_speed = np.array(wind_file['wind_speed'])
+        wind_speed_100 = np.array(wind_file['wind_speed'])
+
+        wind_speed = []
+        for v in wind_speed_100:
+            wind_speed.append(v * (hub_height / 100.0) ** 0.11)  # power law to extrapolate wind speed to hub height
+
         wind_direction = np.array(wind_file['wind_direction'])
 
 

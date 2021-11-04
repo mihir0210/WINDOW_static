@@ -23,7 +23,7 @@ def electrical_procurement_costs_BVG(NT, P_rated):
 
     print 'export cable', export_cable_cost
     print 'offshore substation:', offshore_substation_costs
-    print 'oshore substation:', onshore_substation_costs
+    print 'onshore substation:', onshore_substation_costs
 
     return electrical_total_costs
 

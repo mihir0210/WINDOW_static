@@ -8,6 +8,7 @@ def rna_costs(NT, purchase_price, warranty_percentage):
     inv_procurement_turbines_warranty = (warranty_percentage / 100.0) * inv_procurement_turbines_purchase
 
     total_rna_cost = inv_procurement_turbines_purchase + inv_procurement_turbines_warranty
+    print 'RNA warranty', inv_procurement_turbines_warranty
 
     return total_rna_cost
 

@@ -75,8 +75,8 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=1.616)
-        indep2.add_output('rated_power', val=3)
+        indep2.add_output('turbine_rad', val=198/198.0)
+        indep2.add_output('rated_power', val=10/10.0)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d
@@ -307,13 +307,14 @@ class WorkingGroup(Group):
         self.connect('rna.yaw_to_hub_height', 'support.yaw_to_hub_height')
         self.connect('rna.mass_eccentricity', 'support.mass_eccentricity')
 
-        #### Preprocessor connects ####
+
 
         #self.connect('indep2.tau', 'rna.tau')  #### uniform Thickness factor
 
         self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
         #self.connect('AeroAEP.AEP', ['AEP.aeroAEP', 'OandM.AEP'])
         self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP', 'OandM.AEP'])
+        self.connect('rna.hub_height', 'FarmAEP.hub_height')
 
         self.connect('indep2.n_turbines', 'OandM.N_T')
         self.connect('power_scaling.machine_rating', 'OandM.P_rated')
@@ -328,6 +329,7 @@ class WorkingGroup(Group):
         self.connect('electrical.length_p_cable_type', 'Costs.length_p_cable_type')
         self.connect('electrical.cost_p_cable_type', 'Costs.cost_p_cable_type')
         self.connect('support.cost_support', 'Costs.support_structure_costs')
+        self.connect('support.support_decomm_costs', 'Costs.support_decomm_costs')
         # self.connect('indep2.machine_rating', 'Costs.machine_rating')
         self.connect('power_scaling.machine_rating', 'Costs.machine_rating')
         # self.connect('indep2.turbine_radius', 'Costs.rotor_radius')
@@ -344,7 +346,7 @@ class WorkingGroup(Group):
         self.connect('Costs.investment_costs', 'lcoe.investment_costs')
         self.connect('OandM.annual_cost_O&M', 'lcoe.oandm_costs')
         self.connect('Costs.decommissioning_costs', 'lcoe.decommissioning_costs')
-        self.connect('AEP.AEP', 'lcoe.AEP')
+        self.connect('FarmAEP.farm_AEP', 'lcoe.AEP')
         self.connect('indep2.transm_electrical_efficiency', 'lcoe.transm_electrical_efficiency')
         self.connect('indep2.operational_lifetime', 'lcoe.operational_lifetime')
         self.connect('indep2.interest_rate', 'lcoe.interest_rate')

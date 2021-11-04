@@ -39,6 +39,7 @@ class AbstractSupportStructureDesign(ExplicitComponent):
         self.add_input('mass_eccentricity', units='m', val=1.9)
 
         self.add_output('cost_support', shape=max_n_turbines)
+        self.add_output('support_decomm_costs', shape=max_n_turbines)
         self.add_output('base_dia', desc='tower base diameter') #,shape=max_n_turbines)
         self.add_output('top_dia', desc='tower top diameter') #,shape=max_n_turbines)
         #self.add_output('tower_length', shape=max_n_turbines)
@@ -50,7 +51,7 @@ class AbstractSupportStructureDesign(ExplicitComponent):
         TI = inputs['max_TI'][:n_turbines]
         depth = inputs['depth'][:n_turbines]
 
-        [costs, base_dia, top_dia, \
+        [costs, support_decomm_costs, base_dia, top_dia, \
          min_tower_wall_thickness, max_tower_wall_thickness] = \
             self.support_design_model(TI, depth, inputs['rotor_radius'], inputs['rated_wind_speed'], \
              inputs['rotor_thrust'], inputs['rna_mass'], \
@@ -115,6 +116,7 @@ class AbstractSupportStructureDesign(ExplicitComponent):
         #top_dia = top_dia.reshape(max_n_turbines)
         #tower_length=tower_length.reshape(max_n_turbines)
         outputs['cost_support'] = costs
+        outputs['support_decomm_costs'] = support_decomm_costs
         outputs['base_dia'] = base_dia
         outputs['top_dia'] = top_dia
         #outputs['tower_length'] = tower_length

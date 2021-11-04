@@ -127,7 +127,7 @@ class CSMCalibrated(AbsRNACost):
         outputs['cost_transformer'] = inputs['transformer_mass'] * self.ref_cost_mass('Transformer')
 
         outputs['cost_electrical'] = machine_rating*82 # Instead of electricals + transformer + vs electronics
-        
+        #outputs['cost_electrical'] = machine_rating * 40  # for HYGRO
         # aggregator
         [outputs['cost_blades'], \
          outputs['cost_hub_system'], \

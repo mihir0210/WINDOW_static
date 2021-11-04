@@ -13,6 +13,7 @@ class TeamPlayCostModel(ExplicitComponent):
         self.add_input('length_p_cable_type', shape=3)
         self.add_input('cost_p_cable_type', shape=3)
         self.add_input('support_structure_costs', shape=max_n_turbines)
+        self.add_input('support_decomm_costs', shape=max_n_turbines)
         self.add_input('depth_central_platform', val=0.0)
         self.add_input('machine_rating', units='W', desc='machine rating', val=10e6)
         self.add_input('rotor_radius', units='m', desc='rotor radius', val=95.4)
@@ -39,14 +40,18 @@ class TeamPlayCostModel(ExplicitComponent):
         length_p_cable_type = inputs['length_p_cable_type']
         cost_p_cable_type = inputs['cost_p_cable_type']
         support_structure_costs = inputs['support_structure_costs']
+        support_decomm_costs = inputs['support_decomm_costs']
         depth_central_platform = inputs['depth_central_platform']
-        other_investment, outputs['decommissioning_costs'] = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, \
+        other_investment, decommissioning_costs = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, \
                                                                          inputs['machine_rating'], inputs['rotor_radius'], inputs['purchase_price'], inputs['warranty_percentage'], \
                                                                          inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'])
         # other_investment = 0.0
         infield_cable_investment = sum(cost_p_cable_type)
         # infield_cable_investment = 7973617.59755
         support_structure_investment = sum(support_structure_costs)
+        support_decomm_costs = sum(support_decomm_costs)
+
+        outputs['decommissioning_costs'] = decommissioning_costs + support_decomm_costs
         # support_structure_investment = 91955760.7762
         investment_costs = support_structure_investment + infield_cable_investment + other_investment
 
@@ -57,32 +62,32 @@ class TeamPlayCostModel(ExplicitComponent):
         #print 'infield cable cost:', infield_cable_investment
 
 
-        outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment + area_use_cost  # TODO Apply management percentage also to electrical and support structure costs.
+        outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment #+ area_use_cost  # TODO Apply management percentage also to electrical and support structure costs.
         # print support_structure_investment ,infield_cable_investment ,other_investment, outputs['decommissioning_costs']
 
-        # def pem_decentralized_costs():
-        #     total_pipeline_length = distance_to_grid  # in m
-        #     pipeline_costfactor = 1.25  # per kW per km
-        #
-        #     pipeline_cost = pipeline_costfactor * n_turbines * inputs['machine_rating'] * (
-        #                 total_pipeline_length / 1000.0) + 40e6
-        #
-        #
-        #     pipeline_installation_cost_perkm = 4e6  # Euros
-        #
-        #     pipeline_installation_cost = pipeline_installation_cost_perkm * (total_pipeline_length / 1000.0)
-        #
-        #     print 'pipeline costs', pipeline_cost
-        #     print 'pipeline installation costs', pipeline_installation_cost
-        #
-        #     return pipeline_cost, pipeline_installation_cost
-        #
-        # [pipeline_costs, pipeline_installation_costs] = pem_decentralized_costs()
-        # outputs['investment_costs'] = support_structure_investment + other_investment + area_use_cost + pipeline_costs + pipeline_installation_costs
+        def pem_decentralized_costs():
+            total_pipeline_length = distance_to_grid  # in m
+            pipeline_costfactor = 1.25  # per kW per km
+
+            pipeline_cost = pipeline_costfactor * n_turbines * inputs['machine_rating'] * (
+                        total_pipeline_length / 1000.0) #+ 40e6
+
+
+            pipeline_installation_cost_perkm = 4e6  # Euros
+
+            pipeline_installation_cost = pipeline_installation_cost_perkm * (total_pipeline_length / 1000.0)
+
+            #print 'pipeline costs', pipeline_cost
+            #print 'pipeline installation costs', pipeline_installation_cost
+
+            return pipeline_cost, pipeline_installation_cost
+
+        #[pipeline_costs, pipeline_installation_costs] = pem_decentralized_costs()
+        #outputs['investment_costs'] = support_structure_investment + other_investment + pipeline_costs + pipeline_installation_costs + infield_cable_investment
 
 
 
-        print 'purchase price:', inputs['purchase_price']
+        #print 'purchase price:', inputs['purchase_price']
 
         print 'Support costs:', support_structure_investment
         print 'Total investment costs:', outputs['investment_costs']

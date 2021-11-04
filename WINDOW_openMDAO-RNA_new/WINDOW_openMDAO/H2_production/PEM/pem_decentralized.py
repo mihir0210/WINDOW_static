@@ -109,8 +109,14 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         ### Reference costs in Euros per kW ###
 
-        ref_stacks = 400 #Electrolyser stacks
-        ref_bop = 148 #BOP includes gas separators, compressors, gas treatment
+        ### HYGRO estimates ###
+        ref_stacks = 300 #Electrolyser stacks
+        ref_bop = 100 #BOP includes gas separators, compressors, gas treatment
+
+        ### Open data estimates ###
+
+        # ref_stacks = 400 #Electrolyser stacks
+        # ref_bop = 148 #BOP includes gas separators, compressors, gas treatment
 
 
 
@@ -119,10 +125,10 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         C_stacks = ref_stacks*electrolyser_rated
         C_bop = ref_bop*electrolyser_rated
 
+        C_indirect = 0.1
 
 
-
-        C_total = C_stacks + C_bop
+        C_total = (C_stacks + C_bop)*(1+C_indirect)
 
 
 
@@ -134,7 +140,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
     def OPEX(self, CAPEX):
 
-        OPEX = 0.02*CAPEX
+        OPEX = 0.01*CAPEX
 
         return OPEX
 
