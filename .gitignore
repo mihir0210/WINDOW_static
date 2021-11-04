@@ -1,5 +1,7 @@
 WINDOW_openMDAO-RNA_new/venv
+
 WINDOW_openMDAO-RNA_new/example/*.csv
+WINDOW_openMDAO-RNA_new/example/Input/*.dat
+
 WINDOW_openMDAO-RNA_new/WINDOW_openMDAO/Farm_IRR/*.csv
 WINDOW_openMDAO-RNA_new/WINDOW_openMDAO/Turbine/*.csv
-
