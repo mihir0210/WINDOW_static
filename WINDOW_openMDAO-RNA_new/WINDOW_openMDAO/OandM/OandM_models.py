@@ -18,6 +18,5 @@ class OM_model1(AbstractOandM):
 
         costs_om = fixed_costs + variable_costs
 
-
         print 'O&M costs:', costs_om
         return costs_om, availability

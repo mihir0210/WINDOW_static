@@ -34,9 +34,9 @@ def decommissioning_costs(infield_cable_length, NT, mass, hub_height):
     total_decommissioning_costs = decommissioning_costs * (management_percentage / 100.0 + 1.0)
 
     print 'Decommisioning costs:', total_decommissioning_costs
-    print 'decommision turbine costs:', decommissioning_removal_turbines
-    print 'decommision cable costs:', decommissioning_removal_transmission_cable + decommissioning_removal_infield_cable
-    print 'decommision substation costs:', decommissioning_removal_substation_and_metmast
+    #print 'decommision turbine costs:', decommissioning_removal_turbines
+    #print 'decommision cable costs:', decommissioning_removal_transmission_cable + decommissioning_removal_infield_cable
+    #print 'decommision substation costs:', decommissioning_removal_substation_and_metmast
 
 
     return total_decommissioning_costs

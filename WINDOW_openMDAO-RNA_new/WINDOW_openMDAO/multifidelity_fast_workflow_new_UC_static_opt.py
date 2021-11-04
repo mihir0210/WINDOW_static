@@ -319,6 +319,10 @@ class WorkingGroup(Group):
         self.connect('indep2.n_turbines', 'OandM.N_T')
         self.connect('power_scaling.machine_rating', 'OandM.P_rated')
 
+        self.connect('indep2.n_turbines', 'OandM.N_T')
+        self.connect('power_scaling.machine_rating', 'OandM.P_rated')
+
+
         self.connect('OandM.availability', 'AEP.availability')
         self.connect('indep2.coll_electrical_efficiency', 'AEP.electrical_efficiency')
 

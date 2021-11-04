@@ -38,11 +38,14 @@ class ALKALINE(AbsAlkaline):
         print 'Annual H2:', annual_H2
         print 'H2 CAPEX:', CAPEX
         print 'H2 OPEX', OPEX
+        print 'H2 total costs', CAPEX + OPEX
 
 
 
 
         print 'energy curtailed:', sum(power_curtailed)
+
+
 
 
 
@@ -145,7 +148,7 @@ class ALKALINE(AbsAlkaline):
         C_indirect = ref_indirect*C_total
 
         #C_contingency = ref_contingency*C_total
-        CAPEX = C_total + C_indirect
+        CAPEX = (C_total + C_indirect)*2
 
         #CAPEX = C_total + C_contingency
 
@@ -172,7 +175,7 @@ if __name__ == "__main__":
               'transmission_efficiency': 0.95}
     outputs = {}
 
-    model = ALKALINE(electrolyser_ratio = 0.5, time_resolution = 4)
+    model = ALKALINE(electrolyser_ratio = 1, time_resolution = 4)
 
 
     model.compute(inputs, outputs)

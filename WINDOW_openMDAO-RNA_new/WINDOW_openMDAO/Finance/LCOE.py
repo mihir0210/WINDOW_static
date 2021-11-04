@@ -36,6 +36,10 @@ class LCOE(ExplicitComponent):
         lcoe = lcoe_previous / transm_electrical_efficiency
         # print(lcoe)
         # print(clock())
+        print 'Wind CAPEX :', investment_costs
+
+        print 'decom costs', decommissioning_costs
         print 'AEP:', AEP
         print 'LCOE:', lcoe
+
         outputs['LCOE'] = lcoe
