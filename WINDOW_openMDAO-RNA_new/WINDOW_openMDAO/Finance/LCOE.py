@@ -13,6 +13,7 @@ class LCOE(ExplicitComponent):
         self.add_input('transm_electrical_efficiency', val=0.0)
         self.add_input('operational_lifetime', val=0.0)
         self.add_input('interest_rate', val=0.0)
+        self.add_input('availability', val=0.0)
 
         self.add_output('LCOE', val=0.0)
 
@@ -22,7 +23,7 @@ class LCOE(ExplicitComponent):
         investment_costs = inputs['investment_costs']
         oandm_costs = inputs['oandm_costs']
         decommissioning_costs = inputs['decommissioning_costs']
-        AEP = inputs['AEP']
+        AEP = inputs['AEP']*inputs['availability']
         transm_electrical_efficiency = inputs['transm_electrical_efficiency']
         operational_lifetime = inputs['operational_lifetime']
         interest_rate = inputs['interest_rate']
@@ -36,9 +37,9 @@ class LCOE(ExplicitComponent):
         lcoe = lcoe_previous / transm_electrical_efficiency
         # print(lcoe)
         # print(clock())
-        print 'Wind CAPEX :', investment_costs
+        #print 'Wind CAPEX :', investment_costs
 
-        print 'decom costs', decommissioning_costs
+        print 'decom costs electricity', decommissioning_costs
         print 'AEP:', AEP
         print 'LCOE:', lcoe
 

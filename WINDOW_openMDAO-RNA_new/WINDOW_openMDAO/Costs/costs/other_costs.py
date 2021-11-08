@@ -1,6 +1,6 @@
 def other_costs(depth_central_platform, n_turbines, infield_length, n_substations, \
                 turbine_rated_power, rotor_radius, purchase_price, warranty_percentage, \
-                rna_mass, hub_height, generator_voltage, collection_voltage):
+                rna_mass, hub_height, generator_voltage, collection_voltage, config):
     #from WINDOW_openMDAO.input_params import turbine_rated_power
     from investment_costs.project_development_cost import project_development_cost
     from investment_costs.management_cost import management_costs
@@ -25,9 +25,9 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     turbine_other_costs = turbine_other_costs(n_turbines, turbine_rated_power)
 
-    procurement_electrical = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power)
+    procurement_electrical = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, config)
 
-    installation_electrical = electrical_installation_costs_BVG()
+    installation_electrical = electrical_installation_costs_BVG(config)
 
 
     #procurement_electrical = electrical_procurement_costs(n_turbines, turbine_rated_power, generator_voltage, collection_voltage)
@@ -40,7 +40,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     other_installation_commissioning_costs = other_installation_commissioning_costs(n_turbines, turbine_rated_power)
 
-    decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height)
+    decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height,config)
 
     print 'RNA costs:', procurement_rna
     print 'turbine other costs:', turbine_other_costs

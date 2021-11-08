@@ -76,7 +76,7 @@ class WorkingGroup(Group):
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
         indep2.add_output('turbine_rad', val=198/198.0)
-        indep2.add_output('rated_power', val=10/10.0)
+        indep2.add_output('rated_power', val=20/10.0)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d
@@ -91,6 +91,7 @@ class WorkingGroup(Group):
         indep2.add_output('transm_electrical_efficiency', val=transm_electrical_efficiency)
         indep2.add_output('operational_lifetime', val=operational_lifetime)
         indep2.add_output('interest_rate', val=interest_rate)
+        indep2.add_output('availability', val=0.97)
 
 
 
@@ -352,6 +353,7 @@ class WorkingGroup(Group):
         self.connect('indep2.transm_electrical_efficiency', 'lcoe.transm_electrical_efficiency')
         self.connect('indep2.operational_lifetime', 'lcoe.operational_lifetime')
         self.connect('indep2.interest_rate', 'lcoe.interest_rate')
+        self.connect('indep2.availability', 'lcoe.availability')
 
 
 
@@ -360,7 +362,7 @@ class WorkingGroup(Group):
         self.connect('FarmAEP.farm_power', 'FarmIRR.farm_power')
         self.connect('indep2.operational_lifetime', 'FarmIRR.operational_lifetime')
         self.connect('indep2.transm_electrical_efficiency', 'FarmIRR.transm_electrical_efficiency')
-        self.connect('Costs.investment_costs', 'FarmIRR.investment_costs')
+        self.connect('Costs.investment_costs_h2', 'FarmIRR.investment_costs')
         self.connect('OandM.annual_cost_O&M', 'FarmIRR.oandm_costs')
         self.connect('Costs.decommissioning_costs', 'FarmIRR.decommissioning_costs')
 
@@ -382,9 +384,10 @@ class WorkingGroup(Group):
         self.connect('H2.H2_OPEX', 'LCoH.H2_OPEX')
         self.connect('indep2.interest_rate', 'LCoH.interest_rate')
         self.connect('indep2.operational_lifetime', 'LCoH.operational_lifetime')
-        self.connect('Costs.investment_costs', 'LCoH.investment_costs')
+        self.connect('Costs.investment_costs_h2', 'LCoH.investment_costs')
         self.connect('OandM.annual_cost_O&M', 'LCoH.oandm_costs')
-        self.connect('Costs.decommissioning_costs', 'LCoH.decommissioning_costs')
+        self.connect('Costs.decommissioning_costs_h2', 'LCoH.decommissioning_costs')
+        self.connect('indep2.availability', 'LCoH.availability')
 
 
 

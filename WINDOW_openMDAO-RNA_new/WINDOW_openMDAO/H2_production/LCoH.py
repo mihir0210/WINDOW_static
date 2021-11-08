@@ -15,6 +15,7 @@ class LCOH(ExplicitComponent):
         self.add_input('H2_OPEX',val=0.0)
         self.add_input('operational_lifetime', val=0.0)
         self.add_input('interest_rate', val=0.0)
+        self.add_input('availability', val=0.0)
 
         self.add_output('LCoH', val=0.0)
 
@@ -24,7 +25,7 @@ class LCOH(ExplicitComponent):
         investment_costs = inputs['investment_costs']
         oandm_costs = inputs['oandm_costs']
         decommissioning_costs = inputs['decommissioning_costs']
-        annual_H2 = inputs['annual_H2']
+        annual_H2 = inputs['annual_H2']*inputs['availability']
         H2_CAPEX = inputs['H2_CAPEX']
         H2_OPEX = inputs['H2_OPEX']
         operational_lifetime = inputs['operational_lifetime']
@@ -45,7 +46,7 @@ class LCOH(ExplicitComponent):
 
         LCoH = (total_CAPEX + a + c)/b # in Euros/kg
 
-        print 'WIND CAPEX:', investment_costs
+        #print 'WIND CAPEX:', investment_costs
         print 'LCoH:', LCoH
 
         outputs['LCoH'] = LCoH

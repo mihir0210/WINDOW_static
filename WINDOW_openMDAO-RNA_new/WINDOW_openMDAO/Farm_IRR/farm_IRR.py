@@ -89,9 +89,9 @@ class FarmIRR(ExplicitComponent):
 
         #print 'O&M:', oandm_costs
 
-        with open('farm_power_89_hourly.csv', 'w') as csvfile:
-            a = csv.writer(csvfile, delimiter=',')
-            a.writerow(farm_power)
+        # with open('farm_power_89_hourly.csv', 'w') as csvfile:
+        #     a = csv.writer(csvfile, delimiter=',')
+        #     a.writerow(farm_power)
 
 
 
@@ -164,7 +164,7 @@ class FarmIRR(ExplicitComponent):
 
             revenue_costs = num/den
 
-            print 'Revenue/Costs:', revenue_costs
+            #print 'Revenue/Costs:', revenue_costs
 
 
 
@@ -326,7 +326,7 @@ class FarmIRR(ExplicitComponent):
 
                 revenue.append(max(0,yearly_revenue - oandm_costs - H2_OPEX[0]))
 
-            print 'Yearly revenue H2:', np.sum(yearly_revenue_H2)
+            #print 'Yearly revenue H2:', np.sum(yearly_revenue_H2)
             revenue[-1] = revenue[-1] - decommissioning_costs
 
 
@@ -395,8 +395,8 @@ class FarmIRR(ExplicitComponent):
 
             IRR_new = rate[loc]
 
-            print 'IRR_withH2_inbuilt:', IRR
-            print 'IRR_withH2:', IRR_new
+            # print 'IRR_withH2_inbuilt:', IRR
+            # print 'IRR_withH2:', IRR_new
 
 
 
@@ -514,7 +514,7 @@ class FarmIRR(ExplicitComponent):
 
                 revenue.append(max(0,yearly_revenue - oandm_costs - H2_OPEX[0]))
 
-            print 'Yearly revenue H2:', np.sum(yearly_revenue_H2)
+            #print 'Yearly revenue H2:', np.sum(yearly_revenue_H2)
             revenue[-1] = revenue[-1] - decommissioning_costs
 
             cashflows = [-1 * (investment_costs[0] + H2_CAPEX[0]), revenue]
@@ -537,7 +537,7 @@ class FarmIRR(ExplicitComponent):
             # print output_list
 
             cashflows = output_list
-            print cashflows
+            #print cashflows
 
 
             IRR = np.irr(cashflows)
@@ -577,8 +577,8 @@ class FarmIRR(ExplicitComponent):
 
             IRR_new = rate[loc]
 
-            print 'IRR_withH2_other_inbuilt:', IRR
-            print 'IRR_withH2_other:', IRR_new
+            # print 'IRR_withH2_other_inbuilt:', IRR
+            # print 'IRR_withH2_other:', IRR_new
 
             return IRR
 

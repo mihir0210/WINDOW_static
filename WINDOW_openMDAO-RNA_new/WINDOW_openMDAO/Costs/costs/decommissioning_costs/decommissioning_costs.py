@@ -2,7 +2,7 @@ from WINDOW_openMDAO.Costs.costs.currency import Cost1
 from WINDOW_openMDAO.input_params import management_percentage, distance_to_grid
 
 
-def decommissioning_costs(infield_cable_length, NT, mass, hub_height):
+def decommissioning_costs(infield_cable_length, NT, mass, hub_height,config):
 
     # ----------------- Decommisioning costs/Removal/Disposal - Input  --------------------
     scour_protection_removal_per_volume = Cost1(33.0, 'USD', 2010)  # [$/m^3]
@@ -29,11 +29,18 @@ def decommissioning_costs(infield_cable_length, NT, mass, hub_height):
     # Decommissioning costs - Disposal
     decommissioning_disposal_turbines = NT * turbine_disposal_per_mass * mass
 
-    decommissioning_costs = decommissioning_removal_turbines + decommissioning_removal_site_clearance + decommissioning_removal_transmission_cable + decommissioning_removal_infield_cable + decommissioning_disposal_turbines + decommissioning_removal_substation_and_metmast
+    if config == 1:
+
+        decommissioning_costs = decommissioning_removal_turbines + decommissioning_removal_site_clearance + \
+                                decommissioning_removal_transmission_cable + decommissioning_removal_infield_cable + \
+                                decommissioning_disposal_turbines + decommissioning_removal_substation_and_metmast
+    elif config == 2:
+        decommissioning_costs = decommissioning_removal_turbines + decommissioning_removal_site_clearance + \
+                                decommissioning_removal_transmission_cable + decommissioning_removal_infield_cable + decommissioning_disposal_turbines
 
     total_decommissioning_costs = decommissioning_costs * (management_percentage / 100.0 + 1.0)
 
-    print 'Decommisioning costs:', total_decommissioning_costs
+    #print 'Decommisioning costs:', total_decommissioning_costs
     #print 'decommision turbine costs:', decommissioning_removal_turbines
     #print 'decommision cable costs:', decommissioning_removal_transmission_cable + decommissioning_removal_infield_cable
     #print 'decommision substation costs:', decommissioning_removal_substation_and_metmast

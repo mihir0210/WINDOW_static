@@ -107,7 +107,9 @@ class CSMCalibrated(AbsRNACost):
 
         cost_generator = inputs['generator_mass'] * self.ref_cost_mass('Generator')
 
+
         outputs['cost_generator'] = inputs['generator_mass'] * self.ref_cost_mass('Generator')
+        #outputs['cost_generator'] = ((machine_rating/10000.0)**1)*machine_rating*117
 
         cost_mainframe = mainframe_mass * self.ref_cost_mass('Mainframe')
 
