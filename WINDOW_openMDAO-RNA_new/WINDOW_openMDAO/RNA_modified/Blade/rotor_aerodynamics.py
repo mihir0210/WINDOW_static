@@ -84,6 +84,10 @@ class BEM(AbsRotorAerodynamics):
 
 
         eng3.quit()'''
+
+
+        print 'rotor speed', rotor_speed
+
         
         # outputs
         outputs['rotor_speed'] = rotor_speed

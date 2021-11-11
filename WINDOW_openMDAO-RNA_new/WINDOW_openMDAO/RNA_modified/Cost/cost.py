@@ -88,9 +88,13 @@ class CSMCalibrated(AbsRNACost):
         machine_rating = inputs['machine_rating']
         mainframe_mass = inputs['bedplate_mass'] + inputs['platform_mass'] + inputs['crane_mass']
 
+        rated_wind_speed = inputs['rated_wind_speed']
+
 
         
         outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
+        #outputs['cost_blade'] = (inputs['blade_mass']*(rated_wind_speed/10.4829)**2)* self.ref_cost_mass('Blade') #Scale blade mass also with rotor thrust
+
         
         outputs['cost_hub'] = inputs['hub_mass'] * self.ref_cost_mass('Hub')
         outputs['cost_pitch'] = inputs['pitch_mass'] * self.ref_cost_mass('Pitch')

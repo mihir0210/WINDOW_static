@@ -146,8 +146,9 @@ class RNA(Group):
 
         self.connect('blade.root_moment_flap', ['hub.rotor_bending_moment'])
         self.connect('rotor_torque', ['hub.rotor_torque', 'nacelle.rotor_torque']) 
-        self.connect('rotor_thrust', ['hub.rotor_thrust', 'nacelle.rotor_thrust']) 
-        
+        self.connect('rotor_thrust', ['hub.rotor_thrust', 'nacelle.rotor_thrust'])
+        self.connect('rated_wind_speed', 'cost.rated_wind_speed')
+
         self.connect('rotor_speed', ['nacelle.rotor_speed']) 
         self.connect('rotor_force', ['nacelle.rotor_force']) 
         self.connect('rotor_moment', ['nacelle.rotor_bending_moment']) 

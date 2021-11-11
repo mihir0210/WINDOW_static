@@ -15,7 +15,8 @@ class AbsStructuralDesign(ExplicitComponent):
         self.add_input('span_r', units='m', desc='spanwise dimensionless radial location', shape=num_nodes)
         self.add_input('span_dr', units='m', desc='spanwise blade node thickness', shape=num_nodes)
         self.add_input('span_chord', units='m', desc='spanwise chord length', shape=num_nodes)   
-        self.add_input('blade_number', desc='number of blades')     
+        self.add_input('blade_number', desc='number of blades')
+        self.add_input('rated_wind_speed', desc='Rated wind speed')
         
         # outputs
         self.add_output('span_thickness', units='m', desc='spanwise blade thickness', shape=num_nodes)

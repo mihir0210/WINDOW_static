@@ -78,9 +78,7 @@ class Blade(Group):
 
 
 
-        self.add_subsystem('struc_design', structural_design.VariableRadius(num_nodes=num_nodes, reference_turbine = reference_turbine), \
-                           promotes_inputs=['rotor_diameter', 'thickness_factor', 'blade_number'], \
-                           promotes_outputs=['blade_mass', 'blades_mass'])
+
                            
         
         self.add_subsystem('aero_partial', rotor_aerodynamics.BEM(num_nodes=num_nodes, rho_air=rho_air), \
@@ -91,6 +89,10 @@ class Blade(Group):
         self.add_subsystem('pc', power_curve.PowerCurve(num_bins=num_bins, rho_air=rho_air, power_file=power_file, ct_file=ct_file), \
                            promotes_inputs=['design_tsr', 'cut_in_speed', 'cut_out_speed', 'machine_rating', 'drive_train_efficiency'], \
                            promotes_outputs=['rated_wind_speed', 'wind_bin', 'elec_power_bin', 'ct_bin'])
+
+        self.add_subsystem('struc_design', structural_design.VariableRadius(num_nodes=num_nodes, reference_turbine = reference_turbine), \
+                           promotes_inputs=['rotor_diameter', 'thickness_factor', 'blade_number'], \
+                           promotes_outputs=['blade_mass', 'blades_mass'])
                            
         
         self.add_subsystem('aero_rated', rotor_aerodynamics.BEM(num_nodes=num_nodes, rho_air=rho_air), \
@@ -118,6 +120,8 @@ class Blade(Group):
         self.connect('struc_design.span_mass', ['mech.span_mass'])
         self.connect('struc_design.span_flap_stiff', ['mech.span_flap_stiff'])
         self.connect('struc_design.span_edge_stiff', ['mech.span_edge_stiff'])
+
+        self.connect('rated_wind_speed', ['struc_design.rated_wind_speed'])
 
         #self.connect('Preprocessor.mass_length', ['mech.span_mass'])
         #self.connect('Preprocessor.flapwise_stiffness', ['mech.span_flap_stiff'])
