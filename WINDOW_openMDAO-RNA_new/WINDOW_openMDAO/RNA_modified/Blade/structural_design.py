@@ -27,8 +27,8 @@ def scale_turbine(ReferenceTurbine, thickness_factor, mu, scale_with, scalar):
         s = 1
     
     thickness = ref_thickness * (s**1)
-    #mass = ref_mass * (s**2) * thickness_factor
-    mass = ref_mass * (s**1.5) * thickness_factor #scaling with less than squared
+    mass = ref_mass * (s**2) * thickness_factor
+    #mass = ref_mass * (s**1.5) * thickness_factor #scaling with less than squared
     flap_inertia = ref_flap_inertia * (s**4) * thickness_factor
     edge_inertia = ref_edge_inertia * (s**4) * thickness_factor
     flap_stiff = ref_flap_stiff * (s**4) * thickness_factor
@@ -149,7 +149,7 @@ class VariableRadius(AbsStructuralDesign):
             span_flap_stiff = np.append(span_flap_stiff, flap_stiff)
             span_edge_stiff = np.append(span_edge_stiff, edge_stiff)
         
-        blade_mass = np.dot(span_mass, span_dr) *((rated_wind_speed/10.4829)**2)
+        blade_mass = np.dot(span_mass, span_dr) *((rated_wind_speed/10.42952888)**2)
         print 'blade mass:', blade_mass
         blades_mass = blade_mass * blade_number
         

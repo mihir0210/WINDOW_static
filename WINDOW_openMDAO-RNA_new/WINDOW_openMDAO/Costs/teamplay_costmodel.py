@@ -78,8 +78,8 @@ class TeamPlayCostModel(ExplicitComponent):
 
             pipeline_installation_cost = pipeline_installation_cost_perkm * (total_pipeline_length / 1000.0)
 
-            #print 'pipeline costs', pipeline_cost
-            #print 'pipeline installation costs', pipeline_installation_cost
+            print 'pipeline costs', pipeline_cost
+            print 'pipeline installation costs', pipeline_installation_cost
 
             return pipeline_cost, pipeline_installation_cost
 
@@ -93,7 +93,7 @@ class TeamPlayCostModel(ExplicitComponent):
 
 
 
-        outputs['investment_costs_h2'] = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs + infield_cable_investment
+        outputs['investment_costs_h2'] = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs + infield_cable_investment #+ area_use_cost
         outputs['decommissioning_costs_h2'] = decommissioning_costs_h2 + support_decomm_costs
         #print 'purchase price:', inputs['purchase_price']
 
@@ -101,6 +101,7 @@ class TeamPlayCostModel(ExplicitComponent):
         print 'Support costs:', support_structure_investment
         print 'Total investment costs electricity:', outputs['investment_costs']
         print 'Total investment costs H2:', outputs['investment_costs_h2']
+        print 'Decomissioning H2', outputs['decommissioning_costs_h2']
         print 'Rated power:', inputs['machine_rating']
         print 'Turbine radius:', inputs['rotor_radius']
 

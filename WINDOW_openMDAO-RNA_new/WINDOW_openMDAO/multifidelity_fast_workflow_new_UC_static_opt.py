@@ -75,8 +75,8 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=198/198.0)
-        indep2.add_output('rated_power', val=10/10.0)
+        indep2.add_output('turbine_rad', val=240/240.0)
+        indep2.add_output('rated_power', val=15/15.0)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d
@@ -95,7 +95,7 @@ class WorkingGroup(Group):
 
 
 
-        indep2.add_output('design_tsr', desc='design tip speed ratio', val=9) #9 for the 10 MW
+        indep2.add_output('design_tsr', desc='design tip speed ratio', val=9) #9 for the 10 MW; 8.5-9 for the 15 MW
         indep2.add_output('chord_coefficients', units='m', desc='coefficients of polynomial chord profile',
                           val=np.array(pegged_chord))
         indep2.add_output('twist_coefficients', units='deg', desc='coefficients of polynomial twist profile',
@@ -109,7 +109,7 @@ class WorkingGroup(Group):
         indep2.add_output('span_airfoil_r', units='m',
                           desc='list of blade node radial location at which the airfoils are specified',
                           val=np.array(blade_span))
-        indep2.add_output('span_airfoil_id', desc='list of blade node Airfoil ID', val=range(30))
+        indep2.add_output('span_airfoil_id', desc='list of blade node Airfoil ID', val=range(50))
         indep2.add_output('thickness_factor', desc='scaling factor for laminate thickness', val=1.0)
         indep2.add_output('shaft_angle', units='deg',
                           desc='angle of the LSS inclindation with respect to the horizontal', val=-6.0)
@@ -141,8 +141,8 @@ class WorkingGroup(Group):
         indep2.add_output('design_tsr', desc='design tip speed ratio', val=1)
         indep2.add_output('tau', val=1)'''
 
-        self.add_subsystem('rad_scaling', ExecComp('turbine_radius = turbine_rad*99'))
-        self.add_subsystem('power_scaling', ExecComp('machine_rating = rated_power*10000.0'))
+        self.add_subsystem('rad_scaling', ExecComp('turbine_radius = turbine_rad*120'))
+        self.add_subsystem('power_scaling', ExecComp('machine_rating = rated_power*15000.0'))
 
         self.add_subsystem('rad2dia', ExecComp('rotor_diameter = turbine_radius*2.0', \
                                                rotor_diameter={'units': 'm'}))

@@ -5,7 +5,7 @@ blade chord and twist at pegged nodes
 
 import pandas as pd
 abs_path = 'Input//'
-file = 'IEA-10.0-198-RWT_AeroDyn15_blade.dat'
+file = 'IEA-15-240-RWT_AeroDyn15_blade.dat'
 
 filename = abs_path + file
 
@@ -15,7 +15,7 @@ df = pd.read_csv(filename, delim_whitespace=True,skiprows=6, index_col=False,
 
 blade_span = []
 
-for idx in range(30):
+for idx in range(50):
     blade_span.append(df['span'][idx])
 
 blade_section = [r/blade_span[-1] for r in blade_span] #blade sections

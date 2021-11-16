@@ -60,8 +60,8 @@ def pemdecentralized_efficiency(input_load, str):
         f1 = interp1d(x1,y1)
 
         '''
-        However, the controller can choose to operate only a few electrolysers
-        at 30 % load instead of dividing the farm power across all electrolysers.
+        However, the controller can choose to operate only a few electrolysers (2.5 MW each)
+        at 30 % load instead of dividing the turbine power across all electrolysers.
         Hence, the assumption is that as long as farm power is 30 % of electrolyser rated,
         the electrolyser can always operate at 30 % input load
         '''

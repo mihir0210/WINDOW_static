@@ -14,7 +14,7 @@ class OM_model1(AbstractOandM):
         fixed = 1
         variable = 1 - fixed
         fixed_costs = fixed*total
-        variable_costs = variable*total*(farm_rated/1000)
+        variable_costs = variable*total*(farm_rated/1500)
 
         costs_om = fixed_costs + variable_costs
 

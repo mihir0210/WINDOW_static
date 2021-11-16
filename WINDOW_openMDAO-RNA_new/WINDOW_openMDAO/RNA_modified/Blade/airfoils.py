@@ -5,7 +5,7 @@ import numpy as np
 
 #abs_path = os.path.dirname(os.path.realpath(__file__)).replace('\\', '//') + '//'
 abs_path = 'Input//'
-airfoil_folder = abs_path + 'Airfoils//'
+airfoil_folder = abs_path + 'Airfoils//15MW//'
 #airfoils_db = ['Cylinder1_10Hz.dat', 'Cylinder2_10Hz.dat', 'DU40_A17_10Hz.dat', 'DU35_A17_10Hz.dat', \
 #                'DU30_A17_10Hz.dat', 'DU25_A17_10Hz.dat', 'DU21_A17_10Hz.dat', 'NACA64_A17_10Hz.dat']
 
@@ -13,17 +13,21 @@ airfoil_folder = abs_path + 'Airfoils//'
 For the 10 MW turbine, a new database was created that had 30 airfoils (including interpolation)
 '''
 
+'''
+For the 15 MW turbine, a new database was created that had 50 airfoils (including interpolation)
+'''
+
 
 airfoils_db = []
 
-i = range(30)
+i = range(50)
 
 
 for idx in i:
     if idx<10:
-        airfoils_db.append('IEA-10.0-198-RWT_AeroDyn15_Polar_0' + str(idx) + '.dat')
+        airfoils_db.append('IEA-15-240-RWT_AeroDyn15_Polar_0' + str(idx) + '.dat')
     else:
-        airfoils_db.append('IEA-10.0-198-RWT_AeroDyn15_Polar_' + str(idx) + '.dat')
+        airfoils_db.append('IEA-15-240-RWT_AeroDyn15_Polar_' + str(idx) + '.dat')
 
 
 

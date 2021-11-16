@@ -86,7 +86,8 @@ class BEM(AbsRotorAerodynamics):
         eng3.quit()'''
 
 
-        print 'rotor speed', rotor_speed
+
+
 
         
         # outputs

@@ -112,8 +112,10 @@ class CSMCalibrated(AbsRNACost):
         cost_generator = inputs['generator_mass'] * self.ref_cost_mass('Generator')
 
 
-        outputs['cost_generator'] = inputs['generator_mass'] * self.ref_cost_mass('Generator')
-        #outputs['cost_generator'] = ((machine_rating/10000.0)**1)*machine_rating*117
+        #outputs['cost_generator'] = inputs['generator_mass'] * self.ref_cost_mass('Generator')
+        generator_mass_15MW = 372000
+        generator_mass = generator_mass_15MW*((machine_rating/15000.0)**1.4)
+        outputs['cost_generator'] = (generator_mass/generator_mass_15MW)*3510000
 
         cost_mainframe = mainframe_mass * self.ref_cost_mass('Mainframe')
 
@@ -183,7 +185,6 @@ def aggregator_nacelle(outputs):
     cost_nacelle = outputs['cost_lss'] + \
                              outputs['cost_main_bearing'] + \
                              outputs['cost_second_bearing'] + \
-                             outputs['cost_gearbox'] + \
                              outputs['cost_hss'] + \
                              outputs['cost_generator'] + \
                              outputs['cost_mainframe'] + \
@@ -192,6 +193,7 @@ def aggregator_nacelle(outputs):
                              outputs['cost_cover'] + \
                              outputs['cost_electrical'] + \
                              outputs['cost_controls'] #+ \
+                             #outputs['cost_gearbox'] + \
                              #outputs['cost_transformer'] +
                              #outputs['cost_vs_electronics'] + \
                              

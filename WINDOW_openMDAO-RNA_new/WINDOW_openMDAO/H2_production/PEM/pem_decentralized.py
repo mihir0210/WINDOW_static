@@ -31,6 +31,8 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         [H2_produced, annual_H2, power_curtailed] = self.production(electrolyser_rated, farm_power)
 
+        #print H2_produced
+
         CAPEX = self.CAPEX(electrolyser_rated)
 
         OPEX = self.OPEX(CAPEX)
@@ -42,7 +44,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
 
 
-        print 'energy curtailed:', sum(power_curtailed)
+        #print 'energy curtailed:', sum(power_curtailed)
 
 
 
