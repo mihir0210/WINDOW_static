@@ -1,6 +1,6 @@
 def other_costs(depth_central_platform, n_turbines, infield_length, n_substations, \
                 turbine_rated_power, rotor_radius, purchase_price, warranty_percentage, \
-                rna_mass, hub_height, generator_voltage, collection_voltage, config):
+                rna_mass, hub_height, generator_voltage, collection_voltage, turbine_CAPEX, config):
     #from WINDOW_openMDAO.input_params import turbine_rated_power
     from investment_costs.project_development_cost import project_development_cost
     from investment_costs.management_cost import management_costs
@@ -23,7 +23,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     procurement_rna = rna_costs(n_turbines, purchase_price, warranty_percentage)
 
-    turbine_other_costs = turbine_other_costs(n_turbines, turbine_rated_power)
+    turbine_other_costs = turbine_other_costs(turbine_CAPEX)
 
     procurement_electrical = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, config)
 
@@ -38,7 +38,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     installation_rna = rna_installation_costs(n_turbines, rotor_radius, hub_height)
 
-    other_installation_commissioning_costs = other_installation_commissioning_costs(n_turbines, turbine_rated_power)
+    #other_installation_commissioning_costs = other_installation_commissioning_costs(n_turbines, turbine_rated_power)
 
     decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height,config)
 
@@ -48,10 +48,10 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     print 'Installation RNA:', installation_rna
     print 'electrical installation costs:', installation_electrical
-    print 'Other installation commissioning costs:', other_installation_commissioning_costs
+    #print 'Other installation commissioning costs:', other_installation_commissioning_costs
 
     #investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
-    investment_costs = project_development + procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna + other_installation_commissioning_costs
+    investment_costs = project_development + procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna #+ other_installation_commissioning_costs
     #investment_costs = project_development + procurement_rna + turbine_other_costs + installation_rna + other_installation_commissioning_costs
     # print "project_development ", project_development
     # print "procurement_auxiliary", procurement_auxiliary 
@@ -82,8 +82,8 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     # print "investment costs"
     # print investment_costs + management_investment
-
-    return investment_costs + management_investment, decommissioning
+    electrical_costs = procurement_electrical
+    return electrical_costs, investment_costs + management_investment, decommissioning
 
 
 if __name__ == '__main__':

@@ -46,8 +46,11 @@ class LCOH(ExplicitComponent):
 
         LCoH = (total_CAPEX + a + c)/b # in Euros/kg
 
+
         #print 'WIND CAPEX:', investment_costs
         print 'LCoH:', LCoH
+
+        print 'discounted H2', b
 
         outputs['LCoH'] = LCoH
 

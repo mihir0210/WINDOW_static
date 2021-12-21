@@ -75,8 +75,8 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=240/240.0)
-        indep2.add_output('rated_power', val=15/15.0)
+        indep2.add_output('turbine_rad', val=300/240.0)
+        indep2.add_output('rated_power', val=18/15.0)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d
@@ -320,6 +320,12 @@ class WorkingGroup(Group):
         self.connect('indep2.n_turbines', 'OandM.N_T')
         self.connect('power_scaling.machine_rating', 'OandM.P_rated')
 
+        self.connect('rna.hub_height','OandM.hub_height')
+        self.connect('usd2eur.cost_rna_eur', 'OandM.rna_CAPEX')
+        self.connect('Costs.bop_costs', 'OandM.bop_costs')
+        self.connect('Costs.investment_costs', 'OandM.farm_CAPEX')
+
+
 
 
         self.connect('OandM.availability', 'AEP.availability')
@@ -333,6 +339,7 @@ class WorkingGroup(Group):
         self.connect('electrical.cost_p_cable_type', 'Costs.cost_p_cable_type')
         self.connect('support.cost_support', 'Costs.support_structure_costs')
         self.connect('support.support_decomm_costs', 'Costs.support_decomm_costs')
+        self.connect('support.cost_tower', 'Costs.cost_tower')
         # self.connect('indep2.machine_rating', 'Costs.machine_rating')
         self.connect('power_scaling.machine_rating', 'Costs.machine_rating')
         # self.connect('indep2.turbine_radius', 'Costs.rotor_radius')
@@ -362,7 +369,7 @@ class WorkingGroup(Group):
         self.connect('FarmAEP.farm_power', 'FarmIRR.farm_power')
         self.connect('indep2.operational_lifetime', 'FarmIRR.operational_lifetime')
         self.connect('indep2.transm_electrical_efficiency', 'FarmIRR.transm_electrical_efficiency')
-        self.connect('Costs.investment_costs_h2', 'FarmIRR.investment_costs')
+        self.connect('Costs.investment_costs', 'FarmIRR.investment_costs')
         self.connect('OandM.annual_cost_O&M', 'FarmIRR.oandm_costs')
         self.connect('Costs.decommissioning_costs', 'FarmIRR.decommissioning_costs')
 

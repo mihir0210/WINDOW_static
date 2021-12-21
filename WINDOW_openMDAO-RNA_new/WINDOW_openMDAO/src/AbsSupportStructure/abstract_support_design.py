@@ -45,6 +45,7 @@ class AbstractSupportStructureDesign(ExplicitComponent):
         #self.add_output('tower_length', shape=max_n_turbines)
         self.add_output('min_tower_wall_thickness', desc='Tower section min wall thickness')
         self.add_output('max_tower_wall_thickness', desc='Tower section max wall thickness')
+        self.add_output('cost_tower', shape=max_n_turbines)
 
     def compute(self, inputs, outputs):
         n_turbines = int(inputs['n_turbines'])
@@ -52,7 +53,7 @@ class AbstractSupportStructureDesign(ExplicitComponent):
         depth = inputs['depth'][:n_turbines]
 
         [costs, support_decomm_costs, base_dia, top_dia, \
-         min_tower_wall_thickness, max_tower_wall_thickness] = \
+         min_tower_wall_thickness, max_tower_wall_thickness, tower_costs] = \
             self.support_design_model(TI, depth, inputs['rotor_radius'], inputs['rated_wind_speed'], \
              inputs['rotor_thrust'], inputs['rna_mass'], \
             inputs['solidity_rotor'], inputs['cd_rotor_idle_vane'], inputs['cd_nacelle'], \
@@ -122,6 +123,7 @@ class AbstractSupportStructureDesign(ExplicitComponent):
         #outputs['tower_length'] = tower_length
         outputs['min_tower_wall_thickness'] = min_tower_wall_thickness
         outputs['max_tower_wall_thickness'] = max_tower_wall_thickness
+        outputs['cost_tower'] = tower_costs
 
 
 

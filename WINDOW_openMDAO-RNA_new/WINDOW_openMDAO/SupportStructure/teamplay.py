@@ -17,6 +17,8 @@ class TeamPlay(AbstractSupportStructureDesign):
         min_tower_wall_thickness = []
         max_tower_wall_thickness =[]
 
+        tower_costs = []
+
         results =[]
 
 
@@ -25,7 +27,7 @@ class TeamPlay(AbstractSupportStructureDesign):
         i =0
 
         [costs_, support_decomm_costs_,base_dia_, top_dia_, \
-             min_tower_wall_thickness_, max_tower_wall_thickness_] = \
+             min_tower_wall_thickness_, max_tower_wall_thickness_, tower_costs_] = \
              teamplay(TI[i], depth[i], rotor_radius, rated_wind_speed, \
                                   rotor_thrust, rna_mass, \
                                   solidity_rotor, cd_rotor_idle_vane, cd_nacelle, \
@@ -38,6 +40,7 @@ class TeamPlay(AbstractSupportStructureDesign):
             top_dia.append(top_dia_)
             min_tower_wall_thickness.append(min_tower_wall_thickness_)
             max_tower_wall_thickness.append(max_tower_wall_thickness_)
+            tower_costs.append(tower_costs_)
 
 
         #TI = np.array(TI)
@@ -114,7 +117,8 @@ class TeamPlay(AbstractSupportStructureDesign):
         #return np.array(costs), min(np.array(base_dia)), min(np.array(top_dia)), np.array(tower_length), \
                #thickness_min_row[0], thickness_max_row[0]
 
-        return np.array(costs), np.array(support_decomm_costs), base_dia, top_dia, min_tower_wall_thickness, max_tower_wall_thickness
+        return np.array(costs), np.array(support_decomm_costs), base_dia, top_dia, min_tower_wall_thickness,\
+        max_tower_wall_thickness, np.array(tower_costs[0])
 
 
 

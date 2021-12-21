@@ -89,7 +89,7 @@ class FarmIRR(ExplicitComponent):
 
         #print 'O&M:', oandm_costs
 
-        # with open('farm_power_89_hourly.csv', 'w') as csvfile:
+        # with open('farm_power_300_hourly.csv', 'w') as csvfile:
         #     a = csv.writer(csvfile, delimiter=',')
         #     a.writerow(farm_power)
 

@@ -35,7 +35,8 @@ def teamplay(TI, depth, rotor_radius, rated_wind_speed, rotor_thrust, rna_mass, 
             dimension_team_support.cost_analysts.support_team.value.economic.decommissioning.removal.foundations, \
             dimension_team_support.design_variables.support_structure.tower.base_diameter, \
             dimension_team_support.design_variables.support_structure.tower.top_diameter, \
-           min_tower_wall_thickness, max_tower_wall_thickness #, dimension_team_support.cost_analysts.tower_price
+           min_tower_wall_thickness, max_tower_wall_thickness , \
+           dimension_team_support.cost_analysts.support_team.value.economic.capex.procurement.support_structures.tower
            #dimension_team_support.design_variables.support_structure.tower.max_wall_thickness
     # dimension_team_support.design_variables.support_structure.tower.length, \
 

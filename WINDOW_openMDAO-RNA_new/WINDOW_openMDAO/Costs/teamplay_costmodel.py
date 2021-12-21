@@ -23,6 +23,7 @@ class TeamPlayCostModel(ExplicitComponent):
         self.add_input('rna_mass', units='kg', desc='mass of RNA', val=589211.0)
         self.add_input('generator_voltage', units='V', desc='voltage at generator', val=4000.0)
         self.add_input('collection_voltage', units='V', desc='voltage at substation', val=66000.0)
+        self.add_input('cost_tower', shape=max_n_turbines)
 
         self.add_input('farm_area', desc='area of the wind farm in km2')
         
@@ -30,6 +31,7 @@ class TeamPlayCostModel(ExplicitComponent):
         self.add_output('investment_costs_h2', val=0.0)
         self.add_output('decommissioning_costs', val=0.0)
         self.add_output('decommissioning_costs_h2', val=0.0)
+        self.add_output('bop_costs', val=0.0)
 
 
 
@@ -43,16 +45,23 @@ class TeamPlayCostModel(ExplicitComponent):
         support_structure_costs = inputs['support_structure_costs']
         support_decomm_costs = inputs['support_decomm_costs']
         depth_central_platform = inputs['depth_central_platform']
+        cost_tower = inputs['cost_tower']
 
-        other_investment, decommissioning_costs = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, \
+        turbine_CAPEX = inputs['purchase_price'] + cost_tower[0]
+
+        #print 'turbine capex', turbine_CAPEX
+
+        electrical_costs, other_investment, decommissioning_costs = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, \
                                                                          inputs['machine_rating'], inputs['rotor_radius'], inputs['purchase_price'], inputs['warranty_percentage'], \
-                                                                         inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], 1)
+                                                                         inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], turbine_CAPEX, 1)
         # other_investment = 0.0
         infield_cable_investment = sum(cost_p_cable_type)
         # infield_cable_investment = 7973617.59755
         support_structure_investment = sum(support_structure_costs)
         support_decomm_costs = sum(support_decomm_costs)
 
+        outputs['bop_costs'] = support_structure_investment + infield_cable_investment + electrical_costs
+        print 'bop_costs', outputs['bop_costs']
         outputs['decommissioning_costs'] = decommissioning_costs + support_decomm_costs
         # support_structure_investment = 91955760.7762
 
@@ -60,10 +69,18 @@ class TeamPlayCostModel(ExplicitComponent):
         farm_area = inputs['farm_area'] # in km2
         area_use_cost = a*farm_area
 
+        #print 'Farm area and area use cost', farm_area, area_use_cost
+
         #print 'infield cable cost:', infield_cable_investment
+        farm_CAPEX = support_structure_investment + infield_cable_investment + other_investment
+        #print 'farm CAPEX', farm_CAPEX
+
+        other_installation_commissioning_costs = 2.48e8*(farm_CAPEX/2.17182809e+09)
+
+        print 'other installation commission', other_installation_commissioning_costs
 
 
-        outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment #+ area_use_cost  # TODO Apply management percentage also to electrical and support structure costs.
+        outputs['investment_costs'] = support_structure_investment + infield_cable_investment + other_investment + other_installation_commissioning_costs#+ area_use_cost  # TODO Apply management percentage also to electrical and support structure costs.
         # print support_structure_investment ,infield_cable_investment ,other_investment, outputs['decommissioning_costs']
 
         def pem_decentralized_costs():
@@ -87,13 +104,15 @@ class TeamPlayCostModel(ExplicitComponent):
 
         purchase_price_h2 = inputs['purchase_price'] - inputs['machine_rating']*40*0.88 # cost savings in RNA (converter, transformer, switch gears, etc.). 0.88 for USD to EUR
 
-        other_investment_h2, decommissioning_costs_h2 = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, \
+        turbine_CAPEX_h2 = purchase_price_h2 + cost_tower[0]
+        electrical_costs_h2, other_investment_h2, decommissioning_costs_h2 = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, \
                                                                          inputs['machine_rating'], inputs['rotor_radius'], purchase_price_h2, inputs['warranty_percentage'], \
-                                                                         inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], 2)
+                                                                         inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], turbine_CAPEX_h2, 2)
 
 
 
-        outputs['investment_costs_h2'] = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs + infield_cable_investment #+ area_use_cost
+        outputs['investment_costs_h2'] = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs + infield_cable_investment +\
+        other_installation_commissioning_costs #+ area_use_cost
         outputs['decommissioning_costs_h2'] = decommissioning_costs_h2 + support_decomm_costs
         #print 'purchase price:', inputs['purchase_price']
 

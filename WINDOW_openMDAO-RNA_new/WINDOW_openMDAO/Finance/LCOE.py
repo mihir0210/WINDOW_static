@@ -43,4 +43,5 @@ class LCOE(ExplicitComponent):
         print 'AEP:', AEP
         print 'LCOE:', lcoe
 
+        print 'discounted AEP', annuity*(AEP/1e6)
         outputs['LCOE'] = lcoe
