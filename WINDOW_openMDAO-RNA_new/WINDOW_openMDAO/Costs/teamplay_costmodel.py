@@ -31,7 +31,10 @@ class TeamPlayCostModel(ExplicitComponent):
         self.add_output('investment_costs_h2', val=0.0)
         self.add_output('decommissioning_costs', val=0.0)
         self.add_output('decommissioning_costs_h2', val=0.0)
+
         self.add_output('bop_costs', val=0.0)
+        self.add_output('bop_costs_h2', val=0.0)
+
 
 
 
@@ -75,7 +78,7 @@ class TeamPlayCostModel(ExplicitComponent):
         farm_CAPEX = support_structure_investment + infield_cable_investment + other_investment
         #print 'farm CAPEX', farm_CAPEX
 
-        other_installation_commissioning_costs = 2.48e8*(farm_CAPEX/2.17182809e+09)
+        other_installation_commissioning_costs = 2.48e8*(farm_CAPEX/2.6490261e+09)
 
         print 'other installation commission', other_installation_commissioning_costs
 
@@ -109,10 +112,18 @@ class TeamPlayCostModel(ExplicitComponent):
                                                                          inputs['machine_rating'], inputs['rotor_radius'], purchase_price_h2, inputs['warranty_percentage'], \
                                                                          inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], turbine_CAPEX_h2, 2)
 
+        farm_CAPEX_h2 = support_structure_investment + infield_cable_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs
+        #print 'farm CAPEX h2', farm_CAPEX_h2
 
+        other_installation_commissioning_costs_h2 = 2.48e8*(farm_CAPEX_h2/2.21978122e+09)
+
+        print 'other installation commission h2', other_installation_commissioning_costs_h2
+
+        outputs['bop_costs_h2'] = support_structure_investment + infield_cable_investment + pipeline_costs
+        print 'bop_costs_h2', outputs['bop_costs_h2']
 
         outputs['investment_costs_h2'] = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs + infield_cable_investment +\
-        other_installation_commissioning_costs #+ area_use_cost
+        other_installation_commissioning_costs_h2 #+ area_use_cost
         outputs['decommissioning_costs_h2'] = decommissioning_costs_h2 + support_decomm_costs
         #print 'purchase price:', inputs['purchase_price']
 

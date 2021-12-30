@@ -75,8 +75,8 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=300/240.0)
-        indep2.add_output('rated_power', val=18/15.0)
+        indep2.add_output('turbine_rad', val=240/240.0)
+        indep2.add_output('rated_power', val=15/15.0)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d
@@ -193,11 +193,27 @@ class WorkingGroup(Group):
 
         self.add_subsystem('Costs', self.apex_model())
 
+        #normalize parameters with values for the 10 MW turbine to scale O&M costs
+
+        self.add_subsystem('hub_height_normalize', ExecComp('hh_norm = hub_height/116.0'))
+
+        self.add_subsystem('cost_normalize_rna', ExecComp('rna_norm = rna_capex*N_T/5.31966226e+08'))
+
+        self.add_subsystem('cost_normalize_rna_h2', ExecComp('rna_norm = (rna_capex - P*40*0.88)*N_T/4.96766226e+08'))
+
+        self.add_subsystem('cost_normalize_bop', ExecComp('bop_norm = bop_costs/1.10632965e+09'))
+
+        self.add_subsystem('cost_normalize_bop_h2', ExecComp('bop_norm_h2 = bop_costs/8.47229646e+08'))
+
+        self.add_subsystem('cost_normalize_farmcapex', ExecComp('farmcapex_norm = farm_capex/2.8970261e+09'))
+
+        self.add_subsystem('cost_normalize_farmcapex_h2', ExecComp('farmcapex_norm_h2 = farm_capex/2.46778122e+09'))
 
 
 
 
         self.add_subsystem('OandM', self.opex_model())
+        self.add_subsystem('OandM_h2', self.opex_model())
         self.add_subsystem('AEP', AEP())
 
         self.add_subsystem('lcoe', LCOE())
@@ -312,18 +328,58 @@ class WorkingGroup(Group):
 
         #self.connect('indep2.tau', 'rna.tau')  #### uniform Thickness factor
 
-        self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
+        self.connect('AeroAEP.efficiency', ['OandM.array_efficiency', 'OandM_h2.array_efficiency'])
         #self.connect('AeroAEP.AEP', ['AEP.aeroAEP', 'OandM.AEP'])
-        self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP', 'OandM.AEP'])
+        self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP', 'OandM.AEP', 'OandM_h2.AEP'])
         self.connect('rna.hub_height', 'FarmAEP.hub_height')
 
-        self.connect('indep2.n_turbines', 'OandM.N_T')
-        self.connect('power_scaling.machine_rating', 'OandM.P_rated')
+        self.connect('indep2.n_turbines', ['OandM.N_T','OandM_h2.N_T'])
+        self.connect('power_scaling.machine_rating', ['OandM.P_rated','OandM_h2.P_rated'])
 
-        self.connect('rna.hub_height','OandM.hub_height')
-        self.connect('usd2eur.cost_rna_eur', 'OandM.rna_CAPEX')
-        self.connect('Costs.bop_costs', 'OandM.bop_costs')
-        self.connect('Costs.investment_costs', 'OandM.farm_CAPEX')
+        #self.connect('rna.hub_height',['OandM.hub_height','OandM_h2.hub_height'])
+        #self.connect('usd2eur.cost_rna_eur', ['OandM.rna_CAPEX','OandM_h2.rna_CAPEX'])
+        # self.connect('Costs.bop_costs_h2', 'OandM_h2.bop_costs')
+        # self.connect('Costs.investment_costs', 'OandM.farm_CAPEX')
+        # self.connect('Costs.investment_costs_h2', 'OandM_h2.farm_CAPEX')
+
+
+        self.connect('rna.hub_height', 'hub_height_normalize.hub_height')
+        self.connect('hub_height_normalize.hh_norm',['OandM.hub_height_norm','OandM_h2.hub_height_norm'])
+
+
+        self.connect('usd2eur.cost_rna_eur', 'cost_normalize_rna.rna_capex')
+        self.connect('indep2.n_turbines', 'cost_normalize_rna.N_T')
+        self.connect('cost_normalize_rna.rna_norm', 'OandM.rna_norm')
+
+
+        self.connect('usd2eur.cost_rna_eur', 'cost_normalize_rna_h2.rna_capex')
+        self.connect('indep2.n_turbines', 'cost_normalize_rna_h2.N_T')
+        self.connect('power_scaling.machine_rating', 'cost_normalize_rna_h2.P')
+        self.connect('cost_normalize_rna_h2.rna_norm', 'OandM_h2.rna_norm')
+
+
+
+        self.connect('Costs.bop_costs', 'cost_normalize_bop.bop_costs')
+        self.connect('cost_normalize_bop.bop_norm', 'OandM.bop_norm')
+
+
+        self.connect('Costs.bop_costs_h2', 'cost_normalize_bop_h2.bop_costs')
+        self.connect('cost_normalize_bop_h2.bop_norm_h2', 'OandM_h2.bop_norm')
+
+
+
+        self.connect('Costs.investment_costs', 'cost_normalize_farmcapex.farm_capex')
+        self.connect('cost_normalize_farmcapex.farmcapex_norm', 'OandM.farm_capex_norm')
+
+
+        self.connect('Costs.investment_costs_h2', 'cost_normalize_farmcapex_h2.farm_capex')
+        self.connect('cost_normalize_farmcapex_h2.farmcapex_norm_h2', 'OandM_h2.farm_capex_norm')
+
+
+
+
+
+
 
 
 
@@ -392,7 +448,7 @@ class WorkingGroup(Group):
         self.connect('indep2.interest_rate', 'LCoH.interest_rate')
         self.connect('indep2.operational_lifetime', 'LCoH.operational_lifetime')
         self.connect('Costs.investment_costs_h2', 'LCoH.investment_costs')
-        self.connect('OandM.annual_cost_O&M', 'LCoH.oandm_costs')
+        self.connect('OandM_h2.annual_cost_O&M', 'LCoH.oandm_costs')
         self.connect('Costs.decommissioning_costs_h2', 'LCoH.decommissioning_costs')
         self.connect('indep2.availability', 'LCoH.availability')
 

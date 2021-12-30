@@ -52,6 +52,9 @@ class BEM(AbsRotorAerodynamics):
         
         rotor_radius = rotor_diameter/2.0
         rotor_speed = (design_tsr*wind_speed/rotor_radius) * (30/pi) # rpm
+
+        tip_speed = design_tsr*wind_speed
+        print 'Tip speed', tip_speed
         
         # Execute the BEM code. Check bem.py
         [spanwise, rotor] = bem_rotor(wind_speed, rho_air, \
