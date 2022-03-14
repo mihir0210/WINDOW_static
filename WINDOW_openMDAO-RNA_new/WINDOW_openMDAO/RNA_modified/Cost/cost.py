@@ -144,6 +144,7 @@ class CSMCalibrated(AbsRNACost):
         print 'Gearbox cost:', cost_gearbox
         print 'blade cost:', outputs['cost_blades']
         print 'hub cost:' , outputs['cost_hub_system']
+        print 'rotor cost:', outputs['cost_blades'] + outputs['cost_hub_system']
         print 'Generator cost:', outputs['cost_generator']
         print 'Nacelle cost:', outputs['cost_nacelle']
         print 'Cost Transformer:', outputs['cost_transformer']

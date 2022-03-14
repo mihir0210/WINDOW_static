@@ -37,9 +37,9 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         OPEX = self.OPEX(CAPEX)
 
-        print 'Annual H2:', annual_H2
-        print 'H2 CAPEX:', CAPEX
-        print 'H2 OPEX', OPEX
+        #print 'Annual H2:', annual_H2
+        #print 'H2 CAPEX:', CAPEX
+        #print 'H2 OPEX', OPEX
 
 
 
@@ -98,7 +98,9 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
                 power_curtailed.append(0)
                 #power_curtailed.append(farm_power[idx]-electrolyser_rated)
 
+            #elec_comp = ((286.76*H2_produced*285.15/100)/(0.5*0.0696*3.6e9))*(1.41/0.41)*((70/30)**(0.41/1.41) - 1)
 
+            #print elec_comp
 
 
         annual_H2 = sum(H2) #Total hydrogen (in kg) produced in a year

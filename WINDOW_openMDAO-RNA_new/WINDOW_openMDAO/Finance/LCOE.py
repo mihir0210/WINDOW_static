@@ -40,8 +40,8 @@ class LCOE(ExplicitComponent):
         #print 'Wind CAPEX :', investment_costs
 
         print 'decom costs electricity', decommissioning_costs
-        print 'AEP:', AEP
+        #print 'AEP:', AEP
         print 'LCOE:', lcoe
 
-        print 'discounted AEP', annuity*(AEP/1e6)
+        #print 'discounted AEP', annuity*(AEP/1e6)
         outputs['LCOE'] = lcoe

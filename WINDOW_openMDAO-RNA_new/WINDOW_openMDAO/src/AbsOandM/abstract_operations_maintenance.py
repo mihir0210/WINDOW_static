@@ -11,10 +11,10 @@ class AbstractOandM(ExplicitComponent):
         self.add_input('N_T', val=0.0)
         self.add_input('P_rated', val=0.0)
 
-        self.add_input('hub_height_norm', val=0.0)
-        self.add_input('rna_norm', val=0.0)
-        self.add_input('farm_capex_norm', val=0.0)
-        self.add_input('bop_norm', val=0.0)
+        self.add_input('hub_height', val=0.0)
+        self.add_input('rna_capex', val=0.0)
+        self.add_input('farm_capex', val=0.0)
+        self.add_input('bop_costs', val=0.0)
 
         self.add_output('annual_cost_O&M', val=0.0)
         self.add_output('availability', val=0.0)
@@ -27,8 +27,8 @@ class AbstractOandM(ExplicitComponent):
         N_T = inputs['N_T']
         P_rated = inputs['P_rated']
 
-        hub_height_norm = inputs['hub_height_norm']
-        rna_norm = inputs['rna_norm']
-        farm_capex_norm = inputs['farm_capex_norm']
-        bop_norm= inputs['bop_norm']
-        outputs['annual_cost_O&M'], outputs['availability'] = self.OandM_model(AEP, eff, N_T, P_rated, hub_height_norm, rna_norm, farm_capex_norm, bop_norm)
+        hub_height = inputs['hub_height']
+        rna_capex = inputs['rna_capex']
+        farm_capex = inputs['farm_capex']
+        bop_costs= inputs['bop_costs']
+        outputs['annual_cost_O&M'], outputs['availability'] = self.OandM_model(AEP, eff, N_T, P_rated, hub_height, rna_capex, farm_capex, bop_costs)

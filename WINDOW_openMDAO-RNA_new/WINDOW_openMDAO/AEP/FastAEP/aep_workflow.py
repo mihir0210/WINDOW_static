@@ -106,7 +106,7 @@ class Workflow:
             self.array_efficiencies.append(self.array_efficiencies_weighted)
             self.turbulences_per_angle.append(self.turbulences)
 
-            #print 'Power one angle:', self.powers_one_angle
+            #print 'Energy one angle:', self.energy_one_angle_weighted
             #print 'length power:', len(self.powers_one_angle)
 
             for val in range(len(farm_power_one_angle)):

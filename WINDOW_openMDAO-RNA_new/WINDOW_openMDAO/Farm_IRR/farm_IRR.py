@@ -76,7 +76,7 @@ class FarmIRR(ExplicitComponent):
         spot_price_file = self.metadata['spot_price_file']
         farm_power = inputs['farm_power']
 
-        transm_electrical_efficiency = inputs['transm_electrical_efficiency']
+        transm_electrical_efficiency = inputs['transm_electrical_efficiency']*0.97
         investment_costs = inputs['investment_costs']
         decommissioning_costs = inputs['decommissioning_costs']
         operational_lifetime = inputs['operational_lifetime']
@@ -111,7 +111,7 @@ class FarmIRR(ExplicitComponent):
 
                 parameters = Parameters(future_year, operational_lifetime)
 
-                [slope, constant] = parameters.eneco_coeff()
+                [slope, constant] = parameters.baseyear()
 
                 #print slope, constant
 
@@ -229,6 +229,9 @@ class FarmIRR(ExplicitComponent):
             #print 'IRR_scneario_inbuilt:', IRR
             #print 'IRR_scenario:', IRR_new
 
+            print 'IRR', IRR
+            print 'NPV', NPV
+
 
 
 
@@ -238,7 +241,7 @@ class FarmIRR(ExplicitComponent):
 
 
 
-        #[IRR, NPV] = irr_npv()
+        [IRR, NPV] = irr_npv()
 
         def irr_withH2():
 
@@ -414,7 +417,7 @@ class FarmIRR(ExplicitComponent):
 
 
 
-        IRR_withH2 = irr_withH2()
+        #IRR_withH2 = irr_withH2()
 
 
 
@@ -586,8 +589,8 @@ class FarmIRR(ExplicitComponent):
 
         #IRR = irr_withH2_other()
 
-        outputs['IRR'] = IRR_withH2
-        #outputs['IRR'] = IRR
+        #outputs['IRR'] = IRR_withH2
+        outputs['IRR'] = IRR
 
 
 

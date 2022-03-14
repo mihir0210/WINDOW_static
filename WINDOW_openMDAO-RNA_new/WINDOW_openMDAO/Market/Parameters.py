@@ -12,7 +12,7 @@ class Parameters():
 
         self.base_year = 2019
         self.slope_base = -0.28 # -0.28 for 2019
-        self.constant_base = 43 #43 for 2019
+        self.constant_base = 43 + 30  #43 for 2019
 
         '''
         The max slope value has been taken from Denmark's data. This slope value was attained

@@ -1,7 +1,8 @@
 import pandas as pd
 
 #subtraction distance from central platform only for the rectangular layout
-central_platform = [[498000.0 - 7000.0, 5731000.0 - 1000.0], [497000.0- 7000.0, 5731000.0 - 1000.0]]
+#central_platform = [[498000.0 - 7000.0, 5731000.0 - 1000.0], [497000.0- 7000.0, 5731000.0 - 1000.0]]
+central_platform = [[492000.0, 5733154.0], [490000.0, 5733154.0]]
 number_turbines_per_cable = [2, 4, 7]
 Crossing_penalty = 0
 Transmission = [[central_platform[i],[463000,5918000]] for i in range(len(central_platform))]
@@ -16,7 +17,8 @@ transmission_voltage = 220000.0  # [V]
 grid_coupling_point_voltage = 169000.0  # [V]
 
 #max_n_turbines = 74
-max_n_turbines = 100 # for rectangular layout
+
+max_n_turbines = 50 # for rectangular layout
 
 number_substations = 2
 max_n_substations = 2
@@ -38,10 +40,15 @@ for index, rows in df.iterrows():
 
 
 # Use only in case of a standard rectangular layout. Built using standard spacing for the IEA 10 MW -198 m turbine
-df = pd.read_csv('Input/Rectangular_layout.dat', delimiter=' ')
+#df = pd.read_csv('Input/Rectangular_layout.dat', delimiter=' ')
 
 # # Use only in case of a standard squarelayout. Built using standard spacing of 7D for the IEA 10 MW-198 m turbine
 # df = pd.read_csv('Input/Square_layout.dat', delimiter=' ')
+
+# Use only in case of a standard rectangular layout. Built using standard spacing for HKW and the IEA 15 MW -240 m turbine
+#df = pd.read_csv('Input/Rectangular_layout_750MW_50turbines_7D.dat', delimiter=' ')
+df = pd.read_csv('Input/Rectangular_layout_1GW_50turbines_7D.dat', delimiter=' ')
+#df = pd.read_csv('Input/Rectangular_layout_760MW_40turbines.dat', delimiter=' ')
 
 layout = []
 for index, rows in df.iterrows():

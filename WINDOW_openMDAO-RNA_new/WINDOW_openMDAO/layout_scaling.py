@@ -52,7 +52,7 @@ class LayoutScaling(ExplicitComponent):
 
 
 
-        turbine_ref = 99.0 # rotor radius of the reference turbine being used
+        turbine_ref = 120.0 #99.0 # rotor radius of the reference turbine being used
         scaling_ratio = scaling_factor*(turbine_radius/turbine_ref) # scaling ratio will be equal to scaling_factor*(D_new/D_ref)
 
         scaling_ratio = scaling_ratio[0]
@@ -75,6 +75,8 @@ class LayoutScaling(ExplicitComponent):
 
             [cent_x_ogi, cent_y_ogi] = centroid(orig_layout)
 
+            #print 'ogi centroid x and centroid y',cent_x_ogi,cent_y_ogi
+
             #multiply coordinates with the scaling ratio
             scaled_layout = [[orig_layout[element][0] * scaling_ratio, orig_layout[element][1] * scaling_ratio] for element in range(len(orig_layout))]
 
@@ -92,6 +94,10 @@ class LayoutScaling(ExplicitComponent):
 
 
             new_substation_coords = [[element[0]*scaling_ratio-dx, element[1]*scaling_ratio-dy] for element in substation_coords]
+            #new_substation_coords = [cent_x_ogi, cent_y_ogi]
+
+            #print 'new substaion coords', new_substation_coords
+
 
             x = np.array([new_layout[idx][0] for idx in range(len(new_layout))])
             y = np.array([new_layout[idx][1] for idx in range(len(new_layout))])

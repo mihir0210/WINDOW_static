@@ -1,7 +1,7 @@
 from WINDOW_openMDAO.src.api import AbstractOandM
 
 
-class OM_model1(AbstractOandM):
+class OM_model1_H2(AbstractOandM):
     def OandM_model(self, AEP, eff, N_T, P_rated, hub_height, rna_capex, farm_capex, bop_costs):
         costs_om = 16.0 * AEP / eff / 1000000.0
         availability = 1 #0.98
@@ -31,9 +31,9 @@ class OM_model1(AbstractOandM):
         #bop maintenance and service scales with bop costs
 
         variable_turbine_inspection = 13e6*(hub_height/116.0)*(N_T/100)
-        variable_turbine_repair = 26e6*(rna_capex*N_T/5.17024743e+08)
+        variable_turbine_repair = 26e6*(rna_capex - P_rated*40*0.88)*N_T/4.81824743e+08
 
-        variable_bop = 21e6*(bop_costs/9.14367495e+08)
+        variable_bop = 21e6*(bop_costs/8.47229646e+08)
 
         costs_om = (fixed_costs + variable_turbine_inspection + variable_turbine_repair + variable_bop)
 

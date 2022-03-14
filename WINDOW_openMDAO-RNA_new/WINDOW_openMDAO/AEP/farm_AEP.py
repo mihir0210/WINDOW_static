@@ -35,6 +35,12 @@ class FarmAEP(ExplicitComponent):
         time_points = self.metadata['time_resolution']
         self.add_input('hub_height', val=0.0)
 
+        self.add_input('rated_power', val=0.0)
+        self.add_input('rotor_diameter', val=0.0)
+        self.add_input('n_t', val=0.0)
+        self.add_input('Cp', val=0.0)
+        self.add_input('rated_ws', val=0.0)
+
         self.add_output('farm_power', shape = time_points)
         self.add_output('farm_AEP', val=0.0)
 
@@ -42,6 +48,15 @@ class FarmAEP(ExplicitComponent):
     def compute(self, inputs, outputs):
 
         hub_height = inputs['hub_height']
+
+        rated_power = inputs['rated_power']*1e3 #convert to W
+        rotor_diameter = inputs['rotor_diameter']
+        n_t = inputs['n_t']
+        Cp = inputs['Cp']
+        rated_ws = inputs['rated_ws']
+
+
+
 
         with open('farm_pc_directional.csv', mode='r') as infile: #file is generated in the AeroAEP module
             reader = csv.reader(infile)
@@ -64,9 +79,25 @@ class FarmAEP(ExplicitComponent):
 
         wind_direction = np.array(wind_file['wind_direction'])
 
+        print 'mean wind speed', np.mean(wind_speed)
+
+        turbine_power = []
 
 
+        for idx in range(len(wind_speed)):
 
+            if wind_speed[idx] <= 3 or wind_speed[idx] > 25:
+                turbine_power.append(0)
+
+            elif wind_speed[idx] >= rated_ws:
+                turbine_power.append(rated_power)
+
+            else:
+                turbine_power.append(0.5 * Cp * 1.225 * (3.142/4) * rotor_diameter ** 2 * (wind_speed[idx] ** 3) * 0.944)
+
+        turbine_power_ts = [turbine_power / 1e6 for turbine_power in turbine_power]  # convert to MW
+
+        print 'Farm AEP without losses:', sum(turbine_power_ts)*n_t
 
 
 
@@ -148,4 +179,8 @@ class FarmAEP(ExplicitComponent):
         outputs['farm_power'] = farm_power_ts # in MW
         outputs['farm_AEP'] = sum(farm_power_ts)*1e6  # in Wh
 
-        print 'AEP IRR module:',outputs['farm_AEP']
+        print 'AEP with wake:',outputs['farm_AEP']
+
+        print 'wake losses:', (1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))
+
+
