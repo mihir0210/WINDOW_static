@@ -22,7 +22,6 @@ class TeamPlay(AbstractSupportStructureDesign):
         results =[]
 
 
-
         #for i in range(len(TI)):
         i =0 #extract values just for one turbine and use it for all turbines
 
@@ -46,7 +45,7 @@ class TeamPlay(AbstractSupportStructureDesign):
         #TI = np.array(TI)
         #index = np.argmax(TI)
 
-        index = 1
+        index = 0
         #print TI, index, base_dia
 
         base_dia = base_dia[index]
@@ -112,7 +111,7 @@ class TeamPlay(AbstractSupportStructureDesign):
         #print thickness_max_row'''
 
 
-        #print 'base dia, top dia, min thick, max thick',base_dia, top_dia, min_tower_wall_thickness, max_tower_wall_thickness
+        print 'base dia, top dia, min thick, max thick',base_dia, top_dia, min_tower_wall_thickness, max_tower_wall_thickness
         #print 'Support Done'
         #return np.array(costs), min(np.array(base_dia)), min(np.array(top_dia)), np.array(tower_length), \
                #thickness_min_row[0], thickness_max_row[0]

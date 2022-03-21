@@ -28,7 +28,7 @@ def scale_turbine(ReferenceTurbine, thickness_factor, mu, scale_with, scalar):
     
     thickness = ref_thickness * (s**1)
     mass = ref_mass * (s**2) * thickness_factor
-    #mass = ref_mass * (s**1.5) * thickness_factor #scaling with less than squared
+    #mass = ref_mass * (s**1.6) * thickness_factor #such that overall blade mass scales with 2.6
     flap_inertia = ref_flap_inertia * (s**4) * thickness_factor
     edge_inertia = ref_edge_inertia * (s**4) * thickness_factor
     flap_stiff = ref_flap_stiff * (s**4) * thickness_factor
@@ -150,6 +150,15 @@ class VariableRadius(AbsStructuralDesign):
             span_edge_stiff = np.append(span_edge_stiff, edge_stiff)
         
         blade_mass = np.dot(span_mass, span_dr) *((rated_wind_speed/10.42952888)**2)
+
+        #### Emperical model ###
+        blade_mass = (0.0009*rotor_radius**2.367)*1000 #from SANDIA 100 m blade reports, NREL detailed cost model blade (between 2.2 and 2.5)
+        rated_ws_ratio = rated_wind_speed/10.43
+
+        blade_mass = blade_mass*(rated_ws_ratio**2) #adjusting for a different specific power leading to a change in rated wind speed and thrust
+
+
+
         print 'blade mass:', blade_mass
         blades_mass = blade_mass * blade_number
         

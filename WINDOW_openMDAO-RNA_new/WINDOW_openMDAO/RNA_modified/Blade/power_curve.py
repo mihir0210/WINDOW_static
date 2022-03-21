@@ -32,7 +32,7 @@ class PowerCurve(AbsPowerCurve):
         #design_tsr = tsr_ref*design_tsr
 
         #print 'TSR:', design_tsr
-        print 'Cp:', rotor_cp
+        print 'Max Cp:', rotor_cp
         
         rated_wind_speed = (machine_rating * 1000.0 / (rotor_cp * 0.5 * rho_air * swept_area * eta_dt))**(1.0/3.0)
 

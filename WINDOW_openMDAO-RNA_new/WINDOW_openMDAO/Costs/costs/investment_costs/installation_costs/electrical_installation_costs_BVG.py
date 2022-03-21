@@ -11,7 +11,7 @@ def electrical_installation_costs_BVG(config, infield_length):
 
     if config == 1:
 
-        cable_installation_cost_perkm = 1.25e6 #Euros  #Back calculated from BVG (also used by Felix: Master thesis, TU Delft)
+        cable_installation_cost_perkm = 1e6 #1.25e6 #Euros/km  (back calculated from BVG for total length of infield (195km) + export (60km)
 
         array_cable_installation_cost = cable_installation_cost_perkm*(infield_length/1000.0)
 

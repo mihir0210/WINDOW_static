@@ -1,5 +1,5 @@
 from WINDOW_openMDAO.src.api import AbstractOandM
-
+from openmdao.api import ExplicitComponent
 
 class OM_model1_H2(AbstractOandM):
     def OandM_model(self, AEP, eff, N_T, P_rated, hub_height, rna_capex, farm_capex, bop_costs):
@@ -42,3 +42,57 @@ class OM_model1_H2(AbstractOandM):
         print 'O&M costs:', costs_om
         print 'O&M costs/MW', costs_om/(N_T*P_rated)
         return costs_om, availability
+
+
+class OM_model2_H2(ExplicitComponent):
+    '''
+    This class scales the BVG O&M costs for a given farm based on the cost splits
+    (Offshore Wind Innovation Hub Floating wind (major repair strategies)
+    (Carroll et. al. on Failure rates)
+    '''
+
+    def setup(self):
+        self.add_input('RNA_costs', val=0.0)
+        self.add_input('cable_costs', val=0.0)
+        self.add_input('P_rated', val=0.0)
+        # self.add_input('hub_height', val=0.0)
+        self.add_input('N_T', val=0.0)
+
+        self.add_output('annual_cost_O&M', val=0.0)
+        self.add_output('availability', val=0.0)
+
+    def compute(self, inputs, outputs):
+        rna_costs = inputs['RNA_costs']
+        N_T = inputs['N_T']
+        cable_costs = inputs['cable_costs']
+
+        def oandm():
+            ref_rna_costs = 3.62217973e+08  # BVG turbine (10 MW - 180 m rotor)
+            ref_cable_costs = 27406894  # BVG turbine (10 MW - 180 m rotor; 100 turbines with 7D spacing)
+            pound_to_euro = 1.17  # to convert BVG estimates to euros
+
+            fixed_costs = 25e6  # insurance, logistics, training, survey, etc.
+
+            turbine_inspection = 0.25 * 33e6  # blade and tower inspection
+            turbine_repairs = 0.75 * 33e6  # minor and major repairs and replacements
+
+            turbine_repairs_fixed = 0.65 * turbine_repairs  # cost of (de) mobilization, transit, vessel, etc. Fixed only for a given site and n_t (Same failure rates)
+            turbine_repairs_variable = 0.35 * turbine_repairs * (rna_costs * N_T / ref_rna_costs)
+            updated_turbine_repairs = turbine_repairs_fixed + turbine_repairs_variable
+
+            bos_inspection = 0.5 * 18e6  # foundatoin inspection, scoute monitoring, cable and substation inspection
+            bos_repairs = 0.5 * 18e6  # repairing of export and inter-array cables
+
+            bos_repairs_fixed = 0.65 * bos_repairs  # vessels and equipment to access the cable
+            bos_repairs_variable = 0.35 * bos_repairs * (cable_costs / ref_cable_costs)  # cost of repairing/replacing the cables
+            updated_bos_repairs = bos_repairs_fixed + bos_repairs_variable
+
+            costs_om = (fixed_costs + turbine_inspection + updated_turbine_repairs + bos_inspection + updated_bos_repairs) * pound_to_euro
+            availability = 0.97  # for the same farm
+
+            return costs_om, availability
+
+        [costs_om, availability] = oandm()
+        print 'O&M H2', costs_om
+        outputs['annual_cost_O&M'] = costs_om
+        outputs['availability'] = availability

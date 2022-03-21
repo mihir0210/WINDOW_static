@@ -18,7 +18,7 @@ grid_coupling_point_voltage = 169000.0  # [V]
 
 #max_n_turbines = 74
 
-max_n_turbines = 50 # for rectangular layout
+max_n_turbines = 100 # for rectangular layout
 
 number_substations = 2
 max_n_substations = 2
@@ -47,7 +47,7 @@ for index, rows in df.iterrows():
 
 # Use only in case of a standard rectangular layout. Built using standard spacing for HKW and the IEA 15 MW -240 m turbine
 #df = pd.read_csv('Input/Rectangular_layout_750MW_50turbines_7D.dat', delimiter=' ')
-df = pd.read_csv('Input/Rectangular_layout_1GW_50turbines_7D.dat', delimiter=' ')
+df = pd.read_csv('Input/Rectangular_layout_100turbines_7D.dat', delimiter=' ')
 #df = pd.read_csv('Input/Rectangular_layout_760MW_40turbines.dat', delimiter=' ')
 
 layout = []

@@ -23,7 +23,7 @@ from WINDOW_openMDAO.H2_production.H2_production import H2
 from WINDOW_openMDAO.H2_production.LCoH import LCOH
 
 from WINDOW_openMDAO.Costs.hydrogen_farmcosts import HydrogenFarmCostModel
-from WINDOW_openMDAO.OandM.OandM_models_H2 import OM_model1_H2
+from WINDOW_openMDAO.OandM.OandM_models_H2 import OM_model1_H2, OM_model2_H2
 
 
 class WorkingGroup(Group):
@@ -78,8 +78,8 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=190/240.0)
-        indep2.add_output('rated_power', val=10/15.0)
+        indep2.add_output('turbine_rad', val=320/240.0)
+        indep2.add_output('rated_power', val=32/15.0)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d
@@ -94,7 +94,7 @@ class WorkingGroup(Group):
         indep2.add_output('transm_electrical_efficiency', val=transm_electrical_efficiency)
         indep2.add_output('operational_lifetime', val=operational_lifetime)
         indep2.add_output('interest_rate', val=interest_rate)
-        indep2.add_output('availability', val=0.97)
+        #indep2.add_output('availability', val=0.97)
 
 
 
@@ -194,9 +194,11 @@ class WorkingGroup(Group):
 
         self.add_subsystem('support', self.support_model())
 
-        self.add_subsystem('Costs', self.apex_model())
+        self.add_subsystem('H2', H2(electrolyser_ratio = self.electrolyser_ratio,
+                                  time_resolution = self.time_resolution))
 
-        #self.add_subsystem('Costs_H2', HydrogenFarmCostModel())
+        self.add_subsystem('Costs', self.apex_model())
+        self.add_subsystem('Costs_h2', HydrogenFarmCostModel())
 
         '''
         #normalize parameters with values for the 10 MW turbine to scale O&M costs
@@ -219,18 +221,19 @@ class WorkingGroup(Group):
 
 
         self.add_subsystem('OandM', self.opex_model())
-        #self.add_subsystem('OandM_h2', OM_model1_H2())
+        #self.add_subsystem('OandM_h2', OM_model2_H2())
 
         self.add_subsystem('AEP', AEP())
 
         self.add_subsystem('lcoe', LCOE())
+        self.add_subsystem('LCoH', LCOH())
+
+
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
 
-        #self.add_subsystem('H2', H2(electrolyser_ratio = self.electrolyser_ratio,
-        #                           time_resolution = self.time_resolution))
 
-        #self.add_subsystem('LCoH', LCOH())
+
 
 
 
@@ -238,13 +241,6 @@ class WorkingGroup(Group):
         #self.add_subsystem('FarmIRR', FarmIRR(wind_file=self.wind_file,
         #                                     spot_price_file=self.spot_price_file,
         #                                      time_resolution = self.time_resolution))
-
-
-
-
-
-
-
 
 
 
@@ -308,7 +304,7 @@ class WorkingGroup(Group):
         self.connect('numberlayout.number_layout', 'depths.layout')
 
         self.connect('indep2.n_turbines',
-                     ['AeroAEP.n_turbines', 'electrical.n_turbines', 'support.n_turbines', 'Costs.n_turbines'])
+                     ['AeroAEP.n_turbines', 'electrical.n_turbines', 'support.n_turbines', 'Costs.n_turbines', 'Costs_h2.n_turbines'])
 
         self.connect('numberlayout.number_layout', 'electrical.layout')
         self.connect('indep2.n_turbines_p_cable_type', 'electrical.n_turbines_p_cable_type')
@@ -334,10 +330,10 @@ class WorkingGroup(Group):
 
 
 
-        self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
+        #self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
         #self.connect('AeroAEP.efficiency',  'OandM_h2.array_efficiency')
         #self.connect('AeroAEP.AEP', ['AEP.aeroAEP', 'OandM.AEP'])
-        self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP', 'OandM.AEP'])
+        self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP'])
         #self.connect('FarmAEP.farm_AEP', 'OandM_h2.AEP')
         self.connect('rna.hub_height', 'FarmAEP.hub_height')
 
@@ -353,21 +349,23 @@ class WorkingGroup(Group):
         #self.connect('indep2.n_turbines','OandM_h2.N_T')
         self.connect('power_scaling.machine_rating', 'OandM.P_rated')
         #self.connect('power_scaling.machine_rating','OandM_h2.P_rated')
-
+        self.connect('usd2eur.cost_rna_eur', 'OandM.RNA_costs')
+        #self.connect('usd2eur.cost_rna_eur', 'OandM_h2.RNA_costs')
+        self.connect('Costs.cable_costs', 'OandM.cable_costs')
+        #self.connect('Costs_h2.cable_costs_h2', 'OandM_h2.cable_costs')
+        
         #self.connect('rna.hub_height',['OandM.hub_height','OandM_h2.hub_height'])
         #self.connect('usd2eur.cost_rna_eur', ['OandM.rna_CAPEX','OandM_h2.rna_CAPEX'])
-        # self.connect('Costs.bop_costs_h2', 'OandM_h2.bop_costs')
+        # self.connect('Costs.bop_Costs_h2', 'OandM_h2.bop_costs')
         # self.connect('Costs.investment_costs', 'OandM.farm_CAPEX')
-        # self.connect('Costs.investment_costs_h2', 'OandM_h2.farm_CAPEX')
+        # self.connect('Costs.investment_Costs_h2', 'OandM_h2.farm_CAPEX')
 
 
-        self.connect('rna.hub_height', 'OandM.hub_height')
+        #self.connect('rna.hub_height', 'OandM.hub_height')
         #self.connect('rna.hub_height','OandM_h2.hub_height')
         #self.connect('hub_height_normalize.hh_norm',['OandM.hub_height_norm','OandM_h2.hub_height_norm'])
 
 
-        self.connect('usd2eur.cost_rna_eur', 'OandM.rna_capex')
-        #self.connect('indep2.n_turbines', 'cost_normalize_rna.N_T')
         #self.connect('cost_normalize_rna.rna_norm', 'OandM.rna_norm')
 
 
@@ -378,20 +376,20 @@ class WorkingGroup(Group):
 
 
 
-        self.connect('Costs.bop_costs', 'OandM.bop_costs')
+
         #self.connect('cost_normalize_bop.bop_norm', 'OandM.bop_norm')
 
 
-        #self.connect('Costs_H2.bop_costs_h2', 'OandM_h2.bop_costs')
+        #self.connect('Costs_h2.bop_Costs_h2', 'OandM_h2.bop_costs')
         #self.connect('cost_normalize_bop_h2.bop_norm_h2', 'OandM_h2.bop_norm')
 
 
 
-        self.connect('Costs.investment_costs', 'OandM.farm_capex')
+        #self.connect('Costs.investment_costs', 'OandM.farm_capex')
         #self.connect('cost_normalize_farmcapex.farmcapex_norm', 'OandM.farm_capex_norm')
 
 
-        #self.connect('Costs_H2.investment_costs_h2', 'OandM_h2.farm_capex')
+        #self.connect('Costs_h2.investment_Costs_h2', 'OandM_h2.farm_capex')
         #self.connect('cost_normalize_farmcapex_h2.farmcapex_norm_h2', 'OandM_h2.farm_capex_norm')
 
 
@@ -405,7 +403,6 @@ class WorkingGroup(Group):
 
         self.connect('numbersubstation.number_layout', 'platform_depth.layout')
         self.connect('platform_depth.water_depths', 'Costs.depth_central_platform', src_indices=[0])
-
         self.connect('indep2.n_substations', 'Costs.n_substations')
         self.connect('electrical.length_p_cable_type', 'Costs.length_p_cable_type')
         self.connect('electrical.cost_p_cable_type', 'Costs.cost_p_cable_type')
@@ -425,6 +422,28 @@ class WorkingGroup(Group):
 
 
 
+        self.connect('platform_depth.water_depths', 'Costs_h2.depth_central_platform', src_indices=[0])
+        self.connect('indep2.n_substations', 'Costs_h2.n_substations')
+        self.connect('electrical.length_p_cable_type', 'Costs_h2.length_p_cable_type')
+        self.connect('electrical.cost_p_cable_type', 'Costs_h2.cost_p_cable_type')
+        self.connect('support.cost_support', 'Costs_h2.support_structure_costs')
+        self.connect('support.support_decomm_costs', 'Costs_h2.support_decomm_costs')
+        self.connect('support.cost_tower', 'Costs_h2.cost_tower')
+        # self.connect('indep2.machine_rating', 'Costs.machine_rating')
+        self.connect('power_scaling.machine_rating', 'Costs_h2.machine_rating')
+        # self.connect('indep2.turbine_radius', 'Costs.rotor_radius')
+        self.connect('rad_scaling.turbine_radius', 'Costs_h2.rotor_radius')
+        self.connect('rna.hub_height', 'Costs_h2.hub_height')
+        self.connect('usd2eur.cost_rna_eur', 'Costs_h2.purchase_price')
+        self.connect('rna.warranty_percentage', 'Costs_h2.warranty_percentage')
+        self.connect('rna.rna_mass', 'Costs_h2.rna_mass')
+        self.connect('rna.generator_voltage', 'Costs_h2.generator_voltage')
+        self.connect('rna.collection_voltage', 'Costs_h2.collection_voltage')
+        self.connect('H2.annual_H2', 'Costs_h2.annual_h2')
+
+
+
+
         self.connect('Costs.investment_costs', 'lcoe.investment_costs')
         self.connect('OandM.annual_cost_O&M', 'lcoe.oandm_costs')
         self.connect('Costs.decommissioning_costs', 'lcoe.decommissioning_costs')
@@ -432,7 +451,7 @@ class WorkingGroup(Group):
         self.connect('indep2.transm_electrical_efficiency', 'lcoe.transm_electrical_efficiency')
         self.connect('indep2.operational_lifetime', 'lcoe.operational_lifetime')
         self.connect('indep2.interest_rate', 'lcoe.interest_rate')
-        self.connect('indep2.availability', 'lcoe.availability')
+        self.connect('OandM.availability', 'lcoe.availability')
 
 
         '''
@@ -448,7 +467,7 @@ class WorkingGroup(Group):
         self.connect('H2.H2_produced', 'FarmIRR.H2_produced')
         self.connect('H2.H2_CAPEX', 'FarmIRR.H2_CAPEX')
         self.connect('H2.H2_OPEX', 'FarmIRR.H2_OPEX')
-        self.connect('H2.power_curtailed', 'FarmIRR.power_curtailed')
+        self.connect('H2.power_curtailed', 'FarmIRR.power_curtailed')'''
 
 
         # H2 connects
@@ -458,15 +477,16 @@ class WorkingGroup(Group):
         self.connect('FarmAEP.farm_power', 'H2.farm_power')
         #self.connect('indep2.transm_electrical_efficiency', 'H2.transmission_efficiency')
 
+
         self.connect('H2.annual_H2', 'LCoH.annual_H2')
         self.connect('H2.H2_CAPEX', 'LCoH.H2_CAPEX')
         self.connect('H2.H2_OPEX', 'LCoH.H2_OPEX')
         self.connect('indep2.interest_rate', 'LCoH.interest_rate')
         self.connect('indep2.operational_lifetime', 'LCoH.operational_lifetime')
-        self.connect('Costs_H2.investment_costs_h2', 'LCoH.investment_costs')
-        self.connect('OandM_h2.annual_cost_O&M', 'LCoH.oandm_costs')
-        self.connect('Costs_H2.decommissioning_costs_h2', 'LCoH.decommissioning_costs')
-        self.connect('indep2.availability', 'LCoH.availability') '''
+        self.connect('Costs_h2.investment_costs_h2', 'LCoH.investment_costs')
+        self.connect('OandM.annual_cost_O&M', 'LCoH.oandm_costs') #same as electricity
+        self.connect('Costs_h2.decommissioning_costs_h2', 'LCoH.decommissioning_costs')
+        self.connect('OandM.availability', 'LCoH.availability') #same as electricity
 
 
 

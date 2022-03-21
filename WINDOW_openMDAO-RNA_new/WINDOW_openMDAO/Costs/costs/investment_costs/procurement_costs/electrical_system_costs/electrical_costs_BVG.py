@@ -57,12 +57,13 @@ def electrical_procurement_costs_BVG(NT, P_rated, config):
         print 'onshore substation:', onshore_substation_costs
 
     elif config == 2: #hydrogen
+        export_cable_cost = 0 # for HYGRO
         electrical_total_costs = 0 # for HYGRO
 
 
 
 
-    return electrical_total_costs
+    return export_cable_cost, electrical_total_costs
 
 
 

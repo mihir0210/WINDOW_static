@@ -26,28 +26,21 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         #electrolyser_rated = farm_rated*electrolyser_ratio #Electrolyser rated power in MW
         electrolyser_rated = farm_rated  # Electrolyser rated power in MW
+        stack_size = 2.5 #2.5 #MW; Can also choose 10 MW
+
+        [H2_produced, annual_H2, power_curtailed] = self.production(electrolyser_rated, farm_power, stack_size)
 
 
 
-        [H2_produced, annual_H2, power_curtailed] = self.production(electrolyser_rated, farm_power)
-
-        #print H2_produced
-
-        CAPEX = self.CAPEX(electrolyser_rated)
+        CAPEX = self.CAPEX(electrolyser_rated, annual_H2, stack_size)
 
         OPEX = self.OPEX(CAPEX)
 
-        #print 'Annual H2:', annual_H2
-        #print 'H2 CAPEX:', CAPEX
-        #print 'H2 OPEX', OPEX
-
-
-
+        print 'Annual H2:', annual_H2
+        print 'H2 CAPEX:', CAPEX
+        print 'H2 OPEX', OPEX
 
         #print 'energy curtailed:', sum(power_curtailed)
-
-
-
 
         outputs['annual_H2'] = annual_H2
         outputs['H2_CAPEX'] = CAPEX
@@ -60,26 +53,24 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
 
 
-    def production(self,electrolyser_rated, farm_power):
+    def production(self,electrolyser_rated, farm_power, stack_size):
 
 
 
         #### Standard specifications of a PEM Electrolyser ###
 
-
-
-
         H2 = []
         power_curtailed = []
-
+        compression_eff = 0.97 # 3% losses to compress from 30 bar to 100 bar (IRENA)
 
         for idx in range(len(farm_power)):
 
-            input_load = min(100, (farm_power[idx]/electrolyser_rated)*100.0)
+            input_load = max(0,min(100, (farm_power[idx]*compression_eff/electrolyser_rated)*100.0))
 
-            E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable')
+            E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable', stack_size)
 
-
+            #print 'farm power ', farm_power[idx]
+            #print 'Energy consumed', E_consumption_kg
 
             # if farm_power[idx]<base_load*electrolyser_rated:
             #     H2.append(0) #eletrolyser shut down
@@ -109,42 +100,44 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         return H2, annual_H2, power_curtailed
 
 
-    def CAPEX(self, electrolyser_rated):
+    def CAPEX(self, electrolyser_rated, annual_H2, stack_size):
 
-        ### Reference costs in Euros per kW ###
+        ### Reference costs in dollars per kW ###
 
-        ### HYGRO estimates ###
-        ref_stacks = 300 #Electrolyser stacks
-        ref_bop = 100 #BOP includes gas separators, compressors, gas treatment
 
         ### Open data estimates ###
 
-        # ref_stacks = 400 #Electrolyser stacks
-        # ref_bop = 148 #BOP includes gas separators, compressors, gas treatment
+        ref_stacks = 100 #Electrolyser stacks  NREL(https://www.nrel.gov/docs/fy19osti/72740.pdf) and IRENA
+        ref_bop = 200 #BOP includes power supply, deionization, gas separators, compressors, gas treatment
 
-
+        #ref_compressor = 50 #IRENA page 39
 
         electrolyser_rated = electrolyser_rated*1000 #Converting to kW
 
         C_stacks = ref_stacks*electrolyser_rated
         C_bop = ref_bop*electrolyser_rated
 
-        C_indirect = 0.1
+        ### Compressor costs can be expressed in $/kg of hydrogen produced
 
+        ref_compressor = 0.05 #$/kg (HYGRO HKW estimates, IRENA, ADAM CHRISTENSEN, International Council on Clean Transportation)
 
-        C_total = (C_stacks + C_bop)*(1+C_indirect)
+        C_compressor = ref_compressor*annual_H2
 
+        C_indirect = 0.5 #NREL report. Includes installation, margin, indirect costs, etc.
 
+        usd_to_euro = 0.88
+        C_total = (C_stacks + C_bop + C_compressor)*(1+C_indirect)*usd_to_euro
 
-        CAPEX = C_total
-
-        #CAPEX = C_total + C_contingency
+        if stack_size==2.5:
+            CAPEX = C_total
+        elif stack_size==10:
+            CAPEX = C_total*0.8 #20 % cost reduction based on IRENA figure 26
 
         return CAPEX
 
     def OPEX(self, CAPEX):
 
-        OPEX = 0.01*CAPEX
+        OPEX = 0.02*CAPEX #icct2020 says 1-3%
 
         return OPEX
 

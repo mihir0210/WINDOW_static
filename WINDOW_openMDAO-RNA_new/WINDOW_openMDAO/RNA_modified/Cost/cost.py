@@ -92,10 +92,7 @@ class CSMCalibrated(AbsRNACost):
 
 
         
-        outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
-        #outputs['cost_blade'] = (inputs['blade_mass']*(rated_wind_speed/10.4829)**2)* self.ref_cost_mass('Blade') #Scale blade mass also with rotor thrust
-
-        
+        outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade') #cost scales with R^2.2-2.5, same as mass
         outputs['cost_hub'] = inputs['hub_mass'] * self.ref_cost_mass('Hub')
         outputs['cost_pitch'] = inputs['pitch_mass'] * self.ref_cost_mass('Pitch')
         outputs['cost_spinner'] = inputs['spinner_mass'] * self.ref_cost_mass('Spinner')
@@ -114,7 +111,7 @@ class CSMCalibrated(AbsRNACost):
 
         #outputs['cost_generator'] = inputs['generator_mass'] * self.ref_cost_mass('Generator')
         generator_mass_15MW = 372000
-        generator_mass = generator_mass_15MW*((machine_rating/15000.0)**1.4)
+        generator_mass = generator_mass_15MW*((machine_rating/15000.0)**1.4) #from GeneratorSE (Check Thesis of Ozal Yilmaz TU Delft)
         outputs['cost_generator'] = (generator_mass/generator_mass_15MW)*3510000
 
         cost_mainframe = mainframe_mass * self.ref_cost_mass('Mainframe')

@@ -25,7 +25,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     turbine_other_costs = turbine_other_costs(turbine_CAPEX, n_turbines)
 
-    procurement_electrical = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, config)
+    [export_cable, procurement_electrical] = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, config)
 
     installation_electrical = electrical_installation_costs_BVG(config, infield_length)
 
@@ -83,7 +83,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
     # print "investment costs"
     # print investment_costs + management_investment
     electrical_costs = procurement_electrical
-    return electrical_costs, investment_costs, decommissioning
+    return export_cable, electrical_costs, investment_costs, decommissioning
 
 
 if __name__ == '__main__':

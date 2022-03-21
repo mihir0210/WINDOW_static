@@ -36,31 +36,47 @@ class BEM(AbsRotorAerodynamics):
         span_airfoil_id = inputs['span_airfoil_id']
         pitch = inputs['pitch']
 
-
-        ### Convert to absolute values for optimization###
-        #tsr_ref = 7.6
-        #design_tsr = tsr_ref*design_tsr
-
-        #pitch_ref = 3.5
-        #pitch = pitch_ref*pitch
-
-
-        #print 'Pitch:', pitch
-
-
-
+        #print 'wind speeds', wind_speed
         
         rotor_radius = rotor_diameter/2.0
         rotor_speed = (design_tsr*wind_speed/rotor_radius) * (30/pi) # rpm
 
         tip_speed = design_tsr*wind_speed
+        # tip_speed_limit = 100
+        # if tip_speed>tip_speed_limit:
+        #     design_tsr = tip_speed_limit/wind_speed
         print 'Tip speed', tip_speed
-        
+
+        # wind_bin = np.linspace(7, 13, 20)
+        # cp_curve = []
+        #
+        # for wind_speed in wind_bin:
+        #     tip_speed = design_tsr * wind_speed
+        #     tip_speed_limit = 100
+        #     tsr = design_tsr
+        #     if tip_speed>tip_speed_limit:
+        #         tsr = tip_speed_limit/wind_speed
+        #
+        #
+        #
+        #     # Execute the BEM code. Check bem.py
+        #     [spanwise, rotor] = bem_rotor(wind_speed, rho_air, \
+        #                               blade_number, rotor_radius, hub_radius, tsr, pitch, \
+        #                               span_r, span_dr, span_chord, span_twist, span_airfoil, \
+        #                               is_prandtl=1, is_glauert=1)
+        #
+        #     cp_curve.append(rotor['cp'])
+        #
+        # print cp_curve
+
+
         # Execute the BEM code. Check bem.py
         [spanwise, rotor] = bem_rotor(wind_speed, rho_air, \
                                       blade_number, rotor_radius, hub_radius, design_tsr, pitch, \
                                       span_r, span_dr, span_chord, span_twist, span_airfoil, \
                                       is_prandtl=1, is_glauert=1)
+
+
 
 
         '''

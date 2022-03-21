@@ -18,7 +18,7 @@ from WINDOW_openMDAO.ElectricalCollection.constant_electrical import ConstantEle
 from WINDOW_openMDAO.ElectricalCollection.POS_optimiser import POSHeuristic
 from WINDOW_openMDAO.SupportStructure.teamplay import TeamPlay
 from WINDOW_openMDAO.SupportStructure.constant_support import ConstantSupport
-from WINDOW_openMDAO.OandM.OandM_models import OM_model1
+from WINDOW_openMDAO.OandM.OandM_models import OM_model1, OM_model2
 from WINDOW_openMDAO.AEP.aep_fast_component import AEPFast
 from WINDOW_openMDAO.Costs.teamplay_costmodel import TeamPlayCostModel
 from WINDOW_openMDAO.AEP.FastAEP.farm_energy.wake_model_mean_new.wake_turbulence_models import frandsen2, \
@@ -62,7 +62,7 @@ options.models.turbine = None  # Unnecessary for now as long as the power and Ct
 options.models.turbulence = frandsen
 options.models.electrical = TopologyHybridHeuristic
 options.models.support = TeamPlay
-options.models.opex = OM_model1
+options.models.opex = OM_model2
 options.models.apex = TeamPlayCostModel
 
 # Define number of windrose sampling points
@@ -79,7 +79,7 @@ options.input.turbine.num_pegged = 3
 options.input.turbine.num_airfoils = 50
 
 options.input.turbine.num_nodes = 50
-options.input.turbine.num_bins = 31
+options.input.turbine.num_bins = 62 #31
 options.input.turbine.safety_factor = 1.5
 options.input.turbine.gearbox_stages = 3
 options.input.turbine.gear_configuration = 'eep'
