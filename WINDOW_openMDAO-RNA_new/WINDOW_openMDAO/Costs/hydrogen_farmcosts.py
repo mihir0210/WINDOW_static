@@ -132,7 +132,7 @@ class HydrogenFarmCostModel(ExplicitComponent):
         print 'Total investment costs H2:', outputs['investment_costs_h2']
         print 'project dev and management H2', project_dev_management
         print 'Other farm costs H2 (insurance, contingency)', other_farm_costs
-        # print 'Decomissioning H2', outputs['decommissioning_costs_h2']
+        print 'Decomissioning H2', outputs['decommissioning_costs_h2']
         #print 'Rated power:', inputs['machine_rating']
         #print 'Turbine radius:', inputs['rotor_radius']
 

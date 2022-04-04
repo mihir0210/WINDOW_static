@@ -78,8 +78,8 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=320/240.0)
-        indep2.add_output('rated_power', val=32/15.0)
+        indep2.add_output('turbine_rad', val=200/240.0)
+        indep2.add_output('rated_power', val=14.286/15.0)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d

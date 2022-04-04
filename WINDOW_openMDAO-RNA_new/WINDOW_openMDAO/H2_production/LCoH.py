@@ -43,8 +43,13 @@ class LCOH(ExplicitComponent):
         b = np.sum((annual_H2 / (1 + i) ** t) for t in n)
         c = decommissioning_costs/(1+i)**operational_lifetime
 
+        replacement_yr = 10
+        stack_replacement_costs = H2_CAPEX/1.5/(1+i)**replacement_yr
 
-        LCoH = (total_CAPEX + a + c)/b # in Euros/kg
+
+
+
+        LCoH = (total_CAPEX + a + c + stack_replacement_costs)/b # in Euros/kg
 
 
         #print 'WIND CAPEX:', investment_costs

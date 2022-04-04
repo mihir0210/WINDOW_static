@@ -84,7 +84,7 @@ class TeamPlayCostModel(ExplicitComponent):
         print 'project dev and management', project_dev_management
         print 'Other farm costs (insurance, contingency)', other_farm_costs
         print 'Total investment costs electricity:', outputs['investment_costs']
-        print 'Decomissioning costs', decommissioning_costs
+        print 'Decomissioning costs', decommissioning_costs + support_decomm_costs
 
 
 

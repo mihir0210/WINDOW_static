@@ -25,7 +25,8 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         farm_rated = N_T*P_rated    #Wind farm rated power in MW
 
         #electrolyser_rated = farm_rated*electrolyser_ratio #Electrolyser rated power in MW
-        electrolyser_rated = farm_rated  # Electrolyser rated power in MW
+        sizing_ratio = 1
+        electrolyser_rated = farm_rated*sizing_ratio  # Electrolyser rated power in MW
         stack_size = 2.5 #2.5 #MW; Can also choose 10 MW
 
         [H2_produced, annual_H2, power_curtailed] = self.production(electrolyser_rated, farm_power, stack_size)
@@ -56,7 +57,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
     def production(self,electrolyser_rated, farm_power, stack_size):
 
 
-
+        print 'Electrolyzer rated', electrolyser_rated
         #### Standard specifications of a PEM Electrolyser ###
 
         H2 = []
