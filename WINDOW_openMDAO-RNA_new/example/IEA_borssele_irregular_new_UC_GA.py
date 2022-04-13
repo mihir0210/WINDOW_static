@@ -30,10 +30,9 @@ from WINDOW_openMDAO.AEP.FastAEP.farm_energy.wake_model_mean_new.wake_overlap im
 
 # Imports the Options class to instantiate a workflow.
 from WINDOW_openMDAO.src.api import WorkflowOptions
-#from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC import WorkingGroup
-#from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static import WorkingGroup
-#from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt import WorkingGroup
-from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt import WorkingGroup
+
+#from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
+from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
 
 import warnings
 
@@ -90,6 +89,8 @@ options.input.turbine.uptower_transformer = True
 options.input.turbine.has_crane = True
 options.input.turbine.reference_turbine = 'Input/Reference_turbine_15MW.csv'
 options.input.turbine.reference_turbine_cost = 'Input/reference_turbine_15MW_cost_mass.csv'
+options.input.turbine.rated_power = 15/15.0
+options.input.turbine.rotor_radius = 120/120.0
 
 options.input.site.time_resolution = 8760 #52560
 options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
@@ -128,18 +129,6 @@ problem.driver.options['debug_print'] = ['desvars', 'objs']
 problem.driver.options['procs_per_model'] = 4
 problem.driver.options['penalty_parameter'] = 15
 problem.driver.options['penalty_exponent'] = 1.0
-
-'''
-
-problem.driver.recording_options['includes'] =[]
-problem.driver.recording_options['record_objectives'] = True
-problem.driver.recording_options['record_constraints'] = True
-problem.driver.recording_options['record_desvars'] = True
-recorder = SqliteRecorder("dynamic_GA.csv")
-problem.driver.add_recorder(recorder)
-
-'''
-
 
 
 
@@ -243,13 +232,13 @@ for p in farm_params:
 
 lcoe = problem['lcoe.LCOE'][0]
 aep = problem['AeroAEP.AEP'][0]
-base_dia = problem['support.base_dia']
-top_dia = problem['support.top_dia']
+subsidy_required = problem['FarmIRR.subsidy_required'][0]
 
 
 
 print_nice("LCOE", lcoe)
 print_nice("AEP", aep)
+print_nice("Subsidy required", subsidy_required)
 
 '''
 ### Setup Optimization ####

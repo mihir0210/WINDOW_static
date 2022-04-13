@@ -1,4 +1,5 @@
 import pandas as pd
+import csv
 from WINDOW_openMDAO.src.api import AbsRNACost
 
 #############################################################################
@@ -138,6 +139,7 @@ class CSMCalibrated(AbsRNACost):
          outputs['cost_hub_system'], \
          outputs['cost_nacelle'], \
          outputs['cost_rna']] = aggregator_rna(outputs, blade_number)
+        '''
         print 'Gearbox cost:', cost_gearbox
         print 'blade cost:', outputs['cost_blades']
         print 'hub cost:' , outputs['cost_hub_system']
@@ -149,7 +151,16 @@ class CSMCalibrated(AbsRNACost):
         print 'Cost electricals + control', outputs['cost_electrical'] + outputs['cost_controls']
         print 'cost main frame:', outputs['cost_mainframe']
         print 'cost main bearing:', outputs['cost_main_bearing']
-        print 'cost main shaft:', outputs['cost_lss']
+        print 'cost main shaft:', outputs['cost_lss']'''
+
+
+        field_names = ['Cost rotor','Nacelle cost']
+        data = {field_names[0]: outputs['cost_blades'] + outputs['cost_hub_system'], field_names[1]:outputs['cost_nacelle']}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
 
         #print 'Generator cost, Mainframe cost, Electrical cost, Transformer cost:', cost_generator, cost_mainframe, cost_electrical, cost_transformer
         #print 'RNA  Done'

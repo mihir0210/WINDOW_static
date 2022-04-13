@@ -1,4 +1,6 @@
 import numpy as np
+import csv
+
 
 from WINDOW_openMDAO.src.api import AbsPowerCurve  
 
@@ -32,11 +34,11 @@ class PowerCurve(AbsPowerCurve):
         #design_tsr = tsr_ref*design_tsr
 
         #print 'TSR:', design_tsr
-        print 'Max Cp:', rotor_cp
+        #print 'Max Cp:', rotor_cp
         
         rated_wind_speed = (machine_rating * 1000.0 / (rotor_cp * 0.5 * rho_air * swept_area * eta_dt))**(1.0/3.0)
 
-        print  'Rated wind speed:', rated_wind_speed
+        #print  'Rated wind speed:', rated_wind_speed
         rated_tip_speed  = design_tsr * rated_wind_speed
         wind_bin = np.linspace(0, 30.0, num_bins) 
         aero_power_bin, elec_power_bin, thrust_bin, cp_bin, ct_bin = [], [], [], [], []
@@ -66,10 +68,18 @@ class PowerCurve(AbsPowerCurve):
             cp_bin.append(cp)
             ct_bin.append(ct)
 
-        print 'Max Ct:', max(ct_bin)
+        #print 'Max Ct:', max(ct_bin)
         # generate power curve and thrust coefficient curve files
         create_curves(power_file, wind_bin, np.array(elec_power_bin)*1000) # kW to W
         create_curves(ct_file, wind_bin, ct_bin)
+
+        field_names = ['Cp','Rated wind speed','Ct']
+        data = {field_names[0]: rotor_cp, field_names[1]: rated_wind_speed, field_names[2]: max(ct_bin)}
+        with open('parameters.csv', 'w') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
             
         # outputs
         outputs['rated_wind_speed'] = rated_wind_speed     

@@ -22,8 +22,6 @@ class FarmIRR(ExplicitComponent):
     '''
     This class calculates the farm IRR based on the farm power production, spot price, and costs.
     Farm power production at each time instant is based on the time series data for wind speed and direction.
-    The power curve data points for each wind direction is imported via a csv. A curve will be fit to each of these
-    power curves. For each time instant(for a given wind speed and direction), the farm power can then be extracted.
     '''
 
 
@@ -40,25 +38,19 @@ class FarmIRR(ExplicitComponent):
 
         time_points = self.metadata['time_resolution']
 
-
-
         self.add_input('farm_power', shape = time_points)
         self.add_input('investment_costs', val=0.0)
         self.add_input('decommissioning_costs', val=0.0)
         self.add_input('transm_electrical_efficiency', val=0.0)
         self.add_input('operational_lifetime', val=0.0)
         self.add_input('oandm_costs', val=0.0)
+        self.add_input('availability', val=0.0)
         #self.add_input('interest_rate', val=0.0)
-
-        self.add_input('H2_produced', shape=time_points)
-        self.add_input('H2_CAPEX', val=0.0)
-        self.add_input('H2_OPEX',val=0.0)
-        self.add_input('power_curtailed', shape=time_points)
-
 
 
 
         self.add_output('IRR', val=0.0)
+        self.add_output('subsidy_required', val=0.0)
 
 
         #self.add_output('ramp_90', val=0.0)
@@ -76,16 +68,14 @@ class FarmIRR(ExplicitComponent):
         spot_price_file = self.metadata['spot_price_file']
         farm_power = inputs['farm_power']
 
-        transm_electrical_efficiency = inputs['transm_electrical_efficiency']*0.97
+        transm_electrical_efficiency = inputs['transm_electrical_efficiency']
         investment_costs = inputs['investment_costs']
         decommissioning_costs = inputs['decommissioning_costs']
         operational_lifetime = inputs['operational_lifetime']
         oandm_costs = inputs['oandm_costs']
+        availability = inputs['availability']
 
-        H2_CAPEX = inputs['H2_CAPEX']
-        H2_OPEX = inputs['H2_OPEX']
-        H2_produced = inputs['H2_produced']
-        power_curtailed = inputs['power_curtailed']
+
 
         #print 'O&M:', oandm_costs
 
@@ -95,7 +85,7 @@ class FarmIRR(ExplicitComponent):
 
 
 
-        def irr_npv():
+        def revenue_calc():
 
             revenue = []
             y_revenue =[]
@@ -104,18 +94,13 @@ class FarmIRR(ExplicitComponent):
 
                 base_year = 2019
                 future_year = base_year + y
-
-                #capacity = Capacity(future_year)
-
-                #[ratio_wind, ratio_load] = capacity.ref_gen_scenario()
-
                 parameters = Parameters(future_year, operational_lifetime)
 
-                [slope, constant] = parameters.baseyear()
+                [slope, constant] = parameters.baseyear() #get the slope and constant for a given slope constant scenario
 
                 #print slope, constant
 
-                spot_price_ = spot_price(wind_speed, slope, constant)
+                spot_price_ = spot_price(wind_speed, slope, constant) # y = mx + c to get spot prices for a given wind speed
 
                 #only for var_slope()
 
@@ -127,9 +112,9 @@ class FarmIRR(ExplicitComponent):
 
                 #spot_price_ts = np.ones(len(farm_power))*40
 
-
-
                 elec_farm_power = np.multiply(farm_power, transm_electrical_efficiency)
+                elec_farm_power = np.multiply(elec_farm_power, availability)
+
 
                 #print 'elec farm power:', elec_farm_power
 
@@ -144,34 +129,33 @@ class FarmIRR(ExplicitComponent):
 
                 revenue.append(max(0,yearly_revenue - oandm_costs))
                 y_revenue.append(yearly_revenue)
-
+            aep = sum(elec_farm_power)
             revenue[-1] = revenue[-1] - decommissioning_costs
+
+            return aep, y_revenue, revenue
+
+
+
+        def irr_npv(revenue, investment_costs):
 
             cashflows = [-1 * investment_costs[0], revenue]
 
-            r = 0.05
-            revenues = []
-            var_costs =[]
-
-            for t in range(len(operational_lifetime)):
-                revenues.append(y_revenue[t]/(1+r)**(t+1))
-                var_costs.append(oandm_costs/(1+r)**(t+1))
-
-            var_costs[-1] = var_costs[-1] + decommissioning_costs
-
-            num = sum(revenues)
-            den = investment_costs[0] + sum(var_costs)
-
-            revenue_costs = num/den
+            # r = 0.05
+            # revenues = []
+            # var_costs =[]
+            #
+            # for t in range(len(operational_lifetime)):
+            #     revenues.append(y_revenue[t]/(1+r)**(t+1))
+            #     var_costs.append(oandm_costs/(1+r)**(t+1))
+            #
+            # var_costs[-1] = var_costs[-1] + decommissioning_costs
+            #
+            # num = sum(revenues)
+            # den = investment_costs[0] + sum(var_costs)
+            #
+            # revenue_costs = num/den
 
             #print 'Revenue/Costs:', revenue_costs
-
-
-
-
-
-
-
             output_list = []
 
             def removeNestings(cashflows):
@@ -184,55 +168,51 @@ class FarmIRR(ExplicitComponent):
             removeNestings(cashflows)
 
             # print output_list
-
             cashflows = output_list
             #print cashflows
-
 
             IRR = np.irr(cashflows)
 
             discount_rate = 0.05
             NPV = np.npv(discount_rate, cashflows)
 
-            ##### Write your own IRR function ####
-
-            # Checks where NPV switches sign
-
-            rate = np.linspace(-0.15,0.15,200)
-            NPV_pxy = []
-
-            for r in rate:
-                val = np.npv(r, cashflows)
-                NPV_pxy.append(val[0])
-
-
-            #print NPV_pxy
-
-            asign = np.sign(NPV_pxy)
-            signchange = ((np.roll(asign, 1) - asign) != 0).astype(int)
-            signchange[0] =0
-
-            for idx in range(len(signchange)):
-                if signchange[idx]==1:
-                    break
-
-
-
-            #min_elem = np.amin(NPV_pxy)
-            #loc = np.where(NPV_pxy == min_elem)
-
-            loc = idx
-
-
-            IRR_new = rate[loc]
+            # ##### Write your own IRR function ####
+            #
+            # # Checks where NPV switches sign
+            #
+            # rate = np.linspace(-0.15,0.15,200)
+            # NPV_pxy = []
+            #
+            # for r in rate:
+            #     val = np.npv(r, cashflows)
+            #     NPV_pxy.append(val[0])
+            #
+            #
+            # #print NPV_pxy
+            #
+            # asign = np.sign(NPV_pxy)
+            # signchange = ((np.roll(asign, 1) - asign) != 0).astype(int)
+            # signchange[0] =0
+            #
+            # for idx in range(len(signchange)):
+            #     if signchange[idx]==1:
+            #         break
+            #
+            #
+            #
+            # #min_elem = np.amin(NPV_pxy)
+            # #loc = np.where(NPV_pxy == min_elem)
+            #
+            # loc = idx
+            #
+            #
+            # IRR_new = rate[loc]
 
             #print 'IRR_scneario_inbuilt:', IRR
             #print 'IRR_scenario:', IRR_new
 
-            print 'IRR', IRR
-            print 'NPV', NPV
-
-
+            #print 'IRR', IRR
+            #print 'NPV', NPV
 
 
 
@@ -240,185 +220,11 @@ class FarmIRR(ExplicitComponent):
             return IRR, NPV
 
 
+        [aep, y_revenue, revenue] = revenue_calc()
 
-        [IRR, NPV] = irr_npv()
+        [IRR, NPV] = irr_npv(revenue, investment_costs)
 
-        def irr_withH2():
-
-            revenue = []
-
-            for y in range(int(operational_lifetime)):
-
-                base_year = 2019
-                future_year = base_year + y
-
-                #capacity = Capacity(future_year)
-
-                #[ratio_wind, ratio_load] = capacity.ref_gen_scenario()
-
-                parameters = Parameters(future_year, operational_lifetime)
-
-                [slope, constant] = parameters.eneco_coeff()
-
-                #print slope, constant
-
-                spot_price_ = spot_price(wind_speed, slope, constant)
-
-                #only for var_slope()
-
-                spot_price_ts = []
-
-                for p in spot_price_:
-                    #spot_price_ts.append(p[0])
-                    spot_price_ts.append(p)
-
-                #spot_price_ts = np.ones(len(farm_power))*40
-
-
-
-                elec_farm_power = np.multiply(farm_power, transm_electrical_efficiency)
-
-                #print 'elec farm power:', elec_farm_power
-
-
-                yearly_revenue_elec = np.multiply(elec_farm_power, spot_price_ts) #from electricity only
-
-                #print 'Mean spot price:', np.mean(spot_price_ts)
-                #print 'Yearly revenue:', yearly_revenue
-
-                ### yearly revenue from H2 (and elec) ###
-
-                H2_price = 3.5*0.88 # Assume it to be $3-5/kg; Converted to euros
-
-
-                yearly_revenue_H2 = [] #from H2 (and elec only available power exceeds electrolyser rated or when it's less than base load of electrolyser)
-                #yearly_revenue_H2 = np.multiply(H2_produced, H2_price)
-
-                for idx in range(len(H2_produced)):
-                    if power_curtailed[idx]>0:
-                        hydrogen_revenue = H2_produced[idx]*H2_price
-                        elec_revenue = power_curtailed[idx]*spot_price_ts[idx]
-                        yearly_revenue_H2.append(hydrogen_revenue + elec_revenue)
-
-
-                    else:
-                        hydrogen_revenue = H2_produced[idx] * H2_price
-                        yearly_revenue_H2.append(hydrogen_revenue)
-
-
-
-
-                yearly_revenue_ts = yearly_revenue_elec
-
-                count = 0
-
-                for idx in range(len(yearly_revenue_elec)):
-                    if yearly_revenue_ts[idx]<yearly_revenue_H2[idx]:
-                        yearly_revenue_ts[idx] = yearly_revenue_H2[idx]
-                        count = count + 1
-
-
-                #print count
-                #yearly_revenue = np.sum(yearly_revenue_ts)
-                yearly_revenue = np.sum(yearly_revenue_H2)
-
-
-
-
-
-
-                revenue.append(max(0,yearly_revenue - oandm_costs - H2_OPEX[0]))
-
-            #print 'Yearly revenue H2:', np.sum(yearly_revenue_H2)
-            revenue[-1] = revenue[-1] - decommissioning_costs
-
-
-
-            cashflows = [-1 * (investment_costs[0] + H2_CAPEX[0]), revenue]
-
-
-
-
-
-            output_list = []
-
-            def removeNestings(cashflows):
-                for i in cashflows:
-                    if type(i) == list:
-                        removeNestings(i)
-                    else:
-                        output_list.append(i)
-
-            removeNestings(cashflows)
-
-            # print output_list
-
-            cashflows = output_list
-            print cashflows
-
-
-            IRR = np.irr(cashflows)
-
-            discount_rate = -0.1115
-            NPV = np.npv(discount_rate, cashflows)
-
-            tot_investment = (investment_costs[0] + H2_CAPEX[0])
-
-            #print 'NPV with irr% dr:', NPV
-
-            ##### Write your own IRR function ####
-
-            # Checks where NPV switches sign
-
-            rate = np.linspace(-0.15,0.15,200)
-            NPV_pxy = []
-
-            for r in rate:
-                val = np.npv(r, cashflows)
-                NPV_pxy.append(val[0])
-
-
-            #print NPV_pxy
-
-            asign = np.sign(NPV_pxy)
-            signchange = ((np.roll(asign, 1) - asign) != 0).astype(int)
-            signchange[0] =0
-
-            for idx in range(len(signchange)):
-                if signchange[idx]==1:
-                    break
-
-
-
-            #min_elem = np.amin(NPV_pxy)
-            #loc = np.where(NPV_pxy == min_elem)
-
-            loc = idx
-
-
-            IRR_new = rate[loc]
-
-            # print 'IRR_withH2_inbuilt:', IRR
-            # print 'IRR_withH2:', IRR_new
-
-
-
-
-
-
-
-
-
-
-
-            return IRR
-
-
-
-
-
-        #IRR_withH2 = irr_withH2()
-
+        #print 'Revenue without subsidy', revenue[0]
 
 
         '''
@@ -431,166 +237,75 @@ class FarmIRR(ExplicitComponent):
         #pd.DataFrame(ramp).to_csv('farm_ramp_95.csv')
         #pd.DataFrame(farm_power_ts).to_csv('farm_power_95.csv') '''
 
-        def irr_withH2_other():
 
-            revenue = []
-
-            for y in range(int(operational_lifetime)):
-
-                base_year = 2019
-                future_year = base_year + y
-
-                #capacity = Capacity(future_year)
-
-                #[ratio_wind, ratio_load] = capacity.ref_gen_scenario()
-
-                parameters = Parameters(future_year, operational_lifetime)
-
-                [slope, constant] = parameters.eneco_coeff()
-
-                #print slope, constant
-
-                spot_price_ = spot_price(wind_speed, slope, constant)
-
-                #only for var_slope()
-
-                spot_price_ts = []
-
-                for p in spot_price_:
-                    #spot_price_ts.append(p[0])
-                    spot_price_ts.append(p)
-
-                #spot_price_ts = np.ones(len(farm_power))*40
-
-
-
-                elec_farm_power = np.multiply(farm_power, transm_electrical_efficiency)
-
-                #print 'elec farm power:', elec_farm_power
-
-
-                yearly_revenue_elec = np.multiply(elec_farm_power, spot_price_ts) #from electricity only
-
-                #print 'Mean spot price:', np.mean(spot_price_ts)
-                #print 'Yearly revenue:', yearly_revenue
-
-                ### yearly revenue from H2 (and elec) ###
-
-                H2_price = 100*0.88 # Assume it to be $3-5/kg; Converted to euros
-
-
-                yearly_revenue_H2 = [] #from H2 (and elec only available power exceeds electrolyser rated or when it's less than base load of electrolyser)
-                #yearly_revenue_H2 = np.multiply(H2_produced, H2_price)
-
-                for idx in range(len(H2_produced)):
-                    if power_curtailed[idx]>0:
-                        hydrogen_revenue = H2_produced[idx]*H2_price
-                        elec_revenue = power_curtailed[idx]*spot_price_ts[idx]
-                        yearly_revenue_H2.append(hydrogen_revenue + elec_revenue)
-
-
-                    else:
-                        hydrogen_revenue = H2_produced[idx] * H2_price
-                        yearly_revenue_H2.append(hydrogen_revenue)
-
-
-
-
-                yearly_revenue_ts = yearly_revenue_elec
-
-                count = 0
-
-                for idx in range(len(yearly_revenue_elec)):
-                    if yearly_revenue_ts[idx]<yearly_revenue_H2[idx]:
-                        yearly_revenue_ts[idx] = yearly_revenue_H2[idx]
-                        count = count + 1
-
-
-                #print count
-                #yearly_revenue = np.sum(yearly_revenue_ts)
-                yearly_revenue = np.sum(yearly_revenue_H2)
-
-
-
-
-
-
-                revenue.append(max(0,yearly_revenue - oandm_costs - H2_OPEX[0]))
-
-            #print 'Yearly revenue H2:', np.sum(yearly_revenue_H2)
-            revenue[-1] = revenue[-1] - decommissioning_costs
-
-            cashflows = [-1 * (investment_costs[0] + H2_CAPEX[0]), revenue]
-
-
-
-
-
-            output_list = []
-
-            def removeNestings(cashflows):
-                for i in cashflows:
-                    if type(i) == list:
-                        removeNestings(i)
-                    else:
-                        output_list.append(i)
-
-            removeNestings(cashflows)
-
-            # print output_list
-
-            cashflows = output_list
-            #print cashflows
-
-
-            IRR = np.irr(cashflows)
-
-            discount_rate = 0.05
-            NPV = np.npv(discount_rate, cashflows)
-
-            ##### Write your own IRR function ####
-
-            # Checks where NPV switches sign
-
-            rate = np.linspace(-0.15,0.15,200)
-            NPV_pxy = []
-
-            for r in rate:
-                val = np.npv(r, cashflows)
-                NPV_pxy.append(val[0])
-
-
-            #print NPV_pxy
-
-            asign = np.sign(NPV_pxy)
-            signchange = ((np.roll(asign, 1) - asign) != 0).astype(int)
-            signchange[0] =0
-
-            for idx in range(len(signchange)):
-                if signchange[idx]==1:
-                    break
-
-
-
-            #min_elem = np.amin(NPV_pxy)
-            #loc = np.where(NPV_pxy == min_elem)
-
-            loc = idx
-
-
-            IRR_new = rate[loc]
-
-            # print 'IRR_withH2_other_inbuilt:', IRR
-            # print 'IRR_withH2_other:', IRR_new
-
-            return IRR
-
-
-
-        #IRR = irr_withH2_other()
 
         #outputs['IRR'] = IRR_withH2
         outputs['IRR'] = IRR
+
+        def subsidy_calculator(aep, revenue, investment_costs):
+            #print 'aep subsidy module', aep
+            subsidy_perMWh = 0 #Euros/MWh as starting point
+            IRR = 0
+            step = 0.01 #Euros/MWh
+            revenue_withoutsubsidy = revenue
+            tol = 0.0001 #tolerance for IRR check
+            IRR_required = 0.05
+
+
+            while IRR<IRR_required:
+
+                subsidy_perMWh +=  step  # add a subsidy of x million euros
+                subsidy = subsidy_perMWh*aep
+                revenue = [x + subsidy for x in revenue_withoutsubsidy]
+
+                cashflows = [-1 * investment_costs[0], revenue]
+                output_list = []
+
+                def removeNestings(cashflows):
+                    for i in cashflows:
+                        if type(i) == list:
+                            removeNestings(i)
+                        else:
+                            output_list.append(i)
+
+                removeNestings(cashflows)
+
+                # print output_list
+                cashflows = output_list
+                #print cashflows
+
+                IRR = np.irr(cashflows)
+
+                diff = abs(IRR - IRR_required)
+                if diff <= tol:
+                    break
+                #print subsidy, IRR
+
+
+
+            subsidy_required = subsidy_perMWh
+            #print 'IRR_withsubsidy', IRR
+            return subsidy_required
+
+        subsidy_required = subsidy_calculator(aep,revenue, investment_costs)
+
+        outputs['subsidy_required'] = subsidy_required
+
+        #print 'Subsidy required', subsidy_required
+
+        field_names = ['Subsidy required']
+        data = {field_names[0]: subsidy_required}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+
+        csvfile.close()
+
+
+
+
+
 
 
 

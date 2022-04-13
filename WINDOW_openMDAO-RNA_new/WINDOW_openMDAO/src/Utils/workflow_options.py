@@ -62,6 +62,8 @@ class Turbine():
 		self.has_crane = None
 		self.reference_turbine = None
 		self.reference_turbine_cost = None
+		self.rated_power = None
+		self.rotor_radius = None
 
 
 class WorkflowOptions():

@@ -1,6 +1,6 @@
 from WINDOW_openMDAO.src.api import AbstractOandM
 from openmdao.api import ExplicitComponent
-
+import csv
 
 class OM_model1(AbstractOandM):
     def OandM_model(self, AEP, eff, N_T, P_rated, hub_height, rna_capex, farm_capex, bop_costs):
@@ -98,6 +98,16 @@ class OM_model2(ExplicitComponent):
             return costs_om, availability
 
         [costs_om, availability] = oandm()
-        print 'O&M', costs_om
+
+        #print 'O&M', costs_om
+
+        field_names = ['O&M Costs']
+        data = {field_names[0]: costs_om}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
+
         outputs['annual_cost_O&M'] = costs_om
         outputs['availability'] = availability

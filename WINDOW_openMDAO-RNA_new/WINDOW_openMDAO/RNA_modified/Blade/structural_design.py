@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import csv
 
 from WINDOW_openMDAO.src.api import AbsStructuralDesign
 
@@ -148,20 +149,31 @@ class VariableRadius(AbsStructuralDesign):
             span_edge_inertia = np.append(span_edge_inertia, edge_inertia)
             span_flap_stiff = np.append(span_flap_stiff, flap_stiff)
             span_edge_stiff = np.append(span_edge_stiff, edge_stiff)
-        
-        blade_mass = np.dot(span_mass, span_dr) *((rated_wind_speed/10.42952888)**2)
+
+        #### Linear upscaling ###
+        blade_mass = np.dot(span_mass, span_dr)
+
 
         #### Emperical model ###
-        blade_mass = (0.0009*rotor_radius**2.367)*1000 #from SANDIA 100 m blade reports, NREL detailed cost model blade (between 2.2 and 2.5)
-        rated_ws_ratio = rated_wind_speed/10.43
+        #blade_mass = (0.0009*rotor_radius**2.367)*1000 #from SANDIA 100 m blade reports, NREL detailed cost model blade (between 2.2 and 2.5)
 
+
+        rated_ws_ratio = rated_wind_speed/10.43
         blade_mass = blade_mass*(rated_ws_ratio**2) #adjusting for a different specific power leading to a change in rated wind speed and thrust
 
 
 
-        print 'blade mass:', blade_mass
+        #print 'blade mass:', blade_mass
         blades_mass = blade_mass * blade_number
-        
+
+        field_names = ['Blade mass']
+        data = {field_names[0]: blade_mass}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
+
         # outputs
         outputs['span_thickness'] = span_thickness
         outputs['span_mass'] = span_mass

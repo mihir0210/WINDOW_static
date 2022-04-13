@@ -1,3 +1,5 @@
+import csv
+
 def other_costs(depth_central_platform, n_turbines, infield_length, n_substations, \
                 turbine_rated_power, rotor_radius, purchase_price, warranty_percentage, \
                 rna_mass, hub_height, generator_voltage, collection_voltage, turbine_CAPEX, config):
@@ -42,13 +44,26 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height,config)
 
-    print 'RNA costs:', procurement_rna
-    print 'turbine other costs:', turbine_other_costs
-    print 'procurement electrical:', procurement_electrical
-
-    print 'Installation RNA:', installation_rna
-    print 'electrical installation costs:', installation_electrical
+    # print 'RNA costs:', procurement_rna
+    # print 'turbine other costs:', turbine_other_costs
+    # print 'procurement electrical:', procurement_electrical
+    #
+    # print 'Installation RNA:', installation_rna
+    # print 'electrical installation costs:', installation_electrical
     #print 'Other installation commissioning costs:', other_installation_commissioning_costs
+
+    field_names = ['Export cable costs', 'Total electrical procurement costs', 'Electrical installation costs', 'RNA procurement', 'RNA installation', 'Turbine other costs']
+    data = {field_names[0]: export_cable,
+            field_names[1]: procurement_electrical,
+            field_names[2]: installation_electrical,
+            field_names[3]: procurement_rna,
+            field_names[4]: installation_rna,
+            field_names[5]: turbine_other_costs}
+    with open('parameters.csv', 'a') as csvfile:
+        writer = csv.writer(csvfile)
+        for key, value in data.items():
+            writer.writerow([key, value])
+    csvfile.close()
 
     #investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
     investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna #+ other_installation_commissioning_costs

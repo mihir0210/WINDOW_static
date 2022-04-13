@@ -1,5 +1,6 @@
 from openmdao.api import ExplicitComponent
 from time import clock
+import csv
 
 
 class LCOE(ExplicitComponent):
@@ -39,9 +40,17 @@ class LCOE(ExplicitComponent):
         # print(clock())
         #print 'Wind CAPEX :', investment_costs
 
-        print 'decom costs electricity', decommissioning_costs
+        #print 'decom costs electricity', decommissioning_costs
         #print 'AEP:', AEP
-        print 'LCOE:', lcoe
+        #print 'LCOE:', lcoe
+
+        field_names = ['LCoE']
+        data = {field_names[0]: lcoe}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
 
         #print 'discounted AEP', annuity*(AEP/1e6)
         outputs['LCOE'] = lcoe

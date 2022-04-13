@@ -90,7 +90,8 @@ class GravityAnalysts:
             base_diameter = self.support_team.design_variables.support_structure.tower.base_diameter
             top_diameter = self.support_team.design_variables.support_structure.tower.top_diameter
             base = self.support_team.properties.support_structure.platform_height
-            top = self.support_team.properties.support_structure.platform_height + self.support_team.design_variables.support_structure.tower.length 
+            top = self.support_team.properties.support_structure.platform_height + self.support_team.design_variables.support_structure.tower.length
+            #print 'tower length', (top - base)
     
             for i in range(self.support_team.properties.support_structure.nr_segments):
                 z_from = base + i * self.support_team.properties.support_structure.segment_length
@@ -98,6 +99,7 @@ class GravityAnalysts:
                 t = self.support_team.design_variables.support_structure.tower.wall_thickness[i]
                 mass += self.rho_steel * self.get_integrated_volume(base, top, base_diameter, top_diameter, z_from, z_to, t)
             mass *= 1.10  # 10% extra for secondary steel, such as flanges, stairs and platforms
+            mass *= 0.8 # additional mass reduction due to better control and better design strategies
 
 
         if component == 'transition piece':
@@ -107,6 +109,7 @@ class GravityAnalysts:
             top = self.support_team.properties.support_structure.platform_height
             z_from = base
             z_to = top
+            #print 'transition piece length', (top-base)
             t = self.support_team.design_variables.support_structure.transition_piece.wall_thickness
             mass = self.rho_steel * self.get_integrated_volume(base, top, base_diameter, top_diameter, z_from, z_to, t)
             mass *= 1.10  # 10% extra for secondary steel, such as flange, boat landing, stairs and platforms
@@ -126,10 +129,11 @@ class GravityAnalysts:
         if component == 'monopile':
             base_diameter = self.support_team.design_variables.support_structure.monopile.diameter
             top_diameter = base_diameter
-            base = pile_top - self.support_team.design_variables.support_structure.monopile.length
+            base = pile_top - self.support_team.design_variables.support_structure.monopile.length - 20 #additional 20m of driving length to get overall 30-40 m under the seabed
             top = pile_top
             z_from = base
             z_to = top
+            #print 'monopile length', (top - base)
             t = self.support_team.design_variables.support_structure.monopile.wall_thickness
             mass = self.rho_steel * self.get_integrated_volume(base, top, base_diameter, top_diameter, z_from, z_to, t)
         

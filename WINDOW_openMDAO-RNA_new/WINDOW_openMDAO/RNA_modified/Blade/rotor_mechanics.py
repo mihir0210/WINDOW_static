@@ -206,7 +206,7 @@ class  Analytical(AbsRotorMechanics):
         tip_deflection = tip_deflection*safety_factor
 
 
-        print 'Tip deflection static : ',tip_deflection
+        #print 'Tip deflection static : ',tip_deflection
         #print 'Max Stress Spar : ', max_stress_spar
         #print 'Max Stress Skin : ', max_stress_skin
         #print 'Max Stress Te Reinf : ', max_stress_te_reinf

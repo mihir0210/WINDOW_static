@@ -65,8 +65,8 @@ class DriveSE(AbsGearbox):
         I2 = I1
         self.I = np.array([I0, I1, I2])
         
-        outputs['stage_masses'] = self.stage_masses #np.reshape(self.stage_masses, 3)
-        outputs['mass'] = self.mass
+        outputs['stage_masses'] = 0*self.stage_masses #np.reshape(self.stage_masses, 3)
+        outputs['mass'] = 0*self.mass
         outputs['cm'] = self.cm
         outputs['I'] = np.reshape(self.I, 3)
         outputs['length'] = self.length
@@ -74,8 +74,8 @@ class DriveSE(AbsGearbox):
         outputs['diameter'] = self.diameter
         outputs['efficiency'] = 0.98
 
-        print 'Gearbox stage masses:', outputs['stage_masses']
-        print 'Gearbox mass:', outputs['mass']
+        #print 'Gearbox stage masses:', outputs['stage_masses']
+        #print 'Gearbox mass:', outputs['mass']
         
 
 

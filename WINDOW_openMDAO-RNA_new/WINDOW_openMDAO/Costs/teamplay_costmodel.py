@@ -1,6 +1,7 @@
 from openmdao.api import ExplicitComponent
 from WINDOW_openMDAO.input_params import max_n_turbines
 from costs.other_costs import other_costs
+import csv
 
 from WINDOW_openMDAO.input_params import distance_to_grid
 
@@ -70,21 +71,40 @@ class TeamPlayCostModel(ExplicitComponent):
 
 
         outputs['bop_costs'] = support_structure_investment + infield_cable_investment + electrical_costs - cost_tower[0] * n_turbines  # subtraction as support cost involves tower cost
-        outputs['investment_costs'] = total_farm_CAPEX  #+ area_use_cost
+        outputs['investment_costs'] = total_farm_CAPEX  + area_use_cost
         outputs['decommissioning_costs'] = decommissioning_costs + support_decomm_costs
         outputs['cable_costs'] = export_cable_costs + infield_cable_investment
 
 
-        print 'Rated power:', inputs['machine_rating']
-        print 'Turbine radius:', inputs['rotor_radius']
-        print 'turbine CAPEX without other costs', turbine_CAPEX
-        print 'infield cable length', sum(length_p_cable_type)
-        print 'infield cable cost:', infield_cable_investment
-        print 'bop_costs', outputs['bop_costs']
-        print 'project dev and management', project_dev_management
-        print 'Other farm costs (insurance, contingency)', other_farm_costs
-        print 'Total investment costs electricity:', outputs['investment_costs']
-        print 'Decomissioning costs', decommissioning_costs + support_decomm_costs
+        # print 'Rated power:', inputs['machine_rating']
+        # print 'Turbine radius:', inputs['rotor_radius']
+        # print 'turbine CAPEX without other costs', turbine_CAPEX
+        # print 'infield cable length', sum(length_p_cable_type)
+        # print 'infield cable cost:', infield_cable_investment
+        # print 'bop_costs', outputs['bop_costs']
+        # print 'project dev and management', project_dev_management
+        # print 'Other farm costs (insurance, contingency)', other_farm_costs
+        # print 'Total investment costs electricity:', outputs['investment_costs']
+        # print 'Decomissioning costs', decommissioning_costs + support_decomm_costs
+
+        field_names = ['Turbine CAPEX without other costs', 'Infield cable length', 'Infield cable costs',
+                       'BoP costs', 'Project dev and management', 'Other farm costs (insurance, contingency)',
+                       'Total investment costs electricity:', 'Decomissioning costs', 'Rated power', 'Turbine radius']
+        data = {field_names[0]: turbine_CAPEX,
+                field_names[1]: sum(length_p_cable_type),
+                field_names[2]: infield_cable_investment,
+                field_names[3]: outputs['bop_costs'],
+                field_names[4]: project_dev_management,
+                field_names[5]: other_farm_costs,
+                field_names[6]: outputs['investment_costs'],
+                field_names[7]: decommissioning_costs + support_decomm_costs,
+                field_names[8]: inputs['machine_rating'],
+                field_names[9]: inputs['rotor_radius']}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
 
 
 

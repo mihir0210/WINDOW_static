@@ -24,10 +24,10 @@ def electrical_installation_costs_BVG(config, infield_length):
 
         electrical_installation_total = cable_installation_total + offshore_substation_installation + onshore_substation_installation
 
-        print 'array cable installation', array_cable_installation_cost
-        print 'export cable installation', export_cable_installation_cost
-        print 'cable installation:', cable_installation_total
-        print 'offshore sub and onshore substation installation', offshore_substation_installation, onshore_substation_installation
+        #print 'array cable installation', array_cable_installation_cost
+        #print 'export cable installation', export_cable_installation_cost
+        #print 'cable installation:', cable_installation_total
+        #print 'offshore sub and onshore substation installation', offshore_substation_installation, onshore_substation_installation
 
     elif config == 2:
         electrical_installation_total = 0 #for HYGRO

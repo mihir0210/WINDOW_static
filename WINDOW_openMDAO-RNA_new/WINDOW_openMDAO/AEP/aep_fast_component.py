@@ -52,7 +52,7 @@ class AEPFast(ExplicitComponent):
                                                inputs['machine_rating'])
         max_TI += [0.0 for _ in range(diff)]
         outputs['AEP'], outputs['max_TI'], outputs['efficiency'] = AEP, max_TI, efficiency
-        print 'Efficiency:', efficiency
+        #print 'Efficiency:', efficiency
         #print dict_farm_power['60']
 
         with open('farm_pc_directional.csv', 'w') as f:

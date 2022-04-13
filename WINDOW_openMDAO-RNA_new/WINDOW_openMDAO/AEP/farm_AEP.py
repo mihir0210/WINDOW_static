@@ -79,7 +79,7 @@ class FarmAEP(ExplicitComponent):
 
         wind_direction = np.array(wind_file['wind_direction'])
 
-        print 'mean wind speed', np.mean(wind_speed)
+        #print 'mean wind speed', np.mean(wind_speed)
 
         turbine_power = []
 
@@ -97,7 +97,7 @@ class FarmAEP(ExplicitComponent):
 
         turbine_power_ts = [turbine_power / 1e6 for turbine_power in turbine_power]  # convert to MW
 
-        print 'Farm AEP without losses:', sum(turbine_power_ts)*n_t
+        #print 'Farm AEP without losses:', sum(turbine_power_ts)*n_t
 
 
 
@@ -179,8 +179,16 @@ class FarmAEP(ExplicitComponent):
         outputs['farm_power'] = farm_power_ts # in MW
         outputs['farm_AEP'] = sum(farm_power_ts)*1e6  # in Wh
 
-        print 'AEP with wake:',outputs['farm_AEP']
+        #print 'AEP with wake:',outputs['farm_AEP']
 
-        print 'wake losses:', (1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))
+        #print 'wake losses:', (1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))
+
+        field_names = ['Mean wind speed','AEP without losses', 'AEP with wake', 'Wake losses']
+        data = {field_names[0]: np.mean(wind_speed), field_names[1]:sum(turbine_power_ts)*n_t, field_names[2]:outputs['farm_AEP'], field_names[3]:(1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
 
 

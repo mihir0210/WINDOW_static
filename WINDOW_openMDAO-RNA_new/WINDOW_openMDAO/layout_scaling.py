@@ -57,8 +57,8 @@ class LayoutScaling(ExplicitComponent):
 
         scaling_ratio = scaling_ratio[0]
 
-        print 'scaling_factor:', scaling_factor
-        print 'scaling_ratio:', scaling_ratio
+        #print 'scaling_factor:', scaling_factor
+        #print 'scaling_ratio:', scaling_ratio
 
 
         def centroid(points):
@@ -123,7 +123,15 @@ class LayoutScaling(ExplicitComponent):
 
         [new_layout, new_substation_coords, farm_area] = new_farm()
 
-        print 'farm_area:', farm_area
+        field_names = ['Farm area']
+        data = {field_names[0]: farm_area}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
+
+        #print 'farm_area:', farm_area
 
 
         outputs['farm_area'] = farm_area

@@ -36,7 +36,6 @@ class Scaler(ExplicitComponent):
         outputs['collection_voltage'] = 66000.0
         outputs['warranty_percentage'] = 15.0
         outputs['turbine_rated_current'] = machine_rating*1000 / (outputs['collection_voltage']  * np.sqrt(3.0))
-
         outputs['solidity_rotor'] = 0.0516
         outputs['cd_nacelle'] = 1.2
         outputs['cd_rotor_idle_vane'] = 0.4
@@ -46,16 +45,22 @@ class Scaler(ExplicitComponent):
         outputs['mass_eccentricity'] = 1.9 * s
         outputs['yaw_to_hub_height'] = 5.01 * s
         outputs['front_area_nacelle'] = 14.0 * (s**2)
-        outputs['hub_height'] = 119 * s
+
         
         # scaled from NREL 5MW Reference Turbine
         s = rotor_diameter/126.0
         #outputs['hub_height'] = 90 * s
-        outputs['hub_radius'] = 1.5 * s
-        outputs['overhang'] = 5.0 * s
+        #outputs['hub_radius'] = 1.5 * s
+        #outputs['overhang'] = 5.0 * s
         outputs['gearbox_cm_x'] = 0.1 * s
-        outputs['tower_top_diameter'] = 3.78 * s
+        #outputs['tower_top_diameter'] = 3.78 * s
 
+        # scaled from IEA 15MW Reference Turbine
+        s = rotor_diameter/240.0
+        outputs['hub_height'] = 150 * s
+        outputs['hub_radius'] = 3.97 * s
+        outputs['overhang'] = 11.35 * s
+        outputs['tower_top_diameter'] = 6.5 * s
 
      
         

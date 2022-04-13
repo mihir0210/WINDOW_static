@@ -45,7 +45,7 @@ class BEM(AbsRotorAerodynamics):
         # tip_speed_limit = 100
         # if tip_speed>tip_speed_limit:
         #     design_tsr = tip_speed_limit/wind_speed
-        print 'Tip speed', tip_speed
+        #print 'Tip speed', tip_speed
 
         # wind_bin = np.linspace(7, 13, 20)
         # cp_curve = []

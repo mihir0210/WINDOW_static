@@ -4,7 +4,7 @@ Created on Mon Nov 09 14:58:16 2015
 
 @author: Αλβέρτος
 """
-
+import csv
 
 class cost1:
     def __init__(self, value, currency, year):
@@ -33,12 +33,12 @@ class CostAnalysts:
         self.support_team = support_team
         self.number_of_turbines = 1
         #self.tower_price = cost1(2.04, 'USD', 2002)  # [$/kg]
-        self.tower_price = cost1(1.02, 'USD', 2002)  # [$/kg] #Recalibrated overall costs based on BVG reports
+        self.tower_price = cost1(1.37, 'Euro', 2016)  # [$/kg] #Recalibrated overall costs based on BVG reports
         #self.transition_piece_price = cost1(3.75, 'Euro', 2007)  # [euro/kg]
-        self.transition_piece_price = cost1(1.95, 'Euro', 2007)  # [euro/kg] #Recalibrated based on BVG reports
+        self.transition_piece_price = cost1(2.34, 'Euro', 2016)  # [euro/kg] #As it is from BVG reports
         self.grout_price = cost1(0.1, 'Euro', 2003)  # [euro/kg] (This value is not supported by literature/data and based on some information on the web about concrete
         #self.monopile_price = cost1(2.25, 'Euro', 2007)  # [euro/kg]
-        self.monopile_price = cost1(2, 'Euro', 2007)  # [euro/kg] #BVG highly overestimates mass (recheck)
+        self.monopile_price = cost1(1.37, 'Euro', 2016)  # [euro/kg] # WINDOW underestimates mass due to low monopile penetration depth
         self.scour_protection_per_volume = cost1(211.0, 'Euro', 2003)  # [euro/m^3]
         self.foundation_installation_per_mass = cost1(1.4, 'USD', 2010)  # [$/kg]
         self.scour_protection_removal_per_volume = cost1(33.0, 'USD', 2010)  # [$/m^3]
@@ -67,12 +67,28 @@ class CostAnalysts:
 
         self.support_team.value.economic.decommissioning.removal.foundations = self.support_team.value.economic.capex.installation.foundations + self.support_team.value.economic.decommissioning.removal.scour_protection
 
-        print 'tower mass:', self.support_team.properties.support_structure.tower_mass
-        print 'monopile mass:', self.support_team.properties.support_structure.pile_mass
-        print 'transition piece mass:', self.support_team.properties.support_structure.transition_piece_mass
-        print 'tower costs:', self.support_team.value.economic.capex.procurement.support_structures.tower
-        print 'monopile costs:', self.support_team.value.economic.capex.procurement.support_structures.monopile
-        print 'transition piece costs:', self.support_team.value.economic.capex.procurement.support_structures.transition_piece
-        print 'foundation installation costs:',  self.support_team.value.economic.capex.installation.foundations
-        print 'foundation decommisioning:', self.support_team.value.economic.decommissioning.removal.foundations
+        # print 'tower mass:', self.support_team.properties.support_structure.tower_mass
+        # print 'monopile mass:', self.support_team.properties.support_structure.pile_mass
+        # print 'transition piece mass:', self.support_team.properties.support_structure.transition_piece_mass
+        # print 'tower costs:', self.support_team.value.economic.capex.procurement.support_structures.tower
+        # print 'monopile costs:', self.support_team.value.economic.capex.procurement.support_structures.monopile
+        # print 'transition piece costs:', self.support_team.value.economic.capex.procurement.support_structures.transition_piece
+        # print 'foundation installation costs:',  self.support_team.value.economic.capex.installation.foundations
+        # print 'foundation decommisioning:', self.support_team.value.economic.decommissioning.removal.foundations
+
+        field_names = ['Tower mass', 'Monopile mass', 'TP mass', 'Tower costs', 'Monopile costs', 'TP costs', 'Foundation installation costs', 'Foundation decommisioning costs']
+        data = {field_names[0]: self.support_team.properties.support_structure.tower_mass,
+                field_names[1]: self.support_team.properties.support_structure.pile_mass,
+                field_names[2]: self.support_team.properties.support_structure.transition_piece_mass,
+                field_names[3]: self.support_team.value.economic.capex.procurement.support_structures.tower,
+                field_names[4]: self.support_team.value.economic.capex.procurement.support_structures.monopile,
+                field_names[5]: self.support_team.value.economic.capex.procurement.support_structures.transition_piece,
+                field_names[6]: self.support_team.value.economic.capex.installation.foundations,
+                field_names[7]:self.support_team.value.economic.decommissioning.removal.foundations}
+
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in data.items():
+                writer.writerow([key, value])
+        csvfile.close()
         #print 'real support struc cost:',  self.support_team.value.economic.capex.procurement.support_structures.transition_piece + self.support_team.value.economic.capex.procurement.support_structures.grout + self.support_team.value.economic.capex.procurement.support_structures.monopile + self.support_team.value.economic.capex.procurement.support_structures.scour_protection
