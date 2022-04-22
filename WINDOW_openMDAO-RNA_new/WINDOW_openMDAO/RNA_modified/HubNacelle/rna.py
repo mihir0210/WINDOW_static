@@ -1,5 +1,5 @@
 from WINDOW_openMDAO.src.api import AbsRNAAssembly
-from drivese_utils import add_RNA
+from .drivese_utils import add_RNA
 
 
 #############################################################################

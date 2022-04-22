@@ -14,6 +14,7 @@ import csv
 import pandas as pd
 import ast
 import matplotlib.pyplot as plt
+import math
 
 
 
@@ -28,15 +29,15 @@ class FarmIRR(ExplicitComponent):
     def initialize(self):
 
         # fixed parameters
-        self.metadata.declare('wind_file', desc='wind speed and direction data file')
-        self.metadata.declare('spot_price_file', desc ='Spot price data file')
-        self.metadata.declare('time_resolution', desc='length of time series data')
+        self.options.declare('wind_file', desc='wind speed and direction data file')
+        self.options.declare('spot_price_file', desc ='Spot price data file')
+        self.options.declare('time_resolution', desc='length of time series data')
 
 
 
     def setup(self):
 
-        time_points = self.metadata['time_resolution']
+        time_points = self.options['time_resolution']
 
         self.add_input('farm_power', shape = time_points)
         self.add_input('investment_costs', val=0.0)
@@ -45,6 +46,7 @@ class FarmIRR(ExplicitComponent):
         self.add_input('operational_lifetime', val=0.0)
         self.add_input('oandm_costs', val=0.0)
         self.add_input('availability', val=0.0)
+        self.add_input('target_IRR',val=0.0)
         #self.add_input('interest_rate', val=0.0)
 
 
@@ -59,13 +61,13 @@ class FarmIRR(ExplicitComponent):
 
     def compute(self, inputs, outputs):
 
-        wind_file = self.metadata['wind_file']
+        wind_file = self.options['wind_file']
         wind_file = pd.read_csv(wind_file)
 
         wind_speed = wind_file['wind_speed']
 
 
-        spot_price_file = self.metadata['spot_price_file']
+        spot_price_file = self.options['spot_price_file']
         farm_power = inputs['farm_power']
 
         transm_electrical_efficiency = inputs['transm_electrical_efficiency']
@@ -74,6 +76,7 @@ class FarmIRR(ExplicitComponent):
         operational_lifetime = inputs['operational_lifetime']
         oandm_costs = inputs['oandm_costs']
         availability = inputs['availability']
+        target_IRR = inputs['target_IRR']
 
 
 
@@ -244,12 +247,14 @@ class FarmIRR(ExplicitComponent):
 
         def subsidy_calculator(aep, revenue, investment_costs):
             #print 'aep subsidy module', aep
-            subsidy_perMWh = 0 #Euros/MWh as starting point
+            subsidy_perMWh = 10 #Euros/MWh as starting point
             IRR = 0
             step = 0.01 #Euros/MWh
             revenue_withoutsubsidy = revenue
             tol = 0.0001 #tolerance for IRR check
-            IRR_required = 0.05
+            IRR_required = target_IRR
+            #print 'IRR required', IRR_required
+
 
 
             while IRR<IRR_required:
@@ -276,6 +281,11 @@ class FarmIRR(ExplicitComponent):
 
                 IRR = np.irr(cashflows)
 
+                if math.isnan(IRR) == True:
+                    IRR = -0.2 #Assign a very high negative number
+
+
+
                 diff = abs(IRR - IRR_required)
                 if diff <= tol:
                     break
@@ -284,7 +294,7 @@ class FarmIRR(ExplicitComponent):
 
 
             subsidy_required = subsidy_perMWh
-            #print 'IRR_withsubsidy', IRR
+            print('IRR_withsubsidy', IRR)
             return subsidy_required
 
         subsidy_required = subsidy_calculator(aep,revenue, investment_costs)
@@ -293,11 +303,11 @@ class FarmIRR(ExplicitComponent):
 
         #print 'Subsidy required', subsidy_required
 
-        field_names = ['Subsidy required']
-        data = {field_names[0]: subsidy_required}
+        field_names = ['IRR without subsidy','Subsidy required']
+        data = {field_names[0]: IRR, field_names[1]: subsidy_required}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
-            for key, value in data.items():
+            for key, value in list(data.items()):
                 writer.writerow([key, value])
 
         csvfile.close()

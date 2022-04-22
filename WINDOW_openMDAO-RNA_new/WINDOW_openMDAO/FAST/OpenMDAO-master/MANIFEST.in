@@ -1,4 +1,0 @@
-include README.md
-include LICENSE.txt
-include release_notes.txt
-include openmdao/docs/README.md

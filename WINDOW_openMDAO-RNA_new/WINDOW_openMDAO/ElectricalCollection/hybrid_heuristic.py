@@ -15,7 +15,7 @@ def choose_cables(number_turbines_per_cable, turbine_rated_current):
                 cable_list.append([number, 579 + 365.0])
                 break
 
-    #print cable_list
+
     return cable_list
 
 
@@ -24,6 +24,8 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
     from copy import deepcopy
     from heapq import heappush, heappop, heapify
 
+
+
     NT = len(WT_List)
 
     Crossing_penalty = 0
@@ -31,7 +33,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
     Transmission = []
 
     'Remove and return the lowest priority task. Raise KeyError if empty.'
-    REMOVED = '<removed-task>'  # placeholder for a removed task
+    REMOVED = -2e6 #'<removed-task>'  # placeholder for a removed task
 
     # ---------------------------------------Main----------------------------------------------
     def set_cable_topology(NT, WT_List, central_platform_locations, cable_list):
@@ -346,6 +348,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
                                     arc2 = [turbine, n[0]]
                                     if turbine != n[0]:
                                         value += Crossing_penalty * (Crossingsi_finder[(arc2[0], arc2[1])] - Crossingsi_finder[(arc1[0], arc1[1])])
+
                                     Savingsi, Savingsi_finder = add_task(Savingsi, Savingsi_finder, (turbine, n[0]),
                                                                          value)
                             heapify(Savingsi)
@@ -618,6 +621,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
         if task in entry_finder:
             entry_finder = remove_task(entry_finder, task)
         entry = [priority, task[0], task[1]]
+        #entry = [-2556145.2862215866, task[0], task[1] ]
         entry_finder[(task[0], task[1])] = entry
         heappush(Savings, entry)
         return Savings, entry_finder

@@ -16,9 +16,9 @@ class  Analytical(AbsRotorMechanics):
     
     def compute(self, inputs, outputs):
         # metadata        
-        num_nodes = self.metadata['num_nodes']
-        E_blade = self.metadata['E_blade']
-        g = self.metadata['g']
+        num_nodes = self.options['num_nodes']
+        E_blade = self.options['E_blade']
+        g = self.options['g']
         
         
         # inputs

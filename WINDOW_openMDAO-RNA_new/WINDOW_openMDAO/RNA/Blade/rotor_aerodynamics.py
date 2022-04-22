@@ -16,7 +16,7 @@ class BEM(AbsRotorAerodynamics):
     
     def compute(self, inputs, outputs): 
         # metadata
-        rho_air = self.metadata['rho_air']
+        rho_air = self.options['rho_air']
           
         # inputs     
         design_tsr = inputs['design_tsr']

@@ -2,7 +2,7 @@ from openmdao.api import ExplicitComponent
 
 class AbsAboveYaw(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('has_crane', desc='Is the crane present? [0/1]', default=0)
+        self.options.declare('has_crane', desc='Is the crane present? [0/1]', default=0)
         
         
     def setup(self):

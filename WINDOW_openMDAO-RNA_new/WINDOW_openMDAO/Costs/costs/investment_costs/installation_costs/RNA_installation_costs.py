@@ -28,4 +28,4 @@ def rna_installation_costs(NT, rotor_radius, hub_height):
     return total_rna_installation
 
 if __name__ == '__main__':
-    print rna_installation_costs()
+    print(rna_installation_costs())

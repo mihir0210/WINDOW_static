@@ -1,5 +1,5 @@
 from WINDOW_openMDAO.src.api import AbstractElectricDesign
-from hybrid_heuristic import cable_design, choose_cables
+from .hybrid_heuristic import cable_design, choose_cables
 
 
 class TopologyHybridHeuristic(AbstractElectricDesign):

@@ -1,7 +1,7 @@
 from openmdao.api import ExplicitComponent
 from numpy import exp
 import numpy as np
-from time import clock
+#from time import clock
 
 
 
@@ -197,6 +197,6 @@ if __name__ == '__main__':
 
     cases = np.array(cases)
 
-    print cases
-    print probs
+    print(cases)
+    print(probs)
 

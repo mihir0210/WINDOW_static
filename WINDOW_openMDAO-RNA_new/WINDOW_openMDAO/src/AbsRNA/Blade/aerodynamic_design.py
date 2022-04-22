@@ -2,17 +2,17 @@ from openmdao.api import ExplicitComponent
 
 class AbsAerodynamicDesign(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('num_pegged', desc='Number of pegged nodes required to define the chord/twist profile')
-        self.metadata.declare('num_airfoils', desc='Number of airfoils along the blade')
-        self.metadata.declare('num_nodes', desc='Number of blade sections')
-        self.metadata.declare('reference_turbine', desc='URL of CSV file with the definition of the Reference Turbine')
+        self.options.declare('num_pegged', desc='Number of pegged nodes required to define the chord/twist profile')
+        self.options.declare('num_airfoils', desc='Number of airfoils along the blade')
+        self.options.declare('num_nodes', desc='Number of blade sections')
+        self.options.declare('reference_turbine', desc='URL of CSV file with the definition of the Reference Turbine')
         
         
     def setup(self):        
         # metadata
-        num_pegged = self.metadata['num_pegged']
-        num_airfoils = self.metadata['num_airfoils']
-        num_nodes = self.metadata['num_nodes']
+        num_pegged = self.options['num_pegged']
+        num_airfoils = self.options['num_airfoils']
+        num_nodes = self.options['num_nodes']
         
         # inputs
         self.add_input('rotor_diameter', units='m', desc='rotor diameter')

@@ -1,5 +1,5 @@
 from openmdao.api import ExplicitComponent
-from time import clock
+#from time import clock
 from numpy import genfromtxt
 import numpy as np
 import scipy
@@ -14,13 +14,13 @@ class single_turbine(ExplicitComponent):
     def initialize(self):
 
         # fixed parameters
-        self.metadata.declare('wind_file', desc='wind speed and direction data file')
-        self.metadata.declare('spot_price_file', desc ='Spot price data file')
-        self.metadata.declare('num_bins', desc='Number of wind speed samples')
+        self.options.declare('wind_file', desc='wind speed and direction data file')
+        self.options.declare('spot_price_file', desc ='Spot price data file')
+        self.options.declare('num_bins', desc='Number of wind speed samples')
 
 
     def setup(self):
-        num_bins = self.metadata['num_bins']
+        num_bins = self.options['num_bins']
 
         self.add_input('elec_power_bin', shape=num_bins)
         self.add_input('weibull_scale', val=2.11)
@@ -51,8 +51,8 @@ class single_turbine(ExplicitComponent):
     def compute(self, inputs, outputs):
 
 
-        wind_file = self.metadata['wind_file']
-        spot_price_file = self.metadata['spot_price_file']
+        wind_file = self.options['wind_file']
+        spot_price_file = self.options['spot_price_file']
 
         wind_file = pd.read_csv(wind_file)
 
@@ -101,7 +101,7 @@ class single_turbine(ExplicitComponent):
 
 
         #print pdf
-        print elec_power
+        print(elec_power)
 
 
 
@@ -144,7 +144,7 @@ class single_turbine(ExplicitComponent):
         def LCoE_discounted():
 
 
-            n = range(int(operational_lifetime))
+            n = list(range(int(operational_lifetime)))
             n.remove(0)
             n.append(int(operational_lifetime))
 
@@ -248,7 +248,7 @@ class single_turbine(ExplicitComponent):
         #print output_list
 
         cashflows = output_list
-        print cashflows
+        print(cashflows)
 
         IRR = np.irr(cashflows)
 
@@ -281,16 +281,16 @@ class single_turbine(ExplicitComponent):
 
         ramp_90 = ramp()
 
-        print 'ramp_90:', ramp_90
+        print('ramp_90:', ramp_90)
 
 
 
 
         # print(lcoe)
         # print(clock())
-        print 'Turbine AEP:', AEP
-        print 'Turbine LCOE:', lcoe
-        print 'Turbine IRR:', IRR
+        print('Turbine AEP:', AEP)
+        print('Turbine LCOE:', lcoe)
+        print('Turbine IRR:', IRR)
 
 
         outputs['LCOE'] = lcoe

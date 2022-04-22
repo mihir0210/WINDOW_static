@@ -1,6 +1,6 @@
 from openmdao.api import ExplicitComponent
 from WINDOW_openMDAO.input_params import max_n_turbines
-from costs.other_costs import other_costs
+from .costs.other_costs import other_costs
 import csv
 
 from WINDOW_openMDAO.input_params import distance_to_grid
@@ -102,7 +102,7 @@ class TeamPlayCostModel(ExplicitComponent):
                 field_names[9]: inputs['rotor_radius']}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
-            for key, value in data.items():
+            for key, value in list(data.items()):
                 writer.writerow([key, value])
         csvfile.close()
 

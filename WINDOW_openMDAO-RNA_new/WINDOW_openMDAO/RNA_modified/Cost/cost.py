@@ -80,7 +80,7 @@ class CSMCalibrated(AbsRNACost):
     
     def ref_cost_mass(self, component):
         #RT = pd.read_csv(cost_folder + 'reference_turbine_cost_mass.csv')
-        RT = pd.read_csv(self.metadata['reference_turbine_cost'])
+        RT = pd.read_csv(self.options['reference_turbine_cost'])
         return RT.loc[RT['Component'] == component, 'Cost'].values / RT.loc[RT['Component'] == component, 'Mass'].values
         
         
@@ -90,10 +90,13 @@ class CSMCalibrated(AbsRNACost):
         mainframe_mass = inputs['bedplate_mass'] + inputs['platform_mass'] + inputs['crane_mass']
 
         rated_wind_speed = inputs['rated_wind_speed']
+        rotor_diameter = inputs['rotor_diameter']
 
 
         
-        outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade') #cost scales with R^2.2-2.5, same as mass
+        outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
+        #outputs['cost_blade'] = 806791.87422148*(rotor_diameter/240.0)**2.5  #cost scaling with a factor of 2.5
+        #print 'cost blade', outputs['cost_blade']
         outputs['cost_hub'] = inputs['hub_mass'] * self.ref_cost_mass('Hub')
         outputs['cost_pitch'] = inputs['pitch_mass'] * self.ref_cost_mass('Pitch')
         outputs['cost_spinner'] = inputs['spinner_mass'] * self.ref_cost_mass('Spinner')
@@ -158,7 +161,7 @@ class CSMCalibrated(AbsRNACost):
         data = {field_names[0]: outputs['cost_blades'] + outputs['cost_hub_system'], field_names[1]:outputs['cost_nacelle']}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
-            for key, value in data.items():
+            for key, value in list(data.items()):
                 writer.writerow([key, value])
         csvfile.close()
 

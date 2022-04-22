@@ -2,8 +2,8 @@ from openmdao.api import ExplicitComponent
 
 class AbsBedplate(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
-        self.metadata.declare('uptower_transformer', desc='Is uptower transformer present? [True/False]', default=False)
+        self.options.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
+        self.options.declare('uptower_transformer', desc='Is uptower transformer present? [True/False]', default=False)
         
         
     def setup(self):

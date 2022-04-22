@@ -10,7 +10,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
     def compute(self, inputs, outputs):
 
-        #electrolyser_ratio = self.metadata['electrolyser_ratio']
+        #electrolyser_ratio = self.options['electrolyser_ratio']
 
 
         N_T = inputs['N_T']
@@ -37,9 +37,9 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         OPEX = self.OPEX(CAPEX)
 
-        print 'Annual H2:', annual_H2
-        print 'H2 CAPEX:', CAPEX
-        print 'H2 OPEX', OPEX
+        print('Annual H2:', annual_H2)
+        print('H2 CAPEX:', CAPEX)
+        print('H2 OPEX', OPEX)
 
         #print 'energy curtailed:', sum(power_curtailed)
 
@@ -57,7 +57,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
     def production(self,electrolyser_rated, farm_power, stack_size):
 
 
-        print 'Electrolyzer rated', electrolyser_rated
+
         #### Standard specifications of a PEM Electrolyser ###
 
         H2 = []

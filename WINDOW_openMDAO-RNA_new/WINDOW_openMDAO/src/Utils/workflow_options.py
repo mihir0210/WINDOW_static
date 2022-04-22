@@ -37,6 +37,7 @@ class Site():
 class Market():
 	def __init__(self):
 		self.spot_price_file = None
+		self.target_IRR = None
 
 class Hydrogen():
 	def __init__(self):

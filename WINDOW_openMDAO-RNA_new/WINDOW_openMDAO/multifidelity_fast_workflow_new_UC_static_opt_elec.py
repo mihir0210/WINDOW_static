@@ -67,6 +67,7 @@ class WorkingGroup(Group):
         self.wind_file = options.input.site.wind_file
         # self.wind_speed_file = options.input.site.wind_speed_file
         self.spot_price_file = options.input.market.spot_price_file
+        self.target_IRR = options.input.market.target_IRR
 
         self.electrolyser_ratio = options.input.hydrogen.electrolyser_ratio
 
@@ -103,7 +104,7 @@ class WorkingGroup(Group):
         indep2.add_output('transm_electrical_efficiency', val=transm_electrical_efficiency)
         indep2.add_output('operational_lifetime', val=operational_lifetime)
         indep2.add_output('interest_rate', val=interest_rate)
-        indep2.add_output('target_IRR', val=target_IRR)
+        indep2.add_output('target_IRR', val=self.target_IRR)
         # indep2.add_output('availability', val=0.97)
 
         indep2.add_output('design_tsr', desc='design tip speed ratio', val=9)  # 9 for the 10 MW; 8.5-9 for the 15 MW
@@ -389,7 +390,7 @@ class WorkingGroup(Group):
         self.connect('Costs.investment_costs', 'FarmIRR.investment_costs')
         self.connect('OandM.annual_cost_O&M', 'FarmIRR.oandm_costs')
         self.connect('Costs.decommissioning_costs', 'FarmIRR.decommissioning_costs')
-
+        self.connect('indep2.target_IRR', 'FarmIRR.target_IRR')
 
 
 

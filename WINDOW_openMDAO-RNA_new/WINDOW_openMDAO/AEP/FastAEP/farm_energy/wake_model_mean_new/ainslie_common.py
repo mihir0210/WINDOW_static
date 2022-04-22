@@ -1,5 +1,5 @@
 from numpy import radians, cos, sin
-from memoize import Memoize
+from .memoize import Memoize
 karman = 0.41  # von Karman constant
 
 

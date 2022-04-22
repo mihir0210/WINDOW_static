@@ -1,5 +1,6 @@
-from openmdao.api import Group, Problem, IndepVarComp, view_model
-import hub, pitch, spinner, hub_aerodynamics
+from openmdao.api import Group, Problem, IndepVarComp #, view_model
+from . import hub, pitch, spinner, hub_aerodynamics
+
 
 
 
@@ -8,13 +9,13 @@ import hub, pitch, spinner, hub_aerodynamics
 #############################################################################
 class Hub(Group):
     def initialize(self):
-        self.metadata.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
-        self.metadata.declare('g', desc='acceleration due to gravity', default=9.8)
+        self.options.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
+        self.options.declare('g', desc='acceleration due to gravity', default=9.8)
         
     def setup(self):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        g = self.metadata['g']
+        safety_factor = self.options['safety_factor']
+        g = self.options['g']
         
 #         # design variables
 #         i = self.add_subsystem('dof', IndepVarComp(), promotes=['*'])
@@ -85,7 +86,7 @@ if __name__ == "__main__":
     prob['dof.rotor_thrust'] = 599610.0
       
     prob.run_model()
-    print 'Executed in ' + str(round(time() - start, 2)) + ' seconds\n'
+    print(('Executed in ' + str(round(time() - start, 2)) + ' seconds\n'))
      
     # print outputs 
     var_list = ['hub_diameter', 'hub_thickness', 'hub_mass', 'pitch_mass', 'spinner_mass', 'hub_assembly_mass', \

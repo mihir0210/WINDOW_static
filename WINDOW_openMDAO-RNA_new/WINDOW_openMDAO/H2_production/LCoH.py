@@ -1,5 +1,5 @@
 from openmdao.api import ExplicitComponent
-from time import clock
+#from time import clock
 import numpy as np
 
 
@@ -35,7 +35,7 @@ class LCOH(ExplicitComponent):
         total_CAPEX = investment_costs + H2_CAPEX
         total_OPEX = oandm_costs + H2_OPEX
 
-        n = range(int(operational_lifetime))
+        n = list(range(int(operational_lifetime)))
         n.remove(0)
         n.append(int(operational_lifetime))
 
@@ -53,9 +53,9 @@ class LCOH(ExplicitComponent):
 
 
         #print 'WIND CAPEX:', investment_costs
-        print 'LCoH:', LCoH
+        print('LCoH:', LCoH)
 
-        print 'discounted H2', b
+        print('discounted H2', b)
 
         outputs['LCoH'] = LCoH
 
@@ -85,4 +85,4 @@ if __name__ == "__main__":
 
     model.compute(inputs, outputs)
 
-    print outputs['LCoH']
+    print(outputs['LCoH'])

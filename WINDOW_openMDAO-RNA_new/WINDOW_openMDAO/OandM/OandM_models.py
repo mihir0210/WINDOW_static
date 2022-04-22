@@ -40,8 +40,8 @@ class OM_model1(AbstractOandM):
 
         #costs_om = 1.32232705e+08 # if O&M is assumed to be fix
 
-        print 'O&M costs:', costs_om
-        print 'O&M costs/MW', costs_om/(N_T*P_rated)
+        print('O&M costs:', costs_om)
+        print('O&M costs/MW', costs_om/(N_T*P_rated))
         return costs_om, availability
 
 class OM_model2(ExplicitComponent):
@@ -99,13 +99,13 @@ class OM_model2(ExplicitComponent):
 
         [costs_om, availability] = oandm()
 
-        #print 'O&M', costs_om
+        #print('O&M', costs_om)
 
         field_names = ['O&M Costs']
         data = {field_names[0]: costs_om}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
-            for key, value in data.items():
+            for key, value in list(data.items()):
                 writer.writerow([key, value])
         csvfile.close()
 

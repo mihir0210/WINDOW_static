@@ -10,10 +10,10 @@ class PowerCurve(AbsPowerCurve):
                 
     def compute(self, inputs, outputs):
         # metadata
-        num_bins = self.metadata['num_bins']
-        rho_air = self.metadata['rho_air']
-        power_file = self.metadata['power_file']
-        ct_file = self.metadata['ct_file']
+        num_bins = self.options['num_bins']
+        rho_air = self.options['rho_air']
+        power_file = self.options['power_file']
+        ct_file = self.options['ct_file']
         
         # inputs
         design_tsr = inputs['design_tsr'] 

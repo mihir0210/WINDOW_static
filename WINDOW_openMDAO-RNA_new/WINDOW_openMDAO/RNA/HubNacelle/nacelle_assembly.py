@@ -8,26 +8,26 @@ import gearbox, lss, bearing, hss, generator, bedplate, yaw, transformer, above_
 class Nacelle(Group):
     
     def initialize(self):
-        self.metadata.declare('safety_factor', desc='Safety factor of the model fidelity', default=1)
-        self.metadata.declare('gearbox_stages', desc='Number of stages in the gearbox', default=3)        
-        self.metadata.declare('gear_configuration', desc='Parallel or Planetary configuration of each stage', default='eep')
-        self.metadata.declare('mb1_type', desc='Upwind main bearing type') # ['CARB','TRB1','TRB2','SRB','CRB','RB']
-        self.metadata.declare('mb2_type', desc='Downwind main bearing type', allow_none=True)
-        self.metadata.declare('drivetrain_design', desc='Drive train configuration', default='geared') # ['geared', 'single_stage', 'multi_drive', 'pm_direct_drive']
-        self.metadata.declare('uptower_transformer', desc='Is uptower transformer present? [True/False]', default=False)
-        self.metadata.declare('has_crane', desc='Is the crane present? [0/1]', default=0)
+        self.options.declare('safety_factor', desc='Safety factor of the model fidelity', default=1)
+        self.options.declare('gearbox_stages', desc='Number of stages in the gearbox', default=3)        
+        self.options.declare('gear_configuration', desc='Parallel or Planetary configuration of each stage', default='eep')
+        self.options.declare('mb1_type', desc='Upwind main bearing type') # ['CARB','TRB1','TRB2','SRB','CRB','RB']
+        self.options.declare('mb2_type', desc='Downwind main bearing type', allow_none=True)
+        self.options.declare('drivetrain_design', desc='Drive train configuration', default='geared') # ['geared', 'single_stage', 'multi_drive', 'pm_direct_drive']
+        self.options.declare('uptower_transformer', desc='Is uptower transformer present? [True/False]', default=False)
+        self.options.declare('has_crane', desc='Is the crane present? [0/1]', default=0)
 
         
     def setup(self):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        gearbox_stages = self.metadata['gearbox_stages']
-        gear_configuration = self.metadata['gear_configuration']
-        mb1_type = self.metadata['mb1_type']
-        mb2_type = self.metadata['mb2_type']
-        drivetrain_design = self.metadata['drivetrain_design']
-        uptower_transformer = self.metadata['uptower_transformer']
-        has_crane = self.metadata['has_crane']
+        safety_factor = self.options['safety_factor']
+        gearbox_stages = self.options['gearbox_stages']
+        gear_configuration = self.options['gear_configuration']
+        mb1_type = self.options['mb1_type']
+        mb2_type = self.options['mb2_type']
+        drivetrain_design = self.options['drivetrain_design']
+        uptower_transformer = self.options['uptower_transformer']
+        has_crane = self.options['has_crane']
         
 #         # design variables
 #         i = self.add_subsystem('dof', IndepVarComp(), promotes=['*'])

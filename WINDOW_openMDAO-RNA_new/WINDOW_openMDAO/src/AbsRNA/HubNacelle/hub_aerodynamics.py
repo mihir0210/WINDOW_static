@@ -2,8 +2,8 @@ from openmdao.api import ExplicitComponent
 
 class AbsHubAerodynamics(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
-        self.metadata.declare('g', desc='acceleration due to gravity', default=9.8)
+        self.options.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
+        self.options.declare('g', desc='acceleration due to gravity', default=9.8)
         
         
     def setup(self):

@@ -2,7 +2,7 @@ from openmdao.api import ExplicitComponent
 
 class AbsTransformer(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('uptower_transformer', desc='uptower or downtower transformer [True/False]', default=False)
+        self.options.declare('uptower_transformer', desc='uptower or downtower transformer [True/False]', default=False)
         
         
     def setup(self):

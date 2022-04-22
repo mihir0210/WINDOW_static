@@ -2,7 +2,7 @@ import numpy as np
 from math import pi, sin, cos
 
 from WINDOW_openMDAO.src.api import AbsLSS
-from drivese_utils import get_L_rb, get_My, get_Mz, size_LSS_3pt, resize_for_bearings, \
+from .drivese_utils import get_L_rb, get_My, get_Mz, size_LSS_3pt, resize_for_bearings, \
             size_LSS_4pt_Loop_1, size_LSS_4pt_Loop_2, get_rotor_mass
 
 
@@ -12,9 +12,9 @@ from drivese_utils import get_L_rb, get_My, get_Mz, size_LSS_3pt, resize_for_bea
 class DriveSE3pt(AbsLSS):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        self.mb1Type = self.metadata['mb1_type']
-        self.mb2Type = self.metadata['mb2_type']
+        safety_factor = self.options['safety_factor']
+        self.mb1Type = self.options['mb1_type']
+        self.mb2Type = self.options['mb2_type']
         
         # inputs
         self.rotor_bending_moment_x = inputs['rotor_bending_moment'][0]*safety_factor
@@ -343,9 +343,9 @@ class DriveSE3pt(AbsLSS):
 class DriveSE4pt(AbsLSS):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        self.mb1Type = self.metadata['mb1_type']
-        self.mb2Type = self.metadata['mb2_type']
+        safety_factor = self.options['safety_factor']
+        self.mb1Type = self.options['mb1_type']
+        self.mb2Type = self.options['mb2_type']
         
         # inputs
         self.rotor_bending_moment_x = inputs['rotor_bending_moment'][0]*safety_factor
@@ -806,7 +806,7 @@ if __name__ == "__main__":
     ############### Post Processing ###################
     ################################################### 
     beautify_dict(inputs) 
-    print '-'*10
+    print(('-'*10))
     beautify_dict(outputs)  
 
         

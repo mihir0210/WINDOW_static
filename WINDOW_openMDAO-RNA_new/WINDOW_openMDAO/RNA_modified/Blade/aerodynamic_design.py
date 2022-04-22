@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import scipy.io
 
 from WINDOW_openMDAO.src.api import AbsAerodynamicDesign
-from airfoils import AirfoilProperties
+from .airfoils import AirfoilProperties
 
 
 
@@ -20,9 +20,9 @@ class PeggedNodes(AbsAerodynamicDesign):
     
     def compute(self, inputs, outputs):
         # metadata
-        num_pegged = self.metadata['num_pegged']
-        num_airfoils = self.metadata['num_airfoils']
-        num_nodes = self.metadata['num_nodes']
+        num_pegged = self.options['num_pegged']
+        num_airfoils = self.options['num_airfoils']
+        num_nodes = self.options['num_nodes']
         
         # inputs
         rotor_diameter = inputs['rotor_diameter']
@@ -116,7 +116,7 @@ class PeggedNodes(AbsAerodynamicDesign):
             returns the chord length at each node using the inputs at the pegged points
         '''
         
-        num_nodes = self.metadata['num_nodes']
+        num_nodes = self.options['num_nodes']
                 
         # redesign for manufacturing ease
         mu0 = 0.20
@@ -196,9 +196,9 @@ class Scaling(AbsAerodynamicDesign):
     
     def compute(self, inputs, outputs):
         # metadata
-        num_pegged = self.metadata['num_pegged']
-        num_airfoils = self.metadata['num_airfoils']
-        num_nodes = self.metadata['num_nodes']
+        num_pegged = self.options['num_pegged']
+        num_airfoils = self.options['num_airfoils']
+        num_nodes = self.options['num_nodes']
         
         # inputs
         rotor_diameter = inputs['rotor_diameter']
@@ -267,7 +267,7 @@ class Scaling(AbsAerodynamicDesign):
             but VARYING rotor radius
         '''
         
-        ReferenceTurbine = pd.read_csv(self.metadata['reference_turbine'])
+        ReferenceTurbine = pd.read_csv(self.options['reference_turbine'])
         
         ref_radius = ReferenceTurbine.r.iat[-1]
         ref_chord = np.interp(mu, ReferenceTurbine['mu'], ReferenceTurbine['chord'])
@@ -318,7 +318,7 @@ if __name__ == "__main__":
     ############### Post Processing ###################
     ################################################### 
     beautify_dict(inputs)
-    print '-'*10
+    print(('-'*10))
     beautify_dict(outputs)
     
     span_chord = [3.5615, 3.9127, 4.2766, 4.5753, 4.6484, 4.5489, 4.3819, 4.2206, 4.0382, 3.8449, 3.6549, 3.4713, 3.2868, 3.1022, 2.9178, 2.7332, 2.5487, 2.3691, 2.1346, 1.4683]

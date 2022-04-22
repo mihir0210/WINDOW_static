@@ -39,8 +39,8 @@ class OM_model1_H2(AbstractOandM):
 
         #costs_om = 1.32232705e+08 # if O&M is assumed to be fix
 
-        print 'O&M costs:', costs_om
-        print 'O&M costs/MW', costs_om/(N_T*P_rated)
+        print('O&M costs:', costs_om)
+        print('O&M costs/MW', costs_om/(N_T*P_rated))
         return costs_om, availability
 
 
@@ -93,6 +93,6 @@ class OM_model2_H2(ExplicitComponent):
             return costs_om, availability
 
         [costs_om, availability] = oandm()
-        print 'O&M H2', costs_om
+        print('O&M H2', costs_om)
         outputs['annual_cost_O&M'] = costs_om
         outputs['availability'] = availability

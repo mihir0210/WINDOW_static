@@ -8,13 +8,13 @@ import hub, pitch, spinner, hub_aerodynamics
 #############################################################################
 class Hub(Group):
     def initialize(self):
-        self.metadata.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
-        self.metadata.declare('g', desc='acceleration due to gravity', default=9.8)
+        self.options.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
+        self.options.declare('g', desc='acceleration due to gravity', default=9.8)
         
     def setup(self):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        g = self.metadata['g']
+        safety_factor = self.options['safety_factor']
+        g = self.options['g']
         
 #         # design variables
 #         i = self.add_subsystem('dof', IndepVarComp(), promotes=['*'])

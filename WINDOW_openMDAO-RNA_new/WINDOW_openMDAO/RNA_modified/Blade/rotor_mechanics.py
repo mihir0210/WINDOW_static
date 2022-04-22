@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
 from math import pi, radians, sin, cos
-
+import csv
 import scipy.io
 import os
-import matlab.engine
+#import matlab.engine
 #eng = matlab.engine.start_matlab()
 
 from WINDOW_openMDAO.src.api import AbsRotorMechanics
@@ -21,9 +21,9 @@ class  Analytical(AbsRotorMechanics):
     
     def compute(self, inputs, outputs):
         # metadata        
-        num_nodes = self.metadata['num_nodes']
-        E_blade = self.metadata['E_blade']
-        g = self.metadata['g']
+        num_nodes = self.options['num_nodes']
+        E_blade = self.options['E_blade']
+        g = self.options['g']
         
         
         # inputs
@@ -99,106 +99,101 @@ class  Analytical(AbsRotorMechanics):
         span_stress_max = np.array(nodes['S_max']).max()     # np.array(nodes['S_flap']).max()*gamma_ultimate/UTS
         tip_deflection = nodes.loc[num_nodes-1, 'y']
 
-        '''
 
-
-        scipy.io.savemat('Matlab_scripts\Static_moment.mat',
-                         dict(MFlap=span_moment_flap, MEdge=span_moment_edge, MGravity=span_moment_gravity,
-                              ))
-
-
-        eng2 = matlab.engine.start_matlab()
-        dir = os.getcwd() + r"\Matlab_scripts"
-        eng2.cd(dir, nargout=0)
-
-        ret = eng2.Post_processing_static(nargout=0)
-
-        eng2.quit()
-        results = scipy.io.loadmat('Matlab_scripts\Ultimate_Results_Static.mat')
-        #Root_stress = results['Stress_root_skin'][0]
-        Span_stress = results['Stress_span']
-
-
-
-
-
-        ##### 1st row is Flapwise stress in skin along the span #####
-        ##### 2nd row is Flapwise stress in spar along the span #####
-        ##### 3rd row is Edgewise stress in skin along the span #####
-        ##### 4th row is Edgewise stress in Te reinf/ panel along the span #####
-
-        Stress_flapwise_skin = Span_stress[0,:]
-        Stress_flapwise_spar = Span_stress[1,:]
-        Stress_edgewise_skin = Span_stress[2,:]
-        Stress_edgewise_te_reinf = Span_stress[3,:]
-
-        Stress_skin = np.concatenate((Stress_flapwise_skin, Stress_edgewise_skin), axis=0)
-
-        max_stress_skin = max(Stress_skin)
-        max_stress_spar =  max(Stress_flapwise_spar)
-        max_stress_te_reinf = max(Stress_edgewise_te_reinf)
-
-        
-
-        #### Extract stresses at given node numbers ###
-        span_node = np.array([7, 15, 24, 37, 47])
-
-        ## Node 7
-
-        Stress_flapwise_skin_loc1 = Span_stress[0, span_node[0]-1]
-        Stress_flapwise_spar_loc1 = Span_stress[1, span_node[0]-1]
-
-        Stress_edgewise_skin_loc1 = Span_stress[2, span_node[0]-1]
-        Stress_edgewise_te_reinf_loc1 = Span_stress[3, span_node[0]-1]
-
-        ## Node 15
-
-        Stress_flapwise_skin_loc2 = Span_stress[0, span_node[1]-1]
-        Stress_flapwise_spar_loc2 = Span_stress[1, span_node[1]-1]
-
-        Stress_edgewise_skin_loc2 = Span_stress[2, span_node[1]-1]
-        Stress_edgewise_te_reinf_loc2 = Span_stress[3, span_node[1]-1]
-
-        ## Node 24
-
-        Stress_flapwise_skin_loc3 = Span_stress[0, span_node[2] - 1]
-        Stress_flapwise_spar_loc3 = Span_stress[1, span_node[2] - 1]
-
-        Stress_edgewise_skin_loc3 = Span_stress[2, span_node[2] - 1]
-        Stress_edgewise_te_reinf_loc3 = Span_stress[3, span_node[2] - 1]
-
-        ## Node 37
-
-        Stress_flapwise_skin_loc4 = Span_stress[0, span_node[3] - 1]
-        Stress_flapwise_spar_loc4 = Span_stress[1, span_node[3] - 1]
-
-        Stress_edgewise_skin_loc4 = Span_stress[2, span_node[3] - 1]
-        Stress_edgewise_te_reinf_loc4 = Span_stress[3, span_node[3] - 1]
-
-        ## Node 47
-
-        Stress_flapwise_skin_loc5 = Span_stress[0, span_node[4] - 1]
-        Stress_flapwise_spar_loc5 = Span_stress[1, span_node[4] - 1]
-
-        Stress_edgewise_skin_loc5 = Span_stress[2, span_node[4] - 1]
-        Stress_edgewise_te_reinf_loc5 = Span_stress[3, span_node[4] - 1]
-
-        ##### Take the flapwise stresses at skin into one array ####
-
-        Stress_flapwise_skin = np.array([Stress_flapwise_skin_loc1, Stress_flapwise_skin_loc2, Stress_flapwise_skin_loc3,
-                                         Stress_flapwise_skin_loc4, Stress_flapwise_skin_loc5])
-
-        Stress_flapwise_spar = np.array([Stress_flapwise_spar_loc1, Stress_flapwise_spar_loc2, Stress_flapwise_spar_loc3,
-                                         Stress_flapwise_spar_loc4, Stress_flapwise_spar_loc5])
-
-        Stress_edgewise_skin = np.array([Stress_edgewise_skin_loc1, Stress_edgewise_skin_loc2, Stress_edgewise_skin_loc3,
-                                         Stress_edgewise_skin_loc4, Stress_edgewise_skin_loc5])
-
-        Stress_edgewise_te_reinf = np.array([Stress_edgewise_te_reinf_loc1, Stress_edgewise_te_reinf_loc2, Stress_edgewise_te_reinf_loc3,
-                                             Stress_edgewise_te_reinf_loc4, Stress_edgewise_te_reinf_loc5])
-                                             
-        
-        '''
+        # scipy.io.savemat('Matlab_scripts\Static_moment.mat',
+        #                  dict(MFlap=span_moment_flap, MEdge=span_moment_edge, MGravity=span_moment_gravity,
+        #                       ))
+        #
+        #
+        # eng2 = matlab.engine.start_matlab()
+        # dir = os.getcwd() + r"\Matlab_scripts"
+        # eng2.cd(dir, nargout=0)
+        #
+        # ret = eng2.Post_processing_static(nargout=0)
+        #
+        # eng2.quit()
+        # results = scipy.io.loadmat('Matlab_scripts\Ultimate_Results_Static.mat')
+        # #Root_stress = results['Stress_root_skin'][0]
+        # Span_stress = results['Stress_span']
+        #
+        #
+        #
+        #
+        #
+        # ##### 1st row is Flapwise stress in skin along the span #####
+        # ##### 2nd row is Flapwise stress in spar along the span #####
+        # ##### 3rd row is Edgewise stress in skin along the span #####
+        # ##### 4th row is Edgewise stress in Te reinf/ panel along the span #####
+        #
+        # Stress_flapwise_skin = Span_stress[0,:]
+        # Stress_flapwise_spar = Span_stress[1,:]
+        # Stress_edgewise_skin = Span_stress[2,:]
+        # Stress_edgewise_te_reinf = Span_stress[3,:]
+        #
+        # Stress_skin = np.concatenate((Stress_flapwise_skin, Stress_edgewise_skin), axis=0)
+        #
+        # max_stress_skin = max(Stress_skin)
+        # max_stress_spar =  max(Stress_flapwise_spar)
+        # max_stress_te_reinf = max(Stress_edgewise_te_reinf)
+        #
+        #
+        #
+        # #### Extract stresses at given node numbers ###
+        # span_node = np.array([7, 15, 24, 37, 47])
+        #
+        # ## Node 7
+        #
+        # Stress_flapwise_skin_loc1 = Span_stress[0, span_node[0]-1]
+        # Stress_flapwise_spar_loc1 = Span_stress[1, span_node[0]-1]
+        #
+        # Stress_edgewise_skin_loc1 = Span_stress[2, span_node[0]-1]
+        # Stress_edgewise_te_reinf_loc1 = Span_stress[3, span_node[0]-1]
+        #
+        # ## Node 15
+        #
+        # Stress_flapwise_skin_loc2 = Span_stress[0, span_node[1]-1]
+        # Stress_flapwise_spar_loc2 = Span_stress[1, span_node[1]-1]
+        #
+        # Stress_edgewise_skin_loc2 = Span_stress[2, span_node[1]-1]
+        # Stress_edgewise_te_reinf_loc2 = Span_stress[3, span_node[1]-1]
+        #
+        # ## Node 24
+        #
+        # Stress_flapwise_skin_loc3 = Span_stress[0, span_node[2] - 1]
+        # Stress_flapwise_spar_loc3 = Span_stress[1, span_node[2] - 1]
+        #
+        # Stress_edgewise_skin_loc3 = Span_stress[2, span_node[2] - 1]
+        # Stress_edgewise_te_reinf_loc3 = Span_stress[3, span_node[2] - 1]
+        #
+        # ## Node 37
+        #
+        # Stress_flapwise_skin_loc4 = Span_stress[0, span_node[3] - 1]
+        # Stress_flapwise_spar_loc4 = Span_stress[1, span_node[3] - 1]
+        #
+        # Stress_edgewise_skin_loc4 = Span_stress[2, span_node[3] - 1]
+        # Stress_edgewise_te_reinf_loc4 = Span_stress[3, span_node[3] - 1]
+        #
+        # ## Node 47
+        #
+        # Stress_flapwise_skin_loc5 = Span_stress[0, span_node[4] - 1]
+        # Stress_flapwise_spar_loc5 = Span_stress[1, span_node[4] - 1]
+        #
+        # Stress_edgewise_skin_loc5 = Span_stress[2, span_node[4] - 1]
+        # Stress_edgewise_te_reinf_loc5 = Span_stress[3, span_node[4] - 1]
+        #
+        # ##### Take the flapwise stresses at skin into one array ####
+        #
+        # Stress_flapwise_skin = np.array([Stress_flapwise_skin_loc1, Stress_flapwise_skin_loc2, Stress_flapwise_skin_loc3,
+        #                                  Stress_flapwise_skin_loc4, Stress_flapwise_skin_loc5])
+        #
+        # Stress_flapwise_spar = np.array([Stress_flapwise_spar_loc1, Stress_flapwise_spar_loc2, Stress_flapwise_spar_loc3,
+        #                                  Stress_flapwise_spar_loc4, Stress_flapwise_spar_loc5])
+        #
+        # Stress_edgewise_skin = np.array([Stress_edgewise_skin_loc1, Stress_edgewise_skin_loc2, Stress_edgewise_skin_loc3,
+        #                                  Stress_edgewise_skin_loc4, Stress_edgewise_skin_loc5])
+        #
+        # Stress_edgewise_te_reinf = np.array([Stress_edgewise_te_reinf_loc1, Stress_edgewise_te_reinf_loc2, Stress_edgewise_te_reinf_loc3,
+        #                                      Stress_edgewise_te_reinf_loc4, Stress_edgewise_te_reinf_loc5])
 
 
 
@@ -210,6 +205,14 @@ class  Analytical(AbsRotorMechanics):
         #print 'Max Stress Spar : ', max_stress_spar
         #print 'Max Stress Skin : ', max_stress_skin
         #print 'Max Stress Te Reinf : ', max_stress_te_reinf
+
+        field_names = ['Tip deflection']
+        data = {field_names[0]: tip_deflection}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in list(data.items()):
+                writer.writerow([key, value])
+        csvfile.close()
 
 
         # outputs    
@@ -285,7 +288,7 @@ if __name__ == "__main__":
     ############### Post Processing ###################
     ################################################### 
     beautify_dict(inputs) 
-    print '-'*10
+    print(('-'*10))
     beautify_dict(outputs)     
 
     plt.plot(inputs['span_r'], outputs['span_stress_gravity'])

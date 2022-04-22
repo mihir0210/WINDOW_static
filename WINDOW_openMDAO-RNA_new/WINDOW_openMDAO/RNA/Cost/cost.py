@@ -79,7 +79,7 @@ class CSMCalibrated(AbsRNACost):
     
     def ref_cost_mass(self, component):
         #RT = pd.read_csv(cost_folder + 'reference_turbine_cost_mass.csv')
-        RT = pd.read_csv(self.metadata['reference_turbine_cost'])
+        RT = pd.read_csv(self.options['reference_turbine_cost'])
         return RT.loc[RT['Component'] == component, 'Cost'].values / RT.loc[RT['Component'] == component, 'Mass'].values
         
         

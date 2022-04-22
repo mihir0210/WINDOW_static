@@ -2,13 +2,13 @@ from openmdao.api import ExplicitComponent
 
 class AbsRotorMechanics(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('num_nodes', desc='Number of blade sections')
-        self.metadata.declare('E_blade', desc='Youngs modulus of glass fiber [Pa]', default=36.233e9)
-        self.metadata.declare('g', desc='acceleration due to gravity [m/s**2]', default=9.8)
+        self.options.declare('num_nodes', desc='Number of blade sections')
+        self.options.declare('E_blade', desc='Youngs modulus of glass fiber [Pa]', default=36.233e9)
+        self.options.declare('g', desc='acceleration due to gravity [m/s**2]', default=9.8)
         
     def setup(self):        
         # metadata
-        num_nodes = self.metadata['num_nodes']
+        num_nodes = self.options['num_nodes']
         
         # inputs
         self.add_input('shaft_angle', units='deg', desc='angle of the LSS inclindation with respect to the horizontal')

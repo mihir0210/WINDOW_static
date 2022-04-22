@@ -11,7 +11,7 @@ class Parameters():
     def __init__(self, future_year, operational_lifetime):
 
         self.base_year = 2019
-        self.slope_base = -0.28 # -0.28 for 2019
+        self.slope_base = 0 # -0.28 for 2019
         self.constant_base = 43  #43 for 2019
 
         '''

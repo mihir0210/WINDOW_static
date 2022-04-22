@@ -6,7 +6,7 @@ from ..system.value import Value
 
 from ..environment.physical_environment import PhysicalEnvironment
 
-from master import MasterDesigners
+from .master import MasterDesigners
 
 from .support_structures import SupportDesigners
 

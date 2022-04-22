@@ -1,4 +1,4 @@
-from order_layout import order
+from .order_layout import order
 import numpy as np
 
 
@@ -44,6 +44,8 @@ def energy_one_angle(original_layout, freestream_wind_speeds, probabilities_spee
 
 
         farm_power_one_angle.append(farm_power)
+
+
 
 
 

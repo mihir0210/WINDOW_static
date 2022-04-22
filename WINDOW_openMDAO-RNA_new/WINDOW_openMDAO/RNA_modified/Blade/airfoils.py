@@ -20,7 +20,7 @@ For the 15 MW turbine, a new database was created that had 50 airfoils (includin
 
 airfoils_db = []
 
-i = range(50)
+i = list(range(50))
 
 
 for idx in i:
@@ -112,6 +112,6 @@ if __name__ == "__main__":
     #print np.interp(50, airfoil.ix[:, 'Alpha'], airfoil.ix[:, 'Cl'])
     #print np.interp(50, airfoil.ix[:, 'Alpha'], airfoil.ix[:, 'Cd'])
     #print ReferenceTurbine
-    print ReadAirfoil(3)
+    print((ReadAirfoil(3)))
     
             

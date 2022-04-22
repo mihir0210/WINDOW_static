@@ -1,4 +1,4 @@
-from farm_energy.wake_model_mean_new.aero_power_ct_models.aero_models import AeroLookup
+from .farm_energy.wake_model_mean_new.aero_power_ct_models.aero_models import AeroLookup
 from WINDOW_openMDAO.input_params import TI_ambient
 
 import numpy as np
@@ -51,9 +51,9 @@ class Workflow:
             if t[0] >= 0.0 and t[1] >= 0.0:
                 layout.append([t[0], t[1]])
         self.number_turbines = len(layout)
-        from farm_energy.wake_model_mean_new.wake_1angle import energy_one_angle
-        from farm_energy.wake_model_mean_new.wake_1angle_turbulence import max_turbulence_one_angle
-        from farm_energy.wake_model_mean_new.downstream_effects import JensenEffects as Jensen
+        from .farm_energy.wake_model_mean_new.wake_1angle import energy_one_angle
+        from .farm_energy.wake_model_mean_new.wake_1angle_turbulence import max_turbulence_one_angle
+        from .farm_energy.wake_model_mean_new.downstream_effects import JensenEffects as Jensen
         #from WINDOW_openMDAO.input_params import cutin_wind_speed, cutout_wind_speed
 
         if self.print_output is True: print("=== PREPARING WIND CONDITIONS ===")
@@ -113,13 +113,16 @@ class Workflow:
                 if isinstance(farm_power_one_angle[val], np.ndarray):
                     farm_power_one_angle[val] = farm_power_one_angle[val][0] # convert to float
 
+
             farm_power.append(farm_power_one_angle)
 
 
 
 
-            key1 = int(self.wind_directions[i])
+            key1 = str(self.wind_directions[i])
             value = farm_power_one_angle
+            value[-2] = value[-3]
+
 
             dict_farm_power[key1] = value
 
@@ -144,30 +147,30 @@ class Workflow:
 
 
 
-        if self.print_output is True: print(str(self.array_efficiency * 100.0) + " %\n")
+        if self.print_output is True: print((str(self.array_efficiency * 100.0) + " %\n"))
         if self.print_output is True: print(" --- Farm annual energy without losses---")
         self.array_efficiency = sum(self.array_efficiencies)
         self.farm_annual_energy = sum(self.energies_per_angle)
 
-        if self.print_output is True: print(str(self.farm_annual_energy / 1000000.0) + " MWh\n")
+        if self.print_output is True: print((str(self.farm_annual_energy / 1000000.0) + " MWh\n"))
         if self.print_output is True: print(" --- Maximum wind turbulence intensity ---")
 
         self.turbulence = self.max_turbulence_per_turbine
 
-        if self.print_output is True: print(
-            str([self.turbulence[l] * 100.0 for l in range(len(self.turbulence))]) + " %\n")
+        if self.print_output is True: print((
+            str([self.turbulence[l] * 100.0 for l in range(len(self.turbulence))]) + " %\n"))
 
         return self.farm_annual_energy, self.turbulence, self.array_efficiency, dict_farm_power
 
     def run(self, layout_coordinates):
 
-        from farm_energy.wake_model_mean_new.aero_power_ct_models.aero_models import power, thrust_coefficient
+        from .farm_energy.wake_model_mean_new.aero_power_ct_models.aero_models import power, thrust_coefficient
 #         from farm_energy.wake_model_mean_new.ainslie1d import ainslie
 #         from farm_energy.wake_model_mean_new.ainslie2d import ainslie_full
-        from farm_energy.wake_model_mean_new.jensen import determine_if_in_wake, wake_radius, wake_deficit
+        from .farm_energy.wake_model_mean_new.jensen import determine_if_in_wake, wake_radius, wake_deficit
 #         from farm_energy.wake_model_mean_new.larsen import deff, wake_deficit_larsen, wake_radius, x0, rnb, r95, c1, \
 #             determine_if_in_wake_larsen, wake_speed
-        from farm_energy.wake_model_mean_new.wake_turbulence_models import frandsen2, Quarton, danish_recommendation, \
+        from .farm_energy.wake_model_mean_new.wake_turbulence_models import frandsen2, Quarton, danish_recommendation, \
             frandsen, larsen_turbulence
 
         self.coordinates = [[i, layout_coordinates[i][0], layout_coordinates[i][1]] for i in

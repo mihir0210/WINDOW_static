@@ -2,7 +2,7 @@ from openmdao.api import ExplicitComponent
 
 class AbsHSS(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
+        self.options.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
         
     def setup(self):
         # inputs

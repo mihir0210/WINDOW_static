@@ -5,6 +5,6 @@ def beautify_dict(dict):
     for key, val in dict.iteritems():
         val = np.array(val)
         if np.size(val) > 1:
-                print key + ' = ' + str(repr(np.around(np.array(val),DEC).tolist()))
+                print(key + ' = ' + str(repr(np.around(np.array(val),DEC).tolist())))
         else:
-                print key + ' = ' + str(round(val,DEC))
+                print(key + ' = ' + str(round(val,DEC)))

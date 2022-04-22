@@ -2,7 +2,7 @@ from openmdao.api import ExplicitComponent
 
 class AbsRNACost(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('reference_turbine_cost', desc='URL of CSV file with the cost of the Reference Turbine components')
+        self.options.declare('reference_turbine_cost', desc='URL of CSV file with the cost of the Reference Turbine components')
     
     def setup(self):
         # inputs

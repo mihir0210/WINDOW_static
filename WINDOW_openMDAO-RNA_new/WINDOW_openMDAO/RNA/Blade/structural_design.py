@@ -53,8 +53,8 @@ class VariableChord(AbsStructuralDesign):
     
     def compute(self, inputs, outputs):
         # metadata
-        num_nodes = self.metadata['num_nodes']
-        ReferenceTurbine = pd.read_csv(self.metadata['reference_turbine'])
+        num_nodes = self.options['num_nodes']
+        ReferenceTurbine = pd.read_csv(self.options['reference_turbine'])
         
         # inputs
         rotor_diameter = inputs['rotor_diameter']
@@ -112,8 +112,8 @@ class VariableRadius(AbsStructuralDesign):
     '''    
     def compute(self, inputs, outputs):
         # metadata
-        num_nodes = self.metadata['num_nodes']
-        ReferenceTurbine = pd.read_csv(self.metadata['reference_turbine'])
+        num_nodes = self.options['num_nodes']
+        ReferenceTurbine = pd.read_csv(self.options['reference_turbine'])
         
         # inputs
         rotor_diameter = inputs['rotor_diameter']

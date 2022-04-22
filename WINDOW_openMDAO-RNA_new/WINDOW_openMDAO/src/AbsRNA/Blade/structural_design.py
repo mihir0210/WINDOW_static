@@ -2,12 +2,12 @@ from openmdao.api import ExplicitComponent
 
 class AbsStructuralDesign(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('num_nodes', desc='Number of blade sections')
-        self.metadata.declare('reference_turbine', desc='URL of CSV file with the definition of the Reference Turbine')
+        self.options.declare('num_nodes', desc='Number of blade sections')
+        self.options.declare('reference_turbine', desc='URL of CSV file with the definition of the Reference Turbine')
         
     def setup(self):        
         # metadata
-        num_nodes = self.metadata['num_nodes']
+        num_nodes = self.options['num_nodes']
         
         # inputs
         self.add_input('rotor_diameter', units='m', desc='rotor diameter')

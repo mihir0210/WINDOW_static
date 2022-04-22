@@ -3,9 +3,9 @@ from openmdao.api import ExplicitComponent
 class AbsLSS(ExplicitComponent):
     
     def initialize(self):
-        self.metadata.declare('safety_factor', desc='Safety factor due to model fidelity', default=1)
-        self.metadata.declare('mb1_type', desc='Upwind main bearing type') # ['CARB','TRB1','TRB2','SRB','CRB','RB']
-        self.metadata.declare('mb2_type', desc='Downwind main bearing type', allow_none=True)
+        self.options.declare('safety_factor', desc='Safety factor due to model fidelity', default=1)
+        self.options.declare('mb1_type', desc='Upwind main bearing type') # ['CARB','TRB1','TRB2','SRB','CRB','RB']
+        self.options.declare('mb2_type', desc='Downwind main bearing type', allow_none=True)
         
     def setup(self):
         # inputs

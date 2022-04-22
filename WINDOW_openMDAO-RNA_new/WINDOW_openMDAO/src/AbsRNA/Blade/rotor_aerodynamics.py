@@ -3,14 +3,14 @@ from openmdao.api import ExplicitComponent
 
 class AbsRotorAerodynamics(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('num_nodes',  desc='Number of blade sections')
-        self.metadata.declare('rho_air',    desc='Density of air [kg/m**3]', default=1.225)
+        self.options.declare('num_nodes',  desc='Number of blade sections')
+        self.options.declare('rho_air',    desc='Density of air [kg/m**3]', default=1.225)
 
         
         
     def setup(self):
         # metadata
-        num_nodes = self.metadata['num_nodes']
+        num_nodes = self.options['num_nodes']
         
         # inputs
         self.add_input('design_tsr', desc='design tip speed ratio')

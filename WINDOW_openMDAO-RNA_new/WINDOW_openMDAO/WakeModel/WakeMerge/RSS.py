@@ -17,4 +17,4 @@ class MergeRSS(AbstractWakeMerge):
 
 if __name__ == '__main__':
     rss = MergeRSS()
-    print rss.merge_model
+    print(rss.merge_model)

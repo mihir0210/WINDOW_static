@@ -1,5 +1,5 @@
 from openmdao.api import ExplicitComponent
-from time import clock
+#from time import clock
 import csv
 
 

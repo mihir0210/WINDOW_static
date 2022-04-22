@@ -1,4 +1,4 @@
-from memoize import Memoize2
+from .memoize import Memoize2
 
 
 def thomas(a, b, c, d):

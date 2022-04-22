@@ -13,44 +13,44 @@ from scaler import Scaler
 class RNA(Group):
     def initialize(self):
         # fixed parameters
-        self.metadata.declare('num_pegged', desc='Number of pegged nodes required to define the chord/twist profile')
-        self.metadata.declare('num_airfoils', desc='Number of airfoils along the blade')
-        self.metadata.declare('num_nodes', desc='Number of blade sections')
-        self.metadata.declare('num_bins', desc='Number of wind speed samples')
-        self.metadata.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
-        self.metadata.declare('gearbox_stages', desc='Number of stages in the gearbox', default=3)        
-        self.metadata.declare('gear_configuration', desc='Parallel or Planetary configuration of each stage', default='eep')
-        self.metadata.declare('mb1_type', desc='Upwind main bearing type') # ['CARB','TRB1','TRB2','SRB','CRB','RB']
-        self.metadata.declare('mb2_type', desc='Downwind main bearing type', allow_none=True)
-        self.metadata.declare('drivetrain_design', desc='Drive train configuration', default='geared') # ['geared', 'single_stage', 'multi_drive', 'pm_direct_drive']
-        self.metadata.declare('uptower_transformer', desc='Is uptower transformer present? [True/False]', default=True)
-        self.metadata.declare('has_crane', desc='Is the crane present? [0/1]', default=True)
-        self.metadata.declare('reference_turbine', desc='URL of CSV file with the definition of the Reference Turbine')
-        self.metadata.declare('reference_turbine_cost', desc='URL of CSV file with the cost of the Reference Turbine components')
-        self.metadata.declare('power_file', desc='URL of power curve file')
-        self.metadata.declare('ct_file', desc='URL of thrust coefficient curve file')
+        self.options.declare('num_pegged', desc='Number of pegged nodes required to define the chord/twist profile')
+        self.options.declare('num_airfoils', desc='Number of airfoils along the blade')
+        self.options.declare('num_nodes', desc='Number of blade sections')
+        self.options.declare('num_bins', desc='Number of wind speed samples')
+        self.options.declare('safety_factor', desc='Safety factor due to model fidelity', default=1.)
+        self.options.declare('gearbox_stages', desc='Number of stages in the gearbox', default=3)        
+        self.options.declare('gear_configuration', desc='Parallel or Planetary configuration of each stage', default='eep')
+        self.options.declare('mb1_type', desc='Upwind main bearing type') # ['CARB','TRB1','TRB2','SRB','CRB','RB']
+        self.options.declare('mb2_type', desc='Downwind main bearing type', allow_none=True)
+        self.options.declare('drivetrain_design', desc='Drive train configuration', default='geared') # ['geared', 'single_stage', 'multi_drive', 'pm_direct_drive']
+        self.options.declare('uptower_transformer', desc='Is uptower transformer present? [True/False]', default=True)
+        self.options.declare('has_crane', desc='Is the crane present? [0/1]', default=True)
+        self.options.declare('reference_turbine', desc='URL of CSV file with the definition of the Reference Turbine')
+        self.options.declare('reference_turbine_cost', desc='URL of CSV file with the cost of the Reference Turbine components')
+        self.options.declare('power_file', desc='URL of power curve file')
+        self.options.declare('ct_file', desc='URL of thrust coefficient curve file')
     
     
     
     
     def setup(self):
         # metadata
-        num_pegged = self.metadata['num_pegged']
-        num_airfoils = self.metadata['num_airfoils']
-        num_nodes = self.metadata['num_nodes']
-        num_bins = self.metadata['num_bins']
-        safety_factor = self.metadata['safety_factor']
-        gearbox_stages = self.metadata['gearbox_stages']
-        gear_configuration = self.metadata['gear_configuration']
-        mb1_type = self.metadata['mb1_type']
-        mb2_type = self.metadata['mb2_type']
-        drivetrain_design = self.metadata['drivetrain_design']
-        uptower_transformer = self.metadata['uptower_transformer']
-        has_crane = self.metadata['has_crane']
-        reference_turbine = self.metadata['reference_turbine']
-        reference_turbine_cost = self.metadata['reference_turbine_cost'] 
-        power_file = self.metadata['power_file']
-        ct_file = self.metadata['ct_file']
+        num_pegged = self.options['num_pegged']
+        num_airfoils = self.options['num_airfoils']
+        num_nodes = self.options['num_nodes']
+        num_bins = self.options['num_bins']
+        safety_factor = self.options['safety_factor']
+        gearbox_stages = self.options['gearbox_stages']
+        gear_configuration = self.options['gear_configuration']
+        mb1_type = self.options['mb1_type']
+        mb2_type = self.options['mb2_type']
+        drivetrain_design = self.options['drivetrain_design']
+        uptower_transformer = self.options['uptower_transformer']
+        has_crane = self.options['has_crane']
+        reference_turbine = self.options['reference_turbine']
+        reference_turbine_cost = self.options['reference_turbine_cost'] 
+        power_file = self.options['power_file']
+        ct_file = self.options['ct_file']
         
         
 #         # design variables

@@ -7,7 +7,7 @@ from WINDOW_openMDAO.src.api import AbsPitch
 class DriveSE(AbsPitch):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
+        safety_factor = self.options['safety_factor']
         
         # inputs    
         self.blade_mass = inputs['blade_mass']

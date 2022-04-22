@@ -1,6 +1,7 @@
-from openmdao.api import Group, Problem, IndepVarComp, view_model
-import aerodynamic_design, structural_design, rotor_aerodynamics, power_curve, rotor_mechanics
-from Preprocessor.internal_layup_call_integration import Preprocessor
+from openmdao.api import Group, Problem, IndepVarComp #, view_model
+from . import aerodynamic_design, structural_design, rotor_aerodynamics, power_curve, rotor_mechanics
+
+
 
 
 #############################################################################
@@ -9,31 +10,31 @@ from Preprocessor.internal_layup_call_integration import Preprocessor
 class Blade(Group):
     def initialize(self):
         # fixed parameters
-        self.metadata.declare('num_pegged', desc='Number of pegged nodes required to define the chord/twist profile')
-        self.metadata.declare('num_airfoils', desc='Number of airfoils along the blade')
-        self.metadata.declare('num_nodes', desc='Number of blade sections')
-        self.metadata.declare('num_bins', desc='Number of wind speed samples')
-        self.metadata.declare('reference_turbine', desc='CSV file with the definition of the Reference Turbine')
-        self.metadata.declare('power_file', desc='URL of power curve file')
-        self.metadata.declare('ct_file', desc='URL of thrust coefficient curve file')
-        self.metadata.declare('rho_air',  desc='Density of air [kg/m**3]', default=1.225)
-        self.metadata.declare('E_blade', desc='Youngs modulus of glass fiber [Pa]', default=36.233e9)
-        self.metadata.declare('g', desc='acceleration due to gravity [m/s**2]', default=9.8)
+        self.options.declare('num_pegged', desc='Number of pegged nodes required to define the chord/twist profile')
+        self.options.declare('num_airfoils', desc='Number of airfoils along the blade')
+        self.options.declare('num_nodes', desc='Number of blade sections')
+        self.options.declare('num_bins', desc='Number of wind speed samples')
+        self.options.declare('reference_turbine', desc='CSV file with the definition of the Reference Turbine')
+        self.options.declare('power_file', desc='URL of power curve file')
+        self.options.declare('ct_file', desc='URL of thrust coefficient curve file')
+        self.options.declare('rho_air',  desc='Density of air [kg/m**3]', default=1.225)
+        self.options.declare('E_blade', desc='Youngs modulus of glass fiber [Pa]', default=36.233e9)
+        self.options.declare('g', desc='acceleration due to gravity [m/s**2]', default=9.8)
 
         
         
     def setup(self):
         # metadata
-        num_pegged = self.metadata['num_pegged']
-        num_airfoils = self.metadata['num_airfoils']
-        num_nodes = self.metadata['num_nodes']
-        num_bins = self.metadata['num_bins']
-        reference_turbine = self.metadata['reference_turbine']
-        power_file = self.metadata['power_file']
-        ct_file = self.metadata['ct_file']
-        rho_air = self.metadata['rho_air']
-        E_blade = self.metadata['E_blade']
-        g = self.metadata['g']
+        num_pegged = self.options['num_pegged']
+        num_airfoils = self.options['num_airfoils']
+        num_nodes = self.options['num_nodes']
+        num_bins = self.options['num_bins']
+        reference_turbine = self.options['reference_turbine']
+        power_file = self.options['power_file']
+        ct_file = self.options['ct_file']
+        rho_air = self.options['rho_air']
+        E_blade = self.options['E_blade']
+        g = self.options['g']
         
         
 #         # design variables
@@ -123,9 +124,7 @@ class Blade(Group):
 
         self.connect('rated_wind_speed', ['struc_design.rated_wind_speed'])
 
-        #self.connect('Preprocessor.mass_length', ['mech.span_mass'])
-        #self.connect('Preprocessor.flapwise_stiffness', ['mech.span_flap_stiff'])
-        #self.connect('Preprocessor.edgewise_stiffness', ['mech.span_edge_stiff'])
+
 
         
         self.connect('aero_partial.swept_area', ['pc.swept_area'])
@@ -181,7 +180,7 @@ if __name__ == "__main__":
     prob['drive_train_efficiency'] = 1.0
       
     prob.run_model()
-    print 'Executed in ' + str(round(time() - start, 2)) + ' seconds\n'
+    print(('Executed in ' + str(round(time() - start, 2)) + ' seconds\n'))
      
     # print outputs 
     var_list = ['rotor_torque', 'rotor_thrust', 'rated_wind_speed' ,'wind_bin', 'elec_power_bin', \

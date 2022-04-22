@@ -16,8 +16,8 @@ class Preprocessor(AbsPreprocessor):
 
         def compute(self, inputs, outputs):
                 #metadata
-                #num_stations = self.metadata['num_stations']
-                num_nodes = self.metadata['num_nodes']
+                #num_stations = self.options['num_stations']
+                num_nodes = self.options['num_nodes']
 
                 airfoil_geometry_cyl1 = airfoils_coord(0)
                 airfoil_geometry_cyl2 = airfoils_coord(1)

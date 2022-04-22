@@ -1,5 +1,5 @@
 from WINDOW_openMDAO.src.api import AbsNacelle
-from drivese_utils import add_Nacelle
+from .drivese_utils import add_Nacelle
 
 #############################################################################
 #############################  MODEL#1: DriveSE #############################

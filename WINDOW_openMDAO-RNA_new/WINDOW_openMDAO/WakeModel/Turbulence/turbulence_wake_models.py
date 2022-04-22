@@ -150,4 +150,4 @@ if __name__ == '__main__':
     prob = Problem(model)
     prob.setup()
     prob.run_model()
-    print(prob['added1.TI_eff'])
+    print((prob['added1.TI_eff']))

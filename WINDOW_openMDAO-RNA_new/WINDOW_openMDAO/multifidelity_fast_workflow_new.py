@@ -10,7 +10,7 @@ from WINDOW_openMDAO.WaterDepth.water_depth_models import RoughClosestNode
 from WINDOW_openMDAO.Finance.LCOE import LCOE
 #from WINDOW_openMDAO.RNA.rna import RNA
 from WINDOW_openMDAO.RNA_modified.rna import RNA
-from WINDOW_openMDAO.FAST.FAST_integration import FAST
+#from WINDOW_openMDAO.FAST.FAST_integration import FAST
 
 
 

@@ -17,9 +17,9 @@ from drivese_utils import stageTypeCalc, stageMassCalc, gbxWeightEst, stageRatio
 class DriveSE(AbsGearbox):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        gearbox_stages = self.metadata['gearbox_stages']
-        self.gear_configuration=self.metadata['gear_configuration']
+        safety_factor = self.options['safety_factor']
+        gearbox_stages = self.options['gearbox_stages']
+        self.gear_configuration=self.options['gear_configuration']
         
         # inputs
         self.gear_ratio = inputs['gear_ratio']
@@ -92,7 +92,7 @@ class Polinder(AbsGearbox):
         # inputs
         gear_ratio = inputs['gear_ratio']
         Np = inputs['Np']
-        rotor_torque = inputs['rotor_torque']*self.metadata['safety_factor']
+        rotor_torque = inputs['rotor_torque']*self.options['safety_factor']
         
         loss = 0.015 # loss percentage at rated power
         rw = (gear_ratio/2.0) - 1

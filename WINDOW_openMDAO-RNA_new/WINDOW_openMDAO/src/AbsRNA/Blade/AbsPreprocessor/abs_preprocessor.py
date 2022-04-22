@@ -2,15 +2,15 @@ from openmdao.api import ExplicitComponent
 
 class AbsPreprocessor(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('num_stations', desc='Number of stations along the blade')
-        self.metadata.declare('num_nodes', desc='Number of nodes along the blade')
+        self.options.declare('num_stations', desc='Number of stations along the blade')
+        self.options.declare('num_nodes', desc='Number of nodes along the blade')
 
 
     def setup(self):
         # metadata
 
-        #num_stations = self.metadata['num_stations']
-        num_nodes = self.metadata['num_nodes']
+        #num_stations = self.options['num_stations']
+        num_nodes = self.options['num_nodes']
 
 
 

@@ -2,13 +2,13 @@ from openmdao.api import ExplicitComponent
 
 class AbsGearbox(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('safety_factor', desc='Safety factor of the model fidelity', default=1)
-        self.metadata.declare('gearbox_stages', desc='Number of stages in the gearbox', default=3)        
-        self.metadata.declare('gear_configuration', desc='Parallel or Planetary configuration of each stage', default='eep')
+        self.options.declare('safety_factor', desc='Safety factor of the model fidelity', default=1)
+        self.options.declare('gearbox_stages', desc='Number of stages in the gearbox', default=3)        
+        self.options.declare('gear_configuration', desc='Parallel or Planetary configuration of each stage', default='eep')
         
     def setup(self):
         # metadata
-        gearbox_stages = self.metadata['gearbox_stages']
+        gearbox_stages = self.options['gearbox_stages']
         
         #inputs
         self.add_input('gear_ratio', desc='overall gearbox speedup ratio')

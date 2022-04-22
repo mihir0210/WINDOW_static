@@ -4,20 +4,20 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
                 turbine_rated_power, rotor_radius, purchase_price, warranty_percentage, \
                 rna_mass, hub_height, generator_voltage, collection_voltage, turbine_CAPEX, config):
     #from WINDOW_openMDAO.input_params import turbine_rated_power
-    from investment_costs.project_development_cost import project_development_cost
-    from investment_costs.management_cost import management_costs
-    from investment_costs.procurement_costs.auxiliary_costs.auxiliary_costs import auxiliary_procurement
-    from investment_costs.procurement_costs.electrical_system_costs.electrical_costs import electrical_procurement_costs
-    from investment_costs.procurement_costs.RNA_costs.RNA_costs import rna_costs
-    from investment_costs.installation_costs.auxiliary_installation_costs import auxiliary_installation_costs
-    from investment_costs.installation_costs.electrical_installation_costs import electrical_installation_costs
-    from investment_costs.installation_costs.RNA_installation_costs import rna_installation_costs
-    from decommissioning_costs.decommissioning_costs import decommissioning_costs
+    from .investment_costs.project_development_cost import project_development_cost
+    from .investment_costs.management_cost import management_costs
+    from .investment_costs.procurement_costs.auxiliary_costs.auxiliary_costs import auxiliary_procurement
+    from .investment_costs.procurement_costs.electrical_system_costs.electrical_costs import electrical_procurement_costs
+    from .investment_costs.procurement_costs.RNA_costs.RNA_costs import rna_costs
+    from .investment_costs.installation_costs.auxiliary_installation_costs import auxiliary_installation_costs
+    from .investment_costs.installation_costs.electrical_installation_costs import electrical_installation_costs
+    from .investment_costs.installation_costs.RNA_installation_costs import rna_installation_costs
+    from .decommissioning_costs.decommissioning_costs import decommissioning_costs
 
-    from investment_costs.procurement_costs.electrical_system_costs.electrical_costs_BVG import electrical_procurement_costs_BVG
-    from investment_costs.installation_costs.electrical_installation_costs_BVG import electrical_installation_costs_BVG
-    from investment_costs.installation_costs.other_costs import other_installation_commissioning_costs
-    from investment_costs.turbine_other_costs import turbine_other_costs
+    from .investment_costs.procurement_costs.electrical_system_costs.electrical_costs_BVG import electrical_procurement_costs_BVG
+    from .investment_costs.installation_costs.electrical_installation_costs_BVG import electrical_installation_costs_BVG
+    from .investment_costs.installation_costs.other_costs import other_installation_commissioning_costs
+    from .investment_costs.turbine_other_costs import turbine_other_costs
 
     #project_development = project_development_cost(n_turbines, turbine_rated_power)
 
@@ -28,6 +28,8 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
     turbine_other_costs = turbine_other_costs(turbine_CAPEX, n_turbines)
 
     [export_cable, procurement_electrical] = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, config)
+    #procurement_electrical = 0.0 #for a case in NL where TenneT pays
+    #export_cable = 0.0#for a case in NL where TenneT pays
 
     installation_electrical = electrical_installation_costs_BVG(config, infield_length)
 
@@ -44,8 +46,8 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height,config)
 
-    # print 'RNA costs:', procurement_rna
-    # print 'turbine other costs:', turbine_other_costs
+    print('RNA costs:', procurement_rna)
+    print('turbine other costs:', turbine_other_costs)
     # print 'procurement electrical:', procurement_electrical
     #
     # print 'Installation RNA:', installation_rna
@@ -61,12 +63,12 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
             field_names[5]: turbine_other_costs}
     with open('parameters.csv', 'a') as csvfile:
         writer = csv.writer(csvfile)
-        for key, value in data.items():
+        for key, value in list(data.items()):
             writer.writerow([key, value])
     csvfile.close()
 
     #investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
-    investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna #+ other_installation_commissioning_costs
+    investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna
     #investment_costs = project_development + procurement_rna + turbine_other_costs + installation_rna + other_installation_commissioning_costs
     # print "project_development ", project_development
     # print "procurement_auxiliary", procurement_auxiliary 
@@ -102,4 +104,4 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
 
 if __name__ == '__main__':
-    print total_costs(20.0, 5, 230000)
+    print((total_costs(20.0, 5, 230000)))

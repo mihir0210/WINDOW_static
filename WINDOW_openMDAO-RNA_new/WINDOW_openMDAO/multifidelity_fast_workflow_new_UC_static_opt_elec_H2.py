@@ -60,6 +60,8 @@ class WorkingGroup(Group):
         self.has_crane = options.input.turbine.has_crane
         self.reference_turbine = options.input.turbine.reference_turbine
         self.reference_turbine_cost = options.input.turbine.reference_turbine_cost
+        self.rated_power = options.input.turbine.rated_power
+        self.rotor_radius = options.input.turbine.rotor_radius
 
         self.time_resolution = options.input.site.time_resolution
         self.wind_file = options.input.site.wind_file
@@ -78,8 +80,8 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        indep2.add_output('turbine_rad', val=200/240.0)
-        indep2.add_output('rated_power', val=14.286/15.0)
+        indep2.add_output('turbine_rad', val=self.rotor_radius)
+        indep2.add_output('rated_power', val=self.rated_power)
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d
@@ -199,25 +201,6 @@ class WorkingGroup(Group):
 
         self.add_subsystem('Costs', self.apex_model())
         self.add_subsystem('Costs_h2', HydrogenFarmCostModel())
-
-        '''
-        #normalize parameters with values for the 10 MW turbine to scale O&M costs
-
-        self.add_subsystem('hub_height_normalize', ExecComp('hh_norm = hub_height/116.0'))
-
-        self.add_subsystem('cost_normalize_rna', ExecComp('rna_norm = rna_capex*N_T/5.17024743e+08'))
-
-        self.add_subsystem('cost_normalize_rna_h2', ExecComp('rna_norm = (rna_capex - P*40*0.88)*N_T/4.81824743e+08'))
-
-        self.add_subsystem('cost_normalize_bop', ExecComp('bop_norm = bop_costs/9.14367495e+08'))
-
-        self.add_subsystem('cost_normalize_bop_h2', ExecComp('bop_norm_h2 = bop_costs/8.47229646e+08'))
-
-        self.add_subsystem('cost_normalize_farmcapex', ExecComp('farmcapex_norm = farm_capex/2.51449632e+09'))
-
-        self.add_subsystem('cost_normalize_farmcapex_h2', ExecComp('farmcapex_norm_h2 = farm_capex/2.46778122e+09'))'''
-
-
 
 
         self.add_subsystem('OandM', self.opex_model())

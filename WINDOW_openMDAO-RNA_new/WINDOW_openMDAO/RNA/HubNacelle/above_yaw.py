@@ -8,7 +8,7 @@ from drivese_utils import add_AboveYawMass
 class DriveSE(AbsAboveYaw):
     def compute(self, inputs, outputs):
         # metadata
-        self.crane = self.metadata['has_crane']
+        self.crane = self.options['has_crane']
         
         # inputs
         self.machine_rating = inputs['machine_rating']

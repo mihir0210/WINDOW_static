@@ -1,3 +1,4 @@
+import pandas as pd
 from openmdao.api import ExplicitComponent
 from WINDOW_openMDAO.input_params import max_n_turbines
 
@@ -55,13 +56,12 @@ class AEPFast(ExplicitComponent):
         #print 'Efficiency:', efficiency
         #print dict_farm_power['60']
 
-        with open('farm_pc_directional.csv', 'w') as f:
-            writer = csv.writer(f)
-            for key,value in dict_farm_power.items():
 
-                writer.writerow([key,value])
+        # Write farm power dictionary to a dataframe and then to a csv file
+        df = pd.DataFrame.from_dict(dict_farm_power, orient='index')
+        df.to_csv("farm_pc_directional.csv")
 
-        f.close()
+
 
 
 

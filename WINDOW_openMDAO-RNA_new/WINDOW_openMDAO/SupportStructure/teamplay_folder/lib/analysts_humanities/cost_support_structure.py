@@ -67,8 +67,8 @@ class CostAnalysts:
 
         self.support_team.value.economic.decommissioning.removal.foundations = self.support_team.value.economic.capex.installation.foundations + self.support_team.value.economic.decommissioning.removal.scour_protection
 
-        # print 'tower mass:', self.support_team.properties.support_structure.tower_mass
-        # print 'monopile mass:', self.support_team.properties.support_structure.pile_mass
+        #print 'tower mass:', self.support_team.properties.support_structure.tower_mass
+        #print 'monopile mass:', self.support_team.properties.support_structure.pile_mass
         # print 'transition piece mass:', self.support_team.properties.support_structure.transition_piece_mass
         # print 'tower costs:', self.support_team.value.economic.capex.procurement.support_structures.tower
         # print 'monopile costs:', self.support_team.value.economic.capex.procurement.support_structures.monopile
@@ -88,7 +88,7 @@ class CostAnalysts:
 
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
-            for key, value in data.items():
+            for key, value in list(data.items()):
                 writer.writerow([key, value])
         csvfile.close()
         #print 'real support struc cost:',  self.support_team.value.economic.capex.procurement.support_structures.transition_piece + self.support_team.value.economic.capex.procurement.support_structures.grout + self.support_team.value.economic.capex.procurement.support_structures.monopile + self.support_team.value.economic.capex.procurement.support_structures.scour_protection

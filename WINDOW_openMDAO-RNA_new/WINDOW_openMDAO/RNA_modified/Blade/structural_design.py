@@ -55,8 +55,8 @@ class VariableChord(AbsStructuralDesign):
     
     def compute(self, inputs, outputs):
         # metadata
-        num_nodes = self.metadata['num_nodes']
-        ReferenceTurbine = pd.read_csv(self.metadata['reference_turbine'])
+        num_nodes = self.options['num_nodes']
+        ReferenceTurbine = pd.read_csv(self.options['reference_turbine'])
         
         # inputs
         rotor_diameter = inputs['rotor_diameter']
@@ -115,8 +115,8 @@ class VariableRadius(AbsStructuralDesign):
     '''    
     def compute(self, inputs, outputs):
         # metadata
-        num_nodes = self.metadata['num_nodes']
-        ReferenceTurbine = pd.read_csv(self.metadata['reference_turbine'])
+        num_nodes = self.options['num_nodes']
+        ReferenceTurbine = pd.read_csv(self.options['reference_turbine'])
         
         # inputs
         rotor_diameter = inputs['rotor_diameter']
@@ -158,8 +158,8 @@ class VariableRadius(AbsStructuralDesign):
         #blade_mass = (0.0009*rotor_radius**2.367)*1000 #from SANDIA 100 m blade reports, NREL detailed cost model blade (between 2.2 and 2.5)
 
 
-        rated_ws_ratio = rated_wind_speed/10.43
-        blade_mass = blade_mass*(rated_ws_ratio**2) #adjusting for a different specific power leading to a change in rated wind speed and thrust
+        #rated_ws_ratio = rated_wind_speed/10.43
+        #blade_mass = blade_mass*(rated_ws_ratio**2) #adjusting for a different specific power leading to a change in rated wind speed and thrust
 
 
 
@@ -170,7 +170,7 @@ class VariableRadius(AbsStructuralDesign):
         data = {field_names[0]: blade_mass}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
-            for key, value in data.items():
+            for key, value in list(data.items()):
                 writer.writerow([key, value])
         csvfile.close()
 
@@ -218,5 +218,5 @@ if __name__ == "__main__":
     ############### Post Processing ###################
     ################################################### 
     beautify_dict(inputs) 
-    print '-'*10
+    print(('-'*10))
     beautify_dict(outputs)  

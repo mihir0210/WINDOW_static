@@ -17,4 +17,4 @@ def electrical_installation_costs():
     return electrical_installation_total
 
 if __name__ == '__main__':
-    print electrical_installation_costs()
+    print(electrical_installation_costs())

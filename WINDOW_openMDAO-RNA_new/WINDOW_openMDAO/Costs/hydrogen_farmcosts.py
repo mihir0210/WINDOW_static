@@ -1,6 +1,6 @@
 from openmdao.api import ExplicitComponent
 from WINDOW_openMDAO.input_params import max_n_turbines
-from costs.other_costs import other_costs
+from .costs.other_costs import other_costs
 
 from WINDOW_openMDAO.input_params import distance_to_grid
 
@@ -53,6 +53,8 @@ class HydrogenFarmCostModel(ExplicitComponent):
 
         infield_cable_length = sum(length_p_cable_type)
 
+        print('Infield length', infield_cable_length)
+
 
 
         def pem_decentralized_costs(infield_cable_length , distance_to_grid,annual_h2):
@@ -72,8 +74,8 @@ class HydrogenFarmCostModel(ExplicitComponent):
 
             pipeline_cost = infield_pipeline_cost + export_pipeline_cost
 
-            print 'infield pipeline cost', infield_pipeline_cost
-            print 'export pipeline cost', export_pipeline_cost
+            print('infield pipeline cost', infield_pipeline_cost)
+            print('export pipeline cost', export_pipeline_cost)
 
             pipeline_installation_cost_perkm = 1e6  # Euros/km (back calculated from BVG for total length of infield (195km) + export (60km)
 
@@ -109,9 +111,9 @@ class HydrogenFarmCostModel(ExplicitComponent):
         support_decomm_costs = sum(support_decomm_costs)
 
         farm_CAPEX_h2 = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs
-        print 'other investment h2',  other_investment_h2
-        print 'pipeline costs', pipeline_costs
-        print 'pipeline installation', pipeline_installation_costs
+        print('other investment h2',  other_investment_h2)
+        print('pipeline costs', pipeline_costs)
+        print('pipeline installation', pipeline_installation_costs)
 
         #### project development and other farm costs based on BVG (https://guidetoanoffshorewindfarm.com/wind-farm-costs) and NREL (https://www.nrel.gov/docs/fy21osti/78471.pdf)
         total_farm_CAPEX = farm_CAPEX_h2 / 0.85  # The other 15 % comes from management, project dev, insurance, contingency, construction management, etc.
@@ -129,10 +131,10 @@ class HydrogenFarmCostModel(ExplicitComponent):
         #print 'infield cable costs:', infield_cable_investment
 
 
-        print 'Total investment costs H2:', outputs['investment_costs_h2']
-        print 'project dev and management H2', project_dev_management
-        print 'Other farm costs H2 (insurance, contingency)', other_farm_costs
-        print 'Decomissioning H2', outputs['decommissioning_costs_h2']
+        print('Total investment costs H2:', outputs['investment_costs_h2'])
+        print('project dev and management H2', project_dev_management)
+        print('Other farm costs H2 (insurance, contingency)', other_farm_costs)
+        print('Decomissioning H2', outputs['decommissioning_costs_h2'])
         #print 'Rated power:', inputs['machine_rating']
         #print 'Turbine radius:', inputs['rotor_radius']
 

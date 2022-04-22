@@ -2,7 +2,7 @@ from math import pi, atan, degrees, radians, acos, sqrt, cos, sin, exp, isnan
 import numpy as np
 import pandas as pd
 
-from airfoils import ReadAirfoil
+from .airfoils import ReadAirfoil
 
 
 ####################################################
@@ -44,8 +44,11 @@ def bem_annulus(wind_speed, rho_air, \
         alpha = phi - twist - pitch # degree
         phi = radians(phi) # radian
         
-        cl = np.interp(alpha, airfoil.ix[:, 'Alpha'], airfoil.ix[:, 'Cl'])
-        cd = np.interp(alpha, airfoil.ix[:, 'Alpha'], airfoil.ix[:, 'Cd'])
+        # cl = np.interp(alpha, airfoil.ix[:, 'Alpha'], airfoil.ix[:, 'Cl'])
+        # cd = np.interp(alpha, airfoil.ix[:, 'Alpha'], airfoil.ix[:, 'Cd'])
+
+        cl = np.interp(alpha, airfoil.loc[:, 'Alpha'], airfoil.loc[:, 'Cl'])
+        cd = np.interp(alpha, airfoil.loc[:, 'Alpha'], airfoil.loc[:, 'Cd'])
         
         # hack
         if np.isnan(cl) or cl < 1.0e-6 :
@@ -230,6 +233,6 @@ if __name__ == "__main__":
                                   is_prandtl=1, is_glauert=1)
     
     
-    print spanwise
-    print rotor
+    print(spanwise)
+    print(rotor)
     

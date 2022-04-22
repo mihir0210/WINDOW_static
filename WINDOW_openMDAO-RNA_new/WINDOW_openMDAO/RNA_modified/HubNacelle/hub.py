@@ -56,6 +56,6 @@ if __name__ == "__main__":
     ############### Post Processing ###################
     ################################################### 
     beautify_dict(inputs) 
-    print '-'*10
+    print(('-'*10))
     beautify_dict(outputs)
         

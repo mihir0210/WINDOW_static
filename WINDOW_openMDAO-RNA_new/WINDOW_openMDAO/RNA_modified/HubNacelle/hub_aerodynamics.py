@@ -10,8 +10,8 @@ from WINDOW_openMDAO.src.api import AbsHubAerodynamics
 class Tanuj(AbsHubAerodynamics):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        g = self.metadata['g']
+        safety_factor = self.options['safety_factor']
+        g = self.options['g']
         
         # inputs    
         hub_assembly_mass = inputs['hub_mass'] + inputs['pitch_mass'] + inputs['spinner_mass']

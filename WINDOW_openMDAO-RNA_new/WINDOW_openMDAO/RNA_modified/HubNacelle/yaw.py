@@ -1,5 +1,5 @@
 from WINDOW_openMDAO.src.api import AbsYaw
-from drivese_utils import size_YawSystem
+from .drivese_utils import size_YawSystem
 
 
 #############################################################################
@@ -8,7 +8,7 @@ from drivese_utils import size_YawSystem
 class DriveSE(AbsYaw):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
+        safety_factor = self.options['safety_factor']
         
         # inputs
         self.rotor_diameter = inputs['rotor_diameter']

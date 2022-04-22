@@ -2,14 +2,14 @@ from openmdao.api import ExplicitComponent
 
 class AbsPowerCurve(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('num_bins', desc='Number of wind speed samples')
-        self.metadata.declare('rho_air',  desc='Density of air [kg/m**3]', default=1.225)
-        self.metadata.declare('power_file', desc='URL of power curve file')
-        self.metadata.declare('ct_file', desc='URL of thrust coefficient curve file')
+        self.options.declare('num_bins', desc='Number of wind speed samples')
+        self.options.declare('rho_air',  desc='Density of air [kg/m**3]', default=1.225)
+        self.options.declare('power_file', desc='URL of power curve file')
+        self.options.declare('ct_file', desc='URL of thrust coefficient curve file')
         
     def setup(self):
         # metadata
-        num_bins = self.metadata['num_bins']
+        num_bins = self.options['num_bins']
         
         # inputs
         self.add_input('design_tsr', desc='design tip speed ratio')

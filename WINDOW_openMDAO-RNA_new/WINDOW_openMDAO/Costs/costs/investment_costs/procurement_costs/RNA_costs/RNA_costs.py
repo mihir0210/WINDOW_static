@@ -13,4 +13,4 @@ def rna_costs(NT, purchase_price, warranty_percentage):
     return total_rna_cost
 
 if __name__ == '__main__':
-    print rna_costs()
+    print(rna_costs())

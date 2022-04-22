@@ -4,8 +4,8 @@ from openmdao.api import ExplicitComponent
 class AbsRevenue(ExplicitComponent):
     def initialize(self):
 
-        self.metadata.declare('wind_speed_file', desc='wind speed data file')
-        self.metadata.declare('spot_price_file', desc ='Spot price data file')
+        self.options.declare('wind_speed_file', desc='wind speed data file')
+        self.options.declare('spot_price_file', desc ='Spot price data file')
 
 
     def setup(self):

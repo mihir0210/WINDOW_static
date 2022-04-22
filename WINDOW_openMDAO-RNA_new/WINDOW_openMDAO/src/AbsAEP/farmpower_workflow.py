@@ -3,7 +3,7 @@ from WINDOW_openMDAO.src.AbsWakeModel.wake_linear_solver import WakeModel
 from WINDOW_openMDAO.src.AbsAEP.abstract_power import FarmAeroPower
 from WINDOW_openMDAO.src.SiteConditionsPrep.windrose_process import WindrosePreprocessor
 from WINDOW_openMDAO.src.AbsAEP.open_cases import OpenCases
-from time import clock
+#from time import clock
 
 
 class AEPWorkflow(Group):

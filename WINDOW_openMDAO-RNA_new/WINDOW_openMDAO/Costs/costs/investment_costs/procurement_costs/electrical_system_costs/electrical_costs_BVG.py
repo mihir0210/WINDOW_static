@@ -26,7 +26,7 @@ def electrical_procurement_costs_BVG(NT, P_rated, config):
 
         #substations_required = np.ceil(NT*(P_rated/1000.0)/single_offshore_substation_cap)
 
-        tol = NT*(P_rated/1000.0)/single_offshore_substation_cap - round(NT*(P_rated/1000.0)/single_offshore_substation_cap) #check if the value just crosses an integer
+        tol = NT*(P_rated/1000.0)/single_offshore_substation_cap - np.round(NT*(P_rated/1000.0)/single_offshore_substation_cap) #check if the value just crosses an integer
 
         if tol>0 and tol<0.01:
             substations_required = round(NT * (P_rated / 1000.0) / single_offshore_substation_cap)

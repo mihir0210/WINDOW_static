@@ -29,12 +29,12 @@ def batch():
 def singlecase():
     ##### Run a single case #####
     value_power = 15
-    value_rad = 125 #reference rotor radius
+    value_rad = 120 #reference rotor radius
     target_IRR = 0.1
-    dict = {'target_IRR':target_IRR}
-    f = open('Input/finance.txt', 'w')
-    f.write(repr(dict) + '\n')
-    f.close()
+    # dict = {'target_IRR':target_IRR}
+    # f = open('Input/finance.txt', 'w')
+    # f.write(repr(dict) + '\n')
+    # f.close()
 
     run_main_script(value_rad, value_power)
     # old_filename = 'parameters.csv'
@@ -43,7 +43,7 @@ def singlecase():
 
 ## RUN ##
 
-batch()
+#batch()
 
 
-#singlecase()
+singlecase()

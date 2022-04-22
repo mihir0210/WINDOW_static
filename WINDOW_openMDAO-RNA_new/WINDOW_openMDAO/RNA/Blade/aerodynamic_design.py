@@ -20,9 +20,9 @@ class PeggedNodes(AbsAerodynamicDesign):
     
     def compute(self, inputs, outputs):
         # metadata
-        num_pegged = self.metadata['num_pegged']
-        num_airfoils = self.metadata['num_airfoils']
-        num_nodes = self.metadata['num_nodes']
+        num_pegged = self.options['num_pegged']
+        num_airfoils = self.options['num_airfoils']
+        num_nodes = self.options['num_nodes']
         
         # inputs
         rotor_diameter = inputs['rotor_diameter']
@@ -98,7 +98,7 @@ class PeggedNodes(AbsAerodynamicDesign):
             returns the chord length at each node using the inputs at the pegged points
         '''
         
-        num_nodes = self.metadata['num_nodes']
+        num_nodes = self.options['num_nodes']
                 
         # redesign for manufacturing ease
         mu0 = 0.20
@@ -178,9 +178,9 @@ class Scaling(AbsAerodynamicDesign):
     
     def compute(self, inputs, outputs):
         # metadata
-        num_pegged = self.metadata['num_pegged']
-        num_airfoils = self.metadata['num_airfoils']
-        num_nodes = self.metadata['num_nodes']
+        num_pegged = self.options['num_pegged']
+        num_airfoils = self.options['num_airfoils']
+        num_nodes = self.options['num_nodes']
         
         # inputs
         rotor_diameter = inputs['rotor_diameter']
@@ -239,7 +239,7 @@ class Scaling(AbsAerodynamicDesign):
             but VARYING rotor radius
         '''
         
-        ReferenceTurbine = pd.read_csv(self.metadata['reference_turbine'])
+        ReferenceTurbine = pd.read_csv(self.options['reference_turbine'])
         
         ref_radius = ReferenceTurbine.r.iat[-1]
         ref_chord = np.interp(mu, ReferenceTurbine['mu'], ReferenceTurbine['chord'])

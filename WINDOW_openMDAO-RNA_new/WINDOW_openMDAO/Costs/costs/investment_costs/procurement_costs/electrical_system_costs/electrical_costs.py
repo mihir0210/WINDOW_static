@@ -40,7 +40,7 @@ def electrical_procurement_costs(NT, P_rated, generator_voltage, collection_volt
     transmission_cable_length = distance_to_grid
     copper_mass_pm = 3 * a_conductor * rho_copper
     xlpe_mass_pm = (3 * (d_insulation ** 2 - d_conductor_screen ** 2) * 0.25 * pi * rho_xlpe)
-    print 'copper + xlpe mass per m:', copper_mass_pm + xlpe_mass_pm
+    print('copper + xlpe mass per m:', copper_mass_pm + xlpe_mass_pm)
     # print copper_mass_pm, copper_price
     copper_price_pm = copper_mass_pm * copper_price
     xlpe_price_pm = xlpe_mass_pm * xlpe_insulation_price
@@ -62,4 +62,4 @@ def electrical_procurement_costs(NT, P_rated, generator_voltage, collection_volt
     return electrical_total_costs
 
 if __name__ == '__main__':
-    print electrical_procurement_costs()
+    print(electrical_procurement_costs())

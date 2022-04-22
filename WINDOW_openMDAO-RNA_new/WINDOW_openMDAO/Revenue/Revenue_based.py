@@ -15,14 +15,14 @@ class Revenue_based(AbsRevenue):
     def initialize(self):
 
         # fixed parameters
-        self.metadata.declare('wind_speed_file', desc='wind speed data file')
-        self.metadata.declare('spot_price_file', desc ='Spot price data file')
+        self.options.declare('wind_speed_file', desc='wind speed data file')
+        self.options.declare('spot_price_file', desc ='Spot price data file')
 
 
     def compute(self, inputs, outputs):
 
-        wind_speed_file = self.metadata['wind_speed_file']
-        spot_price_file = self.metadata['spot_price_file']
+        wind_speed_file = self.options['wind_speed_file']
+        spot_price_file = self.options['spot_price_file']
 
 
 
@@ -107,7 +107,7 @@ class Revenue_based(AbsRevenue):
 
 
         IRR = np.irr(cashflows)
-        print IRR
+        print(IRR)
         #IRR = np.irr(output_list)
 
         discount_rate = 0.05

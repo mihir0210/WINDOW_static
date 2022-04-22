@@ -2,7 +2,7 @@ from openmdao.api import ExplicitComponent
 
 class AbsGenerator(ExplicitComponent):
     def initialize(self):
-        self.metadata.declare('drivetrain_design', desc='Drive train configuration', default='geared') # ['geared', 'single_stage', 'multi_drive', 'pm_direct_drive']
+        self.options.declare('drivetrain_design', desc='Drive train configuration', default='geared') # ['geared', 'single_stage', 'multi_drive', 'pm_direct_drive']
     
     
     def setup(self):

@@ -12,10 +12,10 @@ class PowerCurve(AbsPowerCurve):
                 
     def compute(self, inputs, outputs):
         # metadata
-        num_bins = self.metadata['num_bins']
-        rho_air = self.metadata['rho_air']
-        power_file = self.metadata['power_file']
-        ct_file = self.metadata['ct_file']
+        num_bins = self.options['num_bins']
+        rho_air = self.options['rho_air']
+        power_file = self.options['power_file']
+        ct_file = self.options['ct_file']
         
         # inputs
         design_tsr = inputs['design_tsr'] 
@@ -51,11 +51,12 @@ class PowerCurve(AbsPowerCurve):
                 power  = rotor_cp * 0.5 * rho_air * swept_area * (v**3) / 1000.0  
                 thrust = rotor_ct * 0.5 * rho_air * swept_area * (v**2)   
                 cp = rotor_cp
-                ct = rotor_ct           
+                ct = rotor_ct[0]
+
+
             else:
                 power = machine_rating/eta_dt    
                 cp = (machine_rating * 1000.0)/(0.5 * rho_air * swept_area * (v**3) * eta_dt)
-                
                 # => cp = 4a(1-a)^2 
                 # => 4a^3 - 8a^2 + 4a - cp = 0
                 a = min(np.roots([4, -8, 4, -1*cp]))
@@ -63,21 +64,25 @@ class PowerCurve(AbsPowerCurve):
                 thrust = ct * 0.5 * rho_air * swept_area * (rated_wind_speed**2)
             
             aero_power_bin.append(power)        # aerodynamic power
-            elec_power_bin.append(power*eta_dt) # electrical power    
+            elec_power = power*eta_dt
+            #print(elec_power)
+            elec_power_bin.append(elec_power[0]) # electrical power
             thrust_bin.append(thrust)
             cp_bin.append(cp)
             ct_bin.append(ct)
 
+
         #print 'Max Ct:', max(ct_bin)
         # generate power curve and thrust coefficient curve files
-        create_curves(power_file, wind_bin, np.array(elec_power_bin)*1000) # kW to W
+        #create_curves(power_file, wind_bin, np.array(elec_power_bin)*1000) # kW to W
+        create_curves(power_file, wind_bin, [x*1000 for x in elec_power_bin])  # kW to W
         create_curves(ct_file, wind_bin, ct_bin)
 
         field_names = ['Cp','Rated wind speed','Ct']
         data = {field_names[0]: rotor_cp, field_names[1]: rated_wind_speed, field_names[2]: max(ct_bin)}
         with open('parameters.csv', 'w') as csvfile:
             writer = csv.writer(csvfile)
-            for key, value in data.items():
+            for key, value in list(data.items()):
                 writer.writerow([key, value])
         csvfile.close()
             
@@ -97,7 +102,7 @@ class PowerCurve(AbsPowerCurve):
 def create_curves(file, wind_speed, data):
     f = open(file, 'w')
     for u,d in zip(wind_speed, data):
-        f.write(str(round(u,1)) + '\t' + str(round(d,4)) + '\n')
+        f.write(str(np.round_(u,1)) + '\t' + str(np.round_(d,4)) + '\n')
     f.close()           
         
         
@@ -132,7 +137,7 @@ if __name__ == "__main__":
     ############### Post Processing ###################
     ################################################### 
     beautify_dict(inputs) 
-    print '-'*10
+    print(('-'*10))
     beautify_dict(outputs)  
     
     plots = {'Electrical Power (kW)'  : 'elec_power_bin', \
@@ -140,7 +145,7 @@ if __name__ == "__main__":
              'Thrust (N)' : 'thrust_bin', \
              'C_p (-)' : 'cp_bin', \
              'C_t (-)' : 'ct_bin'}
-    for key, value in plots.items():
+    for key, value in list(plots.items()):
         plt.plot(outputs['wind_bin'], outputs[value])
         plt.xlabel('Wind Speed (m/s)')
         plt.ylabel(key)

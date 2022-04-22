@@ -8,7 +8,7 @@ from drivese_utils import size_HighSpeedSide
 class DriveSE(AbsHSS):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
+        safety_factor = self.options['safety_factor']
         
         # inputs
         self.rotor_diameter = inputs['rotor_diameter']

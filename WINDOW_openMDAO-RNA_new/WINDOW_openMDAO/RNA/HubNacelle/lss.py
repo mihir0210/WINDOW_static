@@ -12,9 +12,9 @@ from drivese_utils import get_L_rb, get_My, get_Mz, size_LSS_3pt, resize_for_bea
 class DriveSE3pt(AbsLSS):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        self.mb1Type = self.metadata['mb1_type']
-        self.mb2Type = self.metadata['mb2_type']
+        safety_factor = self.options['safety_factor']
+        self.mb1Type = self.options['mb1_type']
+        self.mb2Type = self.options['mb2_type']
         
         # inputs
         self.rotor_bending_moment_x = inputs['rotor_bending_moment'][0]*safety_factor
@@ -343,9 +343,9 @@ class DriveSE3pt(AbsLSS):
 class DriveSE4pt(AbsLSS):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        self.mb1Type = self.metadata['mb1_type']
-        self.mb2Type = self.metadata['mb2_type']
+        safety_factor = self.options['safety_factor']
+        self.mb1Type = self.options['mb1_type']
+        self.mb2Type = self.options['mb2_type']
         
         # inputs
         self.rotor_bending_moment_x = inputs['rotor_bending_moment'][0]*safety_factor

@@ -9,8 +9,8 @@ from drivese_utils import setup_Bedplate, characterize_Bedplate_Rear, \
 class DriveSE(AbsBedplate):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
-        self.uptower_transformer = self.metadata['uptower_transformer']
+        safety_factor = self.options['safety_factor']
+        self.uptower_transformer = self.options['uptower_transformer']
         
         # inputs
         self.gbx_length = inputs['gbx_length']

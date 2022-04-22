@@ -133,7 +133,7 @@ class GravityAnalysts:
             top = pile_top
             z_from = base
             z_to = top
-            #print 'monopile length', (top - base)
+            #print('monopile length', (top - base))
             t = self.support_team.design_variables.support_structure.monopile.wall_thickness
             mass = self.rho_steel * self.get_integrated_volume(base, top, base_diameter, top_diameter, z_from, z_to, t)
         

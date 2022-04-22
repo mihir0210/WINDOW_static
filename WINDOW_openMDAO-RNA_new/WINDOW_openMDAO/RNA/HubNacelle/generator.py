@@ -8,7 +8,7 @@ from drivese_utils import size_Generator
 class DriveSE(AbsGenerator):
     def compute(self, inputs, outputs):
         # metadata
-        self.drivetrain_design = self.metadata['drivetrain_design']
+        self.drivetrain_design = self.options['drivetrain_design']
         
         # inputs
         self.rotor_diameter = inputs['rotor_diameter']

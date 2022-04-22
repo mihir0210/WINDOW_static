@@ -25,14 +25,14 @@ class FarmAEP(ExplicitComponent):
     def initialize(self):
 
         # fixed parameters
-        self.metadata.declare('wind_file', desc='wind speed and direction data file')
-        self.metadata.declare('direction_sampling_angle', desc='sector angle for windrose')
-        self.metadata.declare('time_resolution', desc='length of time series data')
+        self.options.declare('wind_file', desc='wind speed and direction data file')
+        self.options.declare('direction_sampling_angle', desc='sector angle for windrose')
+        self.options.declare('time_resolution', desc='length of time series data')
 
 
     def setup(self):
 
-        time_points = self.metadata['time_resolution']
+        time_points = self.options['time_resolution']
         self.add_input('hub_height', val=0.0)
 
         self.add_input('rated_power', val=0.0)
@@ -58,17 +58,19 @@ class FarmAEP(ExplicitComponent):
 
 
 
-        with open('farm_pc_directional.csv', mode='r') as infile: #file is generated in the AeroAEP module
-            reader = csv.reader(infile)
-            dict_farm_power = dict(reader) # has keys for each wind direction and 'Wind speeds'
+        # with open('farm_pc_directional.csv', mode='r') as infile: #file is generated in the AeroAEP module
+        #     reader = csv.reader(infile)
+        #     dict_farm_power = dict(reader) # has keys for each wind direction and 'Wind speeds'
+        #
+        #
+        # for key in list(dict_farm_power.keys()):
+        #     dict_farm_power[key] = ast.literal_eval(dict_farm_power[key]) #remove string from list
 
+        df = pd.read_csv('farm_pc_directional.csv', index_col=0)
+        d = df.to_dict("split")
+        dict_farm_power = dict(zip(d["index"], d["data"])) #generate list from the dataframe
 
-        for key in dict_farm_power.keys():
-            dict_farm_power[key] = ast.literal_eval(dict_farm_power[key]) #remove string from list
-
-        wind_file = self.metadata['wind_file']
-
-
+        wind_file = self.options['wind_file']
         wind_file = pd.read_csv(wind_file)
 
         wind_speed_100 = np.array(wind_file['wind_speed'])
@@ -104,22 +106,20 @@ class FarmAEP(ExplicitComponent):
         def wind_bin_allocation():
 
 
-            direction_sampling_angle = self.metadata['direction_sampling_angle']
+            direction_sampling_angle = self.options['direction_sampling_angle']
 
-            num_wind_bins = 360/direction_sampling_angle
+            num_wind_bins = int(360/direction_sampling_angle)
 
-            wind_bin_edges = np.linspace(start=0, stop=360 - direction_sampling_angle, num=num_wind_bins)
-
-
-
+            wind_bin_edges = np.linspace(start=0, stop=360 - int(direction_sampling_angle), num=num_wind_bins)
 
             bin_allocation = []
             corresponding_bin = []
 
             for idx in range(len(wind_direction)):
-                bin_allocation.append(int(wind_direction[idx])/int(direction_sampling_angle))
+                bin_allocation.append(divmod(int(wind_direction[idx]),int(direction_sampling_angle))[0]) #take only quotient of the division
                 if bin_allocation[idx] == num_wind_bins:
                     bin_allocation[idx] = bin_allocation[idx] - 1  # As indexing starts from 0, last bin number would be num_wind_bins - 1
+
                 corresponding_bin.append(int(wind_bin_edges[bin_allocation[idx]])) # corresponding wind direction bin between 0 and 360
 
             # corresponding bin can be used as a key to access the power curve from dict_farm_power for each time instant
@@ -134,11 +134,11 @@ class FarmAEP(ExplicitComponent):
             farm_power = []  # time series (hourly) of farm power output
 
             for idx in range(len(wind_direction)):
-                data_farm_power = dict_farm_power[str(corresponding_bin[idx])]
+                data_farm_power = dict_farm_power[str(float(corresponding_bin[idx]))]
                 data_wind_speeds = dict_farm_power['Wind speeds']
 
                 max_power = max(data_farm_power)
-                a = min(range(len(data_farm_power)), key=lambda i: abs(data_farm_power[i] - max_power)) #index of rated farm power
+                a = min(list(range(len(data_farm_power))), key=lambda i: abs(data_farm_power[i] - max_power)) #index of rated farm power
                 rated_ws = data_wind_speeds[a] # rated farm wind speed
 
                 # use data until rated wind speed to perform a cubic curve fit
@@ -187,7 +187,7 @@ class FarmAEP(ExplicitComponent):
         data = {field_names[0]: np.mean(wind_speed), field_names[1]:sum(turbine_power_ts)*n_t, field_names[2]:outputs['farm_AEP'], field_names[3]:(1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
-            for key, value in data.items():
+            for key, value in list(data.items()):
                 writer.writerow([key, value])
         csvfile.close()
 

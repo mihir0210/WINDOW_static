@@ -1,5 +1,5 @@
 from WINDOW_openMDAO.src.api import AbsTransformer
-from drivese_utils import size_Transformer
+from .drivese_utils import size_Transformer
 
         
         
@@ -9,7 +9,7 @@ from drivese_utils import size_Transformer
 class DriveSE(AbsTransformer):
     def compute(self, inputs, outputs):
         # metadata
-        self.uptower_transformer = self.metadata['uptower_transformer']
+        self.uptower_transformer = self.options['uptower_transformer']
         
         # inputs
         self.machine_rating = inputs['machine_rating']

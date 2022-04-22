@@ -23,6 +23,7 @@ def electrical_installation_costs_BVG(config, infield_length):
         onshore_substation_installation = 2.9e7 #Euros
 
         electrical_installation_total = cable_installation_total + offshore_substation_installation + onshore_substation_installation
+        #electrical_installation_total = array_cable_installation_cost #for a case in NL where TenneT pays for the rest
 
         #print 'array cable installation', array_cable_installation_cost
         #print 'export cable installation', export_cable_installation_cost

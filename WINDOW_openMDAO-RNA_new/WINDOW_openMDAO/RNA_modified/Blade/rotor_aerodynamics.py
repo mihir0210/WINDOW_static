@@ -1,8 +1,8 @@
 from math import pi
 
 from WINDOW_openMDAO.src.api import AbsRotorAerodynamics
-from bem import bem_rotor
-import matlab.engine
+from .bem import bem_rotor
+#import matlab.engine
 import os
 import numpy as np
 import scipy.io
@@ -20,7 +20,7 @@ class BEM(AbsRotorAerodynamics):
     
     def compute(self, inputs, outputs): 
         # metadata
-        rho_air = self.metadata['rho_air']
+        rho_air = self.options['rho_air']
           
         # inputs     
         design_tsr = inputs['design_tsr']
@@ -169,14 +169,14 @@ if __name__ == "__main__":
     
     start = time()  
     model.compute(inputs, outputs)  
-    print 'Executed in ' + str(round(time() - start, 2)) + ' seconds'
+    print(('Executed in ' + str(round(time() - start, 2)) + ' seconds'))
     
     
     ###################################################
     ############### Post Processing ###################
     ################################################### 
     beautify_dict(inputs) 
-    print '-'*10
+    print(('-'*10))
     beautify_dict(outputs)  
     
     

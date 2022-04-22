@@ -15,12 +15,12 @@ class H2(Group):
 
     def initialize(self):
         ### FIXED USER-DEFINED PARAMETERS ###
-        self.metadata.declare('electrolyser_ratio', desc='Ratio of electrolyser capacity to wind farm capacity')
-        self.metadata.declare('time_resolution', desc = 'Number of time points in a year')
+        self.options.declare('electrolyser_ratio', desc='Ratio of electrolyser capacity to wind farm capacity')
+        self.options.declare('time_resolution', desc = 'Number of time points in a year')
 
     def setup(self):
-        electrolyser_ratio = self.metadata['electrolyser_ratio']
-        time_resolution = self.metadata['time_resolution']
+        electrolyser_ratio = self.options['electrolyser_ratio']
+        time_resolution = self.options['time_resolution']
 
 
         #Add the two electrolysers
@@ -53,6 +53,6 @@ if __name__ == "__main__":
 
     prob.run_model()
 
-    print prob['annual_H2']
-    print prob['H2_CAPEX']
-    print prob['H2_OPEX']
+    print((prob['annual_H2']))
+    print((prob['H2_CAPEX']))
+    print((prob['H2_OPEX']))

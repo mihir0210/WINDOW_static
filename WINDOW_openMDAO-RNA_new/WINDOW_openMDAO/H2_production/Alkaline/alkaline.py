@@ -9,7 +9,7 @@ class ALKALINE(AbsAlkaline):
 
     def compute(self, inputs, outputs):
 
-        electrolyser_ratio = self.metadata['electrolyser_ratio']
+        electrolyser_ratio = self.options['electrolyser_ratio']
 
 
         N_T = inputs['N_T']
@@ -35,15 +35,15 @@ class ALKALINE(AbsAlkaline):
 
         OPEX = self.OPEX(CAPEX)
 
-        print 'Annual H2:', annual_H2
-        print 'H2 CAPEX:', CAPEX
-        print 'H2 OPEX', OPEX
-        print 'H2 total costs', CAPEX + OPEX
+        print('Annual H2:', annual_H2)
+        print('H2 CAPEX:', CAPEX)
+        print('H2 OPEX', OPEX)
+        print('H2 total costs', CAPEX + OPEX)
 
 
 
 
-        print 'energy curtailed:', sum(power_curtailed)
+        print('energy curtailed:', sum(power_curtailed))
 
 
 

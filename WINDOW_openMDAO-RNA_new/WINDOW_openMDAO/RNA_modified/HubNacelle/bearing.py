@@ -7,7 +7,7 @@ from WINDOW_openMDAO.src.api import AbsBearing
 class MainBearing(AbsBearing):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
+        safety_factor = self.options['safety_factor']
         
         # inputs
         self.bearing_mass = inputs['bearing_mass']
@@ -47,7 +47,7 @@ class MainBearing(AbsBearing):
 class SecondBearing(AbsBearing):
     def compute(self, inputs, outputs):
         # metadata
-        safety_factor = self.metadata['safety_factor']
+        safety_factor = self.options['safety_factor']
         
         # inputs
         self.bearing_mass = inputs['bearing_mass']
@@ -110,5 +110,5 @@ if __name__ == "__main__":
     ############### Post Processing ###################
     ################################################### 
     beautify_dict(inputs) 
-    print '-'*10
+    print(('-'*10))
     beautify_dict(outputs)

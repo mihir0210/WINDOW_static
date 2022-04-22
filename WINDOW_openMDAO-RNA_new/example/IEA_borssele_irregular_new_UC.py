@@ -5,7 +5,7 @@ def run_main_script(value_rad, value_power):
     import pandas as pd
     #from __main__ import value_rad, value_power
     # Imports OpenMDAO API
-    from openmdao.api import Problem, ScipyOptimizer, view_model, SimpleGADriver
+    from openmdao.api import Problem, ScipyOptimizeDriver     #ScipyOptimizer, view_model, SimpleGADriver
     from openmdao.api import SqliteRecorder, CaseReader
 
 
@@ -33,8 +33,8 @@ def run_main_script(value_rad, value_power):
     # Imports the Options class to instantiate a workflow.
     from WINDOW_openMDAO.src.api import WorkflowOptions
 
-    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
-    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
+    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
+    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
 
     import warnings
 
@@ -50,7 +50,7 @@ def run_main_script(value_rad, value_power):
         header = '=' * 10 + " " + string + " " + '=' * 10 + '\n'
         header += str(value) + "\n"
         header += "=" * (22 + len(string))
-        print header
+        print(header)
 
 
     options = WorkflowOptions()
@@ -103,6 +103,14 @@ def run_main_script(value_rad, value_power):
 
     options.input.market.spot_price_file = 'Input/NL_2019_spot_price_hourly.csv'
 
+    import ast
+    with open('Input/finance.txt', 'r') as file:
+        data = file.read()
+        d = ast.literal_eval(data)
+
+    target_IRR = d['target_IRR']
+    options.input.market.target_IRR = target_IRR
+
     ### H2 addition ###
     options.input.hydrogen.electrolyser_ratio = 1
 
@@ -154,13 +162,13 @@ def run_main_script(value_rad, value_power):
 
     lcoe = problem['lcoe.LCOE'][0]
     aep = problem['AeroAEP.AEP'][0]
-    subsidy_required = problem['FarmIRR.subsidy_required'][0]
+    #subsidy_required = problem['FarmIRR.subsidy_required'][0]
 
 
 
     print_nice("LCOE", lcoe)
     print_nice("AEP", aep)
-    print_nice("Subsidy required", subsidy_required)
+    #print_nice("Subsidy required", subsidy_required)
 
     '''
     ### Setup Optimization ####
@@ -199,7 +207,7 @@ def run_main_script(value_rad, value_power):
     
     problem.run_driver()'''
 
-    print 'Executed in ' + str(round(time() - start, 2)) + ' seconds\n'
+    print('Executed in ' + str(round(time() - start, 2)) + ' seconds\n')
 
     # print outputs
     from WINDOW_openMDAO.src.api import beautify_dict
