@@ -46,26 +46,41 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height,config)
 
-    print('RNA costs:', procurement_rna)
-    print('turbine other costs:', turbine_other_costs)
+    #print('RNA costs:', procurement_rna)
+    #print('turbine other costs:', turbine_other_costs)
     # print 'procurement electrical:', procurement_electrical
     #
     # print 'Installation RNA:', installation_rna
     # print 'electrical installation costs:', installation_electrical
     #print 'Other installation commissioning costs:', other_installation_commissioning_costs
 
-    field_names = ['Export cable costs', 'Total electrical procurement costs', 'Electrical installation costs', 'RNA procurement', 'RNA installation', 'Turbine other costs']
-    data = {field_names[0]: export_cable,
-            field_names[1]: procurement_electrical,
-            field_names[2]: installation_electrical,
-            field_names[3]: procurement_rna,
-            field_names[4]: installation_rna,
-            field_names[5]: turbine_other_costs}
-    with open('parameters.csv', 'a') as csvfile:
-        writer = csv.writer(csvfile)
-        for key, value in list(data.items()):
-            writer.writerow([key, value])
-    csvfile.close()
+    if config==1:
+
+        field_names = ['costs_exportcable', 'costs_total_elecrtical', 'costs_installation_electrical', 'costs_RNA_elec', 'costs_installation_RNA', 'costs_other_turbine_elec']
+        description = ['Export cable costs', 'Total electrical procurement costs including substations', 'Total electrical installation costs', 'Total RNA procurement costs in euros for electricity', 'Total RNA installation costs', 'Other turbine costs (profits, assembly, etc. for electricity']
+        data = {field_names[0]: [export_cable[0], description[0]],
+                field_names[1]: [procurement_electrical[0], description[1]],
+                field_names[2]: [installation_electrical, description[2]],
+                field_names[3]: [procurement_rna[0], description[3]],
+                field_names[4]: [installation_rna[0], description[4]],
+                field_names[5]: [turbine_other_costs[0], description[5]]}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in list(data.items()):
+                writer.writerow([key, value[0], value[1]])
+        csvfile.close()
+
+    elif config==2:
+        field_names = ['costs_RNA_H2', 'costs_other_turbine_H2']
+        description = ['Total RNA procurement costs in euros for H2', 'Other turbine costs (profits, assembly, etc. for H2']
+        data = {field_names[0]: [procurement_rna[0], description[0]],
+                field_names[1]: [turbine_other_costs[0], description[1]]}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in list(data.items()):
+                writer.writerow([key, value[0], value[1]])
+        csvfile.close()
+
 
     #investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
     investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna

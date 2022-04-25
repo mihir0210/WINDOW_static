@@ -3,7 +3,7 @@ from WINDOW_openMDAO.input_params import max_n_turbines
 from .costs.other_costs import other_costs
 
 from WINDOW_openMDAO.input_params import distance_to_grid
-
+import csv
 
 class HydrogenFarmCostModel(ExplicitComponent):
 
@@ -53,7 +53,7 @@ class HydrogenFarmCostModel(ExplicitComponent):
 
         infield_cable_length = sum(length_p_cable_type)
 
-        print('Infield length', infield_cable_length)
+        #print('Infield length', infield_cable_length)
 
 
 
@@ -74,8 +74,8 @@ class HydrogenFarmCostModel(ExplicitComponent):
 
             pipeline_cost = infield_pipeline_cost + export_pipeline_cost
 
-            print('infield pipeline cost', infield_pipeline_cost)
-            print('export pipeline cost', export_pipeline_cost)
+            #print('infield pipeline cost', infield_pipeline_cost)
+            #print('export pipeline cost', export_pipeline_cost)
 
             pipeline_installation_cost_perkm = 1e6  # Euros/km (back calculated from BVG for total length of infield (195km) + export (60km)
 
@@ -84,9 +84,10 @@ class HydrogenFarmCostModel(ExplicitComponent):
             # print 'pipeline costs', pipeline_cost
             # print 'pipeline installation costs', pipeline_installation_cost
 
-            return pipeline_cost, pipeline_installation_cost
+            return infield_pipeline_cost, export_pipeline_cost, pipeline_installation_cost
 
-        [pipeline_costs, pipeline_installation_costs] = pem_decentralized_costs(infield_cable_length , distance_to_grid, annual_h2)
+        [infield_pipeline_cost, export_pipeline_cost, pipeline_installation_costs] = pem_decentralized_costs(infield_cable_length , distance_to_grid, annual_h2)
+        pipeline_costs = infield_pipeline_cost + export_pipeline_cost
 
         purchase_price_h2 = inputs['purchase_price'] - inputs['machine_rating'] * 40 * 0.88  # cost savings in RNA (converter, transformer, switch gears, etc.). 0.88 for USD to EUR
 
@@ -111,9 +112,9 @@ class HydrogenFarmCostModel(ExplicitComponent):
         support_decomm_costs = sum(support_decomm_costs)
 
         farm_CAPEX_h2 = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs
-        print('other investment h2',  other_investment_h2)
-        print('pipeline costs', pipeline_costs)
-        print('pipeline installation', pipeline_installation_costs)
+        #print('other investment h2',  other_investment_h2)
+        #print('pipeline costs', pipeline_costs)
+        #print('pipeline installation', pipeline_installation_costs)
 
         #### project development and other farm costs based on BVG (https://guidetoanoffshorewindfarm.com/wind-farm-costs) and NREL (https://www.nrel.gov/docs/fy21osti/78471.pdf)
         total_farm_CAPEX = farm_CAPEX_h2 / 0.85  # The other 15 % comes from management, project dev, insurance, contingency, construction management, etc.
@@ -127,21 +128,38 @@ class HydrogenFarmCostModel(ExplicitComponent):
         outputs['decommissioning_costs_h2'] = decommissioning_costs_h2 + support_decomm_costs
         outputs['pipeline_costs_h2'] = pipeline_costs
 
+        field_names = ['costs_turbine_without_other_H2', 'costs_infield_pipeline', 'costs_export_pipeline', 'costs_installation_pipeline',
+                       'costs_bop_H2', 'costs_projectdev_H2', 'costs_farm_other_H2',
+                       'costs_totalinvestment_H2', 'costs_decom_H2']
+        description = ['Turbine CAPEX without other non-technical costs for hydrogen', 'Costs of infield pipeline for H2', 'Costs of export pipeline for H2','Costs of pipeline installation for H2', 'Balance of plant costs for H2', 'Project development and management costs for H2',
+                         'Other farm costs (insurance, contingency, etc. for H2', 'Total farm CAPEX for H2', 'Decommissioning costs for H2']
+        data = {field_names[0]: [turbine_CAPEX_h2[0], description[0]],
+                field_names[1]: [infield_pipeline_cost[0], description[1]],
+                field_names[2]: [export_pipeline_cost[0], description[2]],
+                field_names[3]: [pipeline_installation_costs, description[3]],
+                field_names[4]: [outputs['bop_costs_h2'][0], description[4]],
+                field_names[5]: [project_dev_management[0], description[5]],
+                field_names[6]: [other_farm_costs[0], description[6]],
+                field_names[7]: [outputs['investment_costs_h2'][0], description[7]],
+                field_names[8]: [outputs['decommissioning_costs_h2'][0], description[8]]}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in list(data.items()):
+                writer.writerow([key, value[0], value[1]])
+        csvfile.close()
+
+
 
         #print 'infield cable costs:', infield_cable_investment
 
 
-        print('Total investment costs H2:', outputs['investment_costs_h2'])
-        print('project dev and management H2', project_dev_management)
-        print('Other farm costs H2 (insurance, contingency)', other_farm_costs)
-        print('Decomissioning H2', outputs['decommissioning_costs_h2'])
+        # print('Total investment costs H2:', outputs['investment_costs_h2'])
+        # print('project dev and management H2', project_dev_management)
+        # print('Other farm costs H2 (insurance, contingency)', other_farm_costs)
+        # print('Decomissioning H2', outputs['decommissioning_costs_h2'])
         #print 'Rated power:', inputs['machine_rating']
         #print 'Turbine radius:', inputs['rotor_radius']
 
 
 
-
-        #other_installation_commissioning_costs_h2 = 2.48e8 * (farm_CAPEX_h2 / 2.21978122e+09)
-
-        # print 'other installation commission h2', other_installation_commissioning_costs_h2
 

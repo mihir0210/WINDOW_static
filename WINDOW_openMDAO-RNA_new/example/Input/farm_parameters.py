@@ -62,6 +62,8 @@ n_turbines = len(layout)
 
 
 
+
+
 # For regular layouts only use the parameters below.
 downwind_spacing = 2100.0  # [m]
 crosswind_spacing = 1000.0  # [m]

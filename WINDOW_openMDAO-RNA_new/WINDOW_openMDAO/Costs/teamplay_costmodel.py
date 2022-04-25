@@ -87,23 +87,23 @@ class TeamPlayCostModel(ExplicitComponent):
         # print 'Total investment costs electricity:', outputs['investment_costs']
         # print 'Decomissioning costs', decommissioning_costs + support_decomm_costs
 
-        field_names = ['Turbine CAPEX without other costs', 'Infield cable length', 'Infield cable costs',
-                       'BoP costs', 'Project dev and management', 'Other farm costs (insurance, contingency)',
-                       'Total investment costs electricity:', 'Decomissioning costs', 'Rated power', 'Turbine radius']
-        data = {field_names[0]: turbine_CAPEX,
-                field_names[1]: sum(length_p_cable_type),
-                field_names[2]: infield_cable_investment,
-                field_names[3]: outputs['bop_costs'],
-                field_names[4]: project_dev_management,
-                field_names[5]: other_farm_costs,
-                field_names[6]: outputs['investment_costs'],
-                field_names[7]: decommissioning_costs + support_decomm_costs,
-                field_names[8]: inputs['machine_rating'],
-                field_names[9]: inputs['rotor_radius']}
+        field_names = ['infield_length', 'costs_turbine_without_other_elec', 'costs_infield_cable',
+                       'costs_bop_elec', 'costs_projectdev_elec', 'costs_farm_other_elec',
+                       'costs_totalinvestment_elec:', 'costs_decom_elec']
+        description = ['Infield array length', 'Turbine CAPEX without other non-technical costs for electricity', 'Costs of infield array for electricity', 'Balance of plant costs for elecricity', 'Project development and management costs for electricity',
+                         'Other farm costs (insurance, contingency, etc. for electricity', 'Total farm CAPEX for electricity', 'Decommissioning costs for electricity']
+        data = {field_names[0]: [sum(length_p_cable_type), description[0]],
+                field_names[1]: [turbine_CAPEX[0],description[1]],
+                field_names[2]: [infield_cable_investment,description[2]],
+                field_names[3]: [outputs['bop_costs'][0],description[3]],
+                field_names[4]: [project_dev_management[0],description[4]],
+                field_names[5]: [other_farm_costs[0],description[5]],
+                field_names[6]: [outputs['investment_costs'][0],description[6]],
+                field_names[7]: [outputs['decommissioning_costs'][0], description[7]],}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
 

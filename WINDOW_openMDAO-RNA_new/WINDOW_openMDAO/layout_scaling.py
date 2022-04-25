@@ -123,12 +123,13 @@ class LayoutScaling(ExplicitComponent):
 
         [new_layout, new_substation_coords, farm_area] = new_farm()
 
-        field_names = ['Farm area']
-        data = {field_names[0]: farm_area}
+        field_names = ['a_farm']
+        description = ['Area of the wind farm']
+        data = {field_names[0]: [farm_area, description[0]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in data.items():
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
         #print 'farm_area:', farm_area

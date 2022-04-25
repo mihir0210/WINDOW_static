@@ -1,6 +1,6 @@
 from WINDOW_openMDAO.src.AbsH2.pem import AbsPemDecentralized
 from WINDOW_openMDAO.H2_production.efficiency import pemdecentralized_efficiency
-
+import csv
 
 class PEM_DECENTRALIZED(AbsPemDecentralized):
 
@@ -37,9 +37,20 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         OPEX = self.OPEX(CAPEX)
 
-        print('Annual H2:', annual_H2)
-        print('H2 CAPEX:', CAPEX)
-        print('H2 OPEX', OPEX)
+        #print('Annual H2:', annual_H2)
+        #print('H2 CAPEX:', CAPEX)
+        #print('H2 OPEX', OPEX)
+
+        field_names = ['cost_total_h2system','cost_oandm_h2system', 'annual_h2']
+        description =['CAPEX of the H2 system', 'OPEX of the H2 system', 'Annual H2 produced']
+        data = {field_names[0]: [CAPEX[0],description[0]], field_names[1]:[OPEX[0], description[1]], field_names[2]:[annual_H2[0], description[2]]}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in list(data.items()):
+                writer.writerow([key, value[0], value[1]])
+        csvfile.close()
+
+
 
         #print 'energy curtailed:', sum(power_curtailed)
 

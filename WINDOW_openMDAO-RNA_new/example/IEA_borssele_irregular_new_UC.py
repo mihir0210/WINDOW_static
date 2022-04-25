@@ -7,7 +7,7 @@ def run_main_script(value_rad, value_power):
     # Imports OpenMDAO API
     from openmdao.api import Problem, ScipyOptimizeDriver     #ScipyOptimizer, view_model, SimpleGADriver
     from openmdao.api import SqliteRecorder, CaseReader
-
+    import csv
 
 
     # Imports WINDOW workflow
@@ -103,6 +103,23 @@ def run_main_script(value_rad, value_power):
 
     options.input.market.spot_price_file = 'Input/NL_2019_spot_price_hourly.csv'
 
+    ### H2 addition ###
+    options.input.hydrogen.electrolyser_ratio = 1
+
+    ### FAST addition ###
+
+    options.input.turbine.num_tnodes = 11
+
+    field_names = ['p_rated', 'd_rotor']
+    description = ['Rated power', 'Rotor diameter']
+    data = {field_names[0]: [value_power, description[0]], field_names[1]: [value_rad, description[1]]}
+
+    with open('parameters.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        for key, value in list(data.items()):
+            writer.writerow([key, value[0], value[1]])
+    csvfile.close()
+
     import ast
     with open('Input/finance.txt', 'r') as file:
         data = file.read()
@@ -110,13 +127,6 @@ def run_main_script(value_rad, value_power):
 
     target_IRR = d['target_IRR']
     options.input.market.target_IRR = target_IRR
-
-    ### H2 addition ###
-    options.input.hydrogen.electrolyser_ratio = 1
-
-    ### FAST addition ###
-
-    options.input.turbine.num_tnodes = 11
 
 
     # Instantiate OpenMDAO problem class

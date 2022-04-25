@@ -44,12 +44,13 @@ class LCOE(ExplicitComponent):
         #print 'AEP:', AEP
         #print 'LCOE:', lcoe
 
-        field_names = ['LCoE']
-        data = {field_names[0]: lcoe}
+        field_names = ['lcoe']
+        description = ['Levelized cost of electricity']
+        data = {field_names[0]: [lcoe[0], description[0]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in data.items():
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
         #print 'discounted AEP', annuity*(AEP/1e6)

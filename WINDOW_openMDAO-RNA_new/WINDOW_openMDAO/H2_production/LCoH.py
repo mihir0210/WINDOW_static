@@ -1,7 +1,7 @@
 from openmdao.api import ExplicitComponent
 #from time import clock
 import numpy as np
-
+import csv
 
 class LCOH(ExplicitComponent):
 
@@ -53,9 +53,18 @@ class LCOH(ExplicitComponent):
 
 
         #print 'WIND CAPEX:', investment_costs
-        print('LCoH:', LCoH)
+        #print('LCoH:', LCoH)
 
-        print('discounted H2', b)
+        #print('discounted H2', b)
+
+        field_names = ['discounted_h2','lcoh']
+        description =['Total discounted hydrogen produced over the lifetime', 'Levelized cost of hydrogen']
+        data = {field_names[0]: [b[0], description[0]], field_names[1]:[LCoH[0], description[1]]}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in list(data.items()):
+                writer.writerow([key, value[0], value[1]])
+        csvfile.close()
 
         outputs['LCoH'] = LCoH
 

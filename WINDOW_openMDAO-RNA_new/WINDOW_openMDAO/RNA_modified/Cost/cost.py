@@ -156,13 +156,14 @@ class CSMCalibrated(AbsRNACost):
         print 'cost main bearing:', outputs['cost_main_bearing']
         print 'cost main shaft:', outputs['cost_lss']'''
 
-
-        field_names = ['Cost rotor','Nacelle cost']
-        data = {field_names[0]: outputs['cost_blades'] + outputs['cost_hub_system'], field_names[1]:outputs['cost_nacelle']}
+        cost_rotor = outputs['cost_blades'] + outputs['cost_hub_system']
+        field_names = ['cost_rotor','cost_nacelle_elec']
+        description =['Cost of the rotor', 'Cost of the Nacelle assembly for electricity production']
+        data = {field_names[0]: [cost_rotor[0], description[0]], field_names[1]:[outputs['cost_nacelle'][0], description[1]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
         #print 'Generator cost, Mainframe cost, Electrical cost, Transformer cost:', cost_generator, cost_mainframe, cost_electrical, cost_transformer

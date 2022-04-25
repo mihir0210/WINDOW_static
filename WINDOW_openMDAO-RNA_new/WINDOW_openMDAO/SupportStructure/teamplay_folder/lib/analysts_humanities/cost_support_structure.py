@@ -76,19 +76,20 @@ class CostAnalysts:
         # print 'foundation installation costs:',  self.support_team.value.economic.capex.installation.foundations
         # print 'foundation decommisioning:', self.support_team.value.economic.decommissioning.removal.foundations
 
-        field_names = ['Tower mass', 'Monopile mass', 'TP mass', 'Tower costs', 'Monopile costs', 'TP costs', 'Foundation installation costs', 'Foundation decommisioning costs']
-        data = {field_names[0]: self.support_team.properties.support_structure.tower_mass,
-                field_names[1]: self.support_team.properties.support_structure.pile_mass,
-                field_names[2]: self.support_team.properties.support_structure.transition_piece_mass,
-                field_names[3]: self.support_team.value.economic.capex.procurement.support_structures.tower,
-                field_names[4]: self.support_team.value.economic.capex.procurement.support_structures.monopile,
-                field_names[5]: self.support_team.value.economic.capex.procurement.support_structures.transition_piece,
-                field_names[6]: self.support_team.value.economic.capex.installation.foundations,
-                field_names[7]:self.support_team.value.economic.decommissioning.removal.foundations}
+        field_names = ['mass_tower', 'mass_monopile', 'mass_tp', 'costs_tower', 'costs_monopile', 'costs_tp', 'costs_installation_foundation', 'costs_decom_foundation']
+        description = ['Tower mass', 'Monopile mass', 'Transition piece mass', 'Cost of a single tower', 'Cost of a single monopile', 'Cost of a single transition piece', 'Cost of installing one foundation', 'Cost of decommissioning one foundation']
+        data = {field_names[0]: [self.support_team.properties.support_structure.tower_mass[0], description[0]],
+                field_names[1]: [self.support_team.properties.support_structure.pile_mass,description[1]],
+                field_names[2]: [self.support_team.properties.support_structure.transition_piece_mass,description[2]],
+                field_names[3]: [self.support_team.value.economic.capex.procurement.support_structures.tower[0],description[3]],
+                field_names[4]: [self.support_team.value.economic.capex.procurement.support_structures.monopile,description[4]],
+                field_names[5]:[self.support_team.value.economic.capex.procurement.support_structures.transition_piece,description[5]],
+                field_names[6]: [self.support_team.value.economic.capex.installation.foundations,description[6]],
+                field_names[7]:[self.support_team.value.economic.decommissioning.removal.foundations, description[7]]}
 
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
         #print 'real support struc cost:',  self.support_team.value.economic.capex.procurement.support_structures.transition_piece + self.support_team.value.economic.capex.procurement.support_structures.grout + self.support_team.value.economic.capex.procurement.support_structures.monopile + self.support_team.value.economic.capex.procurement.support_structures.scour_protection

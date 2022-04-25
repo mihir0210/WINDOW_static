@@ -78,12 +78,13 @@ class PowerCurve(AbsPowerCurve):
         create_curves(power_file, wind_bin, [x*1000 for x in elec_power_bin])  # kW to W
         create_curves(ct_file, wind_bin, ct_bin)
 
-        field_names = ['Cp','Rated wind speed','Ct']
-        data = {field_names[0]: rotor_cp, field_names[1]: rated_wind_speed, field_names[2]: max(ct_bin)}
-        with open('parameters.csv', 'w') as csvfile:
+        field_names = ['Cp','v_rated','Ct']
+        description = ['Max Power coefficient', 'Rated wind speed', 'Max thrust coefficient']
+        data = {field_names[0]: [rotor_cp[0], description[0]], field_names[1]: [rated_wind_speed[0], description[1]], field_names[2]: [max(ct_bin), description[2]]}
+        with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
             
         # outputs

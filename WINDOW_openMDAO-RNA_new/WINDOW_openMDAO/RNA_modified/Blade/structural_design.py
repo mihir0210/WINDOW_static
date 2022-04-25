@@ -166,12 +166,13 @@ class VariableRadius(AbsStructuralDesign):
         #print 'blade mass:', blade_mass
         blades_mass = blade_mass * blade_number
 
-        field_names = ['Blade mass']
-        data = {field_names[0]: blade_mass}
+        field_names = ['blade_mass']
+        description = ['Mass of 1 blade']
+        data = {field_names[0]: [blade_mass, description[0]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
         # outputs

@@ -100,7 +100,7 @@ class FarmAEP(ExplicitComponent):
         turbine_power_ts = [turbine_power / 1e6 for turbine_power in turbine_power]  # convert to MW
 
         #print 'Farm AEP without losses:', sum(turbine_power_ts)*n_t
-
+        aep_withoutlosses = sum(turbine_power_ts)*n_t
 
 
         def wind_bin_allocation():
@@ -182,13 +182,15 @@ class FarmAEP(ExplicitComponent):
         #print 'AEP with wake:',outputs['farm_AEP']
 
         #print 'wake losses:', (1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))
+        wake_losses = (1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))
 
-        field_names = ['Mean wind speed','AEP without losses', 'AEP with wake', 'Wake losses']
-        data = {field_names[0]: np.mean(wind_speed), field_names[1]:sum(turbine_power_ts)*n_t, field_names[2]:outputs['farm_AEP'], field_names[3]:(1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))}
+        field_names = ['v_mean','n_t','aep_noloss', 'aep_withwake', 'wake_losses']
+        description = ['Mean wind speed at hub height',  'Number of turbines', 'Annual energy production without wakes', 'Annual energy production with wake losses', 'Wake losses']
+        data = {field_names[0]: [np.mean(wind_speed), description[0]], field_names[1]: [n_t[0], description[1]],field_names[2]:[aep_withoutlosses[0], description[2]], field_names[3]:[outputs['farm_AEP'][0], description[3]], field_names[4]:[wake_losses[0], description[4]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
 

@@ -102,11 +102,12 @@ class OM_model2(ExplicitComponent):
         #print('O&M', costs_om)
 
         field_names = ['O&M Costs']
-        data = {field_names[0]: costs_om}
+        description = ['Yearly Operations and Maintenance costs of the wind farm']
+        data = {field_names[0]: [costs_om[0], description[0]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
         outputs['annual_cost_O&M'] = costs_om

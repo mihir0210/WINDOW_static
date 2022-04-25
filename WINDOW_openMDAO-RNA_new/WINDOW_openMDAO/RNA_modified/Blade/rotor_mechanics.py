@@ -206,12 +206,13 @@ class  Analytical(AbsRotorMechanics):
         #print 'Max Stress Skin : ', max_stress_skin
         #print 'Max Stress Te Reinf : ', max_stress_te_reinf
 
-        field_names = ['Tip deflection']
-        data = {field_names[0]: tip_deflection}
+        field_names = ['tip_defl']
+        description = ['Tip deflection']
+        data = {field_names[0]: [tip_deflection, description[0]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
-                writer.writerow([key, value])
+                writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
 
