@@ -34,6 +34,8 @@ class LayoutScaling(ExplicitComponent):
         self.add_input('scaling_factor')
 
         self.add_output('new_layout', shape=(self.n_layout,2))
+        self.add_output('x_coord', shape=(self.n_layout,1))
+        self.add_output('y_coord', shape=(self.n_layout,1))
         self.add_output('new_substation_coords',shape=(self.n_substation,2))
         self.add_output('farm_area')
 
@@ -102,8 +104,7 @@ class LayoutScaling(ExplicitComponent):
             x = np.array([new_layout[idx][0] for idx in range(len(new_layout))])
             y = np.array([new_layout[idx][1] for idx in range(len(new_layout))])
 
-            #flat_x = [item for sublist in x for item in sublist]
-            #flat_y = [item for sublist in y for item in sublist]
+
 
             points = np.random.rand(len(x), 2)
             points[:, 0] = x
@@ -112,6 +113,11 @@ class LayoutScaling(ExplicitComponent):
 
             farm_area = hull.volume/1e6 # in
 
+
+            # x = [item for sublist in x for item in sublist]
+            # y = [item for sublist in y for item in sublist]
+
+
             '''
             plt.plot(points[:, 0], points[:, 1], 'o')
             for simplex in hull.simplices:
@@ -119,9 +125,10 @@ class LayoutScaling(ExplicitComponent):
             plt.show()'''
 
 
-            return new_layout, new_substation_coords, farm_area
+            return x,y, new_layout, new_substation_coords, farm_area
 
-        [new_layout, new_substation_coords, farm_area] = new_farm()
+        [x_coord, y_coord, new_layout, new_substation_coords, farm_area] = new_farm()
+
 
         field_names = ['a_farm']
         description = ['Area of the wind farm']
@@ -137,4 +144,6 @@ class LayoutScaling(ExplicitComponent):
 
         outputs['farm_area'] = farm_area
         outputs['new_layout'] = new_layout
+        outputs['x_coord'] = x_coord
+        outputs['y_coord'] = y_coord
         outputs['new_substation_coords'] = new_substation_coords

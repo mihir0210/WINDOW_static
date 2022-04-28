@@ -1,175 +1,162 @@
 from openmdao.api import ExplicitComponent
-
-
-
-
 import numpy as np
 from scipy import interpolate
+from scipy.stats import weibull_min
 import csv
 import pandas as pd
 import ast
 import matplotlib.pyplot as plt
-
+import collections
+from .directional_weibull import directional_weibull
 
 
 
 class FarmAEP(ExplicitComponent):
     '''
-    This class calculates the Farm power production at each time instant based on the time series data for wind speed and direction.
-    The power curve data points for each wind direction is imported via a csv. A curve will be fit to each of these
-    power curves. For each time instant(for a given wind speed and direction), the farm power can then be extracted.
+    This class runs Py_Wake (https://topfarm.pages.windenergy.dtu.dk/PyWake/) for the given site and turbine,
+    and returns wake losses, hourly farm power, and the AEP.
     '''
 
 
-    def initialize(self):
-
-        # fixed parameters
-        self.options.declare('wind_file', desc='wind speed and direction data file')
-        self.options.declare('direction_sampling_angle', desc='sector angle for windrose')
-        self.options.declare('time_resolution', desc='length of time series data')
+    def __init__(self, n_layout, wind_file, ct_file, power_file, direction_sampling_angle, time_resolution):
+        super(FarmAEP, self).__init__()
+        self.n_layout = n_layout
+        self.time_resolution = time_resolution
+        self.wind_file = wind_file
+        self.ct_file = ct_file
+        self.power_file = power_file
+        self.direction_sampling_angle = direction_sampling_angle
 
 
     def setup(self):
 
-        time_points = self.options['time_resolution']
-        self.add_input('hub_height', val=0.0)
 
+        self.add_input('x_coord', desc='New scaled x coordinates of the turbines in the farm', shape=(self.n_layout,1))
+        self.add_input('y_coord', desc='New scaled y coordinates of the turbines in the farm', shape=(self.n_layout,1))
+
+        self.add_input('hub_height', val=0.0)
         self.add_input('rated_power', val=0.0)
         self.add_input('rotor_diameter', val=0.0)
-        self.add_input('n_t', val=0.0)
-        self.add_input('Cp', val=0.0)
-        self.add_input('rated_ws', val=0.0)
 
-        self.add_output('farm_power', shape = time_points)
+        self.add_output('farm_power', shape = self.time_resolution)
         self.add_output('farm_AEP', val=0.0)
 
 
     def compute(self, inputs, outputs):
 
-        hub_height = inputs['hub_height']
 
+        wind_file = self.wind_file
+        ct_file = self.ct_file
+        power_file = self.power_file
+        n_t = self.n_layout #number of turbines
+        direction_sampling_angle = self.direction_sampling_angle
+
+
+        x_coord = inputs['x_coord']
+        y_coord = inputs['y_coord']
+
+        x_coord = [item for sublist in x_coord for item in sublist] #make it one flat list
+        y_coord = [item for sublist in y_coord for item in sublist] #make it one flat list
+
+        hub_height = inputs['hub_height']
         rated_power = inputs['rated_power']*1e3 #convert to W
         rotor_diameter = inputs['rotor_diameter']
-        n_t = inputs['n_t']
-        Cp = inputs['Cp']
-        rated_ws = inputs['rated_ws']
 
 
+        ws_wd = pd.read_csv(wind_file)
+        wind_speed_100 = ws_wd['wind_speed']
+        wind_direction = ws_wd['wind_direction']
 
 
-        # with open('farm_pc_directional.csv', mode='r') as infile: #file is generated in the AeroAEP module
-        #     reader = csv.reader(infile)
-        #     dict_farm_power = dict(reader) # has keys for each wind direction and 'Wind speeds'
-        #
-        #
-        # for key in list(dict_farm_power.keys()):
-        #     dict_farm_power[key] = ast.literal_eval(dict_farm_power[key]) #remove string from list
-
-        df = pd.read_csv('farm_pc_directional.csv', index_col=0)
-        d = df.to_dict("split")
-        dict_farm_power = dict(zip(d["index"], d["data"])) #generate list from the dataframe
-
-        wind_file = self.options['wind_file']
-        wind_file = pd.read_csv(wind_file)
-
-        wind_speed_100 = np.array(wind_file['wind_speed'])
-
-        wind_speed = []
+        wind_speed_hh = [] #wind speed at hub height
         for v in wind_speed_100:
-            wind_speed.append(v * (hub_height / 100.0) ** 0.11)  # power law to extrapolate wind speed to hub height
-
-        wind_direction = np.array(wind_file['wind_direction'])
+            wind_speed_hh.append(float(v * (hub_height / 100.0) ** 0.11))  # power law to extrapolate wind speed to hub height
 
         #print 'mean wind speed', np.mean(wind_speed)
 
-        turbine_power = []
+
+        shape_fac, scale_fac, prob = directional_weibull(wind_direction, direction_sampling_angle, wind_speed_hh)
 
 
-        for idx in range(len(wind_speed)):
+        def run_pywake(shape_fac, scale_fac, prob):
+            from py_wake import NOJ, BastankhahGaussian, IEA37SimpleBastankhahGaussian, flow_map
+            from py_wake.wind_turbines.power_ct_functions import PowerCtFunctionList, PowerCtTabular
+            from py_wake.site import XRSite
+            from py_wake.wind_turbines import WindTurbine
+            from py_wake.site.shear import PowerShear
+            import xarray as xr
 
-            if wind_speed[idx] <= 3 or wind_speed[idx] > 25:
-                turbine_power.append(0)
-
-            elif wind_speed[idx] >= rated_ws:
-                turbine_power.append(rated_power)
-
-            else:
-                turbine_power.append(0.5 * Cp * 1.225 * (3.142/4) * rotor_diameter ** 2 * (wind_speed[idx] ** 3) * 0.944)
-
-        turbine_power_ts = [turbine_power / 1e6 for turbine_power in turbine_power]  # convert to MW
-
-        #print 'Farm AEP without losses:', sum(turbine_power_ts)*n_t
-        aep_withoutlosses = sum(turbine_power_ts)*n_t
-
-
-        def wind_bin_allocation():
+            f = prob
+            A = scale_fac
+            k = shape_fac
+            wd = np.linspace(0, 360, len(f), endpoint=False) #wind directions
+            ti = .1 #turbulence intensity
+            x_i = x_coord
+            y_i = y_coord
 
 
-            direction_sampling_angle = self.options['direction_sampling_angle']
-
-            num_wind_bins = int(360/direction_sampling_angle)
-
-            wind_bin_edges = np.linspace(start=0, stop=360 - int(direction_sampling_angle), num=num_wind_bins)
-
-            bin_allocation = []
-            corresponding_bin = []
-
-            for idx in range(len(wind_direction)):
-                bin_allocation.append(divmod(int(wind_direction[idx]),int(direction_sampling_angle))[0]) #take only quotient of the division
-                if bin_allocation[idx] == num_wind_bins:
-                    bin_allocation[idx] = bin_allocation[idx] - 1  # As indexing starts from 0, last bin number would be num_wind_bins - 1
-
-                corresponding_bin.append(int(wind_bin_edges[bin_allocation[idx]])) # corresponding wind direction bin between 0 and 360
-
-            # corresponding bin can be used as a key to access the power curve from dict_farm_power for each time instant
-
-            return corresponding_bin
+            site = XRSite(
+                ds=xr.Dataset(
+                    data_vars={'Sector_frequency': ('wd', f), 'Weibull_A': ('wd', A), 'Weibull_k': ('wd', k), 'TI': ti},
+                    coords={'wd': wd}), initial_position=np.array([x_i, y_i]).T)  # Use weibull parameters only to define site
+            x, y = site.initial_position.T
 
 
 
+            ct_data = pd.read_csv(ct_file, delimiter='\t', header=None)
+            power_data = pd.read_csv(power_file, delimiter='\t', header=None)
+            u = ct_data[:][0]
+            ct = ct_data[:][1]
+            power = power_data[:][1]
 
-        def get_farm_power():
+            ref_windturbine = WindTurbine(name='turbine',
+                                          diameter=rotor_diameter[0],
+                                          hub_height=hub_height[0],
+                                          powerCtFunction=PowerCtTabular(u, power, 'W', ct))
 
-            farm_power = []  # time series (hourly) of farm power output
-
-            for idx in range(len(wind_direction)):
-                data_farm_power = dict_farm_power[str(float(corresponding_bin[idx]))]
-                data_wind_speeds = dict_farm_power['Wind speeds']
-
-                max_power = max(data_farm_power)
-                a = min(list(range(len(data_farm_power))), key=lambda i: abs(data_farm_power[i] - max_power)) #index of rated farm power
-                rated_ws = data_wind_speeds[a] # rated farm wind speed
-
-                # use data until rated wind speed to perform a cubic curve fit
-
-                new_data_farm_power = data_farm_power[:a+1]
-                new_data_wind_speeds = data_wind_speeds[:a+1]
-
-
-
-                f = interpolate.interp1d(new_data_wind_speeds, new_data_farm_power, kind = 'cubic')
-
-                if wind_speed[idx] <= data_wind_speeds[0] or wind_speed[idx] > data_wind_speeds[-2]:
-                    farm_power.append(0)
-
-                elif wind_speed[idx] >= rated_ws:
-                    farm_power.append(max(data_farm_power))
-
-                else:
-                    farm_power.append(f(wind_speed[idx]))
-
-            farm_power_output = [farm_power/1e6 for farm_power in farm_power] # convert to MW
+            ref_windturbine.powerCtFunction = PowerCtFunctionList(
+                key='operating',
+                powerCtFunction_lst=[PowerCtTabular(ws=u, power=power, power_unit='w', ct=ct),
+                                     WindTurbine(name='turbine',
+                                                 diameter=rotor_diameter[0],
+                                                 hub_height=hub_height[0],
+                                                 powerCtFunction=PowerCtTabular(u, power, 'W', ct)).powerCtFunction],
+                # 1=Normal operation
+                default_value=1)
 
 
-            return farm_power_output
+            ###### TIME SERIES APPROACH #####
+            ws = np.array(wind_speed_hh)
+            wd = np.array(wind_direction)
+            ti = 0.1 + np.zeros(len(ws)) #turbulence intensity vector with a constant value
+            time_stamp = np.arange(len(ws))
+            operating = np.ones((len(x), len(time_stamp))) #operating condition of each turbine
 
+            wf_model = IEA37SimpleBastankhahGaussian(site, ref_windturbine)
+            sim_res_time = wf_model(x, y,  # wind turbine positions
+                                    wd=wd,  # Wind direction time series
+                                    ws=ws,  # Wind speed time series
+                                    time=time_stamp,  # time stamps
+                                    TI=ti,  # turbulence intensity time series
+                                    operating=operating  # time dependent operating variable
+                                    )
+
+            #print("Total AEP using time series: %f GWh" % sim_res_time.aep().sum())
+
+            aep_with_wake_loss = sim_res_time.aep().sum().data
+            aep_without_wake_loss = sim_res_time.aep(with_wake_loss=False).sum().data
+            wake_losses = (aep_without_wake_loss - aep_with_wake_loss) / aep_without_wake_loss
+
+            #print('Wake losses using time series=', wake_losses)
+
+            farm_power_output = np.sum(sim_res_time.Power.values, axis=0)/ 1e6 #Hourly farm power in MW
+
+            return wake_losses, farm_power_output, aep_with_wake_loss, aep_without_wake_loss
 
 
 
 
-        corresponding_bin = wind_bin_allocation()
-
-        farm_power_ts = get_farm_power()
+        wake_losses, farm_power_ts, aep_with_wake, aep_without_wake = run_pywake(shape_fac, scale_fac, prob)
         #cf = sum(farm_power_ts)/(8760*74*5)
 
         #df = pd.DataFrame(farm_power_ts)
@@ -178,14 +165,10 @@ class FarmAEP(ExplicitComponent):
         outputs['farm_power'] = farm_power_ts # in MW
         outputs['farm_AEP'] = sum(farm_power_ts)*1e6  # in Wh
 
-        #print 'AEP with wake:',outputs['farm_AEP']
-
-        #print 'wake losses:', (1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))
-        wake_losses = (1- sum(farm_power_ts)/(sum(turbine_power_ts)*n_t))
 
         field_names = ['v_mean','n_t','aep_noloss', 'aep_withwake', 'wake_losses']
-        description = ['Mean wind speed at hub height',  'Number of turbines', 'Annual energy production without wakes', 'Annual energy production with wake losses', 'Wake losses']
-        data = {field_names[0]: [np.mean(wind_speed), description[0]], field_names[1]: [n_t[0], description[1]],field_names[2]:[aep_withoutlosses[0], description[2]], field_names[3]:[outputs['farm_AEP'][0], description[3]], field_names[4]:[wake_losses[0], description[4]]}
+        description = ['Mean wind speed at hub height',  'Number of turbines', 'Annual energy production without wakes (GWh)', 'Annual energy production with wake losses (GWh)', 'Wake losses']
+        data = {field_names[0]: [np.mean(wind_speed_hh), description[0]], field_names[1]: [n_t, description[1]],field_names[2]:[aep_without_wake, description[2]], field_names[3]:[outputs['farm_AEP'][0]/1e9, description[3]], field_names[4]:[wake_losses, description[4]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):

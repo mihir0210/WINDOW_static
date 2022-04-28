@@ -188,7 +188,9 @@ class WorkingGroup(Group):
                                                      self.windrose_file, self.power_curve_file, self.ct_curve_file))
 
         ## Add farm AEP module
-        self.add_subsystem('FarmAEP', FarmAEP(wind_file=self.wind_file,
+        self.add_subsystem('FarmAEP', FarmAEP(max_n_turbines,wind_file=self.wind_file,
+                                              ct_file = self.ct_curve_file,
+                                              power_file = self.power_curve_file,
                                               direction_sampling_angle = self.direction_sampling_angle,
                                               time_resolution = self.time_resolution))
 
@@ -204,7 +206,7 @@ class WorkingGroup(Group):
 
 
         self.add_subsystem('OandM', self.opex_model())
-        #self.add_subsystem('OandM_h2', OM_model2_H2())
+
 
         self.add_subsystem('AEP', AEP())
 
@@ -313,29 +315,21 @@ class WorkingGroup(Group):
 
 
 
-        #self.connect('AeroAEP.efficiency', 'OandM.array_efficiency')
-        #self.connect('AeroAEP.efficiency',  'OandM_h2.array_efficiency')
-        #self.connect('AeroAEP.AEP', ['AEP.aeroAEP', 'OandM.AEP'])
-        self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP'])
-        #self.connect('FarmAEP.farm_AEP', 'OandM_h2.AEP')
-        self.connect('rna.hub_height', 'FarmAEP.hub_height')
 
-        self.connect('indep2.n_turbines', 'FarmAEP.n_t')
+        self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP'])
+        self.connect('rna.hub_height', 'FarmAEP.hub_height')
+        self.connect('layout_scaling.x_coord', 'FarmAEP.x_coord')
+        self.connect('layout_scaling.y_coord', 'FarmAEP.y_coord')
         self.connect('power_scaling.machine_rating','FarmAEP.rated_power')
         self.connect('rad2dia.rotor_diameter', 'FarmAEP.rotor_diameter')
-        self.connect('rna.rotor_cp', 'FarmAEP.Cp')
-        self.connect('rna.rated_wind_speed', 'FarmAEP.rated_ws')
 
 
 
         self.connect('indep2.n_turbines', 'OandM.N_T')
-        #self.connect('indep2.n_turbines','OandM_h2.N_T')
         self.connect('power_scaling.machine_rating', 'OandM.P_rated')
-        #self.connect('power_scaling.machine_rating','OandM_h2.P_rated')
         self.connect('usd2eur.cost_rna_eur', 'OandM.RNA_costs')
-        #self.connect('usd2eur.cost_rna_eur', 'OandM_h2.RNA_costs')
         self.connect('Costs.cable_costs', 'OandM.cable_costs')
-        #self.connect('Costs_h2.cable_costs_h2', 'OandM_h2.cable_costs')
+
         
 
         self.connect('OandM.availability', 'AEP.availability')

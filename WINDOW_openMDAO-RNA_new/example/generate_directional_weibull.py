@@ -95,9 +95,9 @@ site = XRSite(
 from py_wake.wind_turbines import WindTurbine
 ct_data = pd.read_csv('Input/ct_rna.dat', delimiter='\t', header=None)
 power_data = pd.read_csv('Input/power_rna.dat', delimiter='\t', header=None)
-u = ct_data[0:61][0]
-ct = ct_data[0:61][1]
-power = power_data[0:61][1]
+u = ct_data[:][0]
+ct = ct_data[:][1]
+power = power_data[:][1]
 
 ref_windturbine = WindTurbine(name='15MW_turbine',
                     diameter=240,
