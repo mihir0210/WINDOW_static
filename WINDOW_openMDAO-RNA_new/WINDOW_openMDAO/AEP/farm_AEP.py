@@ -15,8 +15,7 @@ import matplotlib.pyplot as plt
 
 class FarmAEP(ExplicitComponent):
     '''
-    This class calculates the farm IRR based on the farm power production, spot price, and costs.
-    Farm power production at each time instant is based on the time series data for wind speed and direction.
+    This class calculates the Farm power production at each time instant based on the time series data for wind speed and direction.
     The power curve data points for each wind direction is imported via a csv. A curve will be fit to each of these
     power curves. For each time instant(for a given wind speed and direction), the farm power can then be extracted.
     '''

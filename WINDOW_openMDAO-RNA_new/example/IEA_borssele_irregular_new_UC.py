@@ -96,9 +96,7 @@ def run_main_script(value_rad, value_power):
 
     options.input.site.time_resolution = 8760 #52560
     options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
-    #options.input.site.wind_file = 'Input/DOWA_Borselle_10min_115m_yearly.csv'
-    #options.input.site.wind_speed_file = 'Input/NL_2019_100m_hourly_ERA5_highwind.csv'
-    #options.input.turbine.spot_price_file = 'Input/NL_spot_2018.csv'
+
 
 
     options.input.market.spot_price_file = 'Input/NL_2019_spot_price_hourly.csv'

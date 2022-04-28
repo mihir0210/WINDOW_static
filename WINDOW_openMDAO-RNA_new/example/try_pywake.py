@@ -32,3 +32,5 @@ aep.sum(['wt','ws']).plot()
 plt.xlabel("Wind direction [deg]")
 plt.ylabel("AEP [GWh]")
 plt.show()
+
+

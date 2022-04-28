@@ -337,49 +337,6 @@ class WorkingGroup(Group):
         self.connect('Costs.cable_costs', 'OandM.cable_costs')
         #self.connect('Costs_h2.cable_costs_h2', 'OandM_h2.cable_costs')
         
-        #self.connect('rna.hub_height',['OandM.hub_height','OandM_h2.hub_height'])
-        #self.connect('usd2eur.cost_rna_eur', ['OandM.rna_CAPEX','OandM_h2.rna_CAPEX'])
-        # self.connect('Costs.bop_Costs_h2', 'OandM_h2.bop_costs')
-        # self.connect('Costs.investment_costs', 'OandM.farm_CAPEX')
-        # self.connect('Costs.investment_Costs_h2', 'OandM_h2.farm_CAPEX')
-
-
-        #self.connect('rna.hub_height', 'OandM.hub_height')
-        #self.connect('rna.hub_height','OandM_h2.hub_height')
-        #self.connect('hub_height_normalize.hh_norm',['OandM.hub_height_norm','OandM_h2.hub_height_norm'])
-
-
-        #self.connect('cost_normalize_rna.rna_norm', 'OandM.rna_norm')
-
-
-        #self.connect('usd2eur.cost_rna_eur', 'OandM_h2.rna_capex')
-        #self.connect('indep2.n_turbines', 'cost_normalize_rna_h2.N_T')
-        #self.connect('power_scaling.machine_rating', 'cost_normalize_rna_h2.P')
-        #self.connect('cost_normalize_rna_h2.rna_norm', 'OandM_h2.rna_norm')
-
-
-
-
-        #self.connect('cost_normalize_bop.bop_norm', 'OandM.bop_norm')
-
-
-        #self.connect('Costs_h2.bop_Costs_h2', 'OandM_h2.bop_costs')
-        #self.connect('cost_normalize_bop_h2.bop_norm_h2', 'OandM_h2.bop_norm')
-
-
-
-        #self.connect('Costs.investment_costs', 'OandM.farm_capex')
-        #self.connect('cost_normalize_farmcapex.farmcapex_norm', 'OandM.farm_capex_norm')
-
-
-        #self.connect('Costs_h2.investment_Costs_h2', 'OandM_h2.farm_capex')
-        #self.connect('cost_normalize_farmcapex_h2.farmcapex_norm_h2', 'OandM_h2.farm_capex_norm')
-
-
-
-
-
-
 
         self.connect('OandM.availability', 'AEP.availability')
         self.connect('indep2.coll_electrical_efficiency', 'AEP.electrical_efficiency')
