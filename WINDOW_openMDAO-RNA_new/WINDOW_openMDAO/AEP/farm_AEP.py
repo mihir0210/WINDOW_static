@@ -44,7 +44,6 @@ class FarmAEP(ExplicitComponent):
 
     def compute(self, inputs, outputs):
 
-
         wind_file = self.wind_file
         ct_file = self.ct_file
         power_file = self.power_file
