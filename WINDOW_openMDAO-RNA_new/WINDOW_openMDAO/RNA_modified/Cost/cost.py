@@ -82,6 +82,10 @@ class CSMCalibrated(AbsRNACost):
         #RT = pd.read_csv(cost_folder + 'reference_turbine_cost_mass.csv')
         RT = pd.read_csv(self.options['reference_turbine_cost'])
         return RT.loc[RT['Component'] == component, 'Cost'].values / RT.loc[RT['Component'] == component, 'Mass'].values
+
+    def ref_cost_mass_separate(self, component):
+        RT = pd.read_csv(self.options['reference_turbine_cost'])
+        return RT.loc[RT['Component'] == component, 'Cost'].values, RT.loc[RT['Component'] == component, 'Mass'].values
         
         
     def compute(self, inputs, outputs):
@@ -95,9 +99,13 @@ class CSMCalibrated(AbsRNACost):
 
         
         #outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
-        cost_blade_15_120 = 806791.87422148
-        outputs['cost_blade'] = 806791.87422148*(rotor_diameter/240.0)**2.5  #cost scaling with a factor of 2.5
-        #print 'cost blade', outputs['cost_blade']
+
+        ### Model 2 ###
+        cost_blade_ref = self.ref_cost_mass_separate('Blade')[0] #cost of reference turbine blade
+        rotor_diameter_ref = 240 # Rotor diameter of the reference turbine used
+        weight_material = 0.6 # Weightage given to material costs (carbon fiber, resins, root, etc.)
+        weight_other = 1 - weight_material #Weightage given to tooling, labor, other factors
+        outputs['cost_blade'] = weight_material*self.ref_cost_mass('Blade')*inputs['blade_mass'] + weight_other*cost_blade_ref*(rotor_diameter/rotor_diameter_ref)**2
         outputs['cost_hub'] = inputs['hub_mass'] * self.ref_cost_mass('Hub')
         outputs['cost_pitch'] = inputs['pitch_mass'] * self.ref_cost_mass('Pitch')
         outputs['cost_spinner'] = inputs['spinner_mass'] * self.ref_cost_mass('Spinner')

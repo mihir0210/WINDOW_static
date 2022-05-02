@@ -150,7 +150,7 @@ class FarmAEP(ExplicitComponent):
 
             ti_eff = sim_res_time.TI_eff.values
             max_ti_eff = np.max(ti_eff, axis=1) #maximum of each turbine
-            print(np.max(ti_eff))
+            #print(np.max(ti_eff))
 
             # with open('ti.csv', 'w') as file:
             #     writer = csv.writer(file)

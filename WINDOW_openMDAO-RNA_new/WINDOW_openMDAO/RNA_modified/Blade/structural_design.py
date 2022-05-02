@@ -153,14 +153,11 @@ class VariableRadius(AbsStructuralDesign):
         #### Linear upscaling ###
         blade_mass = np.dot(span_mass, span_dr)
 
-
         #### Emperical model ###
         #blade_mass = (0.0009*rotor_radius**2.367)*1000 #from SANDIA 100 m blade reports, NREL detailed cost model blade (between 2.2 and 2.5)
 
-
         #rated_ws_ratio = rated_wind_speed/10.43
         #blade_mass = blade_mass*(rated_ws_ratio**2) #adjusting for a different specific power leading to a change in rated wind speed and thrust
-
 
 
         #print 'blade mass:', blade_mass
