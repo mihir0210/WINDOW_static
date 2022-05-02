@@ -57,6 +57,7 @@ class AEPFast(ExplicitComponent):
         #print dict_farm_power['60']
 
 
+
         # Write farm power dictionary to a dataframe and then to a csv file
         df = pd.DataFrame.from_dict(dict_farm_power, orient='index')
         df.to_csv("farm_pc_directional.csv")

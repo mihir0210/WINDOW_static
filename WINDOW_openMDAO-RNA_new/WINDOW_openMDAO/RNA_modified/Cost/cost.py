@@ -94,8 +94,9 @@ class CSMCalibrated(AbsRNACost):
 
 
         
-        outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
-        #outputs['cost_blade'] = 806791.87422148*(rotor_diameter/240.0)**2.5  #cost scaling with a factor of 2.5
+        #outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
+        cost_blade_15_120 = 806791.87422148
+        outputs['cost_blade'] = 806791.87422148*(rotor_diameter/240.0)**2.5  #cost scaling with a factor of 2.5
         #print 'cost blade', outputs['cost_blade']
         outputs['cost_hub'] = inputs['hub_mass'] * self.ref_cost_mass('Hub')
         outputs['cost_pitch'] = inputs['pitch_mass'] * self.ref_cost_mass('Pitch')

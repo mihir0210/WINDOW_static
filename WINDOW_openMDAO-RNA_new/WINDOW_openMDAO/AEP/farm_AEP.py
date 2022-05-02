@@ -38,6 +38,7 @@ class FarmAEP(ExplicitComponent):
         self.add_input('rated_power', val=0.0)
         self.add_input('rotor_diameter', val=0.0)
 
+        self.add_output('max_TI', shape = self.n_layout, desc='Maximum local turbulence intensity')
         self.add_output('farm_power', shape = self.time_resolution)
         self.add_output('farm_AEP', val=0.0)
 
@@ -74,7 +75,7 @@ class FarmAEP(ExplicitComponent):
         #print 'mean wind speed', np.mean(wind_speed)
 
 
-        shape_fac, scale_fac, prob = directional_weibull(wind_direction, direction_sampling_angle, wind_speed_hh)
+        shape_fac, scale_fac, prob = directional_weibull(wind_direction, direction_sampling_angle, wind_speed_hh) #fit a weibull curve for each wind direction
 
 
         def run_pywake(shape_fac, scale_fac, prob):
@@ -82,6 +83,7 @@ class FarmAEP(ExplicitComponent):
             from py_wake.wind_turbines.power_ct_functions import PowerCtFunctionList, PowerCtTabular
             from py_wake.site import XRSite
             from py_wake.wind_turbines import WindTurbine
+            from py_wake.turbulence_models import STF2017TurbulenceModel
             from py_wake.site.shear import PowerShear
             import xarray as xr
 
@@ -131,7 +133,7 @@ class FarmAEP(ExplicitComponent):
             time_stamp = np.arange(len(ws))
             operating = np.ones((len(x), len(time_stamp))) #operating condition of each turbine
 
-            wf_model = IEA37SimpleBastankhahGaussian(site, ref_windturbine)
+            wf_model = IEA37SimpleBastankhahGaussian(site, ref_windturbine, turbulenceModel=STF2017TurbulenceModel())
             sim_res_time = wf_model(x, y,  # wind turbine positions
                                     wd=wd,  # Wind direction time series
                                     ws=ws,  # Wind speed time series
@@ -146,21 +148,31 @@ class FarmAEP(ExplicitComponent):
             aep_without_wake_loss = sim_res_time.aep(with_wake_loss=False).sum().data
             wake_losses = (aep_without_wake_loss - aep_with_wake_loss) / aep_without_wake_loss
 
-            #print('Wake losses using time series=', wake_losses)
+            ti_eff = sim_res_time.TI_eff.values
+            max_ti_eff = np.max(ti_eff, axis=1) #maximum of each turbine
+            print(np.max(ti_eff))
+
+            # with open('ti.csv', 'w') as file:
+            #     writer = csv.writer(file)
+            #     for idx in range(len(ti_eff)):
+            #         writer.writerow(ti_eff[idx])
+            # file.close()
+
 
             farm_power_output = np.sum(sim_res_time.Power.values, axis=0)/ 1e6 #Hourly farm power in MW
 
-            return wake_losses, farm_power_output, aep_with_wake_loss, aep_without_wake_loss
+            return max_ti_eff, wake_losses, farm_power_output, aep_with_wake_loss, aep_without_wake_loss
 
 
 
 
-        wake_losses, farm_power_ts, aep_with_wake, aep_without_wake = run_pywake(shape_fac, scale_fac, prob)
+        max_ti_eff, wake_losses, farm_power_ts, aep_with_wake, aep_without_wake = run_pywake(shape_fac, scale_fac, prob)
         #cf = sum(farm_power_ts)/(8760*74*5)
 
         #df = pd.DataFrame(farm_power_ts)
         #df.to_csv('farm_power_75_10min.csv')
 
+        outputs['max_TI'] = max_ti_eff
         outputs['farm_power'] = farm_power_ts # in MW
         outputs['farm_AEP'] = sum(farm_power_ts)*1e6  # in Wh
 

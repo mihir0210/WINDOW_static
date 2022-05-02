@@ -183,9 +183,9 @@ class WorkingGroup(Group):
         self.add_subsystem('depths', RoughClosestNode(max_n_turbines, self.bathymetry_file))
         self.add_subsystem('platform_depth', RoughClosestNode(max_n_substations, self.bathymetry_file))
 
-        self.add_subsystem('AeroAEP', self.aep_model(self.wake_model, self.turbulence_model, self.merge_model,
-                                                     self.direction_sampling_angle, self.windspeed_sampling_points,
-                                                     self.windrose_file, self.power_curve_file, self.ct_curve_file))
+        # self.add_subsystem('AeroAEP', self.aep_model(self.wake_model, self.turbulence_model, self.merge_model,
+        #                                              self.direction_sampling_angle, self.windspeed_sampling_points,
+        #                                              self.windrose_file, self.power_curve_file, self.ct_curve_file))
 
         ## Add farm AEP module
         self.add_subsystem('FarmAEP', FarmAEP(max_n_turbines,wind_file=self.wind_file,
@@ -216,11 +216,6 @@ class WorkingGroup(Group):
 
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
-
-
-
-
-
 
         ## Add farm IRR module
         #self.add_subsystem('FarmIRR', FarmIRR(wind_file=self.wind_file,
@@ -256,13 +251,13 @@ class WorkingGroup(Group):
         self.connect('indep2.Np', 'rna.Np')
         self.connect('rna.cost_rna', 'usd2eur.cost_rna_usd')
 
-        # self.connect('indep2.turbine_radius', 'AeroAEP.turbine_radius')
-        self.connect('rad_scaling.turbine_radius', 'AeroAEP.turbine_radius')
-        self.connect('indep2.cut_in_speed', 'AeroAEP.cut_in_speed')
-        self.connect('indep2.cut_out_speed', 'AeroAEP.cut_out_speed')
-        # self.connect('indep2.machine_rating', 'AeroAEP.machine_rating')
-        self.connect('power_scaling.machine_rating', 'AeroAEP.machine_rating')
-        self.connect('rna.rated_wind_speed', 'AeroAEP.rated_wind_speed')
+        # # self.connect('indep2.turbine_radius', 'AeroAEP.turbine_radius')
+        # self.connect('rad_scaling.turbine_radius', 'AeroAEP.turbine_radius')
+        # self.connect('indep2.cut_in_speed', 'AeroAEP.cut_in_speed')
+        # self.connect('indep2.cut_out_speed', 'AeroAEP.cut_out_speed')
+        # # self.connect('indep2.machine_rating', 'AeroAEP.machine_rating')
+        # self.connect('power_scaling.machine_rating', 'AeroAEP.machine_rating')
+        # self.connect('rna.rated_wind_speed', 'AeroAEP.rated_wind_speed')
 
         ###### Layout scaling connects ######
 
@@ -271,7 +266,7 @@ class WorkingGroup(Group):
         self.connect('rad_scaling.turbine_radius', 'layout_scaling.turbine_radius')
         self.connect('scaling_factor', 'layout_scaling.scaling_factor')
 
-        self.connect("layout_scaling.new_layout", ["numberlayout.orig_layout", "AeroAEP.layout", "constraint_distance.orig_layout",
+        self.connect("layout_scaling.new_layout", ["numberlayout.orig_layout", "constraint_distance.orig_layout",
                                        "constraint_boundary.layout"])
         self.connect("layout_scaling.new_substation_coords", "numbersubstation.orig_layout")
 
@@ -289,7 +284,7 @@ class WorkingGroup(Group):
         self.connect('numberlayout.number_layout', 'depths.layout')
 
         self.connect('indep2.n_turbines',
-                     ['AeroAEP.n_turbines', 'electrical.n_turbines', 'support.n_turbines', 'Costs.n_turbines', 'Costs_h2.n_turbines'])
+                     ['electrical.n_turbines', 'support.n_turbines', 'Costs.n_turbines', 'Costs_h2.n_turbines'])
 
         self.connect('numberlayout.number_layout', 'electrical.layout')
         self.connect('indep2.n_turbines_p_cable_type', 'electrical.n_turbines_p_cable_type')
@@ -298,7 +293,8 @@ class WorkingGroup(Group):
         self.connect('rna.turbine_rated_current', 'electrical.turbine_rated_current')
 
         self.connect('depths.water_depths', 'support.depth')
-        self.connect('AeroAEP.max_TI', 'support.max_TI')
+        #self.connect('AeroAEP.max_TI', 'support.max_TI')
+        self.connect('FarmAEP.max_TI', 'support.max_TI')
         # self.connect('indep2.turbine_radius', 'support.rotor_radius')
         self.connect('rad_scaling.turbine_radius', 'support.rotor_radius')
         self.connect('rna.rated_wind_speed', 'support.rated_wind_speed')

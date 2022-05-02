@@ -169,7 +169,7 @@ def run_main_script(value_rad, value_power):
 
 
     lcoe = problem['lcoe.LCOE'][0]
-    aep = problem['AeroAEP.AEP'][0]
+    aep = problem['FarmAEP.farm_AEP'][0]
     #subsidy_required = problem['FarmIRR.subsidy_required'][0]
 
 
