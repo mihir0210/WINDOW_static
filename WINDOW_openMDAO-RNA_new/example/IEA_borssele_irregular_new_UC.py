@@ -20,7 +20,7 @@ def run_main_script(value_rad, value_power):
     from WINDOW_openMDAO.ElectricalCollection.POS_optimiser import POSHeuristic
     from WINDOW_openMDAO.SupportStructure.teamplay import TeamPlay
     from WINDOW_openMDAO.SupportStructure.constant_support import ConstantSupport
-    from WINDOW_openMDAO.OandM.OandM_models import OM_model1, OM_model2
+    from WINDOW_openMDAO.OandM.OandM_models import OM_model1, OM_model2, OM_model3
     from WINDOW_openMDAO.AEP.aep_fast_component import AEPFast
     from WINDOW_openMDAO.Costs.teamplay_costmodel import TeamPlayCostModel
     from WINDOW_openMDAO.AEP.FastAEP.farm_energy.wake_model_mean_new.wake_turbulence_models import frandsen2, \
@@ -33,8 +33,8 @@ def run_main_script(value_rad, value_power):
     # Imports the Options class to instantiate a workflow.
     from WINDOW_openMDAO.src.api import WorkflowOptions
 
-    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
-    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
+    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
+    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
 
     import warnings
 
@@ -63,7 +63,7 @@ def run_main_script(value_rad, value_power):
     options.models.turbulence = frandsen
     options.models.electrical = TopologyHybridHeuristic
     options.models.support = TeamPlay
-    options.models.opex = OM_model2
+    options.models.opex = OM_model3
     options.models.apex = TeamPlayCostModel
 
     # Define number of windrose sampling points

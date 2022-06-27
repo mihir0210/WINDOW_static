@@ -1,6 +1,6 @@
 import csv
 
-def other_costs(depth_central_platform, n_turbines, infield_length, n_substations, \
+def other_costs(depth_central_platform, n_turbines, infield_length, n_substations, distance_to_grid, \
                 turbine_rated_power, rotor_radius, purchase_price, warranty_percentage, \
                 rna_mass, hub_height, generator_voltage, collection_voltage, turbine_CAPEX, config):
     #from WINDOW_openMDAO.input_params import turbine_rated_power
@@ -27,7 +27,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     turbine_other_costs = turbine_other_costs(turbine_CAPEX, n_turbines)
 
-    [export_cable, procurement_electrical] = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, config)
+    [export_cable, procurement_electrical] = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, distance_to_grid, config)
     #procurement_electrical = 0.0 #for a case in NL where TenneT pays
     #export_cable = 0.0#for a case in NL where TenneT pays
 

@@ -24,7 +24,7 @@ def batch():
 def singlecase():
     ##### Run a single case #####
     value_power = 15
-    value_rad = 140 #reference rotor radius
+    value_rad = 240/2 #reference rotor radius
 
     # dict = {'target_IRR':target_IRR}
     # f = open('Input/finance.txt', 'w')

@@ -1,4 +1,5 @@
 from WINDOW_openMDAO.src.api import AbstractOandM
+from .OandM_model_detailed import oandm_detailed
 from openmdao.api import ExplicitComponent
 import csv
 
@@ -100,6 +101,49 @@ class OM_model2(ExplicitComponent):
         [costs_om, availability] = oandm()
 
         #print('O&M', costs_om)
+
+        field_names = ['O&M Costs']
+        description = ['Yearly Operations and Maintenance costs of the wind farm']
+        data = {field_names[0]: [costs_om[0], description[0]]}
+        with open('parameters.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in list(data.items()):
+                writer.writerow([key, value[0], value[1]])
+        csvfile.close()
+
+        outputs['annual_cost_O&M'] = costs_om
+        outputs['availability'] = availability
+
+
+class OM_model3(ExplicitComponent):
+    '''
+    This class runs a vessel-based O&M cost model
+    (Offshore Wind Innovation Hub Floating wind (major repair strategies)
+    (Carroll et. al. on Failure rates)
+    '''
+
+    def setup(self):
+
+        self.add_input('RNA_costs', val=0.0)
+        self.add_input('array_cable_costs',val=0.0)
+        self.add_input('distance_to_shore', val=0.0)
+        #self.add_input('hub_height', val=0.0)
+        self.add_input('N_T', val=0.0)
+
+        self.add_output('annual_cost_O&M', val=0.0)
+        self.add_output('availability', val=0.0)
+
+
+
+    def compute(self, inputs, outputs):
+
+        rna_costs = inputs['RNA_costs']
+        n_t = inputs['N_T']
+        array_cable_costs = inputs['array_cable_costs']
+        distance_to_shore = inputs['distance_to_shore']/1000 #in km
+
+
+        [costs_om, availability] = oandm_detailed(rna_costs, array_cable_costs, distance_to_shore, n_t)
 
         field_names = ['O&M Costs']
         description = ['Yearly Operations and Maintenance costs of the wind farm']

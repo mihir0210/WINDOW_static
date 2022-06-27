@@ -129,7 +129,7 @@ class GravityAnalysts:
         if component == 'monopile':
             base_diameter = self.support_team.design_variables.support_structure.monopile.diameter
             top_diameter = base_diameter
-            base = pile_top - self.support_team.design_variables.support_structure.monopile.length - 20 #additional 20m of driving length to get overall 30-40 m under the seabed
+            base = pile_top - self.support_team.design_variables.support_structure.monopile.length  #- 20 #additional 20m of driving length to get overall 30-40 m under the seabed
             top = pile_top
             z_from = base
             z_to = top

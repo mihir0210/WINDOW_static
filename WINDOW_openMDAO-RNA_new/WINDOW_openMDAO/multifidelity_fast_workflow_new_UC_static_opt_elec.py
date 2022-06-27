@@ -6,7 +6,7 @@ from openmdao.api import IndepVarComp, Group, ExecComp
 from WINDOW_openMDAO.input_params import max_n_turbines, max_n_substations, interest_rate, central_platform, areas, \
     n_quadrilaterals, separation_equation_y, operational_lifetime, number_turbines_per_cable, wind_directions, \
     weibull_shapes, weibull_scales, direction_probabilities, layout, n_turbines, TI_ambient, coll_electrical_efficiency, \
-    transm_electrical_efficiency, number_substations
+    transm_electrical_efficiency, number_substations, distance_to_harbour
 from WINDOW_openMDAO.blade_parameters import blade_span, pegged_chord, pegged_twist
 from WINDOW_openMDAO.src.api import AEP, NumberLayout, MinDistance, WithinBoundaries
 from WINDOW_openMDAO.WaterDepth.water_depth_models import RoughClosestNode
@@ -67,11 +67,8 @@ class WorkingGroup(Group):
         self.wind_file = options.input.site.wind_file
         # self.wind_speed_file = options.input.site.wind_speed_file
         self.spot_price_file = options.input.market.spot_price_file
-        self.target_IRR = options.input.market.target_IRR
 
         self.electrolyser_ratio = options.input.hydrogen.electrolyser_ratio
-
-
         ### FAST addition ###
         self.num_tnodes = options.input.turbine.num_tnodes
 
@@ -83,13 +80,8 @@ class WorkingGroup(Group):
 
         indep2.add_output("areas", val=areas)
         indep2.add_output('layout', val=layout)
-        #indep2.add_output('turbine_rad', val=120/120.0)
-        #indep2.add_output('rated_power', val=15/15.0)
-
         indep2.add_output('turbine_rad', val=self.rotor_radius)
         indep2.add_output('rated_power', val=self.rated_power)
-
-
         indep2.add_output('scaling_factor', val=1)
         # indep2.add_output('turbine_radius', val=63.0)
         # indep2.add_output('turbine_radius', val=120.0)d
@@ -104,8 +96,7 @@ class WorkingGroup(Group):
         indep2.add_output('transm_electrical_efficiency', val=transm_electrical_efficiency)
         indep2.add_output('operational_lifetime', val=operational_lifetime)
         indep2.add_output('interest_rate', val=interest_rate)
-        indep2.add_output('target_IRR', val=self.target_IRR)
-        # indep2.add_output('availability', val=0.97)
+        indep2.add_output('distance_to_harbour', val=distance_to_harbour)
 
         indep2.add_output('design_tsr', desc='design tip speed ratio', val=9)  # 9 for the 10 MW; 8.5-9 for the 15 MW
         indep2.add_output('chord_coefficients', units='m', desc='coefficients of polynomial chord profile',
@@ -187,12 +178,14 @@ class WorkingGroup(Group):
         self.add_subsystem('depths', RoughClosestNode(max_n_turbines, self.bathymetry_file))
         self.add_subsystem('platform_depth', RoughClosestNode(max_n_substations, self.bathymetry_file))
 
-        self.add_subsystem('AeroAEP', self.aep_model(self.wake_model, self.turbulence_model, self.merge_model,
-                                                     self.direction_sampling_angle, self.windspeed_sampling_points,
-                                                     self.windrose_file, self.power_curve_file, self.ct_curve_file))
+        # self.add_subsystem('AeroAEP', self.aep_model(self.wake_model, self.turbulence_model, self.merge_model,
+        #                                              self.direction_sampling_angle, self.windspeed_sampling_points,
+        #                                              self.windrose_file, self.power_curve_file, self.ct_curve_file))
 
         ## Add farm AEP module
-        self.add_subsystem('FarmAEP', FarmAEP(wind_file=self.wind_file,
+        self.add_subsystem('FarmAEP', FarmAEP(max_n_turbines, wind_file=self.wind_file,
+                                              ct_file=self.ct_curve_file,
+                                              power_file=self.power_curve_file,
                                               direction_sampling_angle=self.direction_sampling_angle,
                                               time_resolution=self.time_resolution))
 
@@ -200,25 +193,23 @@ class WorkingGroup(Group):
 
         self.add_subsystem('support', self.support_model())
 
+
         self.add_subsystem('Costs', self.apex_model())
 
 
-
         self.add_subsystem('OandM', self.opex_model())
-
 
         self.add_subsystem('AEP', AEP())
 
         self.add_subsystem('lcoe', LCOE())
 
-
         self.add_subsystem('constraint_distance', MinDistance())
         self.add_subsystem('constraint_boundary', WithinBoundaries())
 
         ## Add farm IRR module
-        self.add_subsystem('FarmIRR', FarmIRR(wind_file=self.wind_file,
-                                            spot_price_file=self.spot_price_file,
-                                             time_resolution = self.time_resolution))
+        # self.add_subsystem('FarmIRR', FarmIRR(wind_file=self.wind_file,
+        #                                     spot_price_file=self.spot_price_file,
+        #                                      time_resolution = self.time_resolution))
 
         ## Different connects
 
@@ -246,13 +237,13 @@ class WorkingGroup(Group):
         self.connect('indep2.Np', 'rna.Np')
         self.connect('rna.cost_rna', 'usd2eur.cost_rna_usd')
 
-        # self.connect('indep2.turbine_radius', 'AeroAEP.turbine_radius')
-        self.connect('rad_scaling.turbine_radius', 'AeroAEP.turbine_radius')
-        self.connect('indep2.cut_in_speed', 'AeroAEP.cut_in_speed')
-        self.connect('indep2.cut_out_speed', 'AeroAEP.cut_out_speed')
-        # self.connect('indep2.machine_rating', 'AeroAEP.machine_rating')
-        self.connect('power_scaling.machine_rating', 'AeroAEP.machine_rating')
-        self.connect('rna.rated_wind_speed', 'AeroAEP.rated_wind_speed')
+        # # self.connect('indep2.turbine_radius', 'AeroAEP.turbine_radius')
+        # self.connect('rad_scaling.turbine_radius', 'AeroAEP.turbine_radius')
+        # self.connect('indep2.cut_in_speed', 'AeroAEP.cut_in_speed')
+        # self.connect('indep2.cut_out_speed', 'AeroAEP.cut_out_speed')
+        # # self.connect('indep2.machine_rating', 'AeroAEP.machine_rating')
+        # self.connect('power_scaling.machine_rating', 'AeroAEP.machine_rating')
+        # self.connect('rna.rated_wind_speed', 'AeroAEP.rated_wind_speed')
 
         ###### Layout scaling connects ######
 
@@ -261,9 +252,8 @@ class WorkingGroup(Group):
         self.connect('rad_scaling.turbine_radius', 'layout_scaling.turbine_radius')
         self.connect('scaling_factor', 'layout_scaling.scaling_factor')
 
-        self.connect("layout_scaling.new_layout",
-                     ["numberlayout.orig_layout", "AeroAEP.layout", "constraint_distance.orig_layout",
-                      "constraint_boundary.layout"])
+        self.connect("layout_scaling.new_layout", ["numberlayout.orig_layout", "constraint_distance.orig_layout",
+                                                   "constraint_boundary.layout"])
         self.connect("layout_scaling.new_substation_coords", "numbersubstation.orig_layout")
 
         self.connect('layout_scaling.farm_area', 'Costs.farm_area')
@@ -278,8 +268,7 @@ class WorkingGroup(Group):
         self.connect('numberlayout.number_layout', 'depths.layout')
 
         self.connect('indep2.n_turbines',
-                     ['AeroAEP.n_turbines', 'electrical.n_turbines', 'support.n_turbines', 'Costs.n_turbines'])
-
+                     ['electrical.n_turbines', 'support.n_turbines', 'Costs.n_turbines'])
 
         self.connect('numberlayout.number_layout', 'electrical.layout')
         self.connect('indep2.n_turbines_p_cable_type', 'electrical.n_turbines_p_cable_type')
@@ -288,7 +277,8 @@ class WorkingGroup(Group):
         self.connect('rna.turbine_rated_current', 'electrical.turbine_rated_current')
 
         self.connect('depths.water_depths', 'support.depth')
-        self.connect('AeroAEP.max_TI', 'support.max_TI')
+        # self.connect('AeroAEP.max_TI', 'support.max_TI')
+        self.connect('FarmAEP.max_TI', 'support.max_TI')
         # self.connect('indep2.turbine_radius', 'support.rotor_radius')
         self.connect('rad_scaling.turbine_radius', 'support.rotor_radius')
         self.connect('rna.rated_wind_speed', 'support.rated_wind_speed')
@@ -302,54 +292,21 @@ class WorkingGroup(Group):
         self.connect('rna.yaw_to_hub_height', 'support.yaw_to_hub_height')
         self.connect('rna.mass_eccentricity', 'support.mass_eccentricity')
 
-
         self.connect('FarmAEP.farm_AEP', ['AEP.aeroAEP'])
         self.connect('rna.hub_height', 'FarmAEP.hub_height')
-
-        self.connect('indep2.n_turbines', 'FarmAEP.n_t')
+        self.connect('layout_scaling.x_coord', 'FarmAEP.x_coord')
+        self.connect('layout_scaling.y_coord', 'FarmAEP.y_coord')
         self.connect('power_scaling.machine_rating', 'FarmAEP.rated_power')
         self.connect('rad2dia.rotor_diameter', 'FarmAEP.rotor_diameter')
-        self.connect('rna.rotor_cp', 'FarmAEP.Cp')
-        self.connect('rna.rated_wind_speed', 'FarmAEP.rated_ws')
 
         self.connect('indep2.n_turbines', 'OandM.N_T')
-
-        self.connect('power_scaling.machine_rating', 'OandM.P_rated')
-
+        #self.connect('power_scaling.machine_rating', 'OandM.P_rated')
         self.connect('usd2eur.cost_rna_eur', 'OandM.RNA_costs')
+        #self.connect('Costs.cable_costs', 'OandM.cable_costs')
+        self.connect('Costs.array_cable_costs', 'OandM.array_cable_costs')
+        self.connect('indep2.distance_to_harbour', 'OandM.distance_to_shore')
 
-        self.connect('Costs.cable_costs', 'OandM.cable_costs')
-
-
-        # self.connect('rna.hub_height',['OandM.hub_height','OandM_h2.hub_height'])
-        # self.connect('usd2eur.cost_rna_eur', ['OandM.rna_CAPEX','OandM_h2.rna_CAPEX'])
-        # self.connect('Costs.bop_Costs_h2', 'OandM_h2.bop_costs')
-        # self.connect('Costs.investment_costs', 'OandM.farm_CAPEX')
-        # self.connect('Costs.investment_Costs_h2', 'OandM_h2.farm_CAPEX')
-
-        # self.connect('rna.hub_height', 'OandM.hub_height')
-        # self.connect('rna.hub_height','OandM_h2.hub_height')
-        # self.connect('hub_height_normalize.hh_norm',['OandM.hub_height_norm','OandM_h2.hub_height_norm'])
-
-        # self.connect('cost_normalize_rna.rna_norm', 'OandM.rna_norm')
-
-        # self.connect('usd2eur.cost_rna_eur', 'OandM_h2.rna_capex')
-        # self.connect('indep2.n_turbines', 'cost_normalize_rna_h2.N_T')
-        # self.connect('power_scaling.machine_rating', 'cost_normalize_rna_h2.P')
-        # self.connect('cost_normalize_rna_h2.rna_norm', 'OandM_h2.rna_norm')
-
-        # self.connect('cost_normalize_bop.bop_norm', 'OandM.bop_norm')
-
-        # self.connect('Costs_h2.bop_Costs_h2', 'OandM_h2.bop_costs')
-        # self.connect('cost_normalize_bop_h2.bop_norm_h2', 'OandM_h2.bop_norm')
-
-        # self.connect('Costs.investment_costs', 'OandM.farm_capex')
-        # self.connect('cost_normalize_farmcapex.farmcapex_norm', 'OandM.farm_capex_norm')
-
-        # self.connect('Costs_h2.investment_Costs_h2', 'OandM_h2.farm_capex')
-        # self.connect('cost_normalize_farmcapex_h2.farmcapex_norm_h2', 'OandM_h2.farm_capex_norm')
-
-        self.connect('OandM.availability', ['AEP.availability', 'FarmIRR.availability'])
+        self.connect('OandM.availability', 'AEP.availability')
         self.connect('indep2.coll_electrical_efficiency', 'AEP.electrical_efficiency')
 
         self.connect('numbersubstation.number_layout', 'platform_depth.layout')
@@ -381,7 +338,7 @@ class WorkingGroup(Group):
         self.connect('indep2.interest_rate', 'lcoe.interest_rate')
         self.connect('OandM.availability', 'lcoe.availability')
 
-
+        '''
         # farm IRR connects
 
         self.connect('FarmAEP.farm_power', 'FarmIRR.farm_power')
@@ -390,7 +347,11 @@ class WorkingGroup(Group):
         self.connect('Costs.investment_costs', 'FarmIRR.investment_costs')
         self.connect('OandM.annual_cost_O&M', 'FarmIRR.oandm_costs')
         self.connect('Costs.decommissioning_costs', 'FarmIRR.decommissioning_costs')
-        self.connect('indep2.target_IRR', 'FarmIRR.target_IRR')
+
+        self.connect('H2.H2_produced', 'FarmIRR.H2_produced')
+        self.connect('H2.H2_CAPEX', 'FarmIRR.H2_CAPEX')
+        self.connect('H2.H2_OPEX', 'FarmIRR.H2_OPEX')
+        self.connect('H2.power_curtailed', 'FarmIRR.power_curtailed')'''
 
 
 

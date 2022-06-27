@@ -96,7 +96,6 @@ class CSMCalibrated(AbsRNACost):
         rated_wind_speed = inputs['rated_wind_speed']
         rotor_diameter = inputs['rotor_diameter']
 
-
         
         #outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
 

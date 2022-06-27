@@ -80,6 +80,7 @@ class FarmAEP(ExplicitComponent):
 
         def run_pywake(shape_fac, scale_fac, prob):
             from py_wake import NOJ, BastankhahGaussian, IEA37SimpleBastankhahGaussian, flow_map
+            from py_wake.deficit_models import TurboGaussianDeficit
             from py_wake.wind_turbines.power_ct_functions import PowerCtFunctionList, PowerCtTabular
             from py_wake.site import XRSite
             from py_wake.wind_turbines import WindTurbine

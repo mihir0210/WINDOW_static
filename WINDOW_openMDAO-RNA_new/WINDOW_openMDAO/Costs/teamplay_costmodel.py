@@ -1,5 +1,5 @@
 from openmdao.api import ExplicitComponent
-from WINDOW_openMDAO.input_params import max_n_turbines
+from WINDOW_openMDAO.input_params import max_n_turbines, distance_to_grid
 from .costs.other_costs import other_costs
 import csv
 
@@ -31,6 +31,7 @@ class TeamPlayCostModel(ExplicitComponent):
         self.add_output('decommissioning_costs', val=0.0)
         self.add_output('bop_costs', val=0.0)
         self.add_output('cable_costs', val=0.0)
+        self.add_output('array_cable_costs', val=0.0)
 
 
 
@@ -54,7 +55,7 @@ class TeamPlayCostModel(ExplicitComponent):
 
         turbine_CAPEX = inputs['purchase_price'] + cost_tower[0] #RNA + tower cost for one turbine
 
-        export_cable_costs, electrical_costs, other_investment, decommissioning_costs = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, \
+        export_cable_costs, electrical_costs, other_investment, decommissioning_costs = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, distance_to_grid, \
                                                                          inputs['machine_rating'], inputs['rotor_radius'], inputs['purchase_price'], inputs['warranty_percentage'], \
                                                                          inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], turbine_CAPEX, 1)
 
@@ -74,6 +75,7 @@ class TeamPlayCostModel(ExplicitComponent):
         outputs['investment_costs'] = total_farm_CAPEX  + area_use_cost
         outputs['decommissioning_costs'] = decommissioning_costs + support_decomm_costs
         outputs['cable_costs'] = export_cable_costs + infield_cable_investment
+        outputs['array_cable_costs'] = infield_cable_investment
 
 
         # print 'Rated power:', inputs['machine_rating']

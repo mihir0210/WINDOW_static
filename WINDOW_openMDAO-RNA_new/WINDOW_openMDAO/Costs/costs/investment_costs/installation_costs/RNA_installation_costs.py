@@ -23,8 +23,8 @@ def rna_installation_costs(NT, rotor_radius, hub_height):
 
     total_rna_installation = inv_installation_turbines_offshore_works + inv_installation_turbines_onshore_transport
     # print 'off, on'
-    # print inv_installation_turbines_offshore_works
-    # print inv_installation_turbines_onshore_transport
+    print(inv_installation_turbines_offshore_works)
+    print(inv_installation_turbines_onshore_transport)
     return total_rna_installation
 
 if __name__ == '__main__':
