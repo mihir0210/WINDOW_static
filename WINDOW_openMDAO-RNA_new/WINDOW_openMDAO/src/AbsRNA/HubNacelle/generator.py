@@ -9,6 +9,7 @@ class AbsGenerator(ExplicitComponent):
         # inputs
         self.add_input('rotor_diameter', units='m', desc='rotor diameter')
         self.add_input('machine_rating', units='kW', desc='machine rating of generator')
+        self.add_input('rotor_torque', units='N*m', desc='Rated rotor torque')
         self.add_input('gear_ratio', desc='overall gearbox ratio')
         self.add_input('hss_length', units = 'm', desc='length of high speed shaft and brake')
         self.add_input('hss_cm', units = 'm', desc='cm of high speed shaft and brake', shape=3)

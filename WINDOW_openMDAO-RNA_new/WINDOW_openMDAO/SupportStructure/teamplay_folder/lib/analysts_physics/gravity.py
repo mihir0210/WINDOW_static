@@ -102,6 +102,7 @@ class GravityAnalysts:
             mass *= 0.8 # additional mass reduction due to better control and better design strategies
 
 
+
         if component == 'transition piece':
             base_diameter = self.support_team.design_variables.support_structure.transition_piece.diameter
             top_diameter = base_diameter
@@ -109,7 +110,7 @@ class GravityAnalysts:
             top = self.support_team.properties.support_structure.platform_height
             z_from = base
             z_to = top
-            #print 'transition piece length', (top-base)
+
             t = self.support_team.design_variables.support_structure.transition_piece.wall_thickness
             mass = self.rho_steel * self.get_integrated_volume(base, top, base_diameter, top_diameter, z_from, z_to, t)
             mass *= 1.10  # 10% extra for secondary steel, such as flange, boat landing, stairs and platforms
@@ -129,7 +130,7 @@ class GravityAnalysts:
         if component == 'monopile':
             base_diameter = self.support_team.design_variables.support_structure.monopile.diameter
             top_diameter = base_diameter
-            base = pile_top - self.support_team.design_variables.support_structure.monopile.length  #- 20 #additional 20m of driving length to get overall 30-40 m under the seabed
+            base = pile_top - self.support_team.design_variables.support_structure.monopile.length
             top = pile_top
             z_from = base
             z_to = top

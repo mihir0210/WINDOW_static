@@ -57,7 +57,7 @@ class CostAnalysts:
 
         self.support_team.value.economic.capex.procurement.support_structures.scour_protection = self.number_of_turbines * self.scour_protection_per_volume.value * self.support_team.properties.support_structure.scour_protection_volume
         # print self.support_team.value.economic.capex.procurement.support_structures.scour_protection + self.support_team.value.economic.capex.procurement.support_structures.monopile + self.support_team.value.economic.capex.procurement.support_structures.grout + self.support_team.value.economic.capex.procurement.support_structures.transition_piece + self.support_team.value.economic.capex.procurement.support_structures.tower
-        self.support_team.value.economic.capex.installation.foundations = self.number_of_turbines * self.foundation_installation_per_mass.value * self.support_team.properties.support_structure.pile_mass
+        self.support_team.value.economic.capex.installation.foundations = 0 #self.number_of_turbines * self.foundation_installation_per_mass.value * self.support_team.properties.support_structure.pile_mass
         # print self.support_team.value.economic.capex.installation.foundations
         #self.support_team.value.economic.decommissioning.removal.foundations = self.support_team.value.economic.capex.installation.foundations
 

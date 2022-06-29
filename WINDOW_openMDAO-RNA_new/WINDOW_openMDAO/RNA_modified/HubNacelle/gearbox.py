@@ -27,7 +27,9 @@ class DriveSE(AbsGearbox):
         self.rotor_speed = inputs['rotor_speed']
         self.rotor_diameter = inputs['rotor_diameter']
         self.rotor_torque = inputs['rotor_torque']*safety_factor
-        self.cm_input = inputs['gearbox_cm_x']      
+        self.cm_input = inputs['gearbox_cm_x']
+
+
         
         self.ratio_type='optimal' # ['optimal', 'empirical']
         self.shaft_type='normal' # ['short', 'normal']

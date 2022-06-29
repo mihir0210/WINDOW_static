@@ -113,18 +113,16 @@ class CSMCalibrated(AbsRNACost):
         outputs['cost_main_bearing'] = inputs['main_bearing_mass'] * self.ref_cost_mass('Main Bearing')
         outputs['cost_second_bearing'] = inputs['second_bearing_mass'] * self.ref_cost_mass('Second Bearing')
 
-        cost_gearbox =  inputs['gearbox_mass'] * self.ref_cost_mass('Gearbox')
-
         outputs['cost_gearbox'] = inputs['gearbox_mass'] * self.ref_cost_mass('Gearbox')
         outputs['cost_hss'] = inputs['hss_mass'] * self.ref_cost_mass('HSS')
 
-        cost_generator = inputs['generator_mass'] * self.ref_cost_mass('Generator')
 
 
-        #outputs['cost_generator'] = inputs['generator_mass'] * self.ref_cost_mass('Generator')
-        generator_mass_15MW = 372000
-        generator_mass = generator_mass_15MW*((machine_rating/15000.0)**1.4) #from GeneratorSE (Check Thesis of Ozal Yilmaz TU Delft)
-        outputs['cost_generator'] = (generator_mass/generator_mass_15MW)*3510000
+
+        outputs['cost_generator'] = inputs['generator_mass'] * self.ref_cost_mass('Generator')
+        # generator_mass_15MW = 372000
+        # generator_mass = generator_mass_15MW*((machine_rating/15000.0)**1.4) #from GeneratorSE (Check Thesis of Ozal Yilmaz TU Delft)
+        # outputs['cost_generator'] = (generator_mass/generator_mass_15MW)*3510000
 
         cost_mainframe = mainframe_mass * self.ref_cost_mass('Mainframe')
 

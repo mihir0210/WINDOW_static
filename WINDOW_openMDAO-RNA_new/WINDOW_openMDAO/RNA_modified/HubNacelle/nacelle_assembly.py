@@ -77,9 +77,10 @@ class Nacelle(Group):
                            promotes_outputs=[('mass', 'hss_mass')])        
         
         self.add_subsystem('generator', generator.DriveSE(drivetrain_design=drivetrain_design), \
-                           promotes_inputs=['rotor_diameter', 'machine_rating', 'gear_ratio', 'rotor_speed'], \
+                           promotes_inputs=['rotor_diameter', 'machine_rating', 'rotor_torque','gear_ratio', 'rotor_speed'], \
                            promotes_outputs=[('mass', 'generator_mass')])
-        
+
+
         self.add_subsystem('yaw', yaw.DriveSE(safety_factor=safety_factor), \
                            promotes_inputs=['rotor_diameter', 'rotor_thrust', 'tower_top_diameter'], \
                            promotes_outputs=[('mass', 'yaw_mass')])

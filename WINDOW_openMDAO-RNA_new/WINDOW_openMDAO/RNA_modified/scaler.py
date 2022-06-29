@@ -43,7 +43,7 @@ class Scaler(ExplicitComponent):
         # scaled from DTU 10MW Reference Turbine
         s = rotor_diameter/190.8
         outputs['mass_eccentricity'] = 1.9 * s
-        outputs['yaw_to_hub_height'] = 5.01 * s
+        #outputs['yaw_to_hub_height'] = 5.01 * s
         outputs['front_area_nacelle'] = 14.0 * (s**2)
 
         
@@ -61,6 +61,7 @@ class Scaler(ExplicitComponent):
         outputs['hub_radius'] = 3.97 * s
         outputs['overhang'] = 11.35 * s
         outputs['tower_top_diameter'] = 6.5 * s
+        outputs['yaw_to_hub_height'] = 4.875 * s
 
      
         

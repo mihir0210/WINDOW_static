@@ -50,7 +50,7 @@ import numpy as np
 
 
 def installation_foundation(n_t):
-    dayrate_wtiv = 200000 #scaling up with foundation mass?
+    dayrate_wtiv = 200000 #scaling up with foundation length/mass?
     day_per_foundation = 2.5
     day_total = np.ceil(day_per_foundation*n_t)
 
@@ -117,7 +117,7 @@ def installation_total(n_t,rotor_diameter, hub_height, distance_to_shore,infield
 
     total_installation_costs = cost_installation_turbine + cost_installation_foundation + cost_installation_electrical
 
-    return total_installation_costs
+    return cost_installation_foundation, cost_installation_turbine, cost_installation_electrical, total_installation_costs
 
 
 

@@ -23,14 +23,14 @@ class SupportDesigners(Designers):
     partial_safety_material_uls = 1.1
     bearing_resistance_factor = 0.8
 
-    tp_base_above_seabed = 6.0
+    tp_base_above_seabed = 25 #6.0
     stress_concentration_tp = 1.2
 
     yield_stress_steel = 200000000.0
 
     d_tp_minus_d_pile = 0.300
-    d_over_t_guess_tower = 200.0
-    d_over_t_guess_tp = 100.0
+    d_over_t_guess_tower = 275 #200.0 Based on IEA 15 MW turbine
+    d_over_t_guess_tp = 250 #100.0 Based on IEA 15 MW turbine
 
     def __init__(self, support_team):
         Designers.__init__(self, support_team)
@@ -98,6 +98,7 @@ class SupportDesigners(Designers):
         # self.support_team.domain_top.display.optimising = 'Tower length - Monopile penetration depth'
         self.design_penetration_depth()
         # Determine monopile length (from penetration, water depth, base_tp and overlap)
+
         self.design_variables.monopile.length = self.design_variables.monopile.penetration_depth + self.support_team.physical_environment.site.water_depth + self.properties.base_tp + self.design_variables.transition_piece.overlap_monopile
         if self.verbose is True:
             print("monopile length")

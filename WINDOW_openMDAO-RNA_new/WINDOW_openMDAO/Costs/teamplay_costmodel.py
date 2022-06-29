@@ -1,5 +1,5 @@
 from openmdao.api import ExplicitComponent
-from WINDOW_openMDAO.input_params import max_n_turbines, distance_to_grid
+from WINDOW_openMDAO.input_params import max_n_turbines, distance_to_grid, distance_to_harbour
 from .costs.other_costs import other_costs
 import csv
 
@@ -55,7 +55,7 @@ class TeamPlayCostModel(ExplicitComponent):
 
         turbine_CAPEX = inputs['purchase_price'] + cost_tower[0] #RNA + tower cost for one turbine
 
-        export_cable_costs, electrical_costs, other_investment, decommissioning_costs = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, distance_to_grid, \
+        export_cable_costs, electrical_costs, other_investment, decommissioning_costs = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, distance_to_grid/1000, distance_to_harbour/1000, \
                                                                          inputs['machine_rating'], inputs['rotor_radius'], inputs['purchase_price'], inputs['warranty_percentage'], \
                                                                          inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], turbine_CAPEX, 1)
 

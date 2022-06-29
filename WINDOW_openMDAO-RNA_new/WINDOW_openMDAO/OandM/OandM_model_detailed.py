@@ -5,7 +5,7 @@ import numpy as np
 O&M cost numbers
 BVG estimates 89 M/year for a size of roughly 1 GW and 100 turbines
 
-https://www.pbl.nl/sites/default/files/downloads/pbl-2019-costs-of-offshore-wind-energy-2018_3623.pdf
+https://www.pbl.nl/sites/default/files/downloads/pbl-2019-costs-of-offgrid-wind-energy-2018_3623.pdf
 Hollandse Kust Zuid (Total of 700 MW) has O&M of about 41 Euro/kW/year; 
 Total of 30 M/year
 
@@ -32,7 +32,7 @@ DSV (Diving support vessel) - 75000/day with a mobilization time of 15 days and 
 '''
 
 
-def oandm_detailed(rna_costs, array_cable_costs, distance_to_shore, n_t):
+def oandm_detailed(rna_costs, array_cable_costs, distance_to_grid, n_t):
 
 
     ####### INPUT PARAMS ######
@@ -62,9 +62,9 @@ def oandm_detailed(rna_costs, array_cable_costs, distance_to_shore, n_t):
 
     # travel time for one round-trip in hours
 
-    traveltime_ctv = 2 * distance_to_shore / speed_ctv
-    traveltime_hlv = 2 * distance_to_shore / speed_hlv
-    traveltime_clv = 2 * distance_to_shore / speed_clv
+    traveltime_ctv = 2 * distance_to_grid / speed_ctv
+    traveltime_hlv = 2 * distance_to_grid / speed_hlv
+    traveltime_clv = 2 * distance_to_grid / speed_clv
 
 
     ###### OPERATIONAL COSTS ####
@@ -161,12 +161,12 @@ def oandm_detailed(rna_costs, array_cable_costs, distance_to_shore, n_t):
     n_tech = np.ceil(n_technicians*(n_t/100)) #number of technicians scale with number of turbines
     costs_om = operational_costs + cost_inspection + vessel_cost + total_cost_turbine_maintenance_sp + total_cost_bos_maintenance_sp  + n_tech*salary_technician
 
-    print('Operational costs:', operational_costs)
-    print('Inspection cost:', cost_inspection)
-    print('vessel costs:', vessel_cost)
-    print('Turbine maintenance spare part:', total_cost_turbine_maintenance_sp)
-    print('BoS maintenance spare part:', total_cost_bos_maintenance_sp)
-    print('Salary technician:', salary_technician*n_technicians)
+    # print('Operational costs:', operational_costs)
+    # print('Inspection cost:', cost_inspection)
+    # print('vessel costs:', vessel_cost)
+    # print('Turbine maintenance spare part:', total_cost_turbine_maintenance_sp)
+    # print('BoS maintenance spare part:', total_cost_bos_maintenance_sp)
+    # print('Salary technician:', salary_technician*n_technicians)
 
     availability = 0.97  # for the same farm
 
@@ -176,11 +176,11 @@ def oandm_detailed(rna_costs, array_cable_costs, distance_to_shore, n_t):
 rna_costs = 6.67e6  # RNA costs of one turbine
 ref_cable_costs = 257557706  # array + export cable cost
 array_cable_costs = 97852706
-distance_to_shore = 60 #in km
+distance_to_grid= 60 #in km
 n_t = 100
 
 
-[costs_om, availability] = oandm_detailed(rna_costs, array_cable_costs, distance_to_shore, n_t)
+[costs_om, availability] = oandm_detailed(rna_costs, array_cable_costs, distance_to_grid, n_t)
 
 print('Total O&M costs:', costs_om)
 
