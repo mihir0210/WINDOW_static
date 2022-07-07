@@ -9,10 +9,12 @@ def choose_cables(number_turbines_per_cable, turbine_rated_current):
         for cable in cables_info:
 
             if turbine_rated_current * number <= cable[1]:
-                cable_list.append([number, cable[2] + 365.0])
+                #cable_list.append([number, cable[2] + 365.0]) Maybe Sebastian included 365 Eur/m as installation cost of cables
+                cable_list.append([number, cable[2]])
                 break
             elif turbine_rated_current * number > cables_info[-1][1]:
-                cable_list.append([number, 579 + 365.0])
+                #cable_list.append([number, 579 + 365.0]) Maybe Sebastian included 365 Eur/m as installation cost of cables
+                cable_list.append([number, 579])
                 break
 
 

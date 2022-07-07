@@ -110,7 +110,7 @@ def run_main_script(value_rad, value_power):
 
     field_names = ['p_rated', 'd_rotor']
     description = ['Rated power', 'Rotor diameter']
-    data = {field_names[0]: [value_power, description[0]], field_names[1]: [value_rad, description[1]]}
+    data = {field_names[0]: [value_power, description[0]], field_names[1]: [value_rad*2, description[1]]}
 
     with open('parameters.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)

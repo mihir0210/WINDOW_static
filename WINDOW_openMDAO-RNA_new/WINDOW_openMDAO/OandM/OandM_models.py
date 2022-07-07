@@ -60,6 +60,7 @@ class OM_model2(ExplicitComponent):
         #self.add_input('hub_height', val=0.0)
         self.add_input('N_T', val=0.0)
 
+
         self.add_output('annual_cost_O&M', val=0.0)
         self.add_output('availability', val=0.0)
 
@@ -129,6 +130,7 @@ class OM_model3(ExplicitComponent):
         self.add_input('distance_to_shore', val=0.0)
         #self.add_input('hub_height', val=0.0)
         self.add_input('N_T', val=0.0)
+        self.add_input('rotor_diameter', val=0.0)
 
         self.add_output('annual_cost_O&M', val=0.0)
         self.add_output('availability', val=0.0)
@@ -141,9 +143,12 @@ class OM_model3(ExplicitComponent):
         n_t = inputs['N_T']
         array_cable_costs = inputs['array_cable_costs']
         distance_to_shore = inputs['distance_to_shore']/1000 #in km
+        rotor_diameter = inputs['rotor_diameter']
 
 
-        [costs_om, availability] = oandm_detailed(rna_costs, array_cable_costs, distance_to_shore, n_t)
+
+
+        [costs_om, availability] = oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_shore, n_t)
 
         field_names = ['O&M Costs']
         description = ['Yearly Operations and Maintenance costs of the wind farm']

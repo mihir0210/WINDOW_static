@@ -3,12 +3,14 @@ This script is used to create the batch of simulations to be run using WINDOW fo
 rated power and rotor radius. For each combination,
 '''
 import os
+import numpy as np
 from IEA_borssele_irregular_new_UC import run_main_script
 
 def batch():
     ###### Run a batch ######
-    val_power = 15
-    vals_rad = [110, 115, 120, 125, 130, 135, 140] #rotor radius values
+    val_power = 20
+    #vals_rad = [110, 115, 120, 125, 130, 135, 140] #rotor radius values
+    vals_rad = np.linspace(90,150,13)
 
 
 
@@ -39,6 +41,4 @@ def singlecase():
 ## RUN ##
 
 #batch()
-
-
 singlecase()

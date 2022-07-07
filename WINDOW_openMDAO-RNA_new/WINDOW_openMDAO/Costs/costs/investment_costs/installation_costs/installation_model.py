@@ -49,10 +49,10 @@ to and fro travel time of about 1 day + installation time of about 1-2 days + mo
 import numpy as np
 
 
-def installation_foundation(n_t):
-    dayrate_wtiv = 200000 #scaling up with foundation length/mass?
+def installation_foundation(rotor_diameter, n_t):
+    dayrate_wtiv = 200000*(rotor_diameter/200) #scaling up with foundation length/mass?
     day_per_foundation = 2.5
-    day_total = np.ceil(day_per_foundation*n_t)
+    day_total = np.ceil(day_per_foundation*n_t)*1.5  #for weather delays
 
     cost_installation_foundation = dayrate_wtiv*day_total
 
@@ -97,7 +97,7 @@ def installation_electrical(infield_length, export_length):
 
     extra_costs = 20e6 # for cable pull-in, electrical testing and termination, onshore connection
 
-    cost_installation_cables = (cost_cable_export + cost_cable_infield + extra_costs)*1.5 #to account for survey, clearance of seabed, etc.
+    cost_installation_cables = cost_cable_export + cost_cable_infield + extra_costs  #1.5 to account for survey, clearance of seabed, etc.
 
 
     hlv_dayrate = 500000
@@ -111,7 +111,7 @@ def installation_electrical(infield_length, export_length):
 
 
 def installation_total(n_t,rotor_diameter, hub_height, distance_to_shore,infield_length, export_length ):
-    cost_installation_foundation = installation_foundation(n_t)
+    cost_installation_foundation = installation_foundation(rotor_diameter,n_t)
     cost_installation_turbine = installation_turbine(rotor_diameter, hub_height, n_t, distance_to_shore)
     cost_installation_electrical = installation_electrical(infield_length, export_length)
 

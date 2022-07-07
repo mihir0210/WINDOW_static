@@ -301,6 +301,7 @@ class WorkingGroup(Group):
 
         self.connect('indep2.n_turbines', 'OandM.N_T')
         #self.connect('power_scaling.machine_rating', 'OandM.P_rated')
+        self.connect('rad2dia.rotor_diameter', 'OandM.rotor_diameter')
         self.connect('usd2eur.cost_rna_eur', 'OandM.RNA_costs')
         #self.connect('Costs.cable_costs', 'OandM.cable_costs')
         self.connect('Costs.array_cable_costs', 'OandM.array_cable_costs')

@@ -50,7 +50,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     if config==1:
 
-        field_names = ['costs_exportcable', 'costs_total_elecrtical', 'costs_installation_electrical', 'costs_RNA_elec', 'costs_installation_turbine', 'costs_other_turbine_elec', 'installation_foundation']
+        field_names = ['costs_exportcable', 'costs_total_electrical', 'costs_installation_electrical', 'costs_RNA_elec', 'costs_installation_turbine', 'costs_other_turbine_elec', 'installation_foundation']
         description = ['Export cable costs', 'Total electrical procurement costs including substations', 'Total electrical installation costs', 'Total RNA procurement costs in euros for electricity', 'Total turbine installation costs', 'Other turbine costs (profits, assembly, etc. for electricity', 'Foudnation installation costs']
         data = {field_names[0]: [export_cable[0], description[0]],
                 field_names[1]: [procurement_electrical[0], description[1]],
@@ -58,7 +58,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
                 field_names[3]: [procurement_rna[0], description[3]],
                 field_names[4]: [installation_turbine[0], description[4]],
                 field_names[5]: [turbine_other_costs[0], description[5]],
-                field_names[6]: [installation_foundation, description[6]]}
+                field_names[6]: [installation_foundation[0], description[6]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
