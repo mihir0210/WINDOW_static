@@ -1,5 +1,10 @@
 
 def run_main_script(value_rad, value_power):
+
+    file = open("Input/power_value.txt", "w")
+    file.write(str(value_power))
+    file.close()
+
     # This file must be run from the 'example' folder that has the 'Input' folder.
     import numpy as np
     import pandas as pd
@@ -8,6 +13,7 @@ def run_main_script(value_rad, value_power):
     from openmdao.api import Problem, ScipyOptimizeDriver     #ScipyOptimizer, view_model, SimpleGADriver
     from openmdao.api import SqliteRecorder, CaseReader
     import csv
+
 
 
     # Imports WINDOW workflow
@@ -231,4 +237,4 @@ def run_main_script(value_rad, value_power):
     for v in var_list:
     saved_output[v] = problem['rna.' + v]
     beautify_dict(saved_output)'''
-
+    return lcoe

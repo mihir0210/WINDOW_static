@@ -38,7 +38,7 @@ lcoe = np.zeros((len(rad_values), len(power_values)))
 
 for p in power_values:
     for r in rad_values:
-        filename = 'parameters_' + str(p) + '_' + str(r) + '.csv'
+        filename = 'parameters_' + str(p) + '_' + str(r*2) + '.csv'
         df = pd.read_csv(filename, header=None,names=['variable', 'data', 'description'])
         variable = df['variable']
         data = df['data']

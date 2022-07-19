@@ -29,6 +29,7 @@ def scale_turbine(ReferenceTurbine, thickness_factor, mu, scale_with, scalar):
     
     thickness = ref_thickness * (s**1)
     mass = ref_mass * (s**2) * thickness_factor
+    #mass = ref_mass * (s ** 1) * thickness_factor
     flap_inertia = ref_flap_inertia * (s**4) * thickness_factor
     edge_inertia = ref_edge_inertia * (s**4) * thickness_factor
     flap_stiff = ref_flap_stiff * (s**4) * thickness_factor
