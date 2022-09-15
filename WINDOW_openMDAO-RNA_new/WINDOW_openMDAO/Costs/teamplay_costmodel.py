@@ -72,7 +72,7 @@ class TeamPlayCostModel(ExplicitComponent):
 
 
         outputs['bop_costs'] = support_structure_investment + infield_cable_investment + electrical_costs - cost_tower[0] * n_turbines  # subtraction as support cost involves tower cost
-        outputs['investment_costs'] = total_farm_CAPEX  + area_use_cost
+        outputs['investment_costs'] = total_farm_CAPEX # + area_use_cost
         outputs['decommissioning_costs'] = decommissioning_costs + support_decomm_costs
         outputs['cable_costs'] = export_cable_costs + infield_cable_investment
         outputs['array_cable_costs'] = infield_cable_investment

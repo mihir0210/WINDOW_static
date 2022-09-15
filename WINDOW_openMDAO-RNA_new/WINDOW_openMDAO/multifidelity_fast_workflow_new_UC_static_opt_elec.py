@@ -44,6 +44,7 @@ class WorkingGroup(Group):
         self.windrose_file = options.input.site.windrose_file
         self.bathymetry_file = options.input.site.bathymetry_file
 
+
         self.power_curve_file = options.input.turbine.power_file
         self.ct_curve_file = options.input.turbine.ct_file
         self.num_pegged = options.input.turbine.num_pegged
@@ -173,6 +174,7 @@ class WorkingGroup(Group):
 
         self.add_subsystem('layout_scaling', LayoutScaling(max_n_turbines, max_n_substations))
 
+
         self.add_subsystem('numbersubstation', NumberLayout(max_n_substations))
         self.add_subsystem('numberlayout', NumberLayout(max_n_turbines))
         self.add_subsystem('depths', RoughClosestNode(max_n_turbines, self.bathymetry_file))
@@ -188,6 +190,7 @@ class WorkingGroup(Group):
                                               power_file=self.power_curve_file,
                                               direction_sampling_angle=self.direction_sampling_angle,
                                               time_resolution=self.time_resolution))
+
 
         self.add_subsystem('electrical', self.electrical_model())
 

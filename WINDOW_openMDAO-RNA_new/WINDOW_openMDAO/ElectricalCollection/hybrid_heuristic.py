@@ -5,7 +5,10 @@ import numpy as np
 def choose_cables(number_turbines_per_cable, turbine_rated_current):
     cables_info = cable_types
     cable_list = []
+    max_allowable_power = 100*1e6 #max allowable power through a string of turbines
     for number in number_turbines_per_cable:
+        if turbine_rated_current * number>(max_allowable_power/(1.732*66000)): #equivalent of max 100 MW power across the string
+            number = np.floor(max_allowable_power/(1.732*66000*turbine_rated_current)) #limit number of turbines in a string such that max power is 100 MW
         for cable in cables_info:
 
             if turbine_rated_current * number <= cable[1]:
@@ -14,7 +17,8 @@ def choose_cables(number_turbines_per_cable, turbine_rated_current):
                 break
             elif turbine_rated_current * number > cables_info[-1][1]:
                 #cable_list.append([number, 579 + 365.0]) Maybe Sebastian included 365 Eur/m as installation cost of cables
-                cable_list.append([number, 579])
+                cost = 0.0008040*(turbine_rated_current * number)**2 + (-0.20614*turbine_rated_current * number) + 198.48357  #obtained from quadratic curve fit of existing data
+                cable_list.append([number, cost[0]])
                 break
 
 
@@ -39,6 +43,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
 
     # ---------------------------------------Main----------------------------------------------
     def set_cable_topology(NT, WT_List, central_platform_locations, cable_list):
+
         Wind_turbines = []
         for WT in WT_List:
             Wind_turbines.append([WT[0] + 1, WT[1], WT[2]])
@@ -65,8 +70,10 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
         for j in range(len(cable_list)):
             Capacityi[j + 1] = cable_list[j][0]
             Cable_Costi[j + 1] = cable_list[j][1]
+
         # initialize routes and Saving matrix
         for key, value in list(Wind_turbinesi.items()):
+
             Routesi[key], Routingi[key], Routing_redi[key], Routing_greeni[key] = initial_routes(value)
             Cost0i[key], Costij[key] = costi(value, substationi[key])
             Savingsi[key], Savingsi_finder[key], Crossings_finder[key] = savingsi(Cost0i[key], Costij[key], value,
@@ -83,6 +90,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
             Routesi[key], Routingi[key], Routing_redi[key], Routing_greeni[key] = Esau_Williams_Cable_Choice(Savingsi2[key], Savingsi2_finder[key], Crossings_finder[key], Wind_turbinesi[key], Routesi[key], Routingi[key], substationi[key], Capacityi, Routing_redi[key], Routing_greeni[key], Costi[key], Cable_Costi)
             Routesi[key], Routingi[key] = RouteOpt_Hybrid(Routingi[key], substationi[key], Costi[key], Capacityi, Routesi[key], Wind_turbinesi[key])
             cost, length = plotting(substationi[key], Wind_turbinesi[key], Routingi[key], Routing_redi[key], Routing_greeni[key], Cable_Costi)
+
             total_cost += cost
             total_length += length
 

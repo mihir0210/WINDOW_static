@@ -105,7 +105,7 @@ class CSMCalibrated(AbsRNACost):
         weight_material = 0.6 # Weightage given to material costs (carbon fiber, resins, root, etc.)
         weight_other = 1 - weight_material #Weightage given to tooling, labor, other factors
         outputs['cost_blade'] = weight_material*self.ref_cost_mass('Blade')*inputs['blade_mass'] + weight_other*cost_blade_ref*(rotor_diameter/rotor_diameter_ref)**2
-        print(outputs['cost_blade'])
+
         outputs['cost_hub'] = inputs['hub_mass'] * self.ref_cost_mass('Hub')
         outputs['cost_pitch'] = inputs['pitch_mass'] * self.ref_cost_mass('Pitch')
         outputs['cost_spinner'] = inputs['spinner_mass'] * self.ref_cost_mass('Spinner')

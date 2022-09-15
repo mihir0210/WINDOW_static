@@ -130,11 +130,13 @@ class FarmAEP(ExplicitComponent):
             ###### TIME SERIES APPROACH #####
             ws = np.array(wind_speed_hh)
             wd = np.array(wind_direction)
+            dir = wd[859]
+            speed = ws[859]
             ti = 0.1 + np.zeros(len(ws)) #turbulence intensity vector with a constant value
             time_stamp = np.arange(len(ws))
             operating = np.ones((len(x), len(time_stamp))) #operating condition of each turbine
 
-            wf_model = IEA37SimpleBastankhahGaussian(site, ref_windturbine, turbulenceModel=STF2017TurbulenceModel())
+            wf_model = BastankhahGaussian(site, ref_windturbine, turbulenceModel=STF2017TurbulenceModel())
             sim_res_time = wf_model(x, y,  # wind turbine positions
                                     wd=wd,  # Wind direction time series
                                     ws=ws,  # Wind speed time series
@@ -144,6 +146,9 @@ class FarmAEP(ExplicitComponent):
                                     )
 
             #print("Total AEP using time series: %f GWh" % sim_res_time.aep().sum())
+
+            # _ = site.plot_wd_distribution(n_wd=12, ws_bins=[0,5,10,15,20,25])
+            # plt.show()
 
             aep_with_wake_loss = sim_res_time.aep().sum().data
             aep_without_wake_loss = sim_res_time.aep(with_wake_loss=False).sum().data

@@ -95,4 +95,25 @@ print('Wake losses using IEA BastankhahGaussian=', wake_losses)
 # flow.FlowMap.plot_aep_map(levels=100, cmap=None, plot_colorbar=True, plot_windturbines=True, normalize_with=1, ax=None)
 
 
+from py_wake import HorizontalGrid
+for grid in [None, # defaults to HorizontalGrid(resolution=500, extend=0.2)
+             HorizontalGrid(x=None, y=None, resolution=100, extend=1), # custom resolution and extend
+             HorizontalGrid(x = np.arange(482000,500000,100),
+                            y = np.arange(5.724e6,5.74e6,100)) # custom x and y
+            ]:
 
+    plt.figure()
+    simulationResult.flow_map(grid=grid, # defaults to HorizontalGrid(resolution=500, extend=0.2), see below
+                            wd=210,
+                            ws=10).plot_wake_map()
+    plt.xlabel('Easting [$10^5$ m]')
+    plt.xticks([485000, 490000, 495000, 500000],['4.85', '4.9', '4.95', '5'])
+    plt.ylabel('Northing [$10^6$ m]')
+    plt.yticks([5.725e6, 5.73e6, 5.735e6, 5.74e6], ['5.725', '5.73', '5.735', '5.74'])
+    plt.ylim([5.7250e6, 5.74e6])
+    plt.show()
+
+# flow_map.plot_wake_map()
+# plt.ylim([5.7250e6, 5.74e6])
+#
+# plt.show()

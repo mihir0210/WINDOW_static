@@ -1,9 +1,16 @@
 
-def run_main_script(value_rad, value_power):
+def run_main_script(value_rad, value_power, N_t):
+# def run_main_script(value_rad, value_power):
+#     file = open("Input/power_value.txt", "w")
+#     file.write(str(value_power))
+#     file.close()
+#     print(value_power)
 
-    file = open("Input/power_value.txt", "w")
-    file.write(str(value_power))
+    file = open("Input/N_t.txt", "w")
+    file.write(str(N_t))
     file.close()
+    print(N_t)
+
 
     # This file must be run from the 'example' folder that has the 'Input' folder.
     import numpy as np
@@ -79,6 +86,7 @@ def run_main_script(value_rad, value_power):
     # Define paths to site and turbine defining input files.
     options.input.site.windrose_file = "Input/weibull_windrose_12unique.dat"
     options.input.site.bathymetry_file = "Input/bathymetry_table.dat"
+
 
     options.input.turbine.power_file = "Input/power_rna.dat"
     options.input.turbine.ct_file = "Input/ct_rna.dat"

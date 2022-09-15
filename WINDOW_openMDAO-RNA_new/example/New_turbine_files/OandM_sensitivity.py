@@ -55,7 +55,7 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
     #### PREVENTIVE MAINTENANCE AND CORRECTIVE INSPECTION ###
 
     service_hours_pertub = 50 #services hours per turbine
-    service_hours_substation = 30*4 # 30 hours and 4 expected trips
+    service_hours_substation = 30*5 # 30 hours and 5 expected trips
     service_hours_structure = 4 #expected hours for the support structure
     total_service_hours = (service_hours_structure + service_hours_pertub)*n_t + service_hours_substation
     no_ctv = 2
@@ -164,7 +164,7 @@ import random
 import pandas as pd
 from scipy.optimize import curve_fit
 
-power_values = [10, 11.11, 12.5, 14.28, 16.67, 20]
+power_values = [10, 11.11, 12.5, 14.28, 16.67, 20, 25]
 rad_values = [90.0, 100.0, 105.0, 110.0, 115.0, 120.0, 125.0, 130.0, 135.0, 140.0, 145.0, 150.0]
 trans_efficiency = 0.95
 
@@ -258,7 +258,7 @@ def function(data, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p
 # get fit parameters from scipy curve fit
 par = curve_fit(function, [x_data, y_data], z_data)
 
-p_eval = np.linspace(10, 20, 101)
+p_eval = np.linspace(10, 25, 151)
 r_eval = np.linspace(90, 150, 121)
 d_eval = [2 * r for r in r_eval]
 
@@ -274,28 +274,32 @@ result_deterministic = np.array(np.where(lcoe_estimate == np.amin(lcoe_estimate)
 global_optimum_deterministic = [d_eval[result_deterministic[0]], p_eval[result_deterministic[1]]]
 print('Deterministic optimum after surface fit:', p_eval[result_deterministic[1]], d_eval[result_deterministic[0]])
 
+result_discrete = np.array(np.where(lcoe == np.amin(lcoe))).flatten()
+global_optimum_discrete = [power_values[result_discrete[1]], rad_values[result_discrete[0]]*2]
+print(global_optimum_discrete)
+
 ###### O&M sensitivity #####
 
 
 
-lb_fixed_costs = 10e6
-ub_fixed_costs = 30e6
-fixed_costs_values = np.linspace(lb_fixed_costs, ub_fixed_costs, 9)
+lb_fixed_costs = 22.5e6 #15e6
+ub_fixed_costs = 22.5e6 #25e6
+fixed_costs_values = np.linspace(lb_fixed_costs, ub_fixed_costs, 1)
 fixed_costs_values = fixed_costs_values.tolist()
 
-lb_replacement_perc = 0.04
-ub_replacement_perc = 0.10
-replacement_perc_values = np.linspace(lb_replacement_perc, ub_replacement_perc, 4)
+lb_replacement_perc = 0.08
+ub_replacement_perc = 0.14
+replacement_perc_values = np.linspace(lb_replacement_perc, ub_replacement_perc, 2)
 replacement_perc_values = replacement_perc_values.tolist()
 
-lb_day_rate = 100000
-ub_day_rate = 300000
-day_rate_values = np.linspace(lb_day_rate, ub_day_rate, 5)
+lb_day_rate = 2e5 #100000
+ub_day_rate = 2e5 #300000
+day_rate_values = np.linspace(lb_day_rate, ub_day_rate, 1)
 day_rate_values = day_rate_values.tolist()
 
-lb_alpha = 0
-ub_alpha = 2
-alpha_values = np.linspace(lb_alpha, ub_alpha, 5)
+lb_alpha = 1 #0
+ub_alpha = 1 #2
+alpha_values = np.linspace(lb_alpha, ub_alpha, 1)
 alpha_values = alpha_values.tolist()
 
 import itertools
@@ -312,8 +316,9 @@ n_runs = len(all_combinations)
 
 global_optimum = []
 p_eval_opt_rotordia = [10, 12, 14, 16, 18, 20]
+d_eval_opt_ratedpower = [200.0, 210.0, 220.0, 230.0, 240.0, 250.0]
 opt_rotordia = np.zeros((n_runs, len(p_eval_opt_rotordia)))
-
+opt_ratedpower = np.zeros((n_runs, len(d_eval_opt_ratedpower)))
 
 
 for idx in range(n_runs):
@@ -382,7 +387,7 @@ for idx in range(n_runs):
     par = curve_fit(function, [x_data, y_data], z_data)
     p = par[0]
 
-    p_eval = np.linspace(10,20,101)
+    p_eval = np.linspace(10,25,151)
     r_eval = np.linspace(90,150,121)
     d_eval = [2*r for r in r_eval]
 
@@ -393,6 +398,9 @@ for idx in range(n_runs):
     global_optimum.append([p_eval[result[1]], d_eval[result[0]]])
 
 
+    result_discrete_new = np.array(np.where(new_lcoe== np.amin(new_lcoe))).flatten()
+    global_optimum_discrete_new = [power_values[result_discrete_new[1]], rad_values[result_discrete_new[0]]*2]
+    print(global_optimum_discrete_new)
 
     np.savetxt("global_optimum_oandm_sensitivity.csv", global_optimum, delimiter=",")
 
@@ -409,7 +417,22 @@ for idx in range(n_runs):
 
     opt_rotordia[idx] = d_values
 
-np.savetxt("opt_rotordia_perPrated_oandm_sensitivity.csv", opt_rotordia)
+    np.savetxt("opt_rotordia_perPrated_oandm_sensitivity.csv", opt_rotordia)
+
+    [P, D] = np.meshgrid(p_eval, d_eval_opt_ratedpower)
+    lcoe_estimate = p[0] + p[1] * P + p[2] * D + p[3] * P ** 2 + p[4] * P * D + p[5] * D ** 2 + p[6] * P ** 3 + p[
+        7] * P ** 2 * D + p[8] * P * D ** 2 + p[9] * D ** 3 + p[10] * P ** 4 + p[11] * P ** 3 * D + p[
+                        12] * P ** 2 * D ** 2 + p[13] * P * D ** 3 + p[14] * D ** 4
+    result = np.where(lcoe_estimate == np.amin(lcoe_estimate, axis=1).reshape(-1, 1))
+    listOfCordinates = list(zip(result[0], result[1]))
+
+    p_values = []
+    for lc in listOfCordinates:
+        p_values.append(P[lc])
+
+    opt_ratedpower[idx] = p_values
+
+    np.savetxt("opt_ratedpower_perrotordiameter_oandm_sensitivity.csv", opt_ratedpower)
 
     # listOfCordinates = list(zip(result[0], result[1]))
     # # travese over the list of cordinates
@@ -432,13 +455,21 @@ plt.show()
 
 #### Rotor diameter horizontal bars ####
 
-width_bar = np.amax(opt_rotordia, axis=0) - np.amin(opt_rotordia, axis=0)
-start_point = np.amin(opt_rotordia, axis=0)
-
 
 plt.figure(2)
-plt.barh(p_eval_opt_rotordia, width_bar, height=0.5, left=start_point, edgecolor='black')
+
+plt.boxplot(opt_rotordia, vert=0)
+plt.yticks([1,2,3,4,5,6],['10', '12', '14', '16', '18', '20'])
 plt.xlabel('Rotor diameter (m)')
 plt.ylabel('Rated power (MW)')
 plt.title('Uncertainty in optimum rotor diameter w.r.t O&M parameters')
+plt.show()
+
+plt.figure(3)
+
+plt.boxplot(opt_ratedpower)
+plt.xticks([1,2,3,4,5, 6],['200', '210', '220', '230', '240', '250'])
+plt.xlabel('Rotor diameter (m)')
+plt.ylabel('Rated power (MW)')
+plt.title('Uncertainty in optimum rated power w.r.t O&M parameters')
 plt.show()

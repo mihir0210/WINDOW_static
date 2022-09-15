@@ -21,7 +21,7 @@ import pandas as pd
 import numpy as np
 from scipy.optimize import curve_fit
 
-power_values = [10, 11.11, 12.5, 14.28, 16.67, 20]
+power_values = [10, 11.11, 12.5, 14.28, 16.67, 20, 25]
 rad_values = [90.0, 100.0, 105.0, 110.0, 115.0, 120.0, 125.0, 130.0, 135.0, 140.0, 145.0, 150.0]
 trans_efficiency = 0.95
 
@@ -93,7 +93,7 @@ for p in power_values:
             aep_yearly[idx-1] = aep[idx_diameter, idx_power]/(1+0.05)**idx
         total_aep[idx_diameter, idx_power] = np.sum(aep_yearly)
 
-        num[idx_diameter, idx_power] = lcoe[idx_diameter, idx_power]*total_aep[idx_diameter, idx_power] - 5e5*farm_area[idx_diameter, idx_power]
+        num[idx_diameter, idx_power] = lcoe[idx_diameter, idx_power]*total_aep[idx_diameter, idx_power] # - 5e5*farm_area[idx_diameter, idx_power]
         lcoe[idx_diameter, idx_power] = num[idx_diameter, idx_power]/total_aep[idx_diameter, idx_power]
 
         x_data.append(p)
@@ -174,15 +174,16 @@ for idx in range(len(rad_values)):
 
 global_optimum = []
 p_eval_opt_rotordia = [10, 12, 14, 16, 18, 20]
+d_eval_opt_ratedpower = [200.0, 210.0, 220.0, 230.0, 240.0, 250.0]
 
 
 coeff_values = np.linspace(coeff_low, coeff_high, 4)
 coeff_values = coeff_values.tolist()
-mass_weightage_values = np.linspace(0.5,1,6)
+mass_weightage_values = np.linspace(0.6,1,8)
 mass_weightage_values = mass_weightage_values.tolist()
-nonmass_coeff_values = np.linspace(1.5,4, 6)
+nonmass_coeff_values = np.linspace(1.5,4, 11)
 nonmass_coeff_values = nonmass_coeff_values.tolist()
-new_ref_cost_values = np.linspace(0.7 * ref_cost_blade, 1.3 * ref_cost_blade, 7)
+new_ref_cost_values = np.linspace(0.75 * ref_cost_blade, 1.25 * ref_cost_blade, 6)
 new_ref_cost_values = new_ref_cost_values.tolist()
 
 import itertools
@@ -192,6 +193,7 @@ all_combinations = list(itertools.product(*all_lists))
 
 n_runs = len(all_combinations)
 opt_rotordia = np.zeros((n_runs, len(p_eval_opt_rotordia)))
+opt_ratedpower = np.zeros((n_runs, len(d_eval_opt_ratedpower)))
 
 for idx in range(n_runs):
     values = all_combinations[idx]
@@ -247,8 +249,9 @@ for idx in range(n_runs):
     par = curve_fit(function, [x_data, y_data], z_data)
     p = par[0]
 
-    p_eval = np.linspace(10,20,101)
-    r_eval = np.linspace(90,150,121)
+
+    p_eval = np.linspace(10,25,151)
+    r_eval = np.linspace(90,150,200)
     d_eval = [2*r for r in r_eval]
 
     [P,D] = np.meshgrid(p_eval, d_eval)
@@ -272,7 +275,25 @@ for idx in range(n_runs):
 
     opt_rotordia[idx] = d_values
 
-np.savetxt("opt_rotordia_perPrated_rotor_sensitivity.csv", opt_rotordia)
+
+    np.savetxt("opt_rotordia_perPrated_rotor_sensitivity.csv", opt_rotordia)
+
+
+    [P, D] = np.meshgrid(p_eval, d_eval_opt_ratedpower)
+    lcoe_estimate= p[0] + p[1] * P + p[2] * D + p[3] * P ** 2 + p[4] * P * D + p[5] * D ** 2 + p[6] * P ** 3 + p[7] * P ** 2 * D + p[8] * P * D ** 2 + p[9] * D ** 3 + p[10]*P**4 + p[11]*P**3*D + p[12]*P**2*D**2 + p[13]*P*D**3 + p[14]*D**4
+    result = np.where(lcoe_estimate == np.amin(lcoe_estimate, axis=1).reshape(-1,1))
+    listOfCordinates = list(zip(result[0], result[1]))
+
+
+    p_values = []
+    for lc in listOfCordinates:
+        p_values.append(P[lc])
+
+    opt_ratedpower[idx] = p_values
+
+    np.savetxt("opt_ratedpower_perrotordiameter_rotor_sensitivity.csv", opt_ratedpower)
+
+
 
     # listOfCordinates = list(zip(result[0], result[1]))
     # # travese over the list of cordinates
@@ -293,23 +314,23 @@ plt.legend()
 plt.show()
 
 
-#### Rotor diameter horizontal bars ####
-
-width_bar = np.amax(opt_rotordia, axis=0) - np.amin(opt_rotordia, axis=0)
-start_point = np.amin(opt_rotordia, axis=0)
+#### Box plots ####
 
 
 plt.figure(2)
-plt.barh(p_eval_opt_rotordia, width_bar, height=0.5, left=start_point, edgecolor='black')
+
+plt.boxplot(opt_rotordia, vert=0, whis=3)
+plt.yticks([1,2,3,4,5,6],['10', '12', '14', '16', '18', '20'])
 plt.xlabel('Rotor diameter (m)')
 plt.ylabel('Rated power (MW)')
 plt.title('Uncertainty in optimum rotor diameter w.r.t Rotor parameters')
 plt.show()
 
-# plt.boxplot(opt_rotordia, vert=0)
-# plt.yticks([0,1,2,3,4,5],['10', '12', '14', '16', '18', '20'])
-# plt.xlabel('Rotor diameter (m)')
-# plt.ylabel('Rated power (MW)')
-# plt.title('Uncertainty in optimum rotor diameter w.r.t Rotor parameters')
-# plt.show()
+plt.figure(3)
 
+plt.boxplot(opt_ratedpower, whis=2)
+plt.xticks([1,2,3,4,5,6],['200', '210', '220', '230', '240', '250'])
+plt.xlabel('Rotor diameter (m)')
+plt.ylabel('Rated power (MW)')
+plt.title('Uncertainty in optimum rated power w.r.t Rotor parameters')
+plt.show()

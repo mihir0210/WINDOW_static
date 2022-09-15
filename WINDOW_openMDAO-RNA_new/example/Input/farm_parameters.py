@@ -3,14 +3,17 @@ import numpy as np
 #subtraction distance from central platform only for the rectangular layout
 #central_platform = [[498000.0 - 7000.0, 5731000.0 - 1000.0], [497000.0- 7000.0, 5731000.0 - 1000.0]]
 central_platform = [[492000.0, 5733154.0], [490000.0, 5733154.0]]
-number_turbines_per_cable = [2, 4, 7]
+number_turbines_per_cable = [2,4,6]
+
 Crossing_penalty = 0
 Transmission = [[central_platform[i],[463000,5918000]] for i in range(len(central_platform))]
 transm_electrical_efficiency = 0.95
 coll_electrical_efficiency = 0.99
 
-distance_to_grid = 60000.0  # [m]
-distance_to_harbour = 40000.0  # [m]
+change = 0
+
+distance_to_grid = 60000.0 + change # [m]
+distance_to_harbour = 40000.0 + change # [m]
 onshore_transport_distance = 100000.0  # [m]
 frequency = 50  # [Hz]
 transmission_voltage = 220000.0  # [V]
@@ -24,17 +27,39 @@ grid_coupling_point_voltage = 169000.0  # [V]
 
 df1 = pd.read_csv('Input/power_value.txt', header=None)
 p = df1[0][0]
-print(p)
-power = [10, 11.11, 12.5, 14.28, 16.67, 20]
-n_t = [100, 90, 80, 70, 60, 50]
 
-arr = np.asarray(power)
-idx = (np.abs(arr - p)).argmin()
+# #### For a 1 GW farm ###
+# power = [10, 11.11, 12.5, 14.28, 16.67, 20, 25]
+# n_t = [100, 90, 80, 70, 60, 50, 40]
+# print(p)
+# arr = np.asarray(power)
+# idx = (np.abs(arr - p)).argmin()
+# N = n_t[idx]
 
-N = n_t[idx]
+# #### For a 600 MW farm ###
+# power = [10, 12, 15, 20, 30]
+# n_t = [60, 50, 40, 30, 20]
+# print(p)
+# arr = np.asarray(power)
+# idx = (np.abs(arr - p)).argmin()
+# N = n_t[idx]
 
+#### For a 1400 MW farm ###
+# power = [10, 11.66, 14, 15.55, 17.5, 20, 23.33]
+# n_t = [140, 120, 100, 90, 80, 70, 60]
+# arr = np.asarray(power)
+# idx = (np.abs(arr - p)).argmin()
+# N = n_t[idx]
+
+### for fixed area case, directly read number of turbines ###
+df1 = pd.read_csv('Input/N_t.txt', header=None)
+N = df1[0][0]
+
+
+#filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_5D.dat'
 filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_7D.dat'
-print(filename)
+#filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_9D.dat'
+#print(filename)
 # Use only in case of a standard rectangular layout. Built using standard spacing for HKW and the IEA 15 MW -240 m turbine
 df = pd.read_csv(filename, delimiter=' ')
 

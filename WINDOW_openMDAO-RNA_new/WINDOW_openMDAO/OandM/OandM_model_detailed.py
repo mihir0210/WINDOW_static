@@ -73,13 +73,15 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
 
     #### PREVENTIVE MAINTENANCE AND CORRECTIVE INSPECTION ###
 
+    total_no_trips = 5
     service_hours_pertub = 50 #services hours per turbine
-    service_hours_substation = 30*4 # 30 hours and 4 expected trips
+    service_hours_substation = 30*total_no_trips # 30 hours and 4 expected trips
     service_hours_structure = 4 #expected hours for the support structure
     total_service_hours = (service_hours_structure + service_hours_pertub)*n_t + service_hours_substation
     no_ctv = 2
-    total_no_trips = 5
-    no_days = np.ceil(total_service_hours/no_ctv/shift_time + (traveltime_ctv*no_ctv*total_no_trips/24))
+
+    #no_days = np.ceil(total_service_hours/no_ctv/shift_time + (traveltime_ctv*no_ctv*total_no_trips/24))
+    no_days = total_service_hours/no_ctv/shift_time + (traveltime_ctv*no_ctv*total_no_trips/24)
 
     cost_inspection_preventive = no_days*no_ctv*dayrate_ctv
 
@@ -87,8 +89,8 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
     ene_preinspection = 0.4
     no_ctvs = 1
     total_no_trips = 1
-    no_days = np.ceil(ene_preinspection* rp_preinspection*n_t/shift_time/no_ctvs + (traveltime_ctv*no_ctv*total_no_trips/24))
-
+    #no_days = np.ceil(ene_preinspection* rp_preinspection*n_t/shift_time/no_ctvs + (traveltime_ctv*no_ctv*total_no_trips/24))
+    no_days = ene_preinspection * rp_preinspection * n_t / shift_time / no_ctvs + (traveltime_ctv * no_ctv * total_no_trips / 24)
     cost_inspection_corrective = no_days*dayrate_ctv
 
     cost_inspection = cost_inspection_corrective + cost_inspection_preventive
@@ -107,7 +109,8 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
 
     no_ctvs = 2
     total_no_trips = 10
-    no_days = np.ceil(ene_minor_repair*rp_minor_repair*n_t/shift_time/no_ctvs + traveltime_ctv*no_ctv*total_no_trips/24)
+    #no_days = np.ceil(ene_minor_repair*rp_minor_repair*n_t/shift_time/no_ctvs + traveltime_ctv*no_ctv*total_no_trips/24)
+    no_days = ene_minor_repair * rp_minor_repair * n_t / shift_time / no_ctvs + traveltime_ctv * no_ctv * total_no_trips / 24
     cost_vessels_minor_repair = no_days*no_ctvs*dayrate_ctv
     cost_sp_minor_repair = sp_minor_repair*rna_costs
 
@@ -117,7 +120,8 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
 
     no_ctvs = 2
     total_no_trips = 1
-    no_days = np.ceil(ene_major_repair*rp_major_repair*n_t/shift_time/no_ctvs + traveltime_ctv*no_ctv*total_no_trips/24)
+    #no_days = np.ceil(ene_major_repair*rp_major_repair*n_t/shift_time/no_ctvs + traveltime_ctv*no_ctv*total_no_trips/24)
+    no_days = ene_major_repair * rp_major_repair * n_t / shift_time / no_ctvs + traveltime_ctv * no_ctv * total_no_trips / 24
     cost_vessels_major_repair = no_days*no_ctvs*dayrate_ctv
     cost_sp_major_repair = sp_major_repair*rna_costs
 
@@ -128,8 +132,10 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
 
 
     no_instances = ene_major_replacement*n_t
-    no_mobilizations = np.ceil(no_instances/1)  # depends on the strategy. Assumed that the operator clubs major repairs and calls for a HLV once for x turbine replacements
-    no_days = np.ceil(rp_major_replacement/shift_time + traveltime_hlv/24)
+    #no_mobilizations = np.ceil(no_instances/1)  # depends on the strategy. Assumed that the operator clubs major repairs and calls for a HLV once for x turbine replacements
+    no_mobilizations = no_instances
+    #no_days = np.ceil(rp_major_replacement/shift_time + traveltime_hlv/24)
+    no_days = rp_major_replacement/shift_time + traveltime_hlv/24
     cost_vessels_major_replacement = (no_days*dayrate_hlv + mobilization_hlv*2)*no_mobilizations
     cost_sp_major_replacement = sp_major_replacement*rna_costs*no_instances
 
@@ -142,14 +148,16 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
     rp_scour_repair = 8
 
     no_instances = ene_scour_repair*n_t
-    no_days =np.ceil(rp_scour_repair/shift_time + traveltime_clv/24)
+    #no_days =np.ceil(rp_scour_repair/shift_time + traveltime_clv/24)
+    no_days = rp_scour_repair/shift_time + traveltime_clv/24
     cost_vessels_scour_repair = (no_days*dayrate_dsv + mobilization_dsv*2)*no_instances
 
     ene_cable_replacement = 0.0004
     rp_cable_replacement = 32
 
     no_instances = ene_cable_replacement*n_t
-    no_days = np.ceil(rp_cable_replacement/shift_time)
+    #no_days = np.ceil(rp_cable_replacement/shift_time)
+    no_days = rp_cable_replacement/shift_time
     cost_vessels_cable_replacement = (no_days*dayrate_clv + mobilization_clv*2)*no_instances
     perc_cable_down = 6/n_t # one cable connects 6 turbines in a row. Any fault needs to have cable length equivalent to 6 turbines replaced
     cost_sp_cable_replacement = perc_cable_down*array_cable_costs*no_instances
