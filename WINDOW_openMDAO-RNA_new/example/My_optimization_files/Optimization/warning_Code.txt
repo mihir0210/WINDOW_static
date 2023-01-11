@@ -1,5 +1,0 @@
-C:\Python27\lib\site-packages\openmdao\core\group.py:1046:
-
-C:\Python27\lib\site-packages\openmdao\drivers\scipy_optimizer.py:683:
-
-C:\Python27\lib\site-packages\openmdao\drivers\scipy_optimizer.py:683:

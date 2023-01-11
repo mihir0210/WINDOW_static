@@ -7,13 +7,18 @@ def choose_cables(number_turbines_per_cable, turbine_rated_current):
     cable_list = []
     max_allowable_power = 100*1e6 #max allowable power through a string of turbines
     for number in number_turbines_per_cable:
-        if turbine_rated_current * number>(max_allowable_power/(1.732*66000)): #equivalent of max 100 MW power across the string
-            number = np.floor(max_allowable_power/(1.732*66000*turbine_rated_current)) #limit number of turbines in a string such that max power is 100 MW
+        # if turbine_rated_current * number>(max_allowable_power/(1.732*66000)): #equivalent of max 100 MW power across the string
+        #     number = np.floor(max_allowable_power/(1.732*66000*turbine_rated_current)) #limit number of turbines in a string such that max power is 100 MW
+        # if turbine_rated_current * number > cables_info[-1][1]:
+        #     num = round(cables_info[-1][1] / turbine_rated_current) #Allow maximum of 825 A through the cable
+        #     number = min(num, number)
         for cable in cables_info:
 
             if turbine_rated_current * number <= cable[1]:
                 #cable_list.append([number, cable[2] + 365.0]) Maybe Sebastian included 365 Eur/m as installation cost of cables
-                cable_list.append([number, cable[2]])
+                #cable_list.append([number, cable[2]])
+                cost = 0.0008040 * (turbine_rated_current * number) ** 2 + (-0.20614 * turbine_rated_current * number) + 198.48357
+                cable_list.append([number, cost[0]])
                 break
             elif turbine_rated_current * number > cables_info[-1][1]:
                 #cable_list.append([number, 579 + 365.0]) Maybe Sebastian included 365 Eur/m as installation cost of cables
@@ -21,7 +26,7 @@ def choose_cables(number_turbines_per_cable, turbine_rated_current):
                 cable_list.append([number, cost[0]])
                 break
 
-
+    #print(cable_list)
     return cable_list
 
 
@@ -40,6 +45,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
 
     'Remove and return the lowest priority task. Raise KeyError if empty.'
     REMOVED = -2e6 #'<removed-task>'  # placeholder for a removed task
+    #REMOVED = '<removed-task>'
 
     # ---------------------------------------Main----------------------------------------------
     def set_cable_topology(NT, WT_List, central_platform_locations, cable_list):
@@ -47,6 +53,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
         Wind_turbines = []
         for WT in WT_List:
             Wind_turbines.append([WT[0] + 1, WT[1], WT[2]])
+
         # initialize the parameters
         Wind_turbinesi, Costi, Cost0i, Costij, Savingsi, Savingsi_finder, Savingsi2, Savingsi2_finder, distancefromsubstationi, substationi, Routingi, Routing_redi, Routing_greeni, Routesi, Capacityi, Cable_Costi, Crossings_finder = dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict(), dict()
         i = 1
@@ -65,6 +72,7 @@ def cable_design(WT_List, central_platform_locations, number_turbines_per_cable,
                 empty.append(value[j])
             index = empty.index(min(empty, key=second)) + 1
             Wind_turbinesi[index].append([value[j][1], Wind_turbines[j][1], Wind_turbines[j][2]])
+
         # Wind_turbinesi[1]=[x for x in Wind_turbines if x[0]<=118]
         #        Wind_turbinesi[2]=[x for x in Wind_turbines if x[0]>118]
         for j in range(len(cable_list)):

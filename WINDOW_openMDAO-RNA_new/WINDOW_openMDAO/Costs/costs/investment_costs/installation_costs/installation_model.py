@@ -98,7 +98,7 @@ def installation_electrical(infield_length, export_length):
     extra_costs = 20e6 # for cable pull-in, electrical testing and termination, onshore connection
 
     cost_installation_cables = cost_cable_export + cost_cable_infield + extra_costs  #1.5 to account for survey, clearance of seabed, etc.
-
+    #print(cost_cable_export + extra_costs)
 
     hlv_dayrate = 500000
     days_substation = 20 #includes travel, mobilization, installation time
@@ -106,6 +106,7 @@ def installation_electrical(infield_length, export_length):
     onshore_substation_costs = 25e6
     cost_installation_substation = hlv_dayrate*days_substation*1.5 + mobilization_costs + onshore_substation_costs
     cost_installation_electrical = cost_installation_cables + cost_installation_substation
+
 
     return cost_installation_electrical
 

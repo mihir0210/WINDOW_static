@@ -43,7 +43,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     #installation_rna = rna_installation_costs(n_turbines, rotor_radius, hub_height)
 
-    [installation_foundation, installation_turbine, installation_electrical, total_installation_costs] = installation_total(n_turbines,2*rotor_radius, hub_height, distance_to_harbour,infield_length/1000, distance_to_grid )
+    [installation_foundation, installation_turbine, installation_electrical, total_installation_costs] = installation_total(n_turbines,2*rotor_radius, hub_height, distance_to_harbour,infield_length/1000, distance_to_grid)
 
     decommissioning = decommissioning_costs(infield_length, n_turbines, rna_mass, hub_height,config)
 
@@ -65,6 +65,8 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
                 writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
+        investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + total_installation_costs
+
     elif config==2:
         field_names = ['costs_RNA_H2', 'costs_other_turbine_H2']
         description = ['Total RNA procurement costs in euros for H2', 'Other turbine costs (profits, assembly, etc. for H2']
@@ -76,11 +78,13 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
                 writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
+        investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + installation_foundation + installation_turbine
+
 
     #investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna
     #investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + installation_electrical + installation_rna
     #investment_costs = project_development + procurement_rna + turbine_other_costs + installation_rna + other_installation_commissioning_costs
-    investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + total_installation_costs
+    #investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + total_installation_costs
     # print "project_development ", project_development
     # print "procurement_auxiliary", procurement_auxiliary 
     # print "procurement_rna" ,procurement_rna 

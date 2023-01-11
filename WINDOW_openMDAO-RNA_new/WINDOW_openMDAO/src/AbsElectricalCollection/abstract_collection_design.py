@@ -8,6 +8,7 @@ class AbstractElectricDesign(ExplicitComponent):
     def setup(self):
         self.add_input('layout', shape=(max_n_turbines, 3))
         self.add_input('n_turbines_p_cable_type', shape=3)
+        #self.add_input('n_turbines_p_cable_type', shape=5)
         self.add_input('substation_coords', shape=(max_n_substations, 2))
         self.add_input('n_substations', val=0)
         self.add_input('n_turbines', val=0)
@@ -15,7 +16,9 @@ class AbstractElectricDesign(ExplicitComponent):
 
         self.add_output('topology', shape=(max_n_substations, max_n_branches, max_n_turbines_p_branch, 2))
         self.add_output('cost_p_cable_type', shape=3)
+        #self.add_output('cost_p_cable_type', shape=5)
         self.add_output('length_p_cable_type', shape=3)
+        #self.add_output('length_p_cable_type', shape=5)
 
         # self.declare_partials(of=['topology', 'cost_p_cable_type', 'length_p_cable_type'], wrt=['layout', 'n_turbines_p_cable_type', 'substation_coords', 'n_substations', 'n_turbines'], method='fd')
 

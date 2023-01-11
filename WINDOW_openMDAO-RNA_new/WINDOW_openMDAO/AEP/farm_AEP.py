@@ -70,9 +70,9 @@ class FarmAEP(ExplicitComponent):
 
         wind_speed_hh = [] #wind speed at hub height
         for v in wind_speed_100:
-            wind_speed_hh.append(float(v * (hub_height / 100.0) ** 0.11))  # power law to extrapolate wind speed to hub height
+            wind_speed_hh.append(float(v *(hub_height / 100.0) ** 0.11))  # power law to extrapolate wind speed to hub height
 
-        #print 'mean wind speed', np.mean(wind_speed)
+        print('mean wind speed', np.mean(wind_speed_hh))
 
 
         shape_fac, scale_fac, prob = directional_weibull(wind_direction, direction_sampling_angle, wind_speed_hh) #fit a weibull curve for each wind direction
@@ -130,8 +130,8 @@ class FarmAEP(ExplicitComponent):
             ###### TIME SERIES APPROACH #####
             ws = np.array(wind_speed_hh)
             wd = np.array(wind_direction)
-            dir = wd[859]
-            speed = ws[859]
+            #dir = wd[859]
+            #speed = ws[859]
             ti = 0.1 + np.zeros(len(ws)) #turbulence intensity vector with a constant value
             time_stamp = np.arange(len(ws))
             operating = np.ones((len(x), len(time_stamp))) #operating condition of each turbine
@@ -165,7 +165,14 @@ class FarmAEP(ExplicitComponent):
             # file.close()
 
 
+
+
             farm_power_output = np.sum(sim_res_time.Power.values, axis=0)/ 1e6 #Hourly farm power in MW
+
+            # sim_res_time.flow_map(grid=None,  # defaults to HorizontalGrid(resolution=500, extend=0.2), see below
+            #                             wd=sim_res_time.wd.item(1),
+            #                             ws=sim_res_time.ws.item(1)).plot_wake_map()
+
 
             return max_ti_eff, wake_losses, farm_power_output, aep_with_wake_loss, aep_without_wake_loss
 

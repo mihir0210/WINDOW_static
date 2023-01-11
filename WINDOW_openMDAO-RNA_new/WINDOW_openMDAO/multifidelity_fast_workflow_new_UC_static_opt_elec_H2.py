@@ -6,7 +6,7 @@ from openmdao.api import IndepVarComp, Group, ExecComp
 from WINDOW_openMDAO.input_params import max_n_turbines, max_n_substations, interest_rate, central_platform, areas, \
     n_quadrilaterals, separation_equation_y, operational_lifetime, number_turbines_per_cable, wind_directions, \
     weibull_shapes, weibull_scales, direction_probabilities, layout, n_turbines, TI_ambient, coll_electrical_efficiency, \
-    transm_electrical_efficiency, number_substations
+    transm_electrical_efficiency, number_substations, distance_to_harbour
 from WINDOW_openMDAO.blade_parameters import blade_span, pegged_chord, pegged_twist
 from WINDOW_openMDAO.src.api import AEP, NumberLayout, MinDistance, WithinBoundaries
 from WINDOW_openMDAO.WaterDepth.water_depth_models import RoughClosestNode
@@ -96,6 +96,7 @@ class WorkingGroup(Group):
         indep2.add_output('transm_electrical_efficiency', val=transm_electrical_efficiency)
         indep2.add_output('operational_lifetime', val=operational_lifetime)
         indep2.add_output('interest_rate', val=interest_rate)
+        indep2.add_output('distance_to_harbour', val=distance_to_harbour)
         #indep2.add_output('availability', val=0.97)
 
 
@@ -322,9 +323,12 @@ class WorkingGroup(Group):
 
 
         self.connect('indep2.n_turbines', 'OandM.N_T')
-        self.connect('power_scaling.machine_rating', 'OandM.P_rated')
+        #self.connect('power_scaling.machine_rating', 'OandM.P_rated')
+        self.connect('rad2dia.rotor_diameter', 'OandM.rotor_diameter')
         self.connect('usd2eur.cost_rna_eur', 'OandM.RNA_costs')
-        self.connect('Costs.cable_costs', 'OandM.cable_costs')
+        #self.connect('Costs.cable_costs', 'OandM.cable_costs')
+        self.connect('Costs.array_cable_costs', 'OandM.array_cable_costs')
+        self.connect('indep2.distance_to_harbour', 'OandM.distance_to_shore')
 
         
 

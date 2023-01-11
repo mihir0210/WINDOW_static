@@ -1,5 +1,5 @@
 from openmdao.api import ExplicitComponent
-from WINDOW_openMDAO.input_params import max_n_turbines
+from WINDOW_openMDAO.input_params import max_n_turbines, distance_to_harbour
 from .costs.other_costs import other_costs
 
 from WINDOW_openMDAO.input_params import distance_to_grid
@@ -95,7 +95,7 @@ class HydrogenFarmCostModel(ExplicitComponent):
         export_cable_h2, electrical_costs_h2, other_investment_h2, decommissioning_costs_h2 = other_costs(depth_central_platform,
                                                                                          n_turbines,
                                                                                          sum(length_p_cable_type),
-                                                                                         n_substations, \
+                                                                                         n_substations, distance_to_grid/1000, distance_to_harbour/1000,\
                                                                                          inputs['machine_rating'],
                                                                                          inputs['rotor_radius'],
                                                                                          purchase_price_h2,

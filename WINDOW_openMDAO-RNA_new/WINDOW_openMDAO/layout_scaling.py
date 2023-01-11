@@ -55,8 +55,8 @@ class LayoutScaling(ExplicitComponent):
 
 
         turbine_ref = 120.0 #99.0 # rotor radius of the reference turbine being used
-        scaling_ratio = scaling_factor*(turbine_radius/turbine_ref) # scaling ratio will be equal to scaling_factor*(D_new/D_ref)
-
+        #scaling_ratio = scaling_factor*(turbine_radius/turbine_ref) # scaling ratio will be equal to scaling_factor*(D_new/D_ref)
+        scaling_ratio = scaling_factor * (turbine_radius / turbine_radius )  # For fixed area, input files have fixed absolute distance
         scaling_ratio = scaling_ratio[0]
 
         #print 'scaling_factor:', scaling_factor
@@ -82,23 +82,26 @@ class LayoutScaling(ExplicitComponent):
             #multiply coordinates with the scaling ratio
             scaled_layout = [[orig_layout[element][0] * scaling_ratio, orig_layout[element][1] * scaling_ratio] for element in range(len(orig_layout))]
 
-            #Shift the centroid of the new farm to that of the old farm
-
-            [cent_x_new, cent_y_new] = centroid(scaled_layout)
-
-            dx = cent_x_new - cent_x_ogi
-            dy = cent_y_new - cent_y_ogi
+            coord_fixedturb = orig_layout[0] #turbine to the leftmost and bottom which is kept fixed
 
 
-
-            new_layout = [[element[0]-dx, element[1]-dy] for element in scaled_layout] #shift centroid of scaled layout back to that of original
+            dx = scaled_layout[0][0] - coord_fixedturb[0]
+            dy = scaled_layout[0][1] - coord_fixedturb[1]
 
 
 
-            new_substation_coords = [[element[0]*scaling_ratio-dx, element[1]*scaling_ratio-dy] for element in substation_coords]
-            #new_substation_coords = [cent_x_ogi, cent_y_ogi]
 
-            #print 'new substaion coords', new_substation_coords
+
+            new_layout = [[element[0]-dx, element[1]-dy] for element in scaled_layout] #shift scaled layout back to the coordinate of fixed turbine
+            [cent_x_new, cent_y_new] = centroid(new_layout) # centroid of new layout
+
+
+
+            # new_substation_coords = [[element[0]*scaling_ratio-dx, element[1]*scaling_ratio-dy] for element in substation_coords]
+            # #new_substation_coords = [cent_x_ogi, cent_y_ogi]
+
+            new_substation_coords = [[cent_x_new, cent_y_new], [cent_x_new + 1000, cent_y_new]]
+
 
 
             x = np.array([new_layout[idx][0] for idx in range(len(new_layout))])
@@ -111,18 +114,18 @@ class LayoutScaling(ExplicitComponent):
             points[:, 1] = y
             hull = ConvexHull(points)
 
-            farm_area = hull.volume/1e6 # in
+            farm_area = hull.volume/1e6 # in km2
 
-
+            #print(farm_area)
             # x = [item for sublist in x for item in sublist]
             # y = [item for sublist in y for item in sublist]
 
 
-            '''
-            plt.plot(points[:, 0], points[:, 1], 'o')
-            for simplex in hull.simplices:
-                plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
-            plt.show()'''
+
+            # plt.plot(points[:, 0], points[:, 1], 'o')
+            # for simplex in hull.simplices:
+            #     plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
+            # plt.show()
 
 
             return x,y, new_layout, new_substation_coords, farm_area

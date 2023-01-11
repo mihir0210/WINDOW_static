@@ -2,18 +2,22 @@ import pandas as pd
 import numpy as np
 #subtraction distance from central platform only for the rectangular layout
 #central_platform = [[498000.0 - 7000.0, 5731000.0 - 1000.0], [497000.0- 7000.0, 5731000.0 - 1000.0]]
-central_platform = [[492000.0, 5733154.0], [490000.0, 5733154.0]]
-number_turbines_per_cable = [2,4,6]
+#central_platform = [[492000.0, 5733154.0], [490000.0, 5733154.0]]
+#central_platform = [[484178.55, 5714990.05000000], [485178.550000000, 5714990.05000000]] # just below the point of rotation (turbine no. 1)
+central_platform = [[484178.55, 5714990], [490000, 5718000]] # just below the point of rotation and the second one a bit more to right and up (turbine no. 1)
+number_turbines_per_cable = [5,5,5]
+#number_turbines_per_cable = [2,4,6]
 
 Crossing_penalty = 0
 Transmission = [[central_platform[i],[463000,5918000]] for i in range(len(central_platform))]
 transm_electrical_efficiency = 0.95
 coll_electrical_efficiency = 0.99
 
-change = 0
+change_harbour = 0
+change_grid = 0
 
-distance_to_grid = 60000.0 + change # [m]
-distance_to_harbour = 40000.0 + change # [m]
+distance_to_grid = 60000.0 + change_grid # [m]
+distance_to_harbour = 40000.0 + change_harbour # [m]
 onshore_transport_distance = 100000.0  # [m]
 frequency = 50  # [Hz]
 transmission_voltage = 220000.0  # [V]
@@ -28,38 +32,84 @@ grid_coupling_point_voltage = 169000.0  # [V]
 df1 = pd.read_csv('Input/power_value.txt', header=None)
 p = df1[0][0]
 
-# #### For a 1 GW farm ###
-# power = [10, 11.11, 12.5, 14.28, 16.67, 20, 25]
-# n_t = [100, 90, 80, 70, 60, 50, 40]
+#### For a 1 GW farm ###
+
+power = [10.0, 10.99, 12.05, 12.99, 14.08, 14.93, 16.13, 17.24, 18.18, 19.23, 20.0, 22.73]
+n_t = [100, 91, 83, 77, 71, 67, 62, 58, 55, 52, 50, 44]
+print(p)
+arr = np.asarray(power)
+idx = (np.abs(arr - p)).argmin()
+N = n_t[idx]
+
+
+
+# #### For a 600 MW farm ###
+# power = [10.0, 10.53, 11.11, 11.54, 12.0, 12.5, 13.04, 14.29, 15.0, 16.22, 17.14, 18.18, 19.35, 20.0, 22.22]
+# n_t = [60, 57, 54, 52, 50, 48, 46, 42, 40, 37, 35, 33, 31, 30, 27]
 # print(p)
 # arr = np.asarray(power)
 # idx = (np.abs(arr - p)).argmin()
 # N = n_t[idx]
 
-# #### For a 600 MW farm ###
-# power = [10, 12, 15, 20, 30]
-# n_t = [60, 50, 40, 30, 20]
+
+
+# #### For a 800 MW farm ###
+
+# power = [10.0, 11.11, 12.12, 12.5, 13.11, 13.56, 14.04, 14.55, 15.09, 16.0, 17.02, 18.18, 19.05, 20.0, 22.22]
+# n_t = [80, 72, 66, 64, 61, 59, 57, 55, 53, 50, 47, 44, 42, 40, 36]
+# print(p)
+# arr = np.asarray(power)
+# idx = (np.abs(arr - p)).argmin()
+# N = n_t[idx]
+
+#### For a 1 GW farm (more points) ###
+
+# power = [10.0, 10.99, 12.05, 12.99, 13.51, 14.08, 14.49, 14.93, 15.62, 16.13, 16.67, 17.24, 18.18, 19.23, 20.0, 22.73]
+# n_t = [100, 91, 83, 77, 74, 71, 69, 67, 64, 62, 60, 58, 55, 52, 50, 44]
+# print(p)
+# arr = np.asarray(power)
+# idx = (np.abs(arr - p)).argmin()
+# N = n_t[idx]
+
+#### For a 1200 MW farm ###
+# power = [10.0, 11.01, 12.0, 13.04, 14.12, 15.0, 15.58, 16.0, 16.67, 17.14, 17.65, 18.18, 18.46, 19.05, 20.0, 22.22]
+# n_t = [120, 109, 100, 92, 85, 80, 77, 75, 72, 70, 68, 66, 65, 63, 60, 54]
 # print(p)
 # arr = np.asarray(power)
 # idx = (np.abs(arr - p)).argmin()
 # N = n_t[idx]
 
 #### For a 1400 MW farm ###
-# power = [10, 11.66, 14, 15.55, 17.5, 20, 23.33]
-# n_t = [140, 120, 100, 90, 80, 70, 60]
+# power = [10.0, 11.02, 12.07, 13.08, 14.0, 15.05, 16.09, 16.67, 17.07, 17.5, 18.18, 18.67, 19.18, 20.0, 22.22]
+# n_t = [140, 127, 116, 107, 100, 93, 87, 84, 82, 80, 77, 75, 73, 70, 63]
+# print(p)
 # arr = np.asarray(power)
 # idx = (np.abs(arr - p)).argmin()
 # N = n_t[idx]
 
 ### for fixed area case, directly read number of turbines ###
-df1 = pd.read_csv('Input/N_t.txt', header=None)
-N = df1[0][0]
+# df1 = pd.read_csv('Input/N_t.txt', header=None)
+# N = df1[0][0]
 
-
+#filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_4D.dat'
 #filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_5D.dat'
-filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_7D.dat'
+#filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_6D.dat'
+#filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_7D.dat'
+#filename = 'Input/1400MW/Rectangular_layout_' + str(N) + 'turbines_7D.dat'
+#filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_8D.dat'
 #filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_9D.dat'
 #print(filename)
+#filename = 'Input/Rectangular_layout_' + str(N) + 'turbines_area200.dat'
+#filename = 'Input/700MW/Rectangular_layout_' + str(N) + 'turbines_700MW.dat'
+
+
+
+filename = 'Input/Square_layout_' + str(N) + 'turbines_baseline.dat'
+#filename = 'Input/Square_layout_' + str(N) + 'turbines_1400MW.dat'
+#filename = 'Input/Square_layout_' + str(N) + 'turbines_area100.dat'
+#filename = 'Input/Fixedarea_100/Square_layout_' + str(N) + 'turbines_7D.dat'
+#filename = 'Input/Fixedpower_1400MW/Square_layout_' + str(N) + 'turbines_7D.dat'
+
 # Use only in case of a standard rectangular layout. Built using standard spacing for HKW and the IEA 15 MW -240 m turbine
 df = pd.read_csv(filename, delimiter=' ')
 
@@ -83,6 +133,8 @@ max_n_substations = 2
 max_n_branches = max_n_turbines_p_branch = max_n_turbines
 cable_types = [[95, 300, 206], [120, 340, 221], [150, 375, 236], [185, 420, 256], [240, 480, 287], [300, 530, 316], [400, 590, 356], [500, 655, 406], [630, 715, 459], [800, 775, 521], [1000, 825, 579]]  # List of cable types: [Cross section [mm^2], Capacity [A], Cost [EUR/m]] in increasing order (maximum 3 cable types)
 
+#cable_types = [[95, 410, 206], [120, 465, 221], [150, 520, 236], [185, 585, 256], [240, 670, 287], [300, 750, 316], [400, 840, 356], [500, 940, 406], [630, 1050, 459], [800, 1160, 521], [1000, 1265, 579]]  # List of cable types: [Cross section [mm^2], Capacity [A], Cost [EUR/m]] in increasing order (maximum 3 cable types)
+#https://new.abb.com/docs/default-source/ewea-doc/xlpe-submarine-cable-systems-2gm5007.pdf
 
 
 

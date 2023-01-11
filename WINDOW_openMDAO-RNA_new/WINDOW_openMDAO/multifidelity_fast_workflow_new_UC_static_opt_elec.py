@@ -73,7 +73,11 @@ class WorkingGroup(Group):
         ### FAST addition ###
         self.num_tnodes = options.input.turbine.num_tnodes
 
+
+
     def setup(self):
+
+
         indep2 = self.add_subsystem('indep2', IndepVarComp(),
                                     promotes_outputs=['turbine_rad', 'rated_power', 'scaling_factor'])
         #                                    promotes_outputs=['design_tsr', 'chord_coefficients', 'twist_coefficients',

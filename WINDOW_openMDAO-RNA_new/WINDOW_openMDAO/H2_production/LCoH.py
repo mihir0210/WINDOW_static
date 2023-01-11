@@ -49,6 +49,7 @@ class LCOH(ExplicitComponent):
 
 
 
+
         LCoH = (total_CAPEX + a + c + stack_replacement_costs)/b # in Euros/kg
 
 

@@ -26,6 +26,8 @@ def decommissioning_costs(infield_cable_length, NT, mass, hub_height,config):
     decommissioning_removal_transmission_cable = transmission_cable_removal_price * distance_to_grid
     decommissioning_removal_infield_cable = infield_cable_removal_price * infield_cable_length
 
+    print(decommissioning_removal_transmission_cable + decommissioning_removal_substation_and_metmast)
+
     # Decommissioning costs - Disposal
     decommissioning_disposal_turbines = NT * turbine_disposal_per_mass * mass
 

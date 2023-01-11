@@ -13,6 +13,8 @@ class TeamPlayCostModel(ExplicitComponent):
         self.add_input('n_turbines', val=0)
         self.add_input('length_p_cable_type', shape=3)
         self.add_input('cost_p_cable_type', shape=3)
+        #self.add_input('length_p_cable_type', shape=5)
+        #self.add_input('cost_p_cable_type', shape=5)
         self.add_input('support_structure_costs', shape=max_n_turbines)
         self.add_input('support_decomm_costs', shape=max_n_turbines)
         self.add_input('depth_central_platform', val=0.0)
@@ -58,8 +60,9 @@ class TeamPlayCostModel(ExplicitComponent):
         export_cable_costs, electrical_costs, other_investment, decommissioning_costs = other_costs(depth_central_platform, n_turbines, sum(length_p_cable_type), n_substations, distance_to_grid/1000, distance_to_harbour/1000, \
                                                                          inputs['machine_rating'], inputs['rotor_radius'], inputs['purchase_price'], inputs['warranty_percentage'], \
                                                                          inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], turbine_CAPEX, 1)
-
+        #print(length_p_cable_type)
         infield_cable_investment = sum(cost_p_cable_type)
+        #infield_cable_investment = 70e6
         support_structure_investment = sum(support_structure_costs)
         support_decomm_costs = sum(support_decomm_costs)
 
