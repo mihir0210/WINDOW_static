@@ -77,9 +77,10 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         for idx in range(len(farm_power)):
 
-            input_load = max(0,min(100, (farm_power[idx]*compression_eff/electrolyser_rated)*100.0))
+            #input_load = max(0,min(100, (farm_power[idx]*compression_eff/electrolyser_rated)*100.0))
+            input_load = max(0, min(100, (farm_power[idx]/ electrolyser_rated) * 100.0))
 
-            E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable', stack_size)
+            E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable', stack_size) + 2  #kWh/kg or something for compression
 
             #print 'farm power ', farm_power[idx]
             #print 'Energy consumed', E_consumption_kg

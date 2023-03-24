@@ -53,8 +53,9 @@ def installation_foundation(rotor_diameter, n_t):
     dayrate_wtiv = 200000*(rotor_diameter/200) #scaling up with foundation length/mass?
     day_per_foundation = 2.5
     day_total = np.ceil(day_per_foundation*n_t)*1.5  #for weather delays
+    mobilization_wtiv = 500000
 
-    cost_installation_foundation = dayrate_wtiv*day_total
+    cost_installation_foundation = dayrate_wtiv*day_total + mobilization_wtiv*2
 
     return cost_installation_foundation
 
@@ -65,6 +66,7 @@ def installation_turbine(rotor_diameter, hub_height, n_t, distance_to_shore):
     no_lifts_per_turbine = 3  #3 lifts per turbine (tower + bunny configuration nacelle + last blade)
     transit_speed = 10 #km/hr
     mobilization_time = 7 #7 days
+    mobilization_wtiv = 500000
 
     no_trips = n_t/vessel_capacity
 
@@ -75,9 +77,10 @@ def installation_turbine(rotor_diameter, hub_height, n_t, distance_to_shore):
     installation_time = (hub_height*lifting_rate*no_lifts_per_turbine*vessel_capacity/60) + installation_time_perturb*vessel_capacity
 
     total_time = (loading_time + travel_time + installation_time)*no_trips
-    day_total = (total_time/24 + mobilization_time*2)*1.5  #for weather delays
+    #day_total = (total_time/24 + mobilization_time*2)*1.5  #for weather delays
+    day_total = (total_time / 24) * 1.5  # for weather delays
 
-    cost_installation_turbine = dayrate_wtiv*day_total
+    cost_installation_turbine = dayrate_wtiv*day_total + mobilization_wtiv*2
 
     return cost_installation_turbine
 
@@ -88,6 +91,8 @@ def installation_electrical(infield_length, export_length):
     cable_installation_rate_export = 0.1 #km/hr for simulatenous lay and burial. Higher for export cable due to lower number of connections to be made
     clv_dayrate = 110000 #cable laying vessel
     cbv_dayrate = 140000 #cable burial vessel
+    mobilization_clv = 550000
+    mobilization_cbv = 550000
 
     days_export_cable = export_length/cable_installation_rate_export/24
     days_infield_cable = infield_length/cable_installation_rate_infield/24
@@ -97,14 +102,14 @@ def installation_electrical(infield_length, export_length):
 
     extra_costs = 20e6 # for cable pull-in, electrical testing and termination, onshore connection
 
-    cost_installation_cables = cost_cable_export + cost_cable_infield + extra_costs  #1.5 to account for survey, clearance of seabed, etc.
+    cost_installation_cables = cost_cable_export + cost_cable_infield + extra_costs + mobilization_cbv*2 + mobilization_clv*2  #1.5 to account for survey, clearance of seabed, etc.
     #print(cost_cable_export + extra_costs)
 
     hlv_dayrate = 500000
     days_substation = 20 #includes travel, mobilization, installation time
-    mobilization_costs = 500000
+    mobilization_costs = 550000
     onshore_substation_costs = 25e6
-    cost_installation_substation = hlv_dayrate*days_substation*1.5 + mobilization_costs + onshore_substation_costs
+    cost_installation_substation = hlv_dayrate*days_substation*1.5 + mobilization_costs*2 + onshore_substation_costs
     cost_installation_electrical = cost_installation_cables + cost_installation_substation
 
 

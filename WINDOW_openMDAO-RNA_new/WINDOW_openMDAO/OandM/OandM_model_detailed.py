@@ -43,17 +43,17 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
     salary_technician = 1e5  # salary in euros per technician per year
 
     dayrate_ctv = 3000
-    dayrate_wtiv = 4.2e5
-    dayrate_jackup = 1.4e5
+    dayrate_wtiv = 2e5*(rotor_diameter/200)  # https://journals-sagepub-com.tudelft.idm.oclc.org/doi/pdf/10.1260/0309-524X.39.1.1
+    dayrate_jackup = 1.4e5 #same as WTIV
     dayrate_clv = 100000
     dayrate_dsv = 75000
-    dayrate_hlv = 2e5*(rotor_diameter/200)  # https://journals-sagepub-com.tudelft.idm.oclc.org/doi/pdf/10.1260/0309-524X.39.1.1
 
-    mobilization_wtiv = 2e6
+
+    mobilization_wtiv = 500000 #2e6
     mobilization_jackup = 500000
     mobilization_dsv = 225000
     mobilization_clv = 550000
-    mobilization_hlv = 500000
+
 
     # speed of different vessels in km/h
     speed_ctv = 40
@@ -136,7 +136,7 @@ def oandm_detailed(rotor_diameter, rna_costs, array_cable_costs, distance_to_har
     no_mobilizations = no_instances
     #no_days = np.ceil(rp_major_replacement/shift_time + traveltime_hlv/24)
     no_days = rp_major_replacement/shift_time + traveltime_hlv/24
-    cost_vessels_major_replacement = (no_days*dayrate_hlv + mobilization_hlv*2)*no_mobilizations
+    cost_vessels_major_replacement = (no_days*dayrate_wtiv + mobilization_wtiv*2)*no_mobilizations
     cost_sp_major_replacement = sp_major_replacement*rna_costs*no_instances
 
     total_cost_turbine_maintenance = cost_vessels_minor_repair + cost_vessels_major_repair + cost_vessels_major_replacement + cost_sp_minor_repair + cost_sp_major_repair + cost_sp_major_replacement

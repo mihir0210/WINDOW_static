@@ -1,10 +1,10 @@
 
-#def run_main_script(value_rad, value_power, N_t):
+# def run_main_script(value_rad, value_power, N_t):
 def run_main_script(value_rad, value_power):
     file = open("Input/power_value.txt", "w")
     file.write(str(value_power))
     file.close()
-    # print(value_power)
+    print(value_power)
 
     # file = open("Input/N_t.txt", "w")
     # file.write(str(N_t))
@@ -48,7 +48,8 @@ def run_main_script(value_rad, value_power):
 
     #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
     from WINDOW_openMDAO import multifidelity_fast_workflow_new_UC_static_opt_elec
-    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
+    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
+    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
 
 
     import warnings
@@ -188,10 +189,10 @@ def run_main_script(value_rad, value_power):
     aep = problem['FarmAEP.farm_AEP'][0]
     #subsidy_required = problem['FarmIRR.subsidy_required'][0]
 
-    lcoh = problem['LCoH.LCoH'][0]
+    # lcoh = problem['LCoH.LCoH'][0]
 
     print_nice("LCOE", lcoe)
-    print_nice("LCoH", lcoh)
+    # print_nice("LCoH", lcoh)
     #print_nice("AEP", aep)
     #print_nice("Subsidy required", subsidy_required)
 

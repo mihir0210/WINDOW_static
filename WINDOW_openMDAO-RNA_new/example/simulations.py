@@ -18,7 +18,7 @@ power_values_1400MW = [10.0, 11.02, 12.07, 13.08, 14.0, 15.05, 16.09, 16.67, 17.
 def batch():
     ###### Run a batch ######
 
-    vals_power = [power_values_farm[11]]
+    vals_power = [power_values_1000MW[15]]
 
     #vals_rad = np.linspace(90,150,13)
     vals_rad = [90.0, 95.0, 100.0, 105.0, 215 / 2, 110.0, 222 / 2, 225 / 2, 227 / 2, 115.0, 120.0, 125.0, 130.0,135.0, 140.0, 145.0, 150.0]
@@ -39,13 +39,13 @@ def batch():
 
 def singlecase():
     ##### Run a single case #####
-    #power_values_farm = [10.0, 10.99, 12.05, 12.99, 14.08, 14.93, 16.13, 17.24, 18.18, 19.23, 20.0, 22.73]
+    power_values_farm = [10.0, 10.99, 12.05, 12.99, 14.08, 14.93, 16.13, 17.24, 18.18, 19.23, 20.0, 22.73]
     #power_values_sensitivity_600MW = [10.0, 12.0, 14.29, 16.22, 18.18, 20.0, 22.22]
     #power_values_sensitivity_800MW = [10.0, 12.12, 14.04, 16.0, 18.18, 20.0, 22.22]
-    power_values_sensitivity_1200MW = [10.0, 12.0, 14.12, 16.0, 18.18, 20.0, 22.22]
-    #value_power = power_values_farm[11]
-    value_power = power_values_sensitivity_1200MW[2]
-    value_rad = 195/2 #reference rotor radius
+    # power_values_sensitivity_1200MW = [10.0, 12.0, 14.12, 16.0, 18.18, 20.0, 22.22]
+    value_power = power_values_farm[5]
+    # value_power = power_values_sensitivity_1200MW[0]
+    value_rad =240/2 #reference rotor radius
 
     # dict = {'target_IRR':target_IRR}
     # f = open('Input/finance.txt', 'w')
@@ -54,15 +54,15 @@ def singlecase():
 
     run_main_script(value_rad, value_power)
     old_filename = 'parameters.csv'
-    #new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad*2) + '.csv'
-    new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad * 2) + '_7D' + '.csv'
+    new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad*2) + '.csv'
+    #new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad * 2) + '_7D' + '.csv'
     os.rename(old_filename, new_filename)
 
 ## RUN ##
 
 
-batch()
-#singlecase()
+# batch()
+singlecase()
 
 ##### Create a lookup table for Diameter vs Number of turbines ####
 
@@ -78,7 +78,8 @@ def fixed_area(a_const):
         n_t = [80, 72, 66, 61, 56, 55, 54, 53, 52, 48, 45, 42, 39, 37, 35, 33]  # for 7D spacing in 100 km2
 
     elif a_const == 150:
-        n_t = [115, 104, 95, 87, 80, 79, 77, 76, 74, 69, 64, 60, 56, 52, 49, 47]  # for 7D spacing in 150 km2
+        #n_t = [115, 104, 95, 87, 80, 79, 77, 76, 74, 69, 64, 60, 56, 52, 49, 47]  # for 7D spacing in 150 km2
+        n_t = [213, 193, 175, 160, 147, 145, 141, 139, 136, 125, 116, 108, 101, 95, 89, 84] # for 5D spacing in 150 km2
 
     elif a_const == 200:
         n_t = [150, 135, 123, 113, 104, 102, 99, 98, 96, 89, 82, 77, 72, 67, 63, 60]  # for 7D spacing in 200 km2
@@ -149,7 +150,7 @@ def fixed_area(a_const):
 
 
 
-#fixed_area(100)
+# fixed_area(150)
 
 
 

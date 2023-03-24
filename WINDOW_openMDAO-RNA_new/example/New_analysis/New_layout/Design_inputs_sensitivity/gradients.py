@@ -684,7 +684,7 @@ grad_lcoe_power = np.gradient(lcoe_power1400 ,power_values, axis = 0)
 # plt.show()
 
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(nrows =1, ncols= 1, figsize=(5.3,4.5))
 scale = 0.0013
 ax.quiver(D_baseline[4,4], P_baseline[4,4],  grad_num_dia_b[4,4], grad_num_power_b[4,4], headlength = 2, headaxislength = 2, color='C0', linestyle = '-', linewidth = 1, scale = scale)
 ax.quiver(D_baseline[4,4], P_baseline[4,4],  grad_num_dia_lw[4,4], grad_num_power_lw[4,4], headlength = 2, headaxislength = 2, color='C1', linestyle = '-', linewidth = 1, scale = scale, alpha = 0.7)
@@ -698,9 +698,108 @@ ax.scatter(D_baseline[4,4], P_baseline[4,4], s=40, color ='black')
 ax.legend(['Baseline', 'Low wind', 'High farm power'])
 ax.set_xlabel('Rotor diameter', fontsize = 16)
 ax.set_ylabel('Rated power', fontsize = 16)
-ax.text(0.25, 0.8, r'Cost gradients', horizontalalignment='center',  verticalalignment='center', transform=ax.transAxes)
-ax.text(0.7, 0.25, r'AEP gradients', horizontalalignment='center',  verticalalignment='center', transform=ax.transAxes)
-ax.text(0.5, 0.47, r'Global optimum (Baseline)', horizontalalignment='center',  verticalalignment='center', transform=ax.transAxes, weight="bold")
-ax.tick_params(which='both', bottom=False, top=False, labelbottom=False, left=False, labelleft=False)
-#plt.savefig('gradient_baseline_vs_farmpower1400_&_lowwind.png',bbox_inches='tight',dpi=300)
+ax.text(0.2, 0.75, r'$\'{Cost}$', horizontalalignment='center',  verticalalignment='center', transform=ax.transAxes)
+ax.text(0.8, 0.25, r'$\'{AEP}$', horizontalalignment='center',  verticalalignment='center', transform=ax.transAxes)
+ax.text(0.53, 0.45, r'Global optimum (Baseline)', horizontalalignment='center',  verticalalignment='center', transform=ax.transAxes) #, weight="bold")
+# ax.tick_params(which='both', bottom=False, top=False, labelbottom=False, left=False, labelleft=False)
+# plt.savefig('gradient_baseline_vs_farmpower1400_&_lowwind.png',bbox_inches='tight',dpi=300)
+plt.show()
+
+
+
+
+################## POLAR PLOTS FOR GRADIENTS ########################
+
+# fig, axs = plt.subplots(nrows =1, ncols= 2, figsize=(10,4))
+
+fig, axs = plt.subplots(nrows =1, ncols= 1, figsize=(5.3,4.5), subplot_kw={'projection': 'polar'})
+
+x,y = [0,0]
+import math
+
+theta_num_b = (180 - math.degrees(math.atan(abs(grad_num_power_b[4,4]/grad_num_dia_b[4,4]))))*np.pi/180
+mag_num_b = np.sqrt(grad_num_power_b[4,4]**2 + grad_num_dia_b[4,4]**2)
+theta_aep_b = (360 - math.degrees(math.atan(abs(grad_aep_power_b[4,4]/grad_aep_dia_b[4,4]))))*np.pi/180
+mag_aep_b = np.sqrt(grad_aep_power_b[4,4]**2 + grad_aep_dia_b[4,4]**2)
+
+
+theta_num_lw = (180 - math.degrees(math.atan(abs(grad_num_power_lw[4,4]/grad_num_dia_lw[4,4]))))*np.pi/180
+mag_num_lw = np.sqrt(grad_num_power_lw[4,4]**2 + grad_num_dia_lw[4,4]**2)/mag_num_b
+theta_aep_lw = (360 - math.degrees(math.atan(abs(grad_aep_power_lw[4,4]/grad_aep_dia_lw[4,4]))))*np.pi/180
+mag_aep_lw = np.sqrt(grad_aep_power_lw[4,4]**2 + grad_aep_dia_lw[4,4]**2)/mag_aep_b
+
+print(mag_num_lw, mag_aep_lw)
+
+theta_num_fp = (180 - math.degrees(math.atan(abs(grad_num_power_fp[4,4]/grad_num_dia_fp[4,4]))))*np.pi/180
+mag_num_fp = np.sqrt(grad_num_power_fp[4,4]**2 + grad_num_dia_fp[4,4]**2)/mag_num_b
+theta_aep_fp = (360 - math.degrees(math.atan(abs(grad_aep_power_fp[4,4]/grad_aep_dia_fp[4,4]))))*np.pi/180
+mag_aep_fp = np.sqrt(grad_aep_power_fp[4,4]**2 + grad_aep_dia_fp[4,4]**2)/mag_aep_b
+
+
+a2 = axs.annotate("",
+            xy=(theta_num_b,1), xycoords='data',
+            xytext=(x,y), textcoords='data',
+            arrowprops=dict(arrowstyle="-|>",
+                            connectionstyle="arc3",lw = 2,mutation_scale=15, color='C0', alpha=0.7),
+            )
+
+a1 = axs.annotate("",
+            xy=(theta_num_lw,mag_num_lw), xycoords='data',
+            xytext=(x,y), textcoords='data',
+            arrowprops=dict(arrowstyle="-|>",
+                            connectionstyle="arc3",lw = 2 ,mutation_scale=15, color='C1', alpha=0.7),
+            )
+
+
+
+a3 = axs.annotate("",
+            xy=(theta_num_fp,mag_num_fp), xycoords='data',
+            xytext=(x,y), textcoords='data',
+            arrowprops=dict(arrowstyle="-|>",
+                            connectionstyle="arc3",lw = 2, mutation_scale=15, color='C2', alpha=0.7),
+            )
+
+a5 = axs.annotate("",
+            xy=(theta_aep_b,1), xycoords='data',
+            xytext=(x,y), textcoords='data',
+            arrowprops=dict(arrowstyle="-|>",
+                            connectionstyle="arc3",lw = 2,mutation_scale=15, color='C0', alpha =0.7),
+            )
+
+a4 = axs.annotate("",
+            xy=(theta_aep_lw,mag_aep_lw), xycoords='data',
+            xytext=(x,y), textcoords='data',
+            arrowprops=dict(arrowstyle="-|>",
+                            connectionstyle="arc3",lw = 2,mutation_scale=15, color='C1', alpha =0.7),
+            )
+
+
+
+a6 = axs.annotate("",
+            xy=(theta_aep_fp,mag_aep_fp), xycoords='data',
+            xytext=(x,y), textcoords='data',
+            arrowprops=dict(arrowstyle="-|>",
+                            connectionstyle="arc3", lw = 2,mutation_scale=15,color='C2', alpha =0.7),
+            )
+
+
+axs.plot([],[], '', label = 'Baseline')
+axs.plot([],[], '', label = 'Low wind ($0.85\cdot w_\mathrm{s}$)')
+axs.plot([],[], '', label = 'High farm power (1400 MW)')
+
+
+# axs.set_rticks([0.25, 0.75,1.25, 1.75])
+axs.set_rticks([0.5,1, 1.35, 1.75])
+axs.grid(True, alpha = 0.7)
+axs.text(np.pi/180*346,0.65, 'D', fontsize = 12)
+axs.text(np.pi/180*100,0.65, 'P', fontsize = 12)
+axs.set_xticklabels([])
+axs.scatter(0,0, s=10, color='k', alpha=1)
+axs.text(np.pi/180*148,1.35, r'$\'{Cost}$', fontsize = 12)
+axs.text(np.pi/180*335,1.36, r'$\'{AEP}$', fontsize = 12)
+axs.text(np.pi/180*190,1, 'Baseline optimum', fontsize = 10)
+axs.legend(loc = 'lower center', fontsize = 12,ncol=1)
+axs.spines['polar'].set_visible(False)
+plt.savefig('gradient_components_baseline_vs_farmpower1400_&_lowwind_polar.png',bbox_inches='tight',dpi=300)
+
 plt.show()

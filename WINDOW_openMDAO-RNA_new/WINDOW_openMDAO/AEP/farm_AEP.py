@@ -72,10 +72,24 @@ class FarmAEP(ExplicitComponent):
         for v in wind_speed_100:
             wind_speed_hh.append(float(v *(hub_height / 100.0) ** 0.11))  # power law to extrapolate wind speed to hub height
 
-        print('mean wind speed', np.mean(wind_speed_hh))
+        # print('mean wind speed', np.mean(wind_speed_hh))
+
+        # from windrose import WindroseAxes
+        # from matplotlib import cm
+        #
+        # ax = WindroseAxes.from_ax()
+        # ax.contourf(wind_direction, wind_speed_hh, bins=np.arange(0, 25, 5), cmap=cm.copper,  normed =True)
+        # plt.legend(fontsize=16, loc = 'lower right')
+        # plt.xticks(fontsize=16)
+        # plt.yticks(fontsize=16)
+        # # plt.savefig('wind_rose.png', bbox_inches='tight', dpi=300)
+        # plt.show()
+
 
 
         shape_fac, scale_fac, prob = directional_weibull(wind_direction, direction_sampling_angle, wind_speed_hh) #fit a weibull curve for each wind direction
+
+        print(shape_fac, scale_fac, prob)
 
 
         def run_pywake(shape_fac, scale_fac, prob):
@@ -95,6 +109,8 @@ class FarmAEP(ExplicitComponent):
             ti = .1 #turbulence intensity
             x_i = x_coord
             y_i = y_coord
+
+
 
 
             site = XRSite(
@@ -147,7 +163,7 @@ class FarmAEP(ExplicitComponent):
 
             #print("Total AEP using time series: %f GWh" % sim_res_time.aep().sum())
 
-            # _ = site.plot_wd_distribution(n_wd=12, ws_bins=[0,5,10,15,20,25])
+            # WD_plot = site.plot_wd_distribution(n_wd=12, ws_bins=[0,5,10,15,20,25])
             # plt.show()
 
             aep_with_wake_loss = sim_res_time.aep().sum().data
@@ -156,13 +172,34 @@ class FarmAEP(ExplicitComponent):
 
             ti_eff = sim_res_time.TI_eff.values
             max_ti_eff = np.max(ti_eff, axis=1) #maximum of each turbine
-            #print(np.max(ti_eff))
+            # print(np.max(ti_eff))
 
             # with open('ti.csv', 'w') as file:
             #     writer = csv.writer(file)
             #     for idx in range(len(ti_eff)):
             #         writer.writerow(ti_eff[idx])
             # file.close()
+
+            # wsp = 9.8
+            # wdir = 240
+            # fig,ax = plt.subplots(figsize=(5.3,4.5))
+            # c = wf_model(x_i, y_i, wd=wdir, ws=wsp, h=110).flow_map().plot_wake_map(plot_windturbines=True, plot_colorbar=False)
+            # # plt.xticks([ 4.85e5, 4.9e5, 4.95e5, 5e5], ['4.85', '4.9', '4.95','5'])
+            # # plt.yticks([5.7125e6, 5.7175e6, 5.7225e6, 5.7275e6], ['5.7125', '5.7175', '5.735', '5.74'])
+            # plt.xticks([])
+            # plt.yticks([])
+            # plt.xlabel('Easting', fontsize=16)
+            # plt.ylabel('Northing', fontsize=16)
+            # plt.xlim([4.825e5,5e5])
+            # plt.ylim([5.715e6, 5.7275e6])
+            #
+            # cb = plt.colorbar(mappable = c)
+            # cb.set_label(label='Wind speed (m/s) ', size = 16)
+
+
+            #plt.legend('15 MW turbine')
+            # plt.savefig('farm_layout.png', bbox_inches='tight', dpi=300)
+            # plt.show()
 
 
 
@@ -178,12 +215,17 @@ class FarmAEP(ExplicitComponent):
 
 
 
-
         max_ti_eff, wake_losses, farm_power_ts, aep_with_wake, aep_without_wake = run_pywake(shape_fac, scale_fac, prob)
         #cf = sum(farm_power_ts)/(8760*74*5)
 
-        #df = pd.DataFrame(farm_power_ts)
-        #df.to_csv('farm_power_75_10min.csv')
+        # grid_connection = 1000  # MW; Overplanting case
+        # farm_power_ts[farm_power_ts > grid_connection] = grid_connection
+
+
+        # df = pd.DataFrame(farm_power_ts)
+        # power = inputs['rated_power']/1000 # in MW
+        # filename = 'farm_power_' + str(round(power[0],2)) + '_' + str(round(rotor_diameter[0],1)) + '.csv'
+        # df.to_csv(filename)
 
         outputs['max_TI'] = max_ti_eff
         outputs['farm_power'] = farm_power_ts # in MW

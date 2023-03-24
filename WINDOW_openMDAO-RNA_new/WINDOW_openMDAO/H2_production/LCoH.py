@@ -44,7 +44,7 @@ class LCOH(ExplicitComponent):
         c = decommissioning_costs/(1+i)**operational_lifetime
 
         replacement_yr = 10
-        stack_replacement_costs = H2_CAPEX/1.5/(1+i)**replacement_yr
+        stack_replacement_costs = H2_CAPEX/1.5/(1+i)**replacement_yr #dividing by 1.5 to remove indirect costs and only consider component costs for replacement
 
 
 

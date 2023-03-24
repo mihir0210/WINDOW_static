@@ -55,7 +55,7 @@ class LayoutScaling(ExplicitComponent):
 
 
         turbine_ref = 120.0 #99.0 # rotor radius of the reference turbine being used
-        #scaling_ratio = scaling_factor*(turbine_radius/turbine_ref) # scaling ratio will be equal to scaling_factor*(D_new/D_ref)
+        #scaling_ratio = scaling_factor*(turbine_radius/turbine_ref)*(5/7) # scaling ratio will be equal to scaling_factor*(D_new/D_ref). 5/7 for 5D
         scaling_ratio = scaling_factor * (turbine_radius / turbine_radius )  # For fixed area, input files have fixed absolute distance
         scaling_ratio = scaling_ratio[0]
 

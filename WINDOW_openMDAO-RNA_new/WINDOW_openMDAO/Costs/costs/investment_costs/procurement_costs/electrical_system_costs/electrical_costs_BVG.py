@@ -38,7 +38,7 @@ def electrical_procurement_costs_BVG(NT, P_rated, distance_to_grid, config):
         ##### model 2: fixed and variable component
 
         offshore_substation_fixed = 94e6 #Euros. Includes facilities + support structure with helipad
-        offshore_substation_var = 53e6*NT*(P_rated/1000.0)/1000.0  #Euros
+        offshore_substation_var = 53e6*NT*(P_rated/1000.0)/1000.0 #Euros
 
         offshore_substation_costs = offshore_substation_fixed + offshore_substation_var
 

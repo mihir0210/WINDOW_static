@@ -18,6 +18,7 @@ def teamplay(TI, depth, rotor_radius, rated_wind_speed, rotor_thrust, rna_mass, 
     site_data = Site()
     site_data.water_depth = depth
 
+    print(site_data.Hmax_50_year)
 
     dimension_team_support.run(rna, site_data)
 
