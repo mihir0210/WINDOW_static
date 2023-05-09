@@ -33,17 +33,18 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
 
 
+
+
         CAPEX = self.CAPEX(electrolyser_rated, annual_H2, stack_size)
 
         OPEX = self.OPEX(CAPEX)
 
-        #print('Annual H2:', annual_H2)
-        #print('H2 CAPEX:', CAPEX)
-        #print('H2 OPEX', OPEX)
+
 
         field_names = ['cost_total_h2system','cost_oandm_h2system', 'annual_h2']
         description =['CAPEX of the H2 system', 'OPEX of the H2 system', 'Annual H2 produced']
         data = {field_names[0]: [CAPEX[0],description[0]], field_names[1]:[OPEX[0], description[1]], field_names[2]:[annual_H2[0], description[2]]}
+        # data = {field_names[0]: [CAPEX[0], description[0]], field_names[1]: [OPEX[0], description[1]], field_names[2]: [annual_H2, description[2]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
@@ -80,7 +81,9 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
             #input_load = max(0,min(100, (farm_power[idx]*compression_eff/electrolyser_rated)*100.0))
             input_load = max(0, min(100, (farm_power[idx]/ electrolyser_rated) * 100.0))
 
-            E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable', stack_size) + 2  #kWh/kg or something for compression
+            E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant', stack_size) + 2  #kWh/kg or something for compression
+            E_consumption_kg = [E_consumption_kg]
+
 
             #print 'farm power ', farm_power[idx]
             #print 'Energy consumed', E_consumption_kg
@@ -109,6 +112,8 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         annual_H2 = sum(H2) #Total hydrogen (in kg) produced in a year
 
+        print(annual_H2)
+
 
         return H2, annual_H2, power_curtailed
 
@@ -121,7 +126,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         ### Open data estimates ###
 
         ref_stacks = 100 #Electrolyser stacks  NREL(https://www.nrel.gov/docs/fy19osti/72740.pdf) and IRENA
-        ref_bop = 200 #BOP includes power supply, deionization, gas separators, compressors, gas treatment
+        ref_bop = 200 #BOP includes power supply, deionization, gas separators, gas treatment
 
         #ref_compressor = 50 #IRENA page 39
 

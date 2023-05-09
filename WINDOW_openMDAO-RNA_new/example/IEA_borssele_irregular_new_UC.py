@@ -48,8 +48,8 @@ def run_main_script(value_rad, value_power):
 
     #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
     from WINDOW_openMDAO import multifidelity_fast_workflow_new_UC_static_opt_elec
-    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
-    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
+    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
+    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
 
 
     import warnings
@@ -112,7 +112,8 @@ def run_main_script(value_rad, value_power):
     options.input.turbine.rotor_radius = value_rad/120.0
 
     options.input.site.time_resolution = 8760 #52560
-    options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
+    # options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
+    options.input.site.wind_file = 'Input/DK_offshore_2018_100m_hourly_ERA5_withdir.csv'
 
 
 

@@ -70,10 +70,10 @@ class FarmAEP(ExplicitComponent):
 
         wind_speed_hh = [] #wind speed at hub height
         for v in wind_speed_100:
-            wind_speed_hh.append(float(v *(hub_height / 100.0) ** 0.11))  # power law to extrapolate wind speed to hub height
+            wind_speed_hh.append(float(v*(hub_height / 100.0) ** 0.11))  # power law to extrapolate wind speed to hub height
 
         # print('mean wind speed', np.mean(wind_speed_hh))
-
+        #
         # from windrose import WindroseAxes
         # from matplotlib import cm
         #
@@ -83,13 +83,14 @@ class FarmAEP(ExplicitComponent):
         # plt.xticks(fontsize=16)
         # plt.yticks(fontsize=16)
         # # plt.savefig('wind_rose.png', bbox_inches='tight', dpi=300)
+        # plt.savefig('wind_rose.pdf', bbox_inches='tight', format='pdf')
         # plt.show()
 
 
 
         shape_fac, scale_fac, prob = directional_weibull(wind_direction, direction_sampling_angle, wind_speed_hh) #fit a weibull curve for each wind direction
 
-        print(shape_fac, scale_fac, prob)
+        # print(shape_fac, scale_fac, prob)
 
 
         def run_pywake(shape_fac, scale_fac, prob):
@@ -195,10 +196,11 @@ class FarmAEP(ExplicitComponent):
             #
             # cb = plt.colorbar(mappable = c)
             # cb.set_label(label='Wind speed (m/s) ', size = 16)
-
-
-            #plt.legend('15 MW turbine')
-            # plt.savefig('farm_layout.png', bbox_inches='tight', dpi=300)
+            #
+            #
+            # # plt.legend('Turbine', ncol=1)
+            # # plt.savefig('farm_layout.png', bbox_inches='tight', dpi=300)
+            # plt.savefig('farm_layout.pdf', bbox_inches='tight', format='pdf')
             # plt.show()
 
 
@@ -222,10 +224,11 @@ class FarmAEP(ExplicitComponent):
         # farm_power_ts[farm_power_ts > grid_connection] = grid_connection
 
 
-        # df = pd.DataFrame(farm_power_ts)
-        # power = inputs['rated_power']/1000 # in MW
-        # filename = 'farm_power_' + str(round(power[0],2)) + '_' + str(round(rotor_diameter[0],1)) + '.csv'
-        # df.to_csv(filename)
+        df = pd.DataFrame(farm_power_ts)
+        power = inputs['rated_power']/1000 # in MW
+        filename = 'farm_power_' + str(round(power[0], 2)) + '_' + str(round(rotor_diameter[0], 1))  + '.csv'
+        # filename = 'farm_power_' + str(round(power[0],2)) + '_' + str(round(rotor_diameter[0],1)) + '_' + str(n_t)  +  '.csv'
+        df.to_csv(filename)
 
         outputs['max_TI'] = max_ti_eff
         outputs['farm_power'] = farm_power_ts # in MW

@@ -112,7 +112,7 @@ def bem_annulus(wind_speed, rho_air, \
     
         # for loop ends
     
-        
+
     result = {  'r' : r, \
                 'airfoil_id' : airfoil_id, \
                 'tsr_r' : tsr_r, \
