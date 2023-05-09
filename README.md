@@ -19,6 +19,10 @@ PhD thesis of Sebastian Sanchez Perez Moreno: https://pure.tudelft.nl/ws/portalf
 
 Master thesis of Tanuj Tanmay:
 https://repository.tudelft.nl/islandora/object/uuid%3Ad7e2b321-adf8-4a64-97b5-7bad5f644a1f
+
+Pre-print of the paper 'Turbine scaling for offshore wind farms' that explains the latest version of the framework
+https://wes.copernicus.org/preprints/wes-2023-39/wes-2023-39.pdf
+
 ## Python Packages
 
 openmdao
