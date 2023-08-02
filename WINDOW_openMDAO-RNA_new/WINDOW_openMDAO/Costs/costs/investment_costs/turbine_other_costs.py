@@ -14,6 +14,7 @@ def turbine_other_costs(turbine_CAPEX, n_turbines):
     # turbine_other_costs = norm_cost_BVG*(turbine_CAPEX*n_turbines)
 
     turbine_other_costs = ((turbine_CAPEX/0.7)*0.3)*n_turbines #RNA and tower costs assumed to be 70 % while 30 % costs of the total share is other costs
+    # turbine_other_costs = ((turbine_CAPEX / 0.9) * 0.1) * n_turbines  # RNA and tower costs assumed to be 90 % while 10 % costs of the total share is other costs
 
 
     return turbine_other_costs
