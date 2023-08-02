@@ -95,13 +95,11 @@ class FarmAEP(ExplicitComponent):
 
         def run_pywake(shape_fac, scale_fac, prob):
             from py_wake import NOJ, BastankhahGaussian, IEA37SimpleBastankhahGaussian, flow_map
-            from py_wake.deficit_models import TurboGaussianDeficit, BastankhahGaussianDeficit, IEA37SimpleBastankhahGaussianDeficit
+            from py_wake.deficit_models import TurboGaussianDeficit
             from py_wake.wind_turbines.power_ct_functions import PowerCtFunctionList, PowerCtTabular
             from py_wake.site import XRSite
             from py_wake.wind_turbines import WindTurbine
             from py_wake.turbulence_models import STF2017TurbulenceModel
-            from py_wake.superposition_models import LinearSum, SquaredSum
-            from py_wake.wind_farm_models import All2AllIterative
             from py_wake.site.shear import PowerShear
             import xarray as xr
 
@@ -155,9 +153,7 @@ class FarmAEP(ExplicitComponent):
             time_stamp = np.arange(len(ws))
             operating = np.ones((len(x), len(time_stamp))) #operating condition of each turbine
 
-            #wf_model = BastankhahGaussian(site, ref_windturbine, turbulenceModel=STF2017TurbulenceModel(), superpositionModel=LinearSum)
-            # wf_model = All2AllIterative(site, ref_windturbine, wake_deficitModel=IEA37SimpleBastankhahGaussianDeficit(), turbulenceModel=STF2017TurbulenceModel(),superpositionModel=SquaredSum())
-            wf_model = All2AllIterative(site, ref_windturbine, wake_deficitModel=BastankhahGaussianDeficit(), turbulenceModel=STF2017TurbulenceModel(), superpositionModel=SquaredSum())
+            wf_model = BastankhahGaussian(site, ref_windturbine, turbulenceModel=STF2017TurbulenceModel())
             sim_res_time = wf_model(x, y,  # wind turbine positions
                                     wd=wd,  # Wind direction time series
                                     ws=ws,  # Wind speed time series
@@ -199,12 +195,12 @@ class FarmAEP(ExplicitComponent):
             # plt.ylim([5.715e6, 5.7275e6])
             #
             # cb = plt.colorbar(mappable = c)
-            # cb.set_label(label='Wind speed (ms$^{-1}$)', size = 16)
+            # cb.set_label(label='Wind speed (m/s) ', size = 16)
             #
             #
             # # plt.legend('Turbine', ncol=1)
-            # plt.savefig('farm_layout_10MW.png', bbox_inches='tight', dpi=300)
-            # # plt.savefig('farm_layout.pdf', bbox_inches='tight', format='pdf')
+            # # plt.savefig('farm_layout.png', bbox_inches='tight', dpi=300)
+            # plt.savefig('farm_layout.pdf', bbox_inches='tight', format='pdf')
             # plt.show()
 
 

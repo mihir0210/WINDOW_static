@@ -112,8 +112,8 @@ def run_main_script(value_rad, value_power):
     options.input.turbine.rotor_radius = value_rad/120.0
 
     options.input.site.time_resolution = 8760 #52560
-    options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
-    # options.input.site.wind_file = 'Input/DK_offshore_2018_100m_hourly_ERA5_withdir.csv'
+    # options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
+    options.input.site.wind_file = 'Input/DK_offshore_2018_100m_hourly_ERA5_withdir.csv'
 
 
 

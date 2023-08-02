@@ -27,10 +27,6 @@ class DriveSE(AbsGenerator):
         rated_torque_15MW = 20308427 #in Nm
         outputs['mass'] = generator_mass_15MW*(self.rotor_torque/rated_torque_15MW)
 
-        print(self.rotor_torque,outputs['mass'])
-
-
-
         # outputs
         #outputs['mass'] = self.mass
         outputs['cm'] = self.cm
