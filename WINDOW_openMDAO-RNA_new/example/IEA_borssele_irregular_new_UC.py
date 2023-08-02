@@ -112,8 +112,8 @@ def run_main_script(value_rad, value_power):
     options.input.turbine.rotor_radius = value_rad/120.0
 
     options.input.site.time_resolution = 8760 #52560
-    # options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
-    options.input.site.wind_file = 'Input/DK_offshore_2018_100m_hourly_ERA5_withdir.csv'
+    options.input.site.wind_file = 'Input/NorthSea_2019_100m_hourly_ERA5_withdir.csv'
+    #options.input.site.wind_file = 'Input/DK_offshore_2018_100m_hourly_ERA5_withdir.csv'
 
 
 
@@ -136,13 +136,13 @@ def run_main_script(value_rad, value_power):
             writer.writerow([key, value[0], value[1]])
     csvfile.close()
 
-    import ast
-    with open('Input/finance.txt', 'r') as file:
-        data = file.read()
-        d = ast.literal_eval(data)
+    # import ast
+    # with open('Input/finance.txt', 'r') as file:
+    #     data = file.read()
+    #     d = ast.literal_eval(data)
 
-    target_IRR = d['target_IRR']
-    options.input.market.target_IRR = target_IRR
+    # target_IRR = d['target_IRR']
+    # options.input.market.target_IRR = target_IRR
 
 
     # Instantiate OpenMDAO problem class

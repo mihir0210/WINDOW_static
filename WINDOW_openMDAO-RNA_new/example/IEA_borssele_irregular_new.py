@@ -32,7 +32,7 @@ def print_nice(string, value):
     header = '=' * 10 + " " + string + " " + '=' * 10 + '\n'
     header += str(value) + "\n"
     header += "=" * (22 + len(string))
-    print header
+    print(header)
 
 
 options = WorkflowOptions()
@@ -188,7 +188,7 @@ problem.model.add_objective('LCOE')
 
 problem.run_driver()'''
 
-print 'Executed in ' + str(round(time() - start, 2)) + ' seconds\n'
+print('Executed in ' + str(round(time() - start, 2)) + ' seconds\n')
 
 '''
 # print outputs

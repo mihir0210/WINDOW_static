@@ -89,6 +89,6 @@ if __name__ == "__main__":
     #print np.interp(50, airfoil.ix[:, 'Alpha'], airfoil.ix[:, 'Cl'])
     #print np.interp(50, airfoil.ix[:, 'Alpha'], airfoil.ix[:, 'Cd'])
     #print ReferenceTurbine
-    print ReadAirfoil(3)
+    print(ReadAirfoil(3))
     
             
