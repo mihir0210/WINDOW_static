@@ -81,9 +81,13 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
             #input_load = max(0,min(100, (farm_power[idx]*compression_eff/electrolyser_rated)*100.0))
             input_load = max(0, min(100, (farm_power[idx]/ electrolyser_rated) * 100.0))
 
-            E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant', stack_size) + 2  #kWh/kg or something for compression
+            energy_compression = 0.6 #kWh/kg  calculates using shaft power equation in (https://theicct.org/wp-content/uploads/2021/06/final_icct2020_assessment_of-_hydrogen_production_costs-v2.pdf)
+            E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant', stack_size) + energy_compression
             E_consumption_kg = [E_consumption_kg]
 
+            '''Energy required for water purification is negligible (7kWh/1000L of seawater: https://hydrogentechworld.com/water-treatment-for-green-hydrogen-what-you-need-to-know)
+                Roughly 50 MWh/year for a 1 GW farm
+            '''
 
             #print 'farm power ', farm_power[idx]
             #print 'Energy consumed', E_consumption_kg
@@ -137,7 +141,8 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         ### Compressor costs can be expressed in $/kg of hydrogen produced
 
-        ref_compressor = 0.05 #$/kg (HYGRO HKW estimates, IRENA, ADAM CHRISTENSEN, International Council on Clean Transportation)
+        #ref_compressor = 0.05 #$/kg (HYGRO HKW estimates, IRENA, ADAM CHRISTENSEN, International Council on Clean Transportation)
+        ref_compressor = 0.2  # $/kg (Back calculated using shaft power equation from ADAM CHRISTENSEN, International Council on Clean Transportation)
 
         C_compressor = ref_compressor*annual_H2
 

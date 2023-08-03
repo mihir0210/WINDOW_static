@@ -224,11 +224,11 @@ class FarmAEP(ExplicitComponent):
         # farm_power_ts[farm_power_ts > grid_connection] = grid_connection
 
 
-        df = pd.DataFrame(farm_power_ts)
-        power = inputs['rated_power']/1000 # in MW
-        filename = 'farm_power_' + str(round(power[0], 2)) + '_' + str(round(rotor_diameter[0], 1))  + '.csv'
-        # filename = 'farm_power_' + str(round(power[0],2)) + '_' + str(round(rotor_diameter[0],1)) + '_' + str(n_t)  +  '.csv'
-        df.to_csv(filename)
+        # df = pd.DataFrame(farm_power_ts)
+        # power = inputs['rated_power']/1000 # in MW
+        # filename = 'farm_power_' + str(round(power[0], 2)) + '_' + str(round(rotor_diameter[0], 1))  + '.csv'
+        # # filename = 'farm_power_' + str(round(power[0],2)) + '_' + str(round(rotor_diameter[0],1)) + '_' + str(n_t)  +  '.csv'
+        # df.to_csv(filename)
 
         outputs['max_TI'] = max_ti_eff
         outputs['farm_power'] = farm_power_ts # in MW
