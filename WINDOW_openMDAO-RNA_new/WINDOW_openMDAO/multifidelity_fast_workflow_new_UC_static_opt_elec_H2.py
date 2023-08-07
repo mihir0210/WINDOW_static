@@ -374,6 +374,7 @@ class WorkingGroup(Group):
         self.connect('rna.generator_voltage', 'Costs_h2.generator_voltage')
         self.connect('rna.collection_voltage', 'Costs_h2.collection_voltage')
         self.connect('H2.annual_H2', 'Costs_h2.annual_h2')
+        self.connect('H2.H2_CAPEX', 'Costs_h2.H2_CAPEX')
 
 
 
@@ -413,7 +414,7 @@ class WorkingGroup(Group):
 
 
         self.connect('H2.annual_H2', 'LCoH.annual_H2')
-        self.connect('H2.H2_CAPEX', 'LCoH.H2_CAPEX')
+        self.connect('H2.C_stacks', 'LCoH.C_stacks')
         self.connect('H2.H2_OPEX', 'LCoH.H2_OPEX')
         self.connect('indep2.interest_rate', 'LCoH.interest_rate')
         self.connect('indep2.operational_lifetime', 'LCoH.operational_lifetime')

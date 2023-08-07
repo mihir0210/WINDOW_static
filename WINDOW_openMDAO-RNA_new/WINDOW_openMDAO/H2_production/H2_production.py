@@ -32,7 +32,7 @@ class H2(Group):
 
         self.add_subsystem('PEM', PEM_DECENTRALIZED(time_resolution = time_resolution),
                            promotes_inputs=['N_T', 'P_rated', 'farm_power'],
-                           promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
+                           promotes_outputs=['annual_H2', 'C_stacks', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
 
 
 

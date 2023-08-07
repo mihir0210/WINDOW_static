@@ -17,6 +17,7 @@ class AbsPemDecentralized(ExplicitComponent):
 
         #outputs
         self.add_output('annual_H2', desc='Annual production of H2 in kg')
+        self.add_output('C_stacks', desc='Capital expenditures of electrolyzer stacks')
         self.add_output('H2_CAPEX', desc='Capital expenditures of H2 facility')
         self.add_output('H2_OPEX', desc='Operational costs of H2 facility')
         self.add_output('H2_produced', desc='hourly hydrogen production', shape=time_points)

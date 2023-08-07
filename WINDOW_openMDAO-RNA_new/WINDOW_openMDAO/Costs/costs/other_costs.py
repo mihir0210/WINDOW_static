@@ -28,7 +28,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
 
     turbine_other_costs = turbine_other_costs(turbine_CAPEX, n_turbines)
 
-    [export_cable, procurement_electrical] = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, distance_to_grid, config)
+    [export_cable, procurement_electrical] = electrical_procurement_costs_BVG(n_turbines, turbine_rated_power, distance_to_grid)
     #procurement_electrical = 0.0 #for a case in NL where TenneT pays
     #export_cable = 0.0#for a case in NL where TenneT pays
 
@@ -78,7 +78,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
                 writer.writerow([key, value[0], value[1]])
         csvfile.close()
 
-        investment_costs = procurement_rna + turbine_other_costs + procurement_electrical + installation_foundation + installation_turbine
+        investment_costs = procurement_rna + turbine_other_costs + installation_foundation + installation_turbine
 
 
     #investment_costs = project_development + procurement_auxiliary + procurement_rna + procurement_electrical + installation_auxiliary + installation_electrical + installation_rna

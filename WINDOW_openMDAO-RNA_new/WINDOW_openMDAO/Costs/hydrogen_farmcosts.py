@@ -26,6 +26,7 @@ class HydrogenFarmCostModel(ExplicitComponent):
         self.add_input('cost_tower', shape=max_n_turbines)
         self.add_input('farm_area', desc='area of the wind farm in km2')
         self.add_input('annual_h2', desc='annual hydrogen output in kg')
+        self.add_input('H2_CAPEX', desc='costs of the elctrolyzer system')
 
 
         self.add_output('investment_costs_h2', val=0.0)
@@ -45,6 +46,7 @@ class HydrogenFarmCostModel(ExplicitComponent):
         depth_central_platform = inputs['depth_central_platform']
         cost_tower = inputs['cost_tower']
         annual_h2 = inputs['annual_h2']
+        H2_CAPEX = inputs['H2_CAPEX']
 
         a = 5*1e5  # the cost in euros/km2 that the developer pays for using ocean area [Hypothetical cost]
         farm_area = inputs['farm_area'] # in km2
@@ -59,32 +61,49 @@ class HydrogenFarmCostModel(ExplicitComponent):
 
         def pem_decentralized_costs(infield_cable_length , distance_to_grid,annual_h2):
             total_pipeline_length = infield_cable_length + distance_to_grid  # in m
-
+            length_infield_pipeline = infield_cable_length
+            length_export_pipeline = distance_to_grid
             #pipeline_costfactor = 1.25  # per kW per km (HYGRO estiamtes that matches well with the white paper from Umlat that state roughly 1 euro/kg of H2)
 
             export_pipeline_costfactor = 0.01 #Euros/kg (Matches HYGRO HKW estimates and also the 2020 European hydrogen backbone paper)
             pipeline_lifetime = 40
-            export_pipeline_cost = export_pipeline_costfactor*annual_h2*pipeline_lifetime*(distance_to_grid/1000/60) #Original cost factor of 0.2 euros/kg was adjusted for 60 km length
+            #export_pipeline_cost = export_pipeline_costfactor*annual_h2*pipeline_lifetime*(distance_to_grid/1000/60) #Original cost factor of 0.2 euros/kg was adjusted for 60 km length
 
-            #infield_pipeline_cost = pipeline_costfactor* inputs['machine_rating']*(infield_cable_length/1000.0)
-            #export_pipeline_cost = pipeline_costfactor * n_turbines * inputs['machine_rating'] * (distance_to_grid / 1000.0)
+            cost_export_pipeline = 0.55*1e6*(distance_to_grid/1000) #inflated cost/km of a 16" NG pipeline with 10% extra for H2. Export pipeline costs should remain constant for all designs.
+
 
             #Thermodynamic and Technical Issues of Hydrogen and Methane-Hydrogen Mixtures Pipeline Transmission shows pipeline diameter for different flow rates and pressure
-            infield_pipeline_cost = export_pipeline_cost*(1.0/3)*(infield_cable_length/distance_to_grid)  # 1/3rd as infield pipeline diameter would be roughly 1/3rd. Area assumed to be 1/3rd due to small thickness. Length also has to be adjusted for
+            #infield_pipeline_cost = export_pipeline_cost*(1.0/3)*(infield_cable_length/distance_to_grid)  # 1/3rd as infield pipeline diameter would be roughly 1/3rd. Area assumed to be 1/3rd due to small thickness. Length also has to be adjusted for
 
-            pipeline_cost = infield_pipeline_cost + export_pipeline_cost
+            cost_infield_pipeline = 0.3*1e6*(length_infield_pipeline/1000)  #inflated cost/km of a 6" NG pipeline with 10% extra for H2. Infield pipeline costs per string will be nearly the same
+            pipeline_cost = cost_infield_pipeline + cost_export_pipeline
 
-            #print('infield pipeline cost', infield_pipeline_cost)
-            #print('export pipeline cost', export_pipeline_cost)
 
             pipeline_installation_cost_perkm = 1e6  # Euros/km (back calculated from BVG for total length of infield (195km) + export (60km)
+            #pipeline_installation_cost = pipeline_installation_cost_perkm * (total_pipeline_length / 1000.0)
+            '''Installation costs same as cable installation'''
+            # day rates back calculated from BVG burial costs
+            installation_rate_infield_pipeline = 0.1  # km/hr for simulatenous lay and burial
+            installation_rate_export_pipeline = 0.1  # km/hr for simulatenous lay and burial. Higher for export cable due to lower number of connections to be made
+            clv_dayrate = 110000  # cable laying vessel
+            cbv_dayrate = 140000  # cable burial vessel
+            mobilization_clv = 550000
+            mobilization_cbv = 550000
 
-            pipeline_installation_cost = pipeline_installation_cost_perkm * (total_pipeline_length / 1000.0)
+            days_export_pipeline = (length_export_pipeline/1000)/installation_rate_export_pipeline / 24
+            days_infield_pipeline = (length_infield_pipeline/1000) /installation_rate_infield_pipeline/ 24
 
-            # print 'pipeline costs', pipeline_cost
-            # print 'pipeline installation costs', pipeline_installation_cost
+            cost_installation_infield_pipeline = days_infield_pipeline * (clv_dayrate + cbv_dayrate) * 1.5  # for weather delays
+            cost_installation_export_pipeline = days_export_pipeline * (clv_dayrate + cbv_dayrate) * 1.5  # for weather delays
 
-            return infield_pipeline_cost, export_pipeline_cost, pipeline_installation_cost
+            extra_costs = 20e6  # for cable pull-in, electrical testing and termination, onshore connection
+
+            cost_installation_pipeline = cost_installation_infield_pipeline + cost_installation_export_pipeline + extra_costs + mobilization_cbv * 2 + mobilization_clv * 2  # 1.5 to account for survey, clearance of seabed, etc.
+
+            #pipeline_installation_cost = 60e6
+
+
+            return cost_infield_pipeline, cost_export_pipeline, cost_installation_pipeline
 
         [infield_pipeline_cost, export_pipeline_cost, pipeline_installation_costs] = pem_decentralized_costs(infield_cable_length , distance_to_grid, annual_h2)
         pipeline_costs = infield_pipeline_cost + export_pipeline_cost
@@ -111,7 +130,7 @@ class HydrogenFarmCostModel(ExplicitComponent):
         support_structure_investment = sum(support_structure_costs)
         support_decomm_costs = sum(support_decomm_costs)
 
-        farm_CAPEX_h2 = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs
+        farm_CAPEX_h2 = support_structure_investment + other_investment_h2 + pipeline_costs + pipeline_installation_costs + H2_CAPEX
         #print('other investment h2',  other_investment_h2)
         #print('pipeline costs', pipeline_costs)
         #print('pipeline installation', pipeline_installation_costs)
@@ -134,8 +153,8 @@ class HydrogenFarmCostModel(ExplicitComponent):
         description = ['Turbine CAPEX without other non-technical costs for hydrogen', 'Costs of infield pipeline for H2', 'Costs of export pipeline for H2','Costs of pipeline installation for H2', 'Balance of plant costs for H2', 'Project development and management costs for H2',
                          'Other farm costs (insurance, contingency, etc. for H2', 'Total farm CAPEX for H2', 'Decommissioning costs for H2']
         data = {field_names[0]: [turbine_CAPEX_h2[0], description[0]],
-                field_names[1]: [infield_pipeline_cost[0], description[1]],
-                field_names[2]: [export_pipeline_cost[0], description[2]],
+                field_names[1]: [infield_pipeline_cost, description[1]],
+                field_names[2]: [export_pipeline_cost, description[2]],
                 field_names[3]: [pipeline_installation_costs, description[3]],
                 field_names[4]: [outputs['bop_costs_h2'][0], description[4]],
                 field_names[5]: [project_dev_management[0], description[5]],

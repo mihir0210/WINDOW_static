@@ -18,7 +18,7 @@ power_values_1400MW = [10.0, 11.02, 12.07, 13.08, 14.0, 15.05, 16.09, 16.67, 17.
 def batch():
     ###### Run a batch ######
 
-    vals_power = [power_values_1000MW[0]]
+    vals_power = [power_values_1000MW[15]]
 
     #vals_rad = np.linspace(90,150,13)
     vals_rad = [90.0, 95.0, 100.0, 105.0, 215 / 2, 110.0, 222 / 2, 225 / 2, 227 / 2, 115.0, 120.0, 125.0, 130.0,135.0, 140.0, 145.0, 150.0]
@@ -61,8 +61,8 @@ def singlecase():
 ## RUN ##
 
 
-batch()
-# singlecase()
+# batch()
+singlecase()
 
 ##### Create a lookup table for Diameter vs Number of turbines ####
 

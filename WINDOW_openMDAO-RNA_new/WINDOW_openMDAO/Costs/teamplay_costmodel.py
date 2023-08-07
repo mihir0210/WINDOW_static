@@ -62,7 +62,7 @@ class TeamPlayCostModel(ExplicitComponent):
                                                                          inputs['rna_mass'], inputs['hub_height'], inputs['generator_voltage'], inputs['collection_voltage'], turbine_CAPEX, 1)
         #print(length_p_cable_type)
         infield_cable_investment = sum(cost_p_cable_type)
-        #infield_cable_investment = 70e6
+
         support_structure_investment = sum(support_structure_costs)
         support_decomm_costs = sum(support_decomm_costs)
 

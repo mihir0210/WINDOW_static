@@ -35,7 +35,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
 
 
-        CAPEX = self.CAPEX(electrolyser_rated, annual_H2, stack_size)
+        C_stacks, CAPEX = self.CAPEX(electrolyser_rated, annual_H2, stack_size)
 
         OPEX = self.OPEX(CAPEX)
 
@@ -56,6 +56,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         #print 'energy curtailed:', sum(power_curtailed)
 
         outputs['annual_H2'] = annual_H2
+        outputs['C_stacks'] = C_stacks
         outputs['H2_CAPEX'] = CAPEX
         outputs['H2_OPEX'] = OPEX
         outputs['H2_produced'] = H2_produced
@@ -132,6 +133,12 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         ref_stacks = 100 #Electrolyser stacks  NREL(https://www.nrel.gov/docs/fy19osti/72740.pdf) and IRENA
         ref_bop = 200 #BOP includes power supply, deionization, gas separators, gas treatment
 
+        ### High estimates ###
+
+        # ref_stacks = 250
+        # ref_bop = 300
+
+
         #ref_compressor = 50 #IRENA page 39
 
         electrolyser_rated = electrolyser_rated*1000 #Converting to kW
@@ -146,7 +153,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         C_compressor = ref_compressor*annual_H2
 
-        C_indirect = 0.5 #NREL report. Includes installation, margin, indirect costs, etc.
+        C_indirect = 0.5 #NREL report. Includes installation, margin, indirect costs,  etc. Also costs for extra battery for power back-up
 
         usd_to_euro = 0.88
         C_total = (C_stacks + C_bop + C_compressor)*(1+C_indirect)*usd_to_euro
@@ -156,7 +163,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         elif stack_size==10:
             CAPEX = C_total*0.8 #20 % cost reduction based on IRENA figure 26
 
-        return CAPEX
+        return C_stacks, CAPEX
 
     def OPEX(self, CAPEX):
 
