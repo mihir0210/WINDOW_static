@@ -3,7 +3,7 @@ from openmdao.api import ExplicitComponent
 class AbsPemDecentralized(ExplicitComponent):
 
     def initialize(self):
-        #self.options.declare('electrolyser_ratio', desc='Ratio of electroylser rated power to farm rated power')
+        self.options.declare('electrolyser_ratio', desc='Ratio of electroylser rated power to turbine rated power')
         self.options.declare('time_resolution', desc = 'Number of time points in a year')
 
     def setup(self):

@@ -203,7 +203,7 @@ class WorkingGroup(Group):
                                   time_resolution = self.time_resolution))
 
         self.add_subsystem('Costs', self.apex_model())
-        self.add_subsystem('Costs_h2', HydrogenFarmCostModel())
+        self.add_subsystem('Costs_h2', HydrogenFarmCostModel(electrolyser_ratio = self.electrolyser_ratio))
 
 
         self.add_subsystem('OandM', self.opex_model())

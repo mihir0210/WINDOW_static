@@ -10,33 +10,26 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
     def compute(self, inputs, outputs):
 
-        #electrolyser_ratio = self.options['electrolyser_ratio']
+        electrolyser_ratio = self.options['electrolyser_ratio']
 
 
         N_T = inputs['N_T']
         P_rated = inputs['P_rated'] #in kW
         farm_power = inputs['farm_power'] #in MW
-        #transmission_eff = inputs['transmission_efficiency']
 
-        P_rated = P_rated / 1000  # in MW
+        print(electrolyser_ratio)
+        electrolyser_rated = P_rated * electrolyser_ratio  # Electrolyser rated power per turbine in kW
 
-        #farm_power = [P*transmission_eff for P in farm_power] #Multiplying farm power with elec cable efficiency
+        ### Compressor shaft power (Based on shaft power equation from ADAM CHRISTENSEN, International Council on Clean Transportation) ###
 
-        farm_rated = N_T*P_rated    #Wind farm rated power in MW
+        Q = electrolyser_rated*24/63 #maximum H2 flow rate in terms of kg/day. Assuming turbine operates at rated power for 24 hours & 63kWh/kg electrolyzer consumption
+        p_out = 80 #output pressure  Hugo suggests 40-150 bar but most references mention 30-80 bar
+        p_in = 30 #input pressure  (https://north-sea-energy.eu/static/7ffd23ec69b9d82a7a982b828be04c50/FINAL-NSE3-D3.1-Final-report-technical-assessment-of-Hydrogen-transport-compression-processing-offshore.pdf)
 
-        #electrolyser_rated = farm_rated*electrolyser_ratio #Electrolyser rated power in MW
-        sizing_ratio = 1
-        electrolyser_rated = farm_rated*sizing_ratio  # Electrolyser rated power in MW
-        stack_size = 2.5 #2.5 #MW; Can also choose 10 MW
+        P_rated_compressor = (Q*(1/24/3600)*(1.03198*310.95*8.314)*2/(0.00215*0.75*0.4)*((p_out/p_in)**(0.4/2)-1))/1000 #Compressor rated power in kW
 
-        [H2_produced, annual_H2, power_curtailed] = self.production(electrolyser_rated, farm_power, stack_size)
-
-
-
-
-
-        C_stacks, CAPEX = self.CAPEX(electrolyser_rated, annual_H2, stack_size)
-
+        [H2_produced, annual_H2, power_curtailed] = self.production(electrolyser_rated, farm_power, N_T, P_rated_compressor)
+        C_stacks, CAPEX = self.CAPEX(electrolyser_rated, P_rated_compressor, N_T)
         OPEX = self.OPEX(CAPEX)
 
 
@@ -52,7 +45,6 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         csvfile.close()
 
 
-
         #print 'energy curtailed:', sum(power_curtailed)
 
         outputs['annual_H2'] = annual_H2
@@ -66,102 +58,69 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
 
 
-
-    def production(self,electrolyser_rated, farm_power, stack_size):
-
-
+    def production(self,electrolyser_rated, farm_power, N_T, P_rated_compressor):
 
         #### Standard specifications of a PEM Electrolyser ###
 
         H2 = []
         power_curtailed = []
-        compression_eff = 0.97 # 3% losses to compress from 30 bar to 100 bar (IRENA)
 
         for idx in range(len(farm_power)):
 
-            #input_load = max(0,min(100, (farm_power[idx]*compression_eff/electrolyser_rated)*100.0))
-            input_load = max(0, min(100, (farm_power[idx]/ electrolyser_rated) * 100.0))
+            turbine_power = farm_power[idx]*1000/N_T #Average hourly power per turbine in kW
 
-            energy_compression = 0.6 #kWh/kg  calculates using shaft power equation in (https://theicct.org/wp-content/uploads/2021/06/final_icct2020_assessment_of-_hydrogen_production_costs-v2.pdf)
-            E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant', stack_size) + energy_compression
-            E_consumption_kg = [E_consumption_kg]
+            '''Energy required for desalination is negligible (3.5-7kWh/1000L of seawater: https://hydrogentechworld.com/water-treatment-for-green-hydrogen-what-you-need-to-know)
+                '''
+            #energy_compression = P_rated_compressor/(electrolyser_rated/65)  #Energy consumed by compressor in kWh/kg calculated at rated conditions
+            P_op_compressor = P_rated_compressor*(turbine_power/electrolyser_rated) #operating power of compressor
+            input_load = max(0, min(100, ((turbine_power-P_op_compressor)/electrolyser_rated) * 100.0))
 
-            '''Energy required for water purification is negligible (7kWh/1000L of seawater: https://hydrogentechworld.com/water-treatment-for-green-hydrogen-what-you-need-to-know)
-                Roughly 50 MWh/year for a 1 GW farm
-            '''
+            E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant')
+            # E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable')
 
-            #print 'farm power ', farm_power[idx]
-            #print 'Energy consumed', E_consumption_kg
 
-            # if farm_power[idx]<base_load*electrolyser_rated:
-            #     H2.append(0) #eletrolyser shut down
-            #     power_curtailed.append(0) #for hydrogen only
-            #     #power_curtailed.append(farm_power[idx]) #for both hydrogen and elec
-            #     c1 = c1+1
-
-            if  farm_power[idx]<electrolyser_rated:
-                H2_produced = farm_power[idx]*1000/E_consumption_kg
+            if  turbine_power<electrolyser_rated:
+                H2_produced = turbine_power/E_consumption_kg*N_T
                 H2.append(H2_produced)
                 power_curtailed.append(0)
 
-            elif farm_power[idx]>electrolyser_rated or farm_power[idx] == electrolyser_rated:
-                H2_produced = electrolyser_rated*1000/E_consumption_kg
+            elif turbine_power>electrolyser_rated or turbine_power == electrolyser_rated:
+                H2_produced = electrolyser_rated/E_consumption_kg*N_T
                 H2.append(H2_produced)
                 power_curtailed.append(0)
-                #power_curtailed.append(farm_power[idx]-electrolyser_rated)
-
-            #elec_comp = ((286.76*H2_produced*285.15/100)/(0.5*0.0696*3.6e9))*(1.41/0.41)*((70/30)**(0.41/1.41) - 1)
-
-            #print elec_comp
-
 
         annual_H2 = sum(H2) #Total hydrogen (in kg) produced in a year
 
         print(annual_H2)
 
-
         return H2, annual_H2, power_curtailed
 
 
-    def CAPEX(self, electrolyser_rated, annual_H2, stack_size):
+    def CAPEX(self, electrolyser_rated,P_rated_compressor, N_T):
 
         ### Reference costs in dollars per kW ###
-
 
         ### Open data estimates ###
 
         ref_stacks = 100 #Electrolyser stacks  NREL(https://www.nrel.gov/docs/fy19osti/72740.pdf) and IRENA
-        ref_bop = 200 #BOP includes power supply, deionization, gas separators, gas treatment
-
-        ### High estimates ###
-
-        # ref_stacks = 250
-        # ref_bop = 300
+        ref_bop = 200 #BOP includes deionization, gas separators, gas treatment
 
 
-        #ref_compressor = 50 #IRENA page 39
+        water_consumption = (electrolyser_rated/63)*11 #L/h at rated conditions assuming 11 L/kg H2
+        ref_desalination = 60000*(water_consumption/2000)  # 60000 euros for a 2000L/h capacity (North Sea Energy deliverable 3.6 page 13)
 
-        electrolyser_rated = electrolyser_rated*1000 #Converting to kW
 
-        C_stacks = ref_stacks*electrolyser_rated
-        C_bop = ref_bop*electrolyser_rated
+        C_stacks = ref_stacks*electrolyser_rated*N_T
+        C_bop = ref_bop*electrolyser_rated*N_T
+        C_compressor = P_rated_compressor*2545*N_T  #Multiplied with cost/kW of compressor from National research council and total number of turbines.
+        C_desalination = ref_desalination*N_T
+        C_backup = 10e6 #Cost of battery backup. Around 5% of farm power and cost of 150 USD/kWh
 
-        ### Compressor costs can be expressed in $/kg of hydrogen produced
-
-        #ref_compressor = 0.05 #$/kg (HYGRO HKW estimates, IRENA, ADAM CHRISTENSEN, International Council on Clean Transportation)
-        ref_compressor = 0.2  # $/kg (Back calculated using shaft power equation from ADAM CHRISTENSEN, International Council on Clean Transportation)
-
-        C_compressor = ref_compressor*annual_H2
-
-        C_indirect = 0.5 #NREL report. Includes installation, margin, indirect costs,  etc. Also costs for extra battery for power back-up
+        C_indirect = 0.8 #NREL report page 36. Includes installation, margin, indirect costs,  etc. Also costs for extra battery for power back-up
 
         usd_to_euro = 0.88
-        C_total = (C_stacks + C_bop + C_compressor)*(1+C_indirect)*usd_to_euro
-
-        if stack_size==2.5:
-            CAPEX = C_total
-        elif stack_size==10:
-            CAPEX = C_total*0.8 #20 % cost reduction based on IRENA figure 26
+        C_total = (usd_to_euro*(C_stacks + C_bop + C_compressor + C_backup) + C_desalination)*(1+C_indirect)
+        CAPEX = C_total
 
         return C_stacks, CAPEX
 

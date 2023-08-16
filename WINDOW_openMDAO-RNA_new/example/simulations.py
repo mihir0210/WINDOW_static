@@ -43,9 +43,9 @@ def singlecase():
     #power_values_sensitivity_600MW = [10.0, 12.0, 14.29, 16.22, 18.18, 20.0, 22.22]
     #power_values_sensitivity_800MW = [10.0, 12.12, 14.04, 16.0, 18.18, 20.0, 22.22]
     # power_values_sensitivity_1200MW = [10.0, 12.0, 14.12, 16.0, 18.18, 20.0, 22.22]
-    value_power = power_values_farm[5]
+    value_power = power_values_farm[0]
     # value_power = power_values_sensitivity_1200MW[0]
-    value_rad =240/2 #reference rotor radius
+    value_rad =180/2 #reference rotor radius
 
     # dict = {'target_IRR':target_IRR}
     # f = open('Input/finance.txt', 'w')

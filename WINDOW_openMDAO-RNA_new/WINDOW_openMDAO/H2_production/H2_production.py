@@ -15,7 +15,7 @@ class H2(Group):
 
     def initialize(self):
         ### FIXED USER-DEFINED PARAMETERS ###
-        self.options.declare('electrolyser_ratio', desc='Ratio of electrolyser capacity to wind farm capacity')
+        self.options.declare('electrolyser_ratio', desc='Ratio of electrolyser capacity to wind turbine capacity')
         self.options.declare('time_resolution', desc = 'Number of time points in a year')
 
     def setup(self):
@@ -30,7 +30,7 @@ class H2(Group):
         #                    promotes_outputs=['annual_H2', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
 
 
-        self.add_subsystem('PEM', PEM_DECENTRALIZED(time_resolution = time_resolution),
+        self.add_subsystem('PEM', PEM_DECENTRALIZED(electrolyser_ratio = electrolyser_ratio,time_resolution = time_resolution),
                            promotes_inputs=['N_T', 'P_rated', 'farm_power'],
                            promotes_outputs=['annual_H2', 'C_stacks', 'H2_CAPEX', 'H2_OPEX', 'H2_produced', 'power_curtailed'])
 
