@@ -32,7 +32,7 @@ class DriveSE(AbsBedplate):
         self.rotor_diameter = inputs['rotor_diameter']
         self.machine_rating = inputs['machine_rating']
         self.rotor_mass = inputs['rotor_mass']
-        self.rotor_bending_moment_y = inputs['rotor_bending_moment'][1]*safety_factor
+        self.rotor_bending_moment_y = inputs['rotor_bending_moment'][0]*safety_factor
         self.rotor_force_z = inputs['rotor_force'][2]*safety_factor
         self.flange_length = 0.0
         self.L_rb = 0.0
@@ -78,10 +78,11 @@ class DriveSE(AbsBedplate):
 
         size_Bedplate(self)
         
-        
+        # print('Rotor bending moment:',inputs['rotor_bending_moment'][0]*safety_factor)
+        bending_moment_ref = 45551692 #with safety factor
         
         # outputs
-        outputs['mass'] = self.mass
+        outputs['mass'] = 85000*(inputs['rotor_bending_moment'][0]*safety_factor/bending_moment_ref) #self.mass
         outputs['cm'] = self.cm
         outputs['I'] = self.I
         outputs['length'] = self.length

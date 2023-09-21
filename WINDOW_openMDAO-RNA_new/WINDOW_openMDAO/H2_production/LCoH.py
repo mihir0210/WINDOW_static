@@ -35,6 +35,7 @@ class LCOH(ExplicitComponent):
         total_CAPEX = investment_costs # includes H2_CAPEX
         total_OPEX = oandm_costs + H2_OPEX
 
+
         n = list(range(int(operational_lifetime)))
         n.remove(0)
         n.append(int(operational_lifetime))
@@ -49,10 +50,9 @@ class LCOH(ExplicitComponent):
         stack_replacement_costs =  stack_costs/ (1 + i) ** replacement_yr
 
 
-
         LCoH = (total_CAPEX + a + c + stack_replacement_costs)/b # in Euros/kg
 
-
+        print('total discounted O&M:', a)
         #print 'WIND CAPEX:', investment_costs
         #print('LCoH:', LCoH)
 

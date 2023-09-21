@@ -17,7 +17,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         P_rated = inputs['P_rated'] #in kW
         farm_power = inputs['farm_power'] #in MW
 
-        print(electrolyser_ratio)
+
         electrolyser_rated = P_rated * electrolyser_ratio  # Electrolyser rated power per turbine in kW
 
         ### Compressor shaft power (Based on shaft power equation from ADAM CHRISTENSEN, International Council on Clean Transportation) ###
@@ -73,21 +73,24 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
                 '''
             #energy_compression = P_rated_compressor/(electrolyser_rated/65)  #Energy consumed by compressor in kWh/kg calculated at rated conditions
             P_op_compressor = P_rated_compressor*(turbine_power/electrolyser_rated) #operating power of compressor
-            input_load = max(0, min(100, ((turbine_power-P_op_compressor)/electrolyser_rated) * 100.0))
+            P_input = turbine_power-P_op_compressor
+            input_load = max(0, min(100, (P_input/electrolyser_rated) * 100.0))
 
-            E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant')
-            # E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable')
+            #E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant')
+            E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable')
+            E_consumption_kg_rated = pemdecentralized_efficiency(100, 'variable')
 
 
-            if  turbine_power<electrolyser_rated:
-                H2_produced = turbine_power/E_consumption_kg*N_T
+            if  P_input<electrolyser_rated:
+                H2_produced = P_input/E_consumption_kg*N_T
                 H2.append(H2_produced)
                 power_curtailed.append(0)
 
-            elif turbine_power>electrolyser_rated or turbine_power == electrolyser_rated:
-                H2_produced = electrolyser_rated/E_consumption_kg*N_T
+            elif P_input>=electrolyser_rated:
+                H2_produced = 0.75*electrolyser_rated/E_consumption_kg_rated * N_T + 0.25*P_input/E_consumption_kg*N_T  #can operate at overload for about 15 mins (15/60 hour) and then back to rated for cooling reasons
+                #H2_produced = electrolyser_rated/E_consumption_kg*N_T
                 H2.append(H2_produced)
-                power_curtailed.append(0)
+                power_curtailed.append((P_input-(0.75*electrolyser_rated + 0.25*P_input))*N_T)
 
         annual_H2 = sum(H2) #Total hydrogen (in kg) produced in a year
 
@@ -116,7 +119,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         C_desalination = ref_desalination*N_T
         C_backup = 10e6 #Cost of battery backup. Around 5% of farm power and cost of 150 USD/kWh
 
-        C_indirect = 0.8 #NREL report page 36. Includes installation, margin, indirect costs,  etc. Also costs for extra battery for power back-up
+        C_indirect = 0.8 #NREL report page 36. Includes installation, margin, indirect costs,  etc.
 
         usd_to_euro = 0.88
         C_total = (usd_to_euro*(C_stacks + C_bop + C_compressor + C_backup) + C_desalination)*(1+C_indirect)

@@ -51,7 +51,7 @@ def other_costs(depth_central_platform, n_turbines, infield_length, n_substation
     if config==1:
 
         field_names = ['costs_exportcable', 'costs_total_electrical', 'costs_installation_electrical', 'costs_RNA_elec', 'costs_installation_turbine', 'costs_other_turbine_elec', 'installation_foundation']
-        description = ['Export cable costs', 'Total electrical procurement costs including substations', 'Total electrical installation costs', 'Total RNA procurement costs in euros for electricity', 'Total turbine installation costs', 'Other turbine costs (profits, assembly, etc. for electricity', 'Foudnation installation costs']
+        description = ['Export cable costs', 'Total electrical procurement costs including substations', 'Total electrical installation costs', 'Total RNA procurement costs in euros for electricity', 'Total turbine installation costs', 'Other turbine costs (profits, assembly, etc. for electricity', 'Foundation installation costs']
         data = {field_names[0]: [export_cable[0], description[0]],
                 field_names[1]: [procurement_electrical[0], description[1]],
                 field_names[2]: [installation_electrical, description[2]],

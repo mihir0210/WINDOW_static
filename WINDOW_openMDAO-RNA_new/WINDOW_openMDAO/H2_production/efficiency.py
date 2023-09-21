@@ -95,13 +95,13 @@ def pemdecentralized_efficiency(input_load, str):
         f = interp1d(x,y)
 
         #### Assuming single stack  ####
-        E_consumption = f(input_load)
+        # E_consumption = f(input_load)
 
         #### Assuming Multiple stacks  ####
-        # if input_load<=25:
-        #     E_consumption = y[4]
-        # elif input_load>25:
-        #     E_consumption = f(input_load)
+        if input_load<=25:
+            E_consumption = y[4]
+        elif input_load>25:
+            E_consumption = f(input_load)
 
 
 

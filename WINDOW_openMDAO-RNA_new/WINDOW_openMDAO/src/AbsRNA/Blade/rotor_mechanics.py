@@ -20,7 +20,9 @@ class AbsRotorMechanics(ExplicitComponent):
         self.add_input('span_flap_stiff', units = 'N*m**2', desc = 'spanwise flapwise stiffness', shape=num_nodes)
         self.add_input('span_edge_stiff', units = 'N*m**2', desc = 'spanwise edgewise stiffness', shape=num_nodes)
         self.add_input('span_fx', units = 'N/m', desc = 'spanwise force normal to rotation', shape=num_nodes)
-        self.add_input('span_fy', units = 'N/m', desc = 'spanwise force tangential to rotation', shape=num_nodes)        
+        self.add_input('span_fy', units = 'N/m', desc = 'spanwise force tangential to rotation', shape=num_nodes)
+        self.add_input('blade_mass', desc='Scaled blade mass', shape=1)
+        self.add_input('rotor_diameter', desc='Rotor diameter', shape=1)
      
         # outputs
         self.add_output('root_moment_flap', units = 'N*m', desc='flapping moment at blade root')
@@ -38,3 +40,4 @@ class AbsRotorMechanics(ExplicitComponent):
         self.add_output('max_stress_te_reinf', desc='maximum stresses in the te reinf along the span', shape=1)
         #self.add_output('Stress_edgewise_te_reinf', desc='Edgewise stresses in the te reinf along the span', shape=5)
         #self.add_output('Span_stress', desc='Span stresses')
+        self.add_output('blade_mass_new', desc='Tip deflection adjusted blade mass', shape=1)

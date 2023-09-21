@@ -22,6 +22,8 @@ class TeamPlay(AbstractSupportStructureDesign):
         results =[]
 
 
+
+
         #for i in range(len(TI)):
         i =0 #extract values just for one turbine and use it for all turbines
 

@@ -105,10 +105,10 @@ N = n_t[idx]
 
 
 filename = 'Input/Square_layout_' + str(N) + 'turbines_baseline.dat'
-#filename = 'Input/Square_layout_' + str(N) + 'turbines_1400MW.dat'
-#filename = 'Input/Square_layout_' + str(N) + 'turbines_area100.dat'
-# filename = 'Input/Fixedarea_150/spacing_5D/Square_layout_' + str(N) + 'turbines_area150.dat'
-# filename = 'Input/Fixedpower_1200MW/Square_layout_' + str(N) + 'turbines_7D.dat'
+#filename = 'Input/Square_layout_' + str(N) + 'turbines_1200MW.dat'
+# filename = 'Input/Square_layout_' + str(N) + 'turbines_area200.dat'
+#filename = 'Input/Fixedarea_150/spacing_5D/Square_layout_' + str(N) + 'turbines_area150.dat'
+# filename = 'Input/Fixedpower/Square_layout_' + str(N) + 'turbines_5D.dat'
 
 # Use only in case of a standard rectangular layout. Built using standard spacing for HKW and the IEA 15 MW -240 m turbine
 df = pd.read_csv(filename, delimiter=' ')

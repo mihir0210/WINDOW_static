@@ -18,7 +18,7 @@ def teamplay(TI, depth, rotor_radius, rated_wind_speed, rotor_thrust, rna_mass, 
     site_data = Site()
     site_data.water_depth = depth
 
-    print(site_data.Hmax_50_year)
+    # print(site_data.Hmax_50_year)
 
     dimension_team_support.run(rna, site_data)
 
@@ -29,8 +29,13 @@ def teamplay(TI, depth, rotor_radius, rated_wind_speed, rotor_thrust, rna_mass, 
     max_tower_wall_thickness = max(dimension_team_support.design_variables.support_structure.tower.wall_thickness)
 
     monopile_length = dimension_team_support.design_variables.support_structure.monopile.length
+    monopile_dia = dimension_team_support.design_variables.support_structure.monopile.diameter
+    monopile_thickness = dimension_team_support.design_variables.support_structure.monopile.wall_thickness
 
-    #print 'monopile length', monopile_length
+    # print('tower length',  dimension_team_support.design_variables.support_structure.tower.length)
+    # print('tp length', dimension_team_support.design_variables.support_structure.transition_piece.length)
+    # print('monopile length', monopile_length)
+    # print('monopile d,t,d/t', monopile_dia, monopile_thickness, monopile_dia/monopile_thickness)
 
     return dimension_team_support.total_support_structure_cost + boat_landing_cost, \
             dimension_team_support.cost_analysts.support_team.value.economic.decommissioning.removal.foundations, \

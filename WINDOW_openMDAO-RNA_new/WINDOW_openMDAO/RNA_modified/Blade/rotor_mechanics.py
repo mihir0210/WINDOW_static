@@ -99,6 +99,9 @@ class  Analytical(AbsRotorMechanics):
         span_stress_max = np.array(nodes['S_max']).max()     # np.array(nodes['S_flap']).max()*gamma_ultimate/UTS
         tip_deflection = nodes.loc[num_nodes-1, 'y']
 
+        norm_tipdefl = tip_deflection / (inputs['rotor_diameter'] / 2)
+        ref_norm_tipdefl = 0.1369
+        blade_mass_new = inputs['blade_mass']*norm_tipdefl/ref_norm_tipdefl  #Blade mass adjusted for change in normalized tip deflection
 
         # scipy.io.savemat('Matlab_scripts\Static_moment.mat',
         #                  dict(MFlap=span_moment_flap, MEdge=span_moment_edge, MGravity=span_moment_gravity,
@@ -234,6 +237,7 @@ class  Analytical(AbsRotorMechanics):
         #outputs['Stress_flapwise_spar'] = Stress_flapwise_spar
         #outputs['Stress_edgewise_skin'] = Stress_edgewise_skin
         #outputs['Stress_edgewise_te_reinf'] = Stress_edgewise_te_reinf
+        outputs['blade_mass_new'] = blade_mass_new
 
 
 

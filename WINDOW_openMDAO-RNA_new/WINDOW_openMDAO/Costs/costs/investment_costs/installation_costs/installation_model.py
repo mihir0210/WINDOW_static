@@ -116,7 +116,7 @@ def installation_electrical(infield_length, export_length):
     return cost_installation_electrical
 
 
-def installation_total(n_t,rotor_diameter, hub_height, distance_to_shore,infield_length, export_length ):
+def installation_total(n_t,rotor_diameter, hub_height, distance_to_shore,infield_length, export_length):
     cost_installation_foundation = installation_foundation(rotor_diameter,n_t)
     cost_installation_turbine = installation_turbine(rotor_diameter, hub_height, n_t, distance_to_shore)
     cost_installation_electrical = installation_electrical(infield_length, export_length)

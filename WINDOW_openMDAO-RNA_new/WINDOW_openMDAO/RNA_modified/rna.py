@@ -97,7 +97,7 @@ class RNA(Group):
                                             ], \
                            promotes_outputs=['rotor_cp', 'rotor_ct', 'rotor_torque', 'rotor_thrust', \
                                              'rated_wind_speed', 'wind_bin', 'elec_power_bin', 'ct_bin', \
-                                             'blade_mass', 'rotor_speed','span_stress_max','tip_deflection'])
+                                             'blade_mass', 'rotor_speed','span_stress_max','tip_deflection', 'blade_mass_new'])
                                              #'max_stress_skin', 'max_stress_spar', 'max_stress_te_reinf'])
                                              #'Stress_flapwise_skin', 'Stress_flapwise_spar', 'Stress_edgewise_skin',
                                              #'Stress_edgewise_te_reinf'])
@@ -141,14 +141,15 @@ class RNA(Group):
          
         self.connect('blade.span_chord', ['hub.blade_root_diameter'], src_indices=[0])
 
-        self.connect('blade_mass', ['hub.blade_mass', 'cost.blade_mass'])
+        # self.connect('blade_mass', ['hub.blade_mass', 'cost.blade_mass'])
+        self.connect('blade_mass_new', ['hub.blade_mass', 'cost.blade_mass'])
         #self.connect('blade.Preprocessor.total_blade_mass', ['hub.blade_mass', 'cost.blade_mass'])
 
         self.connect('blade.root_moment_flap', ['hub.rotor_bending_moment'])
         self.connect('rotor_torque', ['hub.rotor_torque', 'nacelle.rotor_torque']) 
         self.connect('rotor_thrust', ['hub.rotor_thrust', 'nacelle.rotor_thrust'])
         self.connect('rated_wind_speed', 'cost.rated_wind_speed')
-
+        self.connect('tip_deflection', 'cost.tip_deflection')
 
         self.connect('rotor_speed', ['nacelle.rotor_speed']) 
         self.connect('rotor_force', ['nacelle.rotor_force']) 

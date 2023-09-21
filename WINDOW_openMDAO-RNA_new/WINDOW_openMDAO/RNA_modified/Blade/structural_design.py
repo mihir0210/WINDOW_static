@@ -29,7 +29,7 @@ def scale_turbine(ReferenceTurbine, thickness_factor, mu, scale_with, scalar):
     
     thickness = ref_thickness * (s**1)
     mass = ref_mass * (s**2) * thickness_factor
-    #mass = ref_mass * (s ** 1) * thickness_factor
+    #mass = ref_mass * (s ** 2.5) * thickness_factor
     flap_inertia = ref_flap_inertia * (s**4) * thickness_factor
     edge_inertia = ref_edge_inertia * (s**4) * thickness_factor
     flap_stiff = ref_flap_stiff * (s**4) * thickness_factor
@@ -155,22 +155,22 @@ class VariableRadius(AbsStructuralDesign):
 
         #### Emperical model ###
         #blade_mass = (0.0009*rotor_radius**2.367)*1000 #from SANDIA 100 m blade reports, NREL detailed cost model blade (between 2.2 and 2.5)
-        rated_ws_15MW_turbine = 10.43
-        rated_ws_ratio = rated_wind_speed/rated_ws_15MW_turbine
-        blade_mass = blade_mass*(rated_ws_ratio**2) #adjusting for a different specific power leading to a change in rated wind speed and thrust
+        # rated_ws_15MW_turbine = 10.43
+        # rated_ws_ratio = rated_wind_speed/rated_ws_15MW_turbine
+        # blade_mass = blade_mass*(rated_ws_ratio**2) #adjusting for a different specific power leading to a change in rated wind speed and thrust
 
 
         #print('blade mass:', blade_mass)
         blades_mass = blade_mass * blade_number
 
-        field_names = ['blade_mass']
-        description = ['Mass of 1 blade']
-        data = {field_names[0]: [blade_mass[0], description[0]]}
-        with open('parameters.csv', 'a') as csvfile:
-            writer = csv.writer(csvfile)
-            for key, value in list(data.items()):
-                writer.writerow([key, value[0], value[1]])
-        csvfile.close()
+        # field_names = ['blade_mass']
+        # description = ['Mass of 1 blade']
+        # data = {field_names[0]: [blade_mass, description[0]]}
+        # with open('parameters.csv', 'a') as csvfile:
+        #     writer = csv.writer(csvfile)
+        #     for key, value in list(data.items()):
+        #         writer.writerow([key, value[0], value[1]])
+        # csvfile.close()
 
         # outputs
         outputs['span_thickness'] = span_thickness

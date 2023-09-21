@@ -95,9 +95,10 @@ class CSMCalibrated(AbsRNACost):
 
         rated_wind_speed = inputs['rated_wind_speed']
         rotor_diameter = inputs['rotor_diameter']
+        tip_deflection = inputs['tip_deflection']
 
-        
         #outputs['cost_blade'] = inputs['blade_mass'] * self.ref_cost_mass('Blade')
+        # print(inputs['blade_mass'])
 
         ### Model 2 ###
         cost_blade_ref = self.ref_cost_mass_separate('Blade')[0] #cost of reference turbine blade
@@ -105,6 +106,7 @@ class CSMCalibrated(AbsRNACost):
         weight_material = 0.6 # Weightage given to material costs (carbon fiber, resins, root, etc.)
         weight_other = 1 - weight_material #Weightage given to tooling, labor, other factors
         outputs['cost_blade'] = weight_material*self.ref_cost_mass('Blade')*inputs['blade_mass'] + weight_other*cost_blade_ref*(rotor_diameter/rotor_diameter_ref)**2
+
 
         outputs['cost_hub'] = inputs['hub_mass'] * self.ref_cost_mass('Hub')
         outputs['cost_pitch'] = inputs['pitch_mass'] * self.ref_cost_mass('Pitch')
@@ -149,6 +151,8 @@ class CSMCalibrated(AbsRNACost):
          outputs['cost_hub_system'], \
          outputs['cost_nacelle'], \
          outputs['cost_rna']] = aggregator_rna(outputs, blade_number)
+
+        # print('bedplate mass, platform mass, crane mass:', inputs['bedplate_mass'],inputs['platform_mass'],inputs['crane_mass'])
         '''
         print 'Gearbox cost:', cost_gearbox
         print 'blade cost:', outputs['cost_blades']
@@ -164,9 +168,9 @@ class CSMCalibrated(AbsRNACost):
         print 'cost main shaft:', outputs['cost_lss']'''
 
         cost_rotor = outputs['cost_blades'] + outputs['cost_hub_system']
-        field_names = ['cost_rotor','cost_nacelle_elec']
-        description =['Cost of the rotor', 'Cost of the Nacelle assembly for electricity production']
-        data = {field_names[0]: [cost_rotor[0], description[0]], field_names[1]:[outputs['cost_nacelle'][0], description[1]]}
+        field_names = ['blade_mass','cost_rotor','cost_nacelle_elec']
+        description =['Mass of 1 blade','Cost of the rotor', 'Cost of the Nacelle assembly for electricity production']
+        data = {field_names[0]: [inputs['blade_mass'][0], description[0]],field_names[1]:[cost_rotor[0], description[1]], field_names[2]:[outputs['cost_nacelle'][0], description[2]]}
         with open('parameters.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):

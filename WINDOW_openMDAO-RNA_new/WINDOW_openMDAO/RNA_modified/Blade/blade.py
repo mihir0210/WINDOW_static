@@ -101,8 +101,8 @@ class Blade(Group):
                            promotes_outputs=['rotor_speed', 'rotor_torque', 'rotor_thrust'])
 
         self.add_subsystem('mech', rotor_mechanics.Analytical(num_nodes=num_nodes, E_blade=E_blade, g=g), \
-                           promotes_inputs=['shaft_angle'], \
-                           promotes_outputs=['root_moment_flap', 'span_stress_max', 'tip_deflection'])
+                           promotes_inputs=['shaft_angle','blade_mass', 'rotor_diameter'], \
+                           promotes_outputs=['root_moment_flap', 'span_stress_max', 'tip_deflection', 'blade_mass_new'])
                                              #'max_stress_skin', 'max_stress_spar', 'max_stress_te_reinf'])
                                              #'Stress_flapwise_skin', 'Stress_flapwise_spar', 'Stress_edgewise_skin',
                                              #'Stress_edgewise_te_reinf'])

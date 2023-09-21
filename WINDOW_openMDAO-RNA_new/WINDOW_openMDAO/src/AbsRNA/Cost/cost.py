@@ -28,6 +28,7 @@ class AbsRNACost(ExplicitComponent):
         self.add_input('cover_mass', units='kg', desc='component mass')
         self.add_input('transformer_mass', units='kg', desc='component mass', val=0)
         self.add_input('rated_wind_speed', units='m/s', desc='rated_wind_speed', val=0)
+        self.add_input('tip_deflection', units='m', desc='tip deflection', val=0)
         
         # outputs
         self.add_output('cost_blade', units='USD', desc='Cost of 1 blade', val=0.0)        
