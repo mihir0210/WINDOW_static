@@ -22,7 +22,7 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         ### Compressor shaft power (Based on shaft power equation from ADAM CHRISTENSEN, International Council on Clean Transportation) ###
 
-        Q = electrolyser_rated*24/63 #maximum H2 flow rate in terms of kg/day. Assuming turbine operates at rated power for 24 hours & 63kWh/kg electrolyzer consumption
+        Q = electrolyser_rated*24/57 #maximum H2 flow rate in terms of kg/day. Assuming turbine operates at rated power for 24 hours & 57 kWh/kg electrolyzer consumption
         p_out = 80 #output pressure  Hugo suggests 40-150 bar but most references mention 30-80 bar
         p_in = 30 #input pressure  (https://north-sea-energy.eu/static/7ffd23ec69b9d82a7a982b828be04c50/FINAL-NSE3-D3.1-Final-report-technical-assessment-of-Hydrogen-transport-compression-processing-offshore.pdf)
 
@@ -72,11 +72,14 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
             '''Energy required for desalination is negligible (3.5-7kWh/1000L of seawater: https://hydrogentechworld.com/water-treatment-for-green-hydrogen-what-you-need-to-know)
                 '''
             #energy_compression = P_rated_compressor/(electrolyser_rated/65)  #Energy consumed by compressor in kWh/kg calculated at rated conditions
-            P_op_compressor = P_rated_compressor*(turbine_power/electrolyser_rated) #operating power of compressor
-            P_input = turbine_power-P_op_compressor
+            # P_op_compressor = P_rated_compressor*(turbine_power/electrolyser_rated) #operating power of compressor
+            # P_input = turbine_power-P_op_compressor
+            P_input = turbine_power #efficiency curve correced to account for all losses (including compression)
             input_load = max(0, min(100, (P_input/electrolyser_rated) * 100.0))
 
-            #E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant')
+            # E_consumption_kg = pemdecentralized_efficiency(input_load, 'constant')
+            # E_consumption_kg_rated = pemdecentralized_efficiency(100, 'constant')
+
             E_consumption_kg = pemdecentralized_efficiency(input_load, 'variable')
             E_consumption_kg_rated = pemdecentralized_efficiency(100, 'variable')
 
@@ -94,7 +97,17 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         annual_H2 = sum(H2) #Total hydrogen (in kg) produced in a year
 
-        print(annual_H2)
+        # print(annual_H2)
+        # import pandas as pd
+        # df = pd.DataFrame(farm_power)
+        # filename = 'farm_power_16_240.csv'
+        # # filename = 'farm_power_' + str(round(power[0],2)) + '_' + str(round(rotor_diameter[0],1)) + '_' + str(n_t)  +  '.csv'
+        # df.to_csv(filename)
+        #
+        # df = pd.DataFrame(H2)
+        # filename = 'H2_variable_16_240.csv'
+        # # filename = 'farm_power_' + str(round(power[0],2)) + '_' + str(round(rotor_diameter[0],1)) + '_' + str(n_t)  +  '.csv'
+        # df.to_csv(filename)
 
         return H2, annual_H2, power_curtailed
 
@@ -105,8 +118,11 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
 
         ### Open data estimates ###
 
-        ref_stacks = 100 #Electrolyser stacks  NREL(https://www.nrel.gov/docs/fy19osti/72740.pdf) and IRENA
-        ref_bop = 200 #BOP includes deionization, gas separators, gas treatment
+        # ref_stacks = 100 #Electrolyser stacks  NREL(https://www.nrel.gov/docs/fy19osti/72740.pdf)
+        # ref_bop = 200 #BOP includes deionization, gas separators, gas treatment
+
+        ref_stacks = 400 #IRENA 2020 and also close to ISPT 1GW facility report
+        ref_bop = 200 #BOP includes deionization, gas separators, gas treatment. Based on NREL report, ISPT, lower end of IRENA
 
 
         water_consumption = (electrolyser_rated/63)*11 #L/h at rated conditions assuming 11 L/kg H2
@@ -119,7 +135,8 @@ class PEM_DECENTRALIZED(AbsPemDecentralized):
         C_desalination = ref_desalination*N_T
         C_backup = 10e6 #Cost of battery backup. Around 5% of farm power and cost of 150 USD/kWh
 
-        C_indirect = 0.8 #NREL report page 36. Includes installation, margin, indirect costs,  etc.
+        #C_indirect = 0.8 #NREL report page 36 and ISPT 1GW report. Includes installation, margin, indirect costs,  etc.
+        C_indirect = 0.6 #NREL report page 36 and ISPT 1GW report. Includes profit margin, indirect costs, contingency etc. Reduced as installation can be performed with the turbine itself
 
         usd_to_euro = 0.88
         C_total = (usd_to_euro*(C_stacks + C_bop + C_compressor + C_backup) + C_desalination)*(1+C_indirect)

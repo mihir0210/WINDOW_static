@@ -7,35 +7,37 @@ import numpy as np
 from IEA_borssele_irregular_new_UC import run_main_script
 
 
-power_values_farm = [10.0, 10.99, 12.05, 12.99, 14.08, 14.93, 16.13, 17.24, 18.18, 19.23, 20.0, 22.73] #for a 1 GW farm
+# power_values_farm = [10.0, 10.99, 12.05, 12.99, 14.08, 14.93, 16.13, 17.24, 18.18, 19.23, 20.0, 22.73] #for a 1 GW farm
 
-power_values_600MW = [10.0, 10.53, 11.11, 11.54, 12.0, 12.5, 13.04, 14.29, 15.0, 16.22, 17.14, 18.18, 19.35, 20.0, 22.22]
-power_values_800MW = [10.0, 11.11, 12.12, 12.5, 13.11, 13.56, 14.04, 14.55, 15.09, 16.0, 17.02, 18.18, 19.05, 20.0, 22.22]
 power_values_1000MW = [10.0, 10.99, 12.05, 12.99, 13.51, 14.08, 14.49, 14.93, 15.62, 16.13, 16.67, 17.24, 18.18, 19.23, 20.0, 22.73]
+
+power_values_800MW = [10.0, 11.11, 12.12, 12.5, 13.11, 13.56, 14.04, 14.55, 15.09, 16.0, 17.02, 18.18, 19.05, 20.0, 22.22]
 power_values_1200MW = [10.0, 11.01, 12.0, 13.04, 14.12, 15.0, 15.58, 16.0, 16.67, 17.14, 17.65, 18.18, 18.46, 19.05, 20.0, 22.22]
-power_values_1400MW = [10.0, 11.02, 12.07, 13.08, 14.0, 15.05, 16.09, 16.67, 17.07, 17.5, 18.18, 18.67, 19.18, 20.0, 22.22]
 
 def batch():
     ###### Run a batch ######
 
-    vals_power = [power_values_1000MW[15]]
+    vals_power = [power_values_1000MW[9]]
     # vals_power = [power_values_farm[11]]
 
     #vals_rad = np.linspace(90,150,13)
-    vals_rad = [90.0, 95.0, 100.0, 105.0, 215 / 2, 110.0, 222 / 2, 225 / 2, 227 / 2, 115.0, 120.0, 125.0, 130.0,135.0, 140.0, 145.0, 150.0]
+    vals_rad = [90.0, 95.0, 100.0, 105.0, 110.0, 115.0, 120.0, 125.0, 130.0,135.0, 140.0, 145.0, 150.0]
     #vals_rad = [285/2,295/2]
     # vals_rad = [235/2]
+    # vals_elec_ratio = [0.8, 0.9, 1, 1.1, 1.2]
+    vals_elec_ratio = [1]
 
-
-    for val in vals_rad:
-        value_rad = val
-        for val1 in vals_power:
-                value_power = val1
-                lcoe = run_main_script(value_rad, value_power)
-                #lcoe = run_main_script(value_rad, value_power, NT)
-                old_filename = 'parameters.csv'
-                new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad*2) + '.csv'
-                os.rename(old_filename, new_filename)
+    for val1 in vals_elec_ratio:
+        value_elec_ratio = val1
+        for val2 in vals_rad:
+            value_rad = val2
+            for val3 in vals_power:
+                    value_power = val3
+                    lcoh = run_main_script(value_rad, value_power, value_elec_ratio)
+                    #lcoh = run_main_script(value_rad, value_power, NT)
+                    old_filename = 'parameters.csv'
+                    new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad*2) + '_' + str(value_elec_ratio) + '.csv'
+                    os.rename(old_filename, new_filename)
 
 
 def singlecase():
@@ -44,26 +46,25 @@ def singlecase():
     #power_values_sensitivity_600MW = [10.0, 12.0, 14.29, 16.22, 18.18, 20.0, 22.22]
     #power_values_sensitivity_800MW = [10.0, 12.12, 14.04, 16.0, 18.18, 20.0, 22.22]
     # power_values_sensitivity_1200MW = [10.0, 12.0, 14.12, 16.0, 18.18, 20.0, 22.22]
-    value_power = power_values_farm[8]
+    value_power = power_values_farm[6]
     # value_power = power_values_sensitivity_1200MW[0]
-    value_rad =280/2 #reference rotor radius
-
+    value_rad =240/2 #reference rotor radius
+    value_elec_ratio = 1
     # dict = {'target_IRR':target_IRR}
     # f = open('Input/finance.txt', 'w')
     # f.write(repr(dict) + '\n')
     # f.close()
 
-    run_main_script(value_rad, value_power)
+    run_main_script(value_rad, value_power, value_elec_ratio)
     old_filename = 'parameters.csv'
-    new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad*2) + '.csv'
-    #new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad * 2) + '_7D' + '.csv'
+    new_filename = 'parameters_' + str(value_power) + '_' + str(value_rad * 2) + '_' + str(value_elec_ratio) + '.csv'
     os.rename(old_filename, new_filename)
 
 ## RUN ##
 
 
-batch()
-# singlecase()
+# batch()
+singlecase()
 
 ##### Create a lookup table for Diameter vs Number of turbines ####
 
@@ -137,13 +138,13 @@ def fixed_area(a_const):
     data = {str(d): lcoe_dia}
     import csv
     if idx == 0:
-        with open('lcoe_matrix.csv', 'w') as csvfile:
+        with open('lcoh_matrix.csv', 'w') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
                 writer.writerow([key, value])
         csvfile.close()
     else:
-        with open('lcoe_matrix.csv', 'a') as csvfile:
+        with open('lcoh_matrix.csv', 'a') as csvfile:
             writer = csv.writer(csvfile)
             for key, value in list(data.items()):
                 writer.writerow([key, value])

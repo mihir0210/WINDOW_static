@@ -222,8 +222,8 @@ class FarmAEP(ExplicitComponent):
 
         # grid_connection = 1000  # MW; Overplanting case
         # farm_power_ts[farm_power_ts > grid_connection] = grid_connection
-
-
+        #
+        #
         # df = pd.DataFrame(farm_power_ts)
         # power = inputs['rated_power']/1000 # in MW
         # filename = 'farm_power_' + str(round(power[0], 2)) + '_' + str(round(rotor_diameter[0], 1))  + '.csv'

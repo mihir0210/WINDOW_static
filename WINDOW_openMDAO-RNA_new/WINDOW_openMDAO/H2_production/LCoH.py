@@ -46,8 +46,8 @@ class LCOH(ExplicitComponent):
 
         replacement_yr = 10
         #stack_replacement_costs = H2_CAPEX/1.5/(1+i)**replacement_yr #dividing by 1.5 to remove indirect costs and only consider component costs for replacement
-        stack_costs = C_stacks*1.1*0.88  #only stack costs $100/kW and not compressor, bop. Multiplied by a factor for installation and usd to eur
-        stack_replacement_costs =  stack_costs/ (1 + i) ** replacement_yr
+        stack_costs = C_stacks*1.3*0.88  #only stack costs $400/kW and not compressor, bop. Multiplied by a factor for installation and usd to eur
+        stack_replacement_costs = stack_costs/ (1 + i) ** replacement_yr
 
 
         LCoH = (total_CAPEX + a + c + stack_replacement_costs)/b # in Euros/kg

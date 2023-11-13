@@ -1,7 +1,7 @@
 from openmdao.api import ExplicitComponent
 from WINDOW_openMDAO.input_params import max_n_turbines, distance_to_harbour
 from .costs.other_costs import other_costs
-
+import numpy as np
 from WINDOW_openMDAO.input_params import distance_to_grid
 import csv
 
@@ -67,7 +67,7 @@ class HydrogenFarmCostModel(ExplicitComponent):
 
         def pipeline_costs(infield_cable_length , distance_to_grid, machine_rating, electrolyser_ratio, n_turbines):
             total_pipeline_length = infield_cable_length + distance_to_grid  # in m
-            length_infield_pipeline = infield_cable_length
+            # length_infield_pipeline = infield_cable_length
             length_export_pipeline = distance_to_grid
             #pipeline_costfactor = 1.25  # per kW per km (HYGRO estiamtes that matches well with the white paper from Umlat that state roughly 1 euro/kg of H2)
 
@@ -75,17 +75,47 @@ class HydrogenFarmCostModel(ExplicitComponent):
             pipeline_lifetime = 40
             #export_pipeline_cost = export_pipeline_costfactor*annual_h2*pipeline_lifetime*(distance_to_grid/1000/60) #Original cost factor of 0.2 euros/kg was adjusted for 60 km length
 
+
+            ''' Different infield pipeline layout compared to cabling layout. Straight feeders running along the column of turbines. 
+            Total length mainly depends on the number of columns of turbines. N_T decides number of turbines per column/feeder'''
+
+            p = machine_rating/1000 #in MW
+
+            ## for a wind farm capacity of 800 MW ##
+            # power = [10.0, 11.11, 12.12, 12.5, 13.11, 13.56, 14.04, 14.55, 15.09, 16.0, 17.02, 18.18, 19.05, 20.0, 22.22]
+            # n_t_feeder = [9,8,8,8,8,8,8,7,7,7,7,7,7,6,6]
+            # pipeline_length = [136, 132, 127, 124, 117, 116, 115, 122, 117, 111, 106, 100, 111, 106, 98] #in km
+
+            ## for a wind farm capacity of 1000 MW ##
+            power = [10.0, 10.99, 12.05, 12.99, 13.51, 14.08, 14.49, 14.93, 15.62, 16.13, 16.67, 17.24, 18.18, 19.23, 20.0, 22.73]
+            n_t_feeder = [10, 10, 9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7, 7]
+            pipeline_length = [150, 137, 139, 131, 126, 135, 131, 128, 124, 120, 117, 113, 122, 115, 111, 100] #in km
+
+            ## for a wind farm capacity of 1200 MW ##
+            # power = [10.0, 11.01, 12.0, 13.04, 14.12, 15.0, 15.58, 16.0, 16.67, 17.14, 17.65, 18.18, 18.46, 19.05, 20.0, 22.22]
+            # n_t_feeder = [11,10,10,10,9,9,9,9,8,8,8,8,8,8,8,7]
+            # pipeline_length = [163,162,150,137,138,136,131,127,132,134,129,127,126,122,117,121] #in km
+
+
+
+            arr = np.asarray(power)
+            idx = (np.abs(arr - p)).argmin()
+            N = n_t_feeder[idx]
+            length_infield_pipeline = pipeline_length[idx]*1000
+
+
+
             '''Pipeline cost factors from Markus et al. titled 'Modeling hydrogen networks for future energy systems: A comparison of linear and nonlinear approaches'
             & UC Davis NG pipeline costs from 2004 & Mischner et al. 2013
             Thermodynamic and Technical Issues of Hydrogen and Methane-Hydrogen Mixtures Pipeline Transmission shows pipeline diameter for different flow rates and pressure (D is proportional to M^0.4)
             '''
 
             if electrolyser_ratio<1:
-                flow_rate_infield = machine_rating*electrolyser_ratio * 5 / 63 / 3600  # calculating mass flow rate at rated power for 5 turbines in a string
+                flow_rate_infield = machine_rating*electrolyser_ratio * N / 63 / 3600  # calculating mass flow rate at rated power for N turbines in a string. 63 kWh/kg consumption @above rated
                 flow_rate_export = machine_rating*electrolyser_ratio * n_turbines/ 63 / 3600
             else:
-                flow_rate_infield = machine_rating * 5 / 63 / 3600  # calculating mass flow rate at rated power for 5 turbines in a string
-                flow_rate_export = machine_rating * n_turbines / 63 / 3600
+                flow_rate_infield = machine_rating * N / 57 / 3600  # calculating mass flow rate at rated power for N turbines in a string. 57 kWh/kg consumption @rated power
+                flow_rate_export = machine_rating * n_turbines / 57 / 3600
 
             ref_flow_rate = 0.3 #kg/s
             ref_dia = 90 #mm for a flow rate of 0.3 kg/s close to 80 bar
@@ -181,8 +211,8 @@ class HydrogenFarmCostModel(ExplicitComponent):
         description = ['Turbine CAPEX without other non-technical costs for hydrogen', 'Costs of infield pipeline for H2', 'Costs of export pipeline for H2','Costs of pipeline installation for H2', 'Balance of plant costs for H2', 'Project development and management costs for H2',
                          'Other farm costs (insurance, contingency, etc. for H2', 'Total farm CAPEX for H2', 'Decommissioning costs for H2']
         data = {field_names[0]: [turbine_CAPEX_h2[0], description[0]],
-                field_names[1]: [infield_pipeline_cost, description[1]],
-                field_names[2]: [export_pipeline_cost, description[2]],
+                field_names[1]: [infield_pipeline_cost[0], description[1]],
+                field_names[2]: [export_pipeline_cost[0], description[2]],
                 field_names[3]: [pipeline_installation_costs, description[3]],
                 field_names[4]: [outputs['bop_costs_h2'][0], description[4]],
                 field_names[5]: [project_dev_management[0], description[5]],

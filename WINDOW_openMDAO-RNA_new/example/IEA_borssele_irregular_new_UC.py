@@ -1,6 +1,6 @@
 
 # def run_main_script(value_rad, value_power, N_t):
-def run_main_script(value_rad, value_power):
+def run_main_script(value_rad, value_power, value_elec_ratio):
     file = open("Input/power_value.txt", "w")
     file.write(str(value_power))
     file.close()
@@ -48,8 +48,8 @@ def run_main_script(value_rad, value_power):
 
     #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
     from WINDOW_openMDAO import multifidelity_fast_workflow_new_UC_static_opt_elec
-    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
-    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
+    #from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec import WorkingGroup
+    from WINDOW_openMDAO.multifidelity_fast_workflow_new_UC_static_opt_elec_H2 import WorkingGroup
 
 
     import warnings
@@ -120,7 +120,7 @@ def run_main_script(value_rad, value_power):
     options.input.market.spot_price_file = 'Input/NL_2019_spot_price_hourly.csv'
 
     ### H2 addition ###
-    options.input.hydrogen.electrolyser_ratio = 1
+    options.input.hydrogen.electrolyser_ratio = value_elec_ratio #1
 
     ### FAST addition ###
 
